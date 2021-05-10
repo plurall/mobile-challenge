@@ -1,16 +1,23 @@
-# mobile_challenge
+<img src="https://gitlab.com/sdk12/dms/viewer/video-player/uploads/7aea2a2436087e4ae1d1ec595837f7ce/image.png" width="150" /> <img src="https://gitlab.com/sdk12/dms/viewer/video-player/uploads/e56cb536325ee0e5d3abc645b2defc43/image.png" width="116" />
 
-A new Flutter project.
+# Mobile Challenge
 
-## Getting Started
+## Objetivo
 
-This project is a starting point for a Flutter application.
+Nesse desafio iremos avaliar o seu conhecimento em Flutter e arquiteturas de softwares.
 
-A few resources to get you started if this is your first Flutter project:
+Você deverá implementar o desafio descrito em [`CHALLENGE.md`](/CHALLENGE.md) usando esse codebase como base (Adicione ou apague o que for necessário).
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Critério de avaliação
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Abaixo estão algumas caracteristicas que achamos importantes:
+
+- Organização e legibilidade do código.
+- Simplicidade.
+- Boas praticas.
+- Conhecimento de Flutter.
+- Outros.
+
+Faça fork do projeto em sua conta pessoal e agora você já esta apto a fazer o [desafio](/CHALLENGE.md).
+
+Boa Sorte!
