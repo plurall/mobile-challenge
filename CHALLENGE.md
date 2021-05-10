@@ -20,3 +20,8 @@ Com os requisitos em mãos, fique a vontade para criar as telas de acordo com o 
  - Tratamento de erros
  - Testes unitários (pelo menos 1 teste unitário)
 
+# Regras do Desafio
+
+1. Resolva o desafio com o melhor que você possa fazer.
+2. Quando finalizar, abra um PR do seu fork para que possamos avaliar.
+4. Escreva pelo menos um teste.
