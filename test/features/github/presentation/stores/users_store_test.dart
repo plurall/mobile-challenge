@@ -91,34 +91,10 @@ void main() {
       },
     );
 
-
     test(
       'should emit [Loading, Error] when getting data fails',
       () async {
         // arrange
-        final tUsers = UsersEntity(
-          users: [
-            UserEntity(
-              id: 1,
-              login: 'login',
-              name: 'test name',
-              email: 'email',
-              avatarUrl: 'avatarUrl',
-              bio: 'bio',
-              location: 'location',
-            ),
-            UserEntity(
-              id: 2,
-              login: 'login',
-              name: 'test name',
-              email: 'email',
-              avatarUrl: 'avatarUrl',
-              bio: 'bio',
-              location: 'location',
-            ),
-          ],
-        );
-
         final statusChanged = MockCallable<UsersStatus>();
         mobx.reaction<UsersStatus>(
             (_) => store.status, (newValue) => statusChanged(newValue));
