@@ -46,7 +46,7 @@ void main() {
     () async {
       // arrange
       when(mockGithubRepository.getUsersWithName(any))
-          .thenAnswer((realInvocation) async => Right(tUsers));
+          .thenAnswer((_) async => Right(tUsers));
       // act
       final result = await usecase(tName);
       // assert
