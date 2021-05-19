@@ -4,7 +4,7 @@ import 'package:mobile_challenge/features/github/domain/entities/user_entity.dar
 class UsersEntity extends Equatable {
   List<UserEntity> users;
 
-  UsersEntity(this.users);
+  UsersEntity({this.users});
 
   @override
   List<Object> get props => [users];

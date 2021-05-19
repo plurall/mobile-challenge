@@ -19,7 +19,7 @@ void main() {
 
   final tName = 'test';
   final tUsers = UsersEntity(
-    [
+    users: [
       UserEntity(
         id: 1,
         login: 'login',
