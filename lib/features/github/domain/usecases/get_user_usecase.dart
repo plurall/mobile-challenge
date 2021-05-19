@@ -10,7 +10,7 @@ class GetUserUseCase extends UseCase<UserEntity, String> {
   GetUserUseCase(this.repository);
 
   @override
-  Future<Either<Failure, UserEntity>> call(String username) {
-    return repository.getUser(username);
+  Future<Either<Failure, UserEntity>> call(String username) async {
+    return await repository.getUser(username);
   }
 }
