@@ -1,6 +1,4 @@
-import 'package:meta/meta.dart';
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 import 'package:mobile_challenge/core/domain/usecases/usecase.dart';
 import 'package:mobile_challenge/core/errors/failures.dart';
 import 'package:mobile_challenge/features/github/domain/entities/users_entity.dart';

@@ -2,13 +2,13 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 class UserEntity extends Equatable {
-  int id;
-  String login;
-  String avatarUrl;
-  String name;
-  String email;
-  String bio;
-  String location;
+  final int id;
+  final String login;
+  final String avatarUrl;
+  final String name;
+  final String email;
+  final String bio;
+  final String location;
 
   UserEntity({
     @required this.id,
