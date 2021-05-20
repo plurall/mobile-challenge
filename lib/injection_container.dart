@@ -27,7 +27,7 @@ Future<void> init() async {
   sl.registerLazySingleton<GithubRepository>(
     () => GithubRepositoryImpl(
       remoteDataSource: sl(),
-      // localDataSource: sl(),
+      localDataSource: sl(),
       networkInfo: sl(),
     ),
   );

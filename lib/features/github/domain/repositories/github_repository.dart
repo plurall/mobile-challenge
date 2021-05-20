@@ -7,6 +7,6 @@ abstract class GithubRepository {
   Future<Either<Failure, UsersEntity>> getUsersWithName(String name);
   Future<Either<Failure, UserEntity>> getUser(String username);
   Future<Either<Failure, UsersEntity>> getBookmarkedUsers();
-  Future<Either<Failure, bool>> saveUser(UserEntity user);
-  Future<Either<Failure, bool>> removeUserFromBookmarks(String username);
+  Future<Either<Failure, Unit>> saveUser(UserEntity user);
+  Future<Either<Failure, Unit>> removeUserFromBookmarks(String username);
 }

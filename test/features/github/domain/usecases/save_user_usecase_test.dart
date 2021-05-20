@@ -31,11 +31,11 @@ void main() {
     () async {
       // arrange
       when(mockGithubRepository.saveUser(any))
-          .thenAnswer((_) async => Right(true));
+          .thenAnswer((_) async => Right(unit));
       // act
       final result = await usecase(tUser);
       // assert
-      expect(result, Right(true));
+      expect(result, Right(unit));
       verify(mockGithubRepository.saveUser(tUser));
       verifyNoMoreInteractions(mockGithubRepository);
     },

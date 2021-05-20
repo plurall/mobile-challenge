@@ -18,15 +18,15 @@ void main() {
   final tUsername = 'fabio';
 
   test(
-    'should ',
+    'should call removeUserFromBookmarks from the repository',
     () async {
       // arrange
       when(mockGithubRepository.removeUserFromBookmarks(any))
-          .thenAnswer((_) async => Right(true));
+          .thenAnswer((_) async => Right(unit));
       // act
       final result = await usecase(tUsername);
       // assert
-      expect(result, Right(true));
+      expect(result, Right(unit));
       verify(mockGithubRepository.removeUserFromBookmarks(tUsername));
       verifyNoMoreInteractions(mockGithubRepository);
     },

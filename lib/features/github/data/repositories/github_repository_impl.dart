@@ -11,12 +11,12 @@ import 'package:meta/meta.dart';
 
 class GithubRepositoryImpl implements GithubRepository {
   final GithubRemoteDataSource remoteDataSource;
-  // final GithubLocalDataSource localDataSource;
+  final GithubLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
 
   GithubRepositoryImpl({
     @required this.remoteDataSource,
-    // @required this.localDataSource,
+    @required this.localDataSource,
     @required this.networkInfo,
   });
 
@@ -30,7 +30,12 @@ class GithubRepositoryImpl implements GithubRepository {
         return Left(ServerFailure());
       }
     } else {
-      return Left(OfflineFailure());
+      try {
+        final user = await localDataSource.getCachedUser(username);
+        return Right(user);
+      } on CacheException {
+        return Left(OfflineFailure());
+      }
     }
   }
 
@@ -49,20 +54,28 @@ class GithubRepositoryImpl implements GithubRepository {
   }
 
   @override
-  Future<Either<Failure, UsersEntity>> getBookmarkedUsers() {
-    // TODO: implement getBookmarkedUsers
-    throw UnimplementedError();
+  Future<Either<Failure, UsersEntity>> getBookmarkedUsers() async {
+    try {
+      final users = await localDataSource.getBookmarkedUsers();
+      return Right(users);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, bool>> saveUser(UserEntity user) {
-    // TODO: implement saveUser
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> saveUser(UserEntity user) async {
+    await localDataSource.saveUser(user);
+    return Right(unit);
   }
 
   @override
-  Future<Either<Failure, bool>> removeUserFromBookmarks(String username) {
-    // TODO: implement removeUserFromBookmark
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> removeUserFromBookmarks(String username) async {
+    try {
+      await localDataSource.removeUser(username);
+      return Right(unit);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
   }
 }
