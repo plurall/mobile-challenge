@@ -11,12 +11,12 @@ import 'package:meta/meta.dart';
 
 class GithubRepositoryImpl implements GithubRepository {
   final GithubRemoteDataSource remoteDataSource;
-  final GithubLocalDataSource localDataSource;
+  // final GithubLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
 
   GithubRepositoryImpl({
     @required this.remoteDataSource,
-    @required this.localDataSource,
+    // @required this.localDataSource,
     @required this.networkInfo,
   });
 

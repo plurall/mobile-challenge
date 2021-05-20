@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile_challenge/core/constants/app_failures_messages.dart';
 import 'package:mobile_challenge/core/errors/failures.dart';
 import 'package:mobile_challenge/features/github/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/features/github/domain/entities/users_entity.dart';
@@ -43,7 +44,8 @@ void main() {
       await store.getUsersWithName(tInvalidName);
       // assert
       verifyInOrder([
-        statusChanged(Error(message: INVALID_INPUT_FAILURE_MESSAGE)),
+        statusChanged(
+            Error(message: AppFailureMessages.INVALID_INPUT_FAILURE_MESSAGE)),
       ]);
     });
 
@@ -107,7 +109,8 @@ void main() {
         expect(store.users, null);
         verifyInOrder([
           statusChanged(Loading()),
-          statusChanged(Error(message: SERVER_FAILURE_MESSAGE)),
+          statusChanged(
+              Error(message: AppFailureMessages.SERVER_FAILURE_MESSAGE)),
         ]);
       },
     );

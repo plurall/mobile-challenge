@@ -1,0 +1,57 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'user_profile_store.dart';
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+
+mixin _$UserProfileStore on _UserProfileStoreBase, Store {
+  final _$userStatusAtom = Atom(name: '_UserProfileStoreBase.userStatus');
+
+  @override
+  UserStatus get userStatus {
+    _$userStatusAtom.reportRead();
+    return super.userStatus;
+  }
+
+  @override
+  set userStatus(UserStatus value) {
+    _$userStatusAtom.reportWrite(value, super.userStatus, () {
+      super.userStatus = value;
+    });
+  }
+
+  final _$userEntityAtom = Atom(name: '_UserProfileStoreBase.userEntity');
+
+  @override
+  UserEntity get userEntity {
+    _$userEntityAtom.reportRead();
+    return super.userEntity;
+  }
+
+  @override
+  set userEntity(UserEntity value) {
+    _$userEntityAtom.reportWrite(value, super.userEntity, () {
+      super.userEntity = value;
+    });
+  }
+
+  final _$getUserInfoAsyncAction =
+      AsyncAction('_UserProfileStoreBase.getUserInfo');
+
+  @override
+  Future<void> getUserInfo(String username) {
+    return _$getUserInfoAsyncAction.run(() => super.getUserInfo(username));
+  }
+
+  @override
+  String toString() {
+    return '''
+userStatus: ${userStatus},
+userEntity: ${userEntity}
+    ''';
+  }
+}

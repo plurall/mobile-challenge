@@ -20,16 +20,16 @@ class MockNetworkInfo extends Mock implements NetworkInfo {}
 void main() {
   GithubRepositoryImpl repository;
   MockGithubRemoteDataSource mockGithubRemoteDataSource;
-  MockGithubLocalDataSource mockGithubLocalDataSource;
+  // MockGithubLocalDataSource mockGithubLocalDataSource;
   MockNetworkInfo mockNetworkInfo;
 
   setUp(() {
     mockGithubRemoteDataSource = MockGithubRemoteDataSource();
-    mockGithubLocalDataSource = MockGithubLocalDataSource();
+    // mockGithubLocalDataSource = MockGithubLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
     repository = GithubRepositoryImpl(
       remoteDataSource: mockGithubRemoteDataSource,
-      localDataSource: mockGithubLocalDataSource,
+      // localDataSource: mockGithubLocalDataSource,
       networkInfo: mockNetworkInfo,
     );
   });

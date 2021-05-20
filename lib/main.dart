@@ -15,9 +15,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Github Challenge',
       theme: ThemeData(
+        brightness: Brightness.light,
         primaryColor: Colors.blue,
         accentColor: Colors.amber,
       ),
+      debugShowCheckedModeBanner: false,
       home: StartPage(),
     );
   }
