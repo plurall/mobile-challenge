@@ -10,6 +10,6 @@ class RemoveUserFromBookmarksUseCase implements UseCase<bool, String> {
 
   @override
   Future<Either<Failure, bool>> call(String username) async {
-    return await repository.removeUserFromBookmark(username);
+    return await repository.removeUserFromBookmarks(username);
   }
 }

@@ -61,7 +61,7 @@ class GithubRepositoryImpl implements GithubRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> removeUserFromBookmark(String username) {
+  Future<Either<Failure, bool>> removeUserFromBookmarks(String username) {
     // TODO: implement removeUserFromBookmark
     throw UnimplementedError();
   }

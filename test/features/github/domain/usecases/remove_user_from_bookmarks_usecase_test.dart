@@ -21,13 +21,13 @@ void main() {
     'should ',
     () async {
       // arrange
-      when(mockGithubRepository.removeUserFromBookmark(any))
+      when(mockGithubRepository.removeUserFromBookmarks(any))
           .thenAnswer((_) async => Right(true));
       // act
       final result = await usecase(tUsername);
       // assert
       expect(result, Right(true));
-      verify(mockGithubRepository.removeUserFromBookmark(tUsername));
+      verify(mockGithubRepository.removeUserFromBookmarks(tUsername));
       verifyNoMoreInteractions(mockGithubRepository);
     },
   );
