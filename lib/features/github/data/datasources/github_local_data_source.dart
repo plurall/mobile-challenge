@@ -21,6 +21,8 @@ class GithubLocalDataSourceImpl implements GithubLocalDataSource {
 
   GithubLocalDataSourceImpl({@required this.sharedPreferences});
 
+  UsersModel usersModel;
+
   @override
   Future<Unit> saveUser(UserModel userToCache) {
     // TODO: implement bookmarkUser
@@ -29,8 +31,14 @@ class GithubLocalDataSourceImpl implements GithubLocalDataSource {
 
   @override
   Future<Unit> removeUser(String username) {
-    // TODO: implement removeUser
-    throw UnimplementedError();
+    getBookmarkedUsers();
+    final index = usersModel.users.indexWhere((element) => element.login == username);
+
+    if (index == -1) throw CacheException();
+    
+    usersModel.users.removeAt(index);
+    sharedPreferences.setString(CACHED_USERS, json.encode(usersModel.toJson()));
+    return Future.value(unit);
   }
 
   @override
@@ -52,6 +60,7 @@ class GithubLocalDataSourceImpl implements GithubLocalDataSource {
 
     if (jsonString == null) throw CacheException();
 
-    return Future.value(UsersModel.fromJson(json.decode(jsonString)));
+    usersModel = UsersModel.fromJson(json.decode(jsonString));
+    return Future.value(usersModel);
   }
 }
