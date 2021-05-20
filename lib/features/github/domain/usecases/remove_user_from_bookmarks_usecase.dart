@@ -1,16 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobile_challenge/core/domain/usecases/usecase.dart';
 import 'package:mobile_challenge/core/errors/failures.dart';
-import 'package:mobile_challenge/features/github/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/features/github/domain/repositories/github_repository.dart';
 
-class GetUserUseCase extends UseCase<UserEntity, String> {
+class RemoveUserFromBookmarksUseCase implements UseCase<bool, String> {
   final GithubRepository repository;
 
-  GetUserUseCase(this.repository);
+  RemoveUserFromBookmarksUseCase(this.repository);
 
   @override
-  Future<Either<Failure, UserEntity>> call(String username) async {
-    return await repository.getUser(username);
+  Future<Either<Failure, bool>> call(String username) async {
+    return await repository.removeUserFromBookmark(username);
   }
 }

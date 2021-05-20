@@ -6,7 +6,7 @@ import 'package:mobile_challenge/features/github/domain/entities/users_entity.da
 import 'package:mobile_challenge/features/github/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
-import 'package:mobile_challenge/features/github/domain/repositories/github_repositoy.dart';
+import 'package:mobile_challenge/features/github/domain/repositories/github_repository.dart';
 import 'package:meta/meta.dart';
 
 class GithubRepositoryImpl implements GithubRepository {
@@ -46,5 +46,23 @@ class GithubRepositoryImpl implements GithubRepository {
     } else {
       return Left(OfflineFailure());
     }
+  }
+
+  @override
+  Future<Either<Failure, UsersEntity>> getBookmarkedUsers() {
+    // TODO: implement getBookmarkedUsers
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, bool>> saveUser(UserEntity user) {
+    // TODO: implement saveUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, bool>> removeUserFromBookmark(String username) {
+    // TODO: implement removeUserFromBookmark
+    throw UnimplementedError();
   }
 }

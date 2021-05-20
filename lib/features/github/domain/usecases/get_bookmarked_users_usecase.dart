@@ -4,13 +4,13 @@ import 'package:mobile_challenge/core/errors/failures.dart';
 import 'package:mobile_challenge/features/github/domain/entities/users_entity.dart';
 import 'package:mobile_challenge/features/github/domain/repositories/github_repository.dart';
 
-class GetUsersWithNameUseCase extends UseCase<UsersEntity, String> {
+class GetBookmarkUsersUseCase implements UseCase<UsersEntity, NoParams> {
   final GithubRepository repository;
 
-  GetUsersWithNameUseCase(this.repository);
+  GetBookmarkUsersUseCase(this.repository);
 
   @override
-  Future<Either<Failure, UsersEntity>> call(String name) async {
-    return await repository.getUsersWithName(name);
-  }  
+  Future<Either<Failure, UsersEntity>> call(NoParams params) async {
+    return await repository.getBookmarkedUsers();
+  }
 }

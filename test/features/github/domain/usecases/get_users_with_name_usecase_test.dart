@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/features/github/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/features/github/domain/entities/users_entity.dart';
-import 'package:mobile_challenge/features/github/domain/repositories/github_repositoy.dart';
+import 'package:mobile_challenge/features/github/domain/repositories/github_repository.dart';
 import 'package:mobile_challenge/features/github/domain/usecases/get_users_with_name_usecase.dart';
 import 'package:mockito/mockito.dart';
 
