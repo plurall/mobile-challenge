@@ -33,14 +33,22 @@ void main() {
     location: 'test location',
   );
 
+  void setUpUsersCached() {
+    when(mockSharedPreferences.getString(any))
+        .thenReturn(fixture('users_cached.json'));
+  }
+
+  void setUpNoUsersCached() {
+    when(mockSharedPreferences.getString(any)).thenReturn(null);
+  }
+
   group('getCachedUser', () {
     test(
       'should return User with given username from SharedPreferences if is in cache',
       () async {
         // arrange
         final tUsername = 'FabioXimenes';
-        when(mockSharedPreferences.getString(any))
-            .thenReturn(fixture('users_cached.json'));
+        setUpUsersCached();
         // act
         final result = await dataSource.getCachedUser(tUsername);
         // assert
@@ -53,8 +61,7 @@ void main() {
       () async {
         // arrange
         final usernameNotInCache = 'UsernameNotInCache';
-        when(mockSharedPreferences.getString(any))
-            .thenReturn(fixture('users_cached.json'));
+        setUpUsersCached();
         // act
         final call = dataSource.getCachedUser;
         // assert
@@ -72,8 +79,7 @@ void main() {
       'should return users in cache from SharedPreferences if there are users cached',
       () async {
         // arrange
-        when(mockSharedPreferences.getString(any))
-            .thenReturn(fixture('users_cached.json'));
+        setUpUsersCached();
         // act
         final result = await dataSource.getBookmarkedUsers();
         // assert
@@ -101,8 +107,7 @@ void main() {
       'should call SharedPreferences to remove cached user',
       () async {
         // arrange
-        when(mockSharedPreferences.getString(any))
-            .thenReturn(fixture('users_cached.json'));
+        setUpUsersCached();
         // act
         await dataSource.removeUser(tUsername);
         final expectedUsers = UsersModel(users: [
@@ -146,8 +151,7 @@ void main() {
       () async {
         // arrange
         final tUsernameTest = 'test';
-        when(mockSharedPreferences.getString(any))
-            .thenReturn(fixture('users_cached.json'));
+        setUpUsersCached();
         // act
         final call = dataSource.removeUser;
         // assert
@@ -174,7 +178,7 @@ void main() {
       'should call SharedPreferences to cache the first user',
       () async {
         // arrange
-        when(mockSharedPreferences.getString(any)).thenReturn(null);
+        setUpNoUsersCached();
         // act
         await dataSource.saveUser(tUser);
         final expected = UsersModel(users: [tUser]);
@@ -198,8 +202,7 @@ void main() {
           bio: 'new test bio',
           location: 'new test location',
         );
-        when(mockSharedPreferences.getString(any))
-            .thenReturn(fixture('users_cached.json'));
+        setUpUsersCached();
         // act
         await dataSource.saveUser(tNewUser);
         final expected =
@@ -216,8 +219,7 @@ void main() {
       'should return UserAlreadyCachedException if the user is already bookmarked',
       () async {
         // arrange
-        when(mockSharedPreferences.getString(any))
-            .thenReturn(fixture('users_cached.json'));
+        setUpUsersCached();
         // act
         final call = dataSource.saveUser;
         // assert
@@ -231,12 +233,12 @@ void main() {
     'should add and remove user and the users in cache must be empty',
     () async {
       // arrange
-      when(mockSharedPreferences.getString(any)).thenReturn(null);
+      setUpNoUsersCached();
       // act
       await dataSource.saveUser(tUser);
       expect(dataSource.usersModel.users.length, 1);
       await dataSource.removeUser(tUser.login);
-      // expect(dataSource.usersModel.users.length, 0);
+      expect(dataSource.usersModel.users.length, 0);
     },
   );
 }
