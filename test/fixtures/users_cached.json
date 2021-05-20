@@ -1,0 +1,40 @@
+{
+    "items": [
+        {
+            "id": 41808,
+            "login": "fabio",
+            "avatar_url": "https://avatars.githubusercontent.com/u/41808?v=4",
+            "name": "test name 1",
+            "email": "test email 1",
+            "bio": "test bio 1",
+            "location": "test location 1"
+        },
+        {
+            "id": 1812093,
+            "login": "fabiospampinato",
+            "avatar_url": "https://avatars.githubusercontent.com/u/1812093?v=4",
+            "name": "test name 2",
+            "email": "test email 2",
+            "bio": "test bio 2",
+            "location": "test location 2"
+        },
+        {
+            "id": 43092867,
+            "login": "FabioXimenes",
+            "name": "Fábio Ximenes",
+            "email": "fabio.ximenes@test.com",
+            "avatar_url": "https://avatars.githubusercontent.com/u/43092867?v=4",
+            "bio": "test bio",
+            "location": "test location"
+        },
+        {
+            "id": 28530,
+            "login": "fabiomcosta",
+            "avatar_url": "https://avatars.githubusercontent.com/u/28530?v=4",
+            "name": "test name 3",
+            "email": "test email 3",
+            "bio": "test bio 3",
+            "location": "test location 3"
+        }
+    ]
+}
