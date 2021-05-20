@@ -23,17 +23,17 @@ void main() {
         GithubLocalDataSourceImpl(sharedPreferences: mockSharedPreferences);
   });
 
-  group('getCachedUser', () {
-    final tUser = UserModel(
-      id: 43092867,
-      login: 'FabioXimenes',
-      name: 'Fábio Ximenes',
-      email: 'fabio.ximenes@test.com',
-      avatarUrl: 'https://avatars.githubusercontent.com/u/43092867?v=4',
-      bio: 'test bio',
-      location: 'test location',
-    );
+  final tUser = UserModel(
+    id: 43092867,
+    login: 'FabioXimenes',
+    name: 'Fábio Ximenes',
+    email: 'fabio.ximenes@test.com',
+    avatarUrl: 'https://avatars.githubusercontent.com/u/43092867?v=4',
+    bio: 'test bio',
+    location: 'test location',
+  );
 
+  group('getCachedUser', () {
     test(
       'should return User with given username from SharedPreferences if is in cache',
       () async {
@@ -169,27 +169,74 @@ void main() {
     );
   });
 
-  // group('saveUser', () {
-  //   final tUser = UserModel(
-  //     id: 43092867,
-  //     login: 'FabioXimenes',
-  //     name: 'Fábio Ximenes',
-  //     email: 'fabio.ximenes@test.com',
-  //     avatarUrl: 'https://avatars.githubusercontent.com/u/43092867?v=4',
-  //     bio: 'test bio',
-  //     location: 'test location',
-  //   );
+  group('saveUser', () {
+    test(
+      'should call SharedPreferences to cache the first user',
+      () async {
+        // arrange
+        when(mockSharedPreferences.getString(any)).thenReturn(null);
+        // act
+        await dataSource.saveUser(tUser);
+        final expected = UsersModel(users: [tUser]);
+        // assert
+        expect(dataSource.usersModel.users.length, 1);
+        verify(mockSharedPreferences.setString(
+            CACHED_USERS, json.encode(expected.toJson())));
+      },
+    );
 
-  //   test(
-  //     'should call SharedPreferences to cache the user',
-  //     () async {
-  //       // arrange
+    test(
+      'should call SharedPreferences and add a new user to cache',
+      () async {
+        // arrange
+        final tNewUser = UserModel(
+          id: 222,
+          login: 'New test',
+          name: 'New test name',
+          email: 'test@test.com',
+          avatarUrl: 'test@email.com',
+          bio: 'new test bio',
+          location: 'new test location',
+        );
+        when(mockSharedPreferences.getString(any))
+            .thenReturn(fixture('users_cached.json'));
+        // act
+        await dataSource.saveUser(tNewUser);
+        final expected =
+            UsersModel.fromJson(json.decode(fixture('users_cached.json')))
+              ..users.add(tNewUser);
+        // assert
+        expect(dataSource.usersModel.users.length, 5);
+        verify(mockSharedPreferences.setString(
+            CACHED_USERS, json.encode(expected.toJson())));
+      },
+    );
 
-  //       // act
+    test(
+      'should return UserAlreadyCachedException if the user is already bookmarked',
+      () async {
+        // arrange
+        when(mockSharedPreferences.getString(any))
+            .thenReturn(fixture('users_cached.json'));
+        // act
+        final call = dataSource.saveUser;
+        // assert
+        expect(() => call(tUser),
+            throwsA(TypeMatcher<UserAlreadyCachedException>()));
+      },
+    );
+  });
 
-  //       // assert
-
-  //     },
-  //   );
-  // });
+  test(
+    'should add and remove user and the users in cache must be empty',
+    () async {
+      // arrange
+      when(mockSharedPreferences.getString(any)).thenReturn(null);
+      // act
+      await dataSource.saveUser(tUser);
+      expect(dataSource.usersModel.users.length, 1);
+      await dataSource.removeUser(tUser.login);
+      // expect(dataSource.usersModel.users.length, 0);
+    },
+  );
 }

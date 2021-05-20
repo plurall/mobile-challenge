@@ -21,22 +21,36 @@ class GithubLocalDataSourceImpl implements GithubLocalDataSource {
 
   GithubLocalDataSourceImpl({@required this.sharedPreferences});
 
-  UsersModel usersModel;
+  UsersModel usersModel = UsersModel(users: []);
 
   @override
   Future<Unit> saveUser(UserModel userToCache) {
-    // TODO: implement bookmarkUser
-    throw UnimplementedError();
+    try {
+      getBookmarkedUsers();
+    } on CacheException {}
+
+    final userIndex = usersModel.users
+        .indexWhere((element) => element.login == userToCache.login);
+
+    if (userIndex != -1) throw UserAlreadyCachedException();
+
+    usersModel.users.add(userToCache);
+    sharedPreferences.setString(CACHED_USERS, json.encode(usersModel.toJson()));
+    return Future.value(unit);
   }
 
   @override
   Future<Unit> removeUser(String username) {
-    getBookmarkedUsers();
-    final index = usersModel.users.indexWhere((element) => element.login == username);
-
-    if (index == -1) throw CacheException();
+    try {
+      getBookmarkedUsers();
+    } on CacheException {}
     
-    usersModel.users.removeAt(index);
+    final userIndex =
+        usersModel.users.indexWhere((element) => element.login == username);
+
+    if (userIndex == -1) throw CacheException();
+
+    usersModel.users.removeAt(userIndex);
     sharedPreferences.setString(CACHED_USERS, json.encode(usersModel.toJson()));
     return Future.value(unit);
   }
