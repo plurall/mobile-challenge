@@ -17,7 +17,12 @@ Future<void> init() async {
   //! Features
   // Mobx
   sl.registerFactory(() => UsersStore(sl()));
-  sl.registerFactory(() => UserProfileStore(sl()));
+  sl.registerFactory(
+    () => UserProfileStore(
+      getUserUseCase: sl(),
+      getBookmarkUsersUseCase: sl(),
+    ),
+  );
 
   // Use cases
   sl.registerLazySingleton(() => GetUsersWithNameUseCase(sl()));

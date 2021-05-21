@@ -33,11 +33,9 @@ class BookmarksStore = _BookmarksStoreBase with _$BookmarksStore;
 
 abstract class _BookmarksStoreBase with Store {
   final GetBookmarkUsersUseCase getBookmarkUsersUseCase;
-  final RemoveUserFromBookmarksUseCase removeUserFromBookmarksUseCase;
 
   _BookmarksStoreBase({
     @required this.getBookmarkUsersUseCase,
-    @required this.removeUserFromBookmarksUseCase,
   });
 
   @observable
@@ -62,10 +60,5 @@ abstract class _BookmarksStoreBase with Store {
         bookmarksStatus = Loaded();
       },
     );
-  }
-
-  @action
-  Future<void> removeUserFromBookmarks(String username) async {
-    await removeUserFromBookmarksUseCase(username);
   }
 }

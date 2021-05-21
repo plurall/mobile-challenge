@@ -39,6 +39,21 @@ mixin _$UserProfileStore on _UserProfileStoreBase, Store {
     });
   }
 
+  final _$isSavedAtom = Atom(name: '_UserProfileStoreBase.isSaved');
+
+  @override
+  bool get isSaved {
+    _$isSavedAtom.reportRead();
+    return super.isSaved;
+  }
+
+  @override
+  set isSaved(bool value) {
+    _$isSavedAtom.reportWrite(value, super.isSaved, () {
+      super.isSaved = value;
+    });
+  }
+
   final _$getUserInfoAsyncAction =
       AsyncAction('_UserProfileStoreBase.getUserInfo');
 
@@ -47,11 +62,37 @@ mixin _$UserProfileStore on _UserProfileStoreBase, Store {
     return _$getUserInfoAsyncAction.run(() => super.getUserInfo(username));
   }
 
+  final _$checkIfUserIsSavedAsyncAction =
+      AsyncAction('_UserProfileStoreBase.checkIfUserIsSaved');
+
+  @override
+  Future<void> checkIfUserIsSaved(String username) {
+    return _$checkIfUserIsSavedAsyncAction
+        .run(() => super.checkIfUserIsSaved(username));
+  }
+
+  final _$removeUserFromBookmarksAsyncAction =
+      AsyncAction('_UserProfileStoreBase.removeUserFromBookmarks');
+
+  @override
+  Future<void> removeUserFromBookmarks(String username) {
+    return _$removeUserFromBookmarksAsyncAction
+        .run(() => super.removeUserFromBookmarks(username));
+  }
+
+  final _$saveUserAsyncAction = AsyncAction('_UserProfileStoreBase.saveUser');
+
+  @override
+  Future<void> saveUser() {
+    return _$saveUserAsyncAction.run(() => super.saveUser());
+  }
+
   @override
   String toString() {
     return '''
 userStatus: ${userStatus},
-userEntity: ${userEntity}
+userEntity: ${userEntity},
+isSaved: ${isSaved}
     ''';
   }
 }

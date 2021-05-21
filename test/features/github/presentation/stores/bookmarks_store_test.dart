@@ -5,11 +5,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/core/constants/app_failures_messages.dart';
 import 'package:mobile_challenge/core/domain/usecases/usecase.dart';
 import 'package:mobile_challenge/core/errors/failures.dart';
-import 'package:mobile_challenge/features/github/data/models/user_model.dart';
 import 'package:mobile_challenge/features/github/data/models/users_model.dart';
 import 'package:mobile_challenge/features/github/domain/entities/users_entity.dart';
 import 'package:mobile_challenge/features/github/domain/usecases/get_bookmarked_users_usecase.dart';
-import 'package:mobile_challenge/features/github/domain/usecases/remove_user_from_bookmarks_usecase.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/bookmarks_store.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:mockito/mockito.dart';
@@ -20,20 +18,14 @@ import '../../../../fixtures/fixture_reader.dart';
 class MockGetBookmarkUsersUseCase extends Mock
     implements GetBookmarkUsersUseCase {}
 
-class MockRemoveUserFromBookmarksUseCase extends Mock
-    implements RemoveUserFromBookmarksUseCase {}
-
 void main() {
   BookmarksStore store;
   MockGetBookmarkUsersUseCase mockGetBookmarkUsersUseCase;
-  MockRemoveUserFromBookmarksUseCase mockRemoveUserFromBookmarksUseCase;
 
   setUp(() {
     mockGetBookmarkUsersUseCase = MockGetBookmarkUsersUseCase();
-    mockRemoveUserFromBookmarksUseCase = MockRemoveUserFromBookmarksUseCase();
     store = BookmarksStore(
       getBookmarkUsersUseCase: mockGetBookmarkUsersUseCase,
-      removeUserFromBookmarksUseCase: mockRemoveUserFromBookmarksUseCase,
     );
   });
 
@@ -94,22 +86,6 @@ void main() {
           statusChanged(Loading()),
           statusChanged(Error(message: AppFailureMessages.NO_USER_CACHED)),
         ]);
-      },
-    );
-  });
-
-  group('removeUserFromBookmarks', () {
-    test(
-      'should remove bookmark for username',
-      () async {
-        // arrange
-        final tUsername = 'test';
-        when(mockRemoveUserFromBookmarksUseCase(any))
-            .thenAnswer((_) async => Right(unit));
-        // act
-        await store.removeUserFromBookmarks(tUsername);
-        // assert
-        verify(mockRemoveUserFromBookmarksUseCase(tUsername));
       },
     );
   });

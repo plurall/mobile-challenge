@@ -49,15 +49,6 @@ mixin _$BookmarksStore on _BookmarksStoreBase, Store {
         .run(() => super.getBookmarkedUsers());
   }
 
-  final _$removeUserFromBookmarksAsyncAction =
-      AsyncAction('_BookmarksStoreBase.removeUserFromBookmarks');
-
-  @override
-  Future<void> removeUserFromBookmarks(String username) {
-    return _$removeUserFromBookmarksAsyncAction
-        .run(() => super.removeUserFromBookmarks(username));
-  }
-
   @override
   String toString() {
     return '''
