@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/models/Users.dart';
 import 'package:mobile_challenge/screens/infoUser.dart';
-import 'package:mobile_challenge/web_apis/getUsers.dart';
+import 'package:mobile_challenge/webApis/getUsers.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  bool _isFavorited = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,9 +21,9 @@ class Home extends StatelessWidget {
   }
 
   _body() {
-    Future<List<Users>> notasFiscais = GetGitUsersAPI.getGitUsers();
+    Future<List<Users>> grupoDeUsuariosFuture = GetGitUsersAPI.getGitUsers();
     return FutureBuilder(
-      future: notasFiscais,
+      future: grupoDeUsuariosFuture,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text("Erro ao acessar os dados");
@@ -42,29 +48,55 @@ class Home extends StatelessWidget {
           var user = grupoDeUsers[index];
           return Card(
               child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Image.network(user.avatarUrl),
-              Text(
-                user.login,
-                style: TextStyle(fontSize: 20),
+              ListTile(
+                leading: Image.network(
+                  user.avatarUrl,
+                  width: 100,
+                  height: 100,
+                ),
+                title: Text(
+                  user.login,
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
-              const SizedBox(width: 8),
-              TextButton(
-                child: const Text('DETALHES'),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => InfoUser(
-                              infoUser: user)));
-                            
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    child: const Text('DETALHES'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => InfoUser(infoUser: user)));
+                    },
+                  ),
+                  InkWell(
+                    child: Icon(
+                      Icons.star,
+                      size: 30,
+                      color: _isFavorited ? Colors.yellow : Colors.blue,
+                    ),
+                    onTap: () {
+                      _toggleFavorite(user);
+                    },
+                  ),
+                ],
               ),
             ],
           ));
         },
       ),
     );
+  }
+
+  void _toggleFavorite(Users user) {
+    print(_isFavorited);
+    setState(() {
+      _isFavorited = user.isFavorited.returnIsFavorited(_isFavorited);
+    });
   }
 }

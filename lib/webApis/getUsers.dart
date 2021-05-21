@@ -7,19 +7,22 @@ class GetGitUsersAPI {
   static Future<List<Users>> getGitUsers() async {
     var url = "https://api.github.com/users";
 
-    final response = await http.get(url);
-
-    var responseJson = jsonDecode(response.body);
+    var response;
+    try {
+      response = await http.get(url);
+    } catch (e) {
+      print(e.runtimeType);
+      print("erro ${response.statusCode} || ${response.body}");
+    }
 
     final userList = List<Users>();
-    
+
     if (response.statusCode == 200) {
+      var responseJson = jsonDecode(response.body);
       for (Map map in responseJson) {
         Users i = Users.fromJson(map);
         userList.add(i);
       }
-    } else {
-      print("erro");
     }
     return userList;
   }
