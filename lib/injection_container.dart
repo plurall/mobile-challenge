@@ -8,6 +8,7 @@ import 'package:mobile_challenge/features/github/domain/usecases/get_user_usecas
 import 'package:mobile_challenge/features/github/domain/usecases/get_users_with_name_usecase.dart';
 import 'package:mobile_challenge/features/github/domain/usecases/remove_user_from_bookmarks_usecase.dart';
 import 'package:mobile_challenge/features/github/domain/usecases/save_user_usecase.dart';
+import 'package:mobile_challenge/features/github/presentation/stores/bookmarks_store.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/users_store.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +31,7 @@ Future<void> init() async {
       removeUserFromBookmarksUseCase: sl(),
     ),
   );
+  sl.registerFactory(() => BookmarksStore(getBookmarkUsersUseCase: sl()));
 
   // Use cases
   sl.registerLazySingleton(() => GetUsersWithNameUseCase(sl()));
