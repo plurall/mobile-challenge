@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/features/github/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/features/github/presentation/pages/user_profile_page.dart';
+
+import 'error_image_widget.dart';
 
 class UserCard extends StatelessWidget {
   final UserEntity user;
@@ -14,6 +17,8 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageRadius = 30.0;
+
     return GestureDetector(
       onTap: () async {
         await Navigator.push(
@@ -27,10 +32,18 @@ class UserCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.grey[300],
-                foregroundImage: NetworkImage(user.avatarUrl),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(imageRadius),
+                child: CachedNetworkImage(
+                  imageUrl: user.avatarUrl,
+                  height: 2 * imageRadius,
+                  width: 2 * imageRadius,
+                  placeholder: (_, __) =>
+                      Center(child: CircularProgressIndicator()),
+                  errorWidget: (_, __, ___) =>
+                      ErrorImageWidget(imageRadius: imageRadius),
+                  fadeOutDuration: Duration(seconds: 0),
+                ),
               ),
               SizedBox(width: 20),
               Text(user.login),

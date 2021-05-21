@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Github Challenge',
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Colors.black,
+        primaryColor: Color(0xFF242424),
         accentColor: Colors.amber,
       ),
       debugShowCheckedModeBanner: false,

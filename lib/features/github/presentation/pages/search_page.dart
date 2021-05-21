@@ -65,7 +65,7 @@ Widget _getWidgetBasedOnStatus(UsersStore controller) {
   } else if (controller.status is Loading) {
     return Center(child: CircularProgressIndicator());
   } else if (controller.status is Error) {
-    return Text(controller.status.props.first);
+    return Center(child: Text(controller.status.props.first));
   }
 
   return ListView.builder(

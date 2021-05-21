@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/user_profile_store.dart';
+import 'package:mobile_challenge/features/github/presentation/widgets/error_image_widget.dart';
 
 import '../../../../injection_container.dart';
 
@@ -29,7 +31,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
     final double paddingTop = MediaQuery.of(context).padding.top;
-    print(controller.userEntity);
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -71,9 +73,34 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
             ),
           ),
-          Observer(
-            builder: (context) => _getWidgetBasedOnStatus(context, controller),
+          Positioned(
+            top: _size.height * 0.28,
+            child: Container(
+              width: _size.width * 0.92,
+              height: 380,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(7, 7),
+                    spreadRadius: 3,
+                  )
+                ],
+              ),
+              child: Observer(
+                builder: (context) =>
+                    _getWidgetBasedOnStatus(context, controller),
+              ),
+            ),
           ),
+          Observer(builder: (_) {
+            return ProfilePictureWidget(
+              imageUrl: controller.userEntity?.avatarUrl ?? null,
+            );
+          }),
         ],
       ),
     );
@@ -87,137 +114,146 @@ Widget _getWidgetBasedOnStatus(
   } else if (controller.userStatus is Loading) {
     return Center(child: CircularProgressIndicator());
   } else if (controller.userStatus is Error) {
-    return Text(controller.userStatus.props.first);
+    return Center(child: Text(controller.userStatus.props.first));
   }
 
-  final Size _size = MediaQuery.of(context).size;
+  return UserInfoWidget(
+    controller: controller,
+  );
+}
 
-  return Stack(
-    alignment: Alignment.center,
-    children: [
-      Positioned(
-        top: _size.height * 0.28,
-        child: Container(
-          width: _size.width * 0.92,
-          height: 380,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 10,
-                offset: Offset(7, 7),
-                spreadRadius: 3,
-              )
+class ProfilePictureWidget extends StatelessWidget {
+  final String imageUrl;
+
+  const ProfilePictureWidget({
+    Key key,
+    @required this.imageUrl,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final Size _size = MediaQuery.of(context).size;
+
+    final imageRadius = 60.0;
+
+    return Positioned(
+      top: _size.height * 0.28 - imageRadius,
+      child: imageUrl != null
+          ? ClipRRect(
+              borderRadius: BorderRadius.circular(imageRadius),
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                height: 2 * imageRadius,
+                width: 2 * imageRadius,
+                placeholder: (_, __) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (_, __, ___) => Icon(Icons.broken_image_rounded),
+              ),
+            )
+          : ErrorImageWidget(
+              imageRadius: imageRadius,
+              iconSize: 40,
+            ),
+    );
+  }
+}
+
+class UserInfoWidget extends StatelessWidget {
+  final UserProfileStore controller;
+  const UserInfoWidget({
+    Key key,
+    @required this.controller,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: 15),
+      child: Column(
+        children: [
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(width: 10),
+              Expanded(child: SizedBox()),
+              GestureDetector(
+                onTap: () {
+                  controller.isSaved
+                      ? controller.removeUserFromBookmarks()
+                      : controller.saveUser();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        controller.isSaved
+                            ? 'Usuário removido dos favoritos'
+                            : 'Usuário adicionado aos favoritos',
+                      ),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                },
+                child: Observer(builder: (_) {
+                  return Icon(
+                    controller.isSaved
+                        ? Icons.bookmark
+                        : Icons.bookmark_border_outlined,
+                  );
+                }),
+              ),
+              SizedBox(width: 20),
             ],
           ),
-          child: Padding(
-            padding: EdgeInsets.only(top: 15),
-            child: Column(
-              children: [
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SizedBox(width: 10),
-                    Expanded(child: SizedBox()),
-                    GestureDetector(
-                      onTap: () {
-                        controller.isSaved
-                            ? controller.removeUserFromBookmarks()
-                            : controller.saveUser();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              controller.isSaved
-                                  ? 'Usuário removido dos favoritos'
-                                  : 'Usuário adicionado aos favoritos',
-                            ),
-                            duration: Duration(seconds: 1),
-                          ),
-                        );
-                      },
-                      child: Icon(
-                        controller.isSaved
-                            ? Icons.bookmark
-                            : Icons.bookmark_border_outlined,
-                      ),
-                    ),
-                    SizedBox(width: 20),
-                  ],
-                ),
-                SizedBox(height: 25),
-                Text(
-                  controller.userEntity.name ?? controller.userEntity.login,
+          SizedBox(height: 25),
+          Text(
+            controller.userEntity.name ?? controller.userEntity.login,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.location_on, size: 24),
+              Container(
+                // width: 120,
+                child: Text(
+                  controller.userEntity.location ??
+                      'Localização não disponível',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.location_on, size: 24),
-                    Container(
-                      // width: 120,
-                      child: Text(
-                        controller.userEntity.location ??
-                            'Localização não disponível',
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.mail_outline, size: 24),
-                    SizedBox(width: 10),
-                    Container(
-                      child: Text(
-                        controller.userEntity.email ?? 'Email não disponível',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Divider(color: Colors.grey, thickness: 0.5),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(controller.userEntity.bio ?? 'Nenhuma descrição'),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
-      ),
-      Positioned(
-        top: _size.height * 0.18,
-        child: Container(
-          height: 120,
-          width: 120,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(controller.userEntity.avatarUrl),
-              fit: BoxFit.cover,
-            ),
-            shape: BoxShape.circle,
-            border: Border.all(
-              width: 2,
-              color: Colors.grey,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.mail_outline, size: 24),
+              SizedBox(width: 10),
+              Container(
+                child: Text(
+                  controller.userEntity.email ?? 'Email não disponível',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
+          SizedBox(height: 10),
+          Divider(color: Colors.grey, thickness: 0.5),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(controller.userEntity.bio ?? 'Nenhuma descrição'),
+          ),
+        ],
       ),
-    ],
-  );
+    );
+  }
 }
