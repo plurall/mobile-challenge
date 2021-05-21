@@ -1,30 +1,58 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile_challenge/models/response/get_selected_user.model.dart';
+import 'package:mobile_challenge/models/response/get_users_git.model.dart';
+import 'package:mobile_challenge/services/interfaces/get_users_git.service.dart';
 
-import 'package:mobile_challenge/main.dart';
+class MockClient implements GetUsersGitService {
+  @override
+  Future<GetSelectedUserModel> getSelectedUser(String user) async {
+    return GetSelectedUserModel(
+        avatar_url: 'url',
+        bio: 'bio user',
+        email: 'email',
+        location: 'location',
+        login: 'Robson');
+  }
+
+  @override
+  Future<List<GetUsersGitModel>> getUsersGit(String user) async {
+    return [
+      GetUsersGitModel(avatar_url: 'teste_url', login: 'Robson'),
+    ];
+  }
+}
+
+class MockClientError implements GetUsersGitService {
+  @override
+  Future<GetSelectedUserModel> getSelectedUser(String user) async {
+    return GetSelectedUserModel(
+        avatar_url: 'url',
+        bio: 'bio user',
+        email: 'email',
+        location: 'location',
+        login: 'Robson');
+  }
+
+  @override
+  Future<List<GetUsersGitModel>> getUsersGit(String user) async {
+    return [];
+  }
+}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  test("Sucesso ao solcitar dados ", () async {
+    final model = MockClient();
+    final result = await model.getSelectedUser('user');
+    expect(result, isA<GetSelectedUserModel>());
+  });
+  test("Sucesso ao solcitar dados ", () async {
+    final model = MockClient();
+    final result = await model.getUsersGit('user');
+    expect(result, isA<List<GetUsersGitModel>>());
+  });
+  test("Erro ao solcitar dados ", () async {
+    final model = MockClientError();
+    final result = await model.getUsersGit('user');
+    expect(result, isA<List<GetUsersGitModel>>());
   });
 }
