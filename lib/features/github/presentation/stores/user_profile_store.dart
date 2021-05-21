@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobile_challenge/core/constants/app_failures_messages.dart';
 import 'package:mobile_challenge/core/domain/usecases/usecase.dart';
+import 'package:mobile_challenge/core/errors/failures.dart';
 import 'package:mobile_challenge/features/github/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/features/github/domain/usecases/get_bookmarked_users_usecase.dart';
 import 'package:mobile_challenge/features/github/domain/usecases/get_user_usecase.dart';
@@ -61,8 +62,11 @@ abstract class _UserProfileStoreBase with Store {
     final result = await getUserUseCase(username);
 
     result.fold(
-      (l) => userStatus =
-          Error(message: AppFailureMessages.SERVER_FAILURE_MESSAGE),
+      (failure) {
+        userStatus = failure is OfflineFailure
+          ? Error(message: AppFailureMessages.NO_INTERNET_CONNECTION)
+          : Error(message: AppFailureMessages.SERVER_FAILURE);
+      },
       (user) {
         userEntity = user;
         userStatus = Loaded();

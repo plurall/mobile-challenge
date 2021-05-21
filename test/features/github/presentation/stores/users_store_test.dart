@@ -45,7 +45,7 @@ void main() {
       // assert
       verifyInOrder([
         statusChanged(
-            Error(message: AppFailureMessages.INVALID_INPUT_FAILURE_MESSAGE)),
+            Error(message: AppFailureMessages.INVALID_INPUT_FAILURE)),
       ]);
     });
 
@@ -94,7 +94,7 @@ void main() {
     );
 
     test(
-      'should emit [Loading, Error] when getting data fails',
+      'should emit [Loading, Error] when getting data fails due to server failure',
       () async {
         // arrange
         final statusChanged = MockCallable<UsersStatus>();
@@ -106,11 +106,31 @@ void main() {
         // act
         await store.getUsersWithName(tName);
         // assert
-        expect(store.users, null);
         verifyInOrder([
           statusChanged(Loading()),
           statusChanged(
-              Error(message: AppFailureMessages.SERVER_FAILURE_MESSAGE)),
+              Error(message: AppFailureMessages.SERVER_FAILURE)),
+        ]);
+      },
+    );
+
+    test(
+      'should emit [Loading, Error] when getting data fails due to offline failure',
+      () async {
+        // arrange
+        final statusChanged = MockCallable<UsersStatus>();
+        mobx.reaction<UsersStatus>(
+            (_) => store.status, (newValue) => statusChanged(newValue));
+
+        when(mockGetUsersWithNameUseCase(any))
+            .thenAnswer((_) async => Left(OfflineFailure()));
+        // act
+        await store.getUsersWithName(tName);
+        // assert
+        verifyInOrder([
+          statusChanged(Loading()),
+          statusChanged(
+              Error(message: AppFailureMessages.NO_INTERNET_CONNECTION)),
         ]);
       },
     );

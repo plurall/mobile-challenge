@@ -88,7 +88,7 @@ void main() {
     );
 
     test(
-      'should emit [Loading, Error] when getting user info fails',
+      'should emit [Loading, Error] when getting user info fails due to server failure',
       () async {
         // arrange
         final statusChanged = MockCallable<UserStatus>();
@@ -102,8 +102,27 @@ void main() {
         // assert
         verifyInOrder([
           statusChanged(Loading()),
-          statusChanged(
-              Error(message: AppFailureMessages.SERVER_FAILURE_MESSAGE)),
+          statusChanged(Error(message: AppFailureMessages.SERVER_FAILURE)),
+        ]);
+      },
+    );
+
+    test(
+      'should emit [Loading, Error] when getting user info fails due to no internet connection',
+      () async {
+        // arrange
+        final statusChanged = MockCallable<UserStatus>();
+        mobx.reaction<UserStatus>(
+            (_) => store.userStatus, (newValue) => statusChanged(newValue));
+
+        when(mockGetUserUseCase(any))
+            .thenAnswer((_) async => Left(OfflineFailure()));
+        // act
+        await store.getUserInfo(tUsername);
+        // assert
+        verifyInOrder([
+          statusChanged(Loading()),
+          statusChanged(Error(message: AppFailureMessages.NO_INTERNET_CONNECTION)),
         ]);
       },
     );
