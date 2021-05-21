@@ -168,13 +168,24 @@ void main() {
       'should remove bookmark for username',
       () async {
         // arrange
-        final tUsername = 'test';
+        final tUser = UserEntity(
+          id: 1,
+          login: 'test',
+          name: 'name',
+          email: 'email',
+          avatarUrl: 'avatarUrl',
+          bio: 'bio',
+          location: 'location',
+        );
+        store.userEntity = tUser;
+        store.isSaved = true;
         when(mockRemoveUserFromBookmarksUseCase(any))
             .thenAnswer((_) async => Right(unit));
         // act
-        await store.removeUserFromBookmarks(tUsername);
+        await store.removeUserFromBookmarks();
         // assert
-        verify(mockRemoveUserFromBookmarksUseCase(tUsername));
+        expect(store.isSaved, false);
+        verify(mockRemoveUserFromBookmarksUseCase(tUser.login));
       },
     );
   });
@@ -194,10 +205,12 @@ void main() {
           bio: 'bio',
           location: 'location',
         );
+        store.isSaved = false;
         store.userEntity = tUser;
         // act
         await store.saveUser();
         // assert
+        expect(store.isSaved, true);
         verify(mockSaveUserUseCase(tUser));
       },
     );

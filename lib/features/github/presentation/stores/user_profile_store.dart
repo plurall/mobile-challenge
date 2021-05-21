@@ -87,12 +87,14 @@ abstract class _UserProfileStoreBase with Store {
   }
 
   @action
-  Future<void> removeUserFromBookmarks(String username) async {
-    await removeUserFromBookmarksUseCase(username);
+  Future<void> removeUserFromBookmarks() async {
+    await removeUserFromBookmarksUseCase(userEntity.login);
+    isSaved = false;
   }
 
   @action
   Future<void> saveUser() async {
     await saveUserUseCase(userEntity);
+    isSaved = true;
   }
 }

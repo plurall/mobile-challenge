@@ -75,9 +75,9 @@ mixin _$UserProfileStore on _UserProfileStoreBase, Store {
       AsyncAction('_UserProfileStoreBase.removeUserFromBookmarks');
 
   @override
-  Future<void> removeUserFromBookmarks(String username) {
+  Future<void> removeUserFromBookmarks() {
     return _$removeUserFromBookmarksAsyncAction
-        .run(() => super.removeUserFromBookmarks(username));
+        .run(() => super.removeUserFromBookmarks());
   }
 
   final _$saveUserAsyncAction = AsyncAction('_UserProfileStoreBase.saveUser');
