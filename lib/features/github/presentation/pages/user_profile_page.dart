@@ -29,7 +29,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
     final double paddingTop = MediaQuery.of(context).padding.top;
-
+    print(controller.userEntity);
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -120,14 +120,6 @@ Widget _getWidgetBasedOnStatus(
                   // mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(width: 10),
-                    Icon(
-                      Icons.location_city_rounded,
-                      size: 30,
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      controller.userEntity.location,
-                    ),
                     Expanded(child: SizedBox()),
                     GestureDetector(
                       onTap: () {
@@ -163,13 +155,39 @@ Widget _getWidgetBasedOnStatus(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 5),
-                Text(
-                  controller.userEntity.email ?? 'Email não disponível',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.location_on, size: 24),
+                    Container(
+                      // width: 120,
+                      child: Text(
+                        controller.userEntity.location ??
+                            'Localização não disponível',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.mail_outline, size: 24),
+                    SizedBox(width: 10),
+                    Container(
+                      child: Text(
+                        controller.userEntity.email ?? 'Email não disponível',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 10),
                 Divider(color: Colors.grey, thickness: 0.5),
