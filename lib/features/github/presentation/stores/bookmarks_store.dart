@@ -3,7 +3,6 @@ import 'package:mobile_challenge/core/constants/app_failures_messages.dart';
 import 'package:mobile_challenge/core/domain/usecases/usecase.dart';
 import 'package:mobile_challenge/features/github/domain/entities/users_entity.dart';
 import 'package:mobile_challenge/features/github/domain/usecases/get_bookmarked_users_usecase.dart';
-import 'package:mobile_challenge/features/github/domain/usecases/remove_user_from_bookmarks_usecase.dart';
 import 'package:mobx/mobx.dart';
 import 'package:meta/meta.dart';
 

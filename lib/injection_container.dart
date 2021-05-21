@@ -6,9 +6,14 @@ import 'package:mobile_challenge/features/github/data/repositories/github_reposi
 import 'package:mobile_challenge/features/github/domain/repositories/github_repository.dart';
 import 'package:mobile_challenge/features/github/domain/usecases/get_user_usecase.dart';
 import 'package:mobile_challenge/features/github/domain/usecases/get_users_with_name_usecase.dart';
+import 'package:mobile_challenge/features/github/domain/usecases/remove_user_from_bookmarks_usecase.dart';
+import 'package:mobile_challenge/features/github/domain/usecases/save_user_usecase.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/users_store.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'features/github/data/datasources/github_local_data_source.dart';
+import 'features/github/domain/usecases/get_bookmarked_users_usecase.dart';
 import 'features/github/presentation/stores/user_profile_store.dart';
 
 final sl = GetIt.instance;
@@ -21,12 +26,17 @@ Future<void> init() async {
     () => UserProfileStore(
       getUserUseCase: sl(),
       getBookmarkUsersUseCase: sl(),
+      saveUserUseCase: sl(),
+      removeUserFromBookmarksUseCase: sl(),
     ),
   );
 
   // Use cases
   sl.registerLazySingleton(() => GetUsersWithNameUseCase(sl()));
   sl.registerLazySingleton(() => GetUserUseCase(sl()));
+  sl.registerLazySingleton(() => GetBookmarkUsersUseCase(sl()));
+  sl.registerLazySingleton(() => RemoveUserFromBookmarksUseCase(sl()));
+  sl.registerLazySingleton(() => SaveUserUseCase(sl()));
 
   // Repositories
   sl.registerLazySingleton<GithubRepository>(
@@ -41,10 +51,16 @@ Future<void> init() async {
   sl.registerLazySingleton<GithubRemoteDataSource>(
       () => GithubRemoteDataSourceImpl(client: sl()));
 
+  sl.registerLazySingleton<GithubLocalDataSource>(
+      () => GithubLocalDataSourceImpl(sharedPreferences: sl()));
+
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   //! External
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPreferences);
+
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => DataConnectionChecker());
 }
