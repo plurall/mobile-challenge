@@ -12,8 +12,16 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final textController = TextEditingController();
-
+  final formKey = GlobalKey<FormState>();
   final controller = sl<UsersStore>();
+
+  _searchUsers() {
+    if (formKey.currentState.validate()) {
+      controller.getUsersWithName(textController.text);
+      textController.clear();
+      FocusManager.instance.primaryFocus.unfocus();
+    }
+  }
 
   @override
   void dispose() {
@@ -31,22 +39,29 @@ class _SearchPageState extends State<SearchPage> {
             Row(
               children: [
                 Expanded(
-                  child: Container(
-                    height: 40,
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Form(
+                    key: formKey,
                     child: TextFormField(
                       controller: textController,
                       decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: () =>
-                            controller.getUsersWithName(textController.text),
-                      )),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.search),
+                          onPressed: _searchUsers,
+                        ),
+                        contentPadding: EdgeInsets.symmetric(vertical: 15)
+                      ),
+                      onEditingComplete: _searchUsers,
+                      validator: (value) {
+                        return value == null || value == ''
+                            ? 'Digite o nome que deseja buscar'
+                            : null;
+                      },
                     ),
                   ),
                 ),
               ],
             ),
+            SizedBox(height: 20),
             Observer(builder: (_) {
               return Expanded(
                 child: _getWidgetBasedOnStatus(controller),
@@ -69,6 +84,7 @@ Widget _getWidgetBasedOnStatus(UsersStore controller) {
   }
 
   return ListView.builder(
+    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
     physics: BouncingScrollPhysics(),
     itemCount: controller.users.users.length,
     itemBuilder: (context, index) {
@@ -78,5 +94,3 @@ Widget _getWidgetBasedOnStatus(UsersStore controller) {
     },
   );
 }
-
-

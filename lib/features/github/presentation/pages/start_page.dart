@@ -40,9 +40,9 @@ class _StartPageState extends State<StartPage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Buscar'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark_outline), label: 'Bookmarks'),
+              icon: Icon(Icons.bookmark_outline), label: 'Salvos'),
         ],
         onTap: (index) {
           setState(() {
