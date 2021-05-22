@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
   List<GitHubUser> _gitHubUserList = [];
   var url = 'https://api.github.com/users/';
 
-  void _searchGitHubUser(String searchedUser) async {
+  void searchGitHubUser(String searchedUser) async {
     final responseData =
         await http.get(url + searchedUser.trim().toLowerCase());
     if (responseData.statusCode == 200) {
@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
                     if (_searchUserText.text.isEmpty) {
                       return;
                     } else {
-                      _searchGitHubUser(_searchUserText.text);
+                      searchGitHubUser(_searchUserText.text);
                     }
                   },
                 ),
