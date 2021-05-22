@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobile_challenge/app/app.module.dart';
 import 'package:mobile_challenge/app/app_bloc.dart';
-import 'package:mobile_challenge/pages/search_module.dart';
+import 'package:mobile_challenge/app/pages/search/search_module.dart';
+import 'package:mobile_challenge/app/pages/user_detail/user_detail_page.dart';
+
 import 'package:mobile_challenge/shared/dark.theme.dart';
 import 'package:mobile_challenge/shared/ligth.theme.dart';
 
@@ -21,8 +22,10 @@ class _AppWidgetState extends State<AppWidget> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            theme: snapshot.data ? darkTheme : ligthTheme,
+            theme: snapshot.data! ? darkTheme : ligthTheme,
             home: SearchModule(),
+            initialRoute: "/",
+            routes: {'/userDetail': (context) => UserDetailPage()},
           );
         });
   }

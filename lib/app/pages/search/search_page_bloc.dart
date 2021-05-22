@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:mobile_challenge/model/result_search.dart';
-import 'package:mobile_challenge/pages/search_repository.dart';
+import 'package:mobile_challenge/app/model/result_search.dart';
+import 'package:mobile_challenge/app/pages/search/search_repository.dart';
 import 'package:rxdart/subjects.dart';
 
 class SearchPageBlock extends BlocBase {
@@ -21,7 +21,7 @@ class SearchPageBlock extends BlocBase {
   final StreamController<List<Items>> _result$ =
       StreamController<List<Items>>();
   Sink<List<Items>> get resultIn => listUser.sink;
-  Stream get resultOut => listUser.stream;
+  Stream<List<Items>> get resultOut => listUser.stream;
 
   void getListUsers(String text) async {
     print("PARAMETRO $text");

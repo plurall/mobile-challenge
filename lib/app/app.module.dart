@@ -1,11 +1,8 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/pages/search_page_bloc.dart';
-import 'package:mobile_challenge/pages/search_repository.dart';
-import 'package:mobile_challenge/shared/custom_dio/custom_dio.dart';
-
 import 'app_bloc.dart';
 import 'app_widget.dart';
+import 'shared/custom_dio/custom_dio.dart';
 
 class AppModule extends ModuleWidget {
   @override

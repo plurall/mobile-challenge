@@ -1,9 +1,9 @@
 class ResultSearch {
-  int totalCount;
-  bool incompleteResults;
-  List<Items> items;
+  int? totalCount;
+  bool? incompleteResults;
+  List<Items>? items;
 
-  ResultSearch({this.totalCount, this.incompleteResults, this.items});
+  ResultSearch(this.totalCount, this.incompleteResults, this.items);
 
   ResultSearch.fromJson(Map<String, dynamic> json) {
     totalCount = json['total_count'];
@@ -14,7 +14,7 @@ class ResultSearch {
       print("ITEMS " + (json['items'] as List).toString());
       (json['items'] as List).map((v) {
         print("v " + v);
-        items.add(new Items.fromJson(v));
+        items!.add(new Items.fromJson(v));
       });
     }
   }
@@ -24,32 +24,32 @@ class ResultSearch {
     data['total_count'] = this.totalCount;
     data['incomplete_results'] = this.incompleteResults;
     if (this.items != null) {
-      data['items'] = this.items.map((v) => v.toJson()).toList();
+      data['items'] = this.items!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Items {
-  String login;
-  int id;
-  String nodeId;
-  String avatarUrl;
-  String gravatarId;
-  String url;
-  String htmlUrl;
-  String followersUrl;
-  String followingUrl;
-  String gistsUrl;
-  String starredUrl;
-  String subscriptionsUrl;
-  String organizationsUrl;
-  String reposUrl;
-  String eventsUrl;
-  String receivedEventsUrl;
-  String type;
-  bool siteAdmin;
-  double score;
+  String? login;
+  int? id;
+  String? nodeId;
+  String? avatarUrl;
+  String? gravatarId;
+  String? url;
+  String? htmlUrl;
+  String? followersUrl;
+  String? followingUrl;
+  String? gistsUrl;
+  String? starredUrl;
+  String? subscriptionsUrl;
+  String? organizationsUrl;
+  String? reposUrl;
+  String? eventsUrl;
+  String? receivedEventsUrl;
+  String? type;
+  bool? siteAdmin;
+  double? score;
 
   Items(
       {this.login,

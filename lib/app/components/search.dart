@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/model/result_search.dart';
+import 'package:mobile_challenge/app/model/result_search.dart';
 
 class Search extends SearchDelegate {
-  Items selectedResult;
+  late Items selectedResult;
 
-  final List<Items> listExample;
+  late final List<Items> listExample;
   Search(this.listExample)
       : super(
             searchFieldLabel: "Procure pelo nome",
@@ -36,10 +36,10 @@ class Search extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     return Card(
         child: ListTile(
-            title: Text(selectedResult.login),
-            subtitle: Text(selectedResult.url),
+            title: Text(selectedResult.login!),
+            subtitle: Text(selectedResult.url!),
             leading: CircleAvatar(
-              backgroundImage: NetworkImage(selectedResult.avatarUrl),
+              backgroundImage: NetworkImage(selectedResult.avatarUrl!),
             ),
             trailing: Icon(Icons.star)));
   }

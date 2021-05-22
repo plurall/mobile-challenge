@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:mobile_challenge/model/result_search.dart';
-import 'package:mobile_challenge/shared/custom_dio/custom_dio.dart';
+import 'package:mobile_challenge/app/model/result_search.dart';
+import 'package:mobile_challenge/app/shared/custom_dio/custom_dio.dart';
 
 class SearchRepository {
   final CustomDio _client;
