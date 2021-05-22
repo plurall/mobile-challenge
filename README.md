@@ -6,6 +6,11 @@ Este projeto é uma solução apresentada para o desafio da Somos Educação. A 
 
 Todo o projeto foi desenvolvido seguindo a metodologia **TDD** e sua estrutura segue a **Clean Architecture**. O projeto conta com um total de **63 testes unitários** e uma cobertura total do código. 
 
+O repositório conta ainda com uma configuração no **Github Actions** para fazer os testes automaticamente ao fazer o upload de código para o repositório facilitando a etapa de CI, os resultados de cobertura são automaticamente enviados para o [codecov](https://about.codecov.io/).
+
+
+**Obs: Assista o resultado final no [Youtube](https://youtu.be/9nwZsw3qRlQ)**
+
 
 ## Get Started
 
