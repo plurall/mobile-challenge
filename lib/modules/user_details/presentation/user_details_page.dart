@@ -9,6 +9,9 @@ class UserDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palette.backgroundDarkBlack,
+      appBar: AppBar(
+        title: Text('Github User List'),
+      ),
       body: UserDetailsCard(),
     );
   }
