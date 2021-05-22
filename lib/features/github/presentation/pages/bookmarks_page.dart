@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/bookmarks_store.dart';
+import 'package:mobile_challenge/features/github/presentation/widgets/github_users_list_widget.dart';
+import 'package:mobile_challenge/features/github/presentation/widgets/no_user_found_widget.dart';
+import 'package:mobile_challenge/features/github/presentation/widgets/page_title_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/user_card_widget.dart';
 import 'package:mobile_challenge/injection_container.dart';
 
@@ -30,16 +33,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Perfis salvos',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Divider(
-              color: Colors.black,
-            ),
+            PageTitle(title: 'Perfis salvos'),
             Expanded(
               child: Observer(
                 builder: (context) =>
@@ -64,21 +58,12 @@ Widget _getWidgetBasedOnStatus(
   }
 
   return controller.usersEntity.users.isEmpty
-      ? Center(
-          child: Text(
-            'Nenhum usuário salvo, continue navegando e adicione os usuários aos seus favoritos para que possa acessá-los mesmo quando não tiver conexão com a internet.',
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.grey,
-            ),
-            textAlign: TextAlign.center,
-          ),
+      ? NoUserFoundWidget(
+          message:
+              'Nenhum usuário salvo, continue navegando e adicione os usuários aos seus favoritos para que possa acessá-los mesmo quando não tiver conexão com a internet.',
         )
-      : ListView.builder(
-          itemCount: controller.usersEntity.users.length,
-          itemBuilder: (_, index) => UserCard(
-            user: controller.usersEntity.users[index],
-            callback: controller.getBookmarkedUsers,
-          ),
+      : GithubUsersListWidget(
+          usersEntity: controller.usersEntity,
+          callback: controller.getBookmarkedUsers,
         );
 }

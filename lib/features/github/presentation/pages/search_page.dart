@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobile_challenge/features/github/domain/entities/users_entity.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/users_store.dart';
+import 'package:mobile_challenge/features/github/presentation/widgets/github_users_list_widget.dart';
+import 'package:mobile_challenge/features/github/presentation/widgets/no_user_found_widget.dart';
+import 'package:mobile_challenge/features/github/presentation/widgets/page_title_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/user_card_widget.dart';
 
 import '../../../../injection_container.dart';
@@ -36,30 +40,28 @@ class _SearchPageState extends State<SearchPage> {
         padding: const EdgeInsets.only(top: 20, left: 24, right: 24),
         child: Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Form(
-                    key: formKey,
-                    child: TextFormField(
-                      controller: textController,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          icon: Icon(Icons.search),
-                          onPressed: _searchUsers,
-                        ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 15)
+            PageTitle(title: 'Busque por um perfil'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Form(
+                key: formKey,
+                child: TextFormField(
+                  controller: textController,
+                  decoration: InputDecoration(
+                      hintText: 'Nome',
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: _searchUsers,
                       ),
-                      onEditingComplete: _searchUsers,
-                      validator: (value) {
-                        return value == null || value == ''
-                            ? 'Digite o nome que deseja buscar'
-                            : null;
-                      },
-                    ),
-                  ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 15)),
+                  onEditingComplete: _searchUsers,
+                  validator: (value) {
+                    return value == null || value == ''
+                        ? 'Digite o nome que deseja buscar'
+                        : null;
+                  },
                 ),
-              ],
+              ),
             ),
             SizedBox(height: 20),
             Observer(builder: (_) {
@@ -83,14 +85,7 @@ Widget _getWidgetBasedOnStatus(UsersStore controller) {
     return Center(child: Text(controller.status.props.first));
   }
 
-  return ListView.builder(
-    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-    physics: BouncingScrollPhysics(),
-    itemCount: controller.users.users.length,
-    itemBuilder: (context, index) {
-      return UserCard(
-        user: controller.users.users[index],
-      );
-    },
-  );
+  return controller.users.users.isEmpty
+      ? NoUserFoundWidget(message: 'Nenhum usuário encontrado com o nome informado')
+      : GithubUsersListWidget(usersEntity: controller.users);
 }
