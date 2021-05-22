@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_challenge/clean/usecase.dart';
-import 'package:mobile_challenge/modules/user_list/domain/entities/User.dart';
+import 'package:mobile_challenge/shared/entities/User.dart';
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_default_user_list.dart';
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_user_search.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_event.dart';

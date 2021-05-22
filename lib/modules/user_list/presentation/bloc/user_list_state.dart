@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/modules/user_list/domain/entities/User.dart';
+import 'package:mobile_challenge/shared/entities/User.dart';
 
 @immutable
 abstract class UserListState {
