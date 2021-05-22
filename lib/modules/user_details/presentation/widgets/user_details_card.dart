@@ -28,6 +28,13 @@ class UserDetailsCard extends StatelessWidget {
     );
   }
 
+  Widget _hideIfEmpty({String check, Widget child}) {
+    if (check == null || check.isEmpty) {
+      return SizedBox();
+    }
+    return child;
+  }
+
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
@@ -75,18 +82,33 @@ class UserDetailsCard extends StatelessWidget {
                 fontSize: 20,
                 fontWeight: FontWeight.w300),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: commonPadding / 2),
-            child: Text(
-              user.bio,
-              style: TextStyle(
-                color: Palette.darkWhiteText,
-                fontSize: 16,
+          _hideIfEmpty(
+            check: user.bio,
+            child: Padding(
+              padding: EdgeInsets.only(top: commonPadding / 2),
+              child: Text(
+                user.bio,
+                style: TextStyle(
+                  color: Palette.darkWhiteText,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
-          _infoChip(icon: Icons.place_outlined, text: user.location),
-          _infoChip(icon: Icons.email_outlined, text: user.email),
+          _hideIfEmpty(
+            check: user.location,
+            child: _infoChip(
+              icon: Icons.place_outlined,
+              text: user.location,
+            ),
+          ),
+          _hideIfEmpty(
+            check: user.email,
+            child: _infoChip(
+              icon: Icons.email_outlined,
+              text: user.email,
+            ),
+          ),
         ],
       ),
     );
