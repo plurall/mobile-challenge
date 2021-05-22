@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_challenge/modules/user_details/presentation/user_details_page.dart';
 import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_local_data_source.dart';
 import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_remote_data_source.dart';
 import 'package:mobile_challenge/modules/user_list/data/repositories/github_api_repository.dart';
@@ -44,7 +45,8 @@ class UserListPage extends StatelessWidget {
     }
 
     void handleCardClick(String nickname) {
-      //TODO
+      Navigator.push(
+          context, MaterialPageRoute(builder: (_) => UserDetailsPage()));
     }
 
     return Scaffold(
