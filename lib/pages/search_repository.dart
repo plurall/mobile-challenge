@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:mobile_challenge/model/ResultSearch.dart';
+import 'package:mobile_challenge/model/result_search.dart';
 import 'package:mobile_challenge/shared/custom_dio/custom_dio.dart';
 
 class SearchRepository {
@@ -7,10 +7,12 @@ class SearchRepository {
 
   SearchRepository(this._client);
 
-  Future<ResultSearch> searchText(String text) async {
+  Future<List<Items>> searchText(String text) async {
     try {
       var response = await _client.getDio().get('/users?q=$text');
-      return ResultSearch.fromJson(response.data);
+      return (response.data['items'] as List)
+          .map((i) => Items.fromJson(i))
+          .toList();
     } on DioError catch (error) {
       throw (error.message);
     }

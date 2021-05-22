@@ -1,16 +1,19 @@
 class ResultSearch {
   int totalCount;
   bool incompleteResults;
-  List<Items> items = [];
+  List<Items> items;
 
   ResultSearch({this.totalCount, this.incompleteResults, this.items});
 
   ResultSearch.fromJson(Map<String, dynamic> json) {
     totalCount = json['total_count'];
     incompleteResults = json['incomplete_results'];
+
     if (json['items'] != null) {
       items = new List<Items>.empty();
-      json['items'].forEach((v) {
+      print("ITEMS " + (json['items'] as List).toString());
+      (json['items'] as List).map((v) {
+        print("v " + v);
         items.add(new Items.fromJson(v));
       });
     }
@@ -46,7 +49,7 @@ class Items {
   String receivedEventsUrl;
   String type;
   bool siteAdmin;
-  int score;
+  double score;
 
   Items(
       {this.login,
@@ -69,26 +72,27 @@ class Items {
       this.siteAdmin,
       this.score});
 
-  Items.fromJson(Map<String, dynamic> json) {
-    login = json['login'];
-    id = json['id'];
-    nodeId = json['node_id'];
-    avatarUrl = json['avatar_url'];
-    gravatarId = json['gravatar_id'];
-    url = json['url'];
-    htmlUrl = json['html_url'];
-    followersUrl = json['followers_url'];
-    followingUrl = json['following_url'];
-    gistsUrl = json['gists_url'];
-    starredUrl = json['starred_url'];
-    subscriptionsUrl = json['subscriptions_url'];
-    organizationsUrl = json['organizations_url'];
-    reposUrl = json['repos_url'];
-    eventsUrl = json['events_url'];
-    receivedEventsUrl = json['received_events_url'];
-    type = json['type'];
-    siteAdmin = json['site_admin'];
-    score = json['score'];
+  factory Items.fromJson(Map<String, dynamic> json) {
+    return Items(
+        login: json['login'],
+        id: json['id'],
+        nodeId: json['node_id'],
+        avatarUrl: json['avatar_url'],
+        gravatarId: json['gravatar_id'],
+        url: json['url'],
+        htmlUrl: json['html_url'],
+        followersUrl: json['followers_url'],
+        followingUrl: json['following_url'],
+        gistsUrl: json['gists_url'],
+        starredUrl: json['starred_url'],
+        subscriptionsUrl: json['subscriptions_url'],
+        organizationsUrl: json['organizations_url'],
+        reposUrl: json['repos_url'],
+        eventsUrl: json['events_url'],
+        receivedEventsUrl: json['received_events_url'],
+        type: json['type'],
+        siteAdmin: json['site_admin'],
+        score: json['score']);
   }
 
   Map<String, dynamic> toJson() {
