@@ -1,6 +1,6 @@
 {
-    "name": "mobile_challenge",
-    "short_name": "mobile_challenge",
+    "name": "github_search",
+    "short_name": "github_search",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

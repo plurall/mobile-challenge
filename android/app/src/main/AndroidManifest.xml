@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mobile_challenge">
+    package="com.example.github_search">
    <application
-        android:label="mobile_challenge"
+        android:label="github_search"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
