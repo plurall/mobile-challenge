@@ -26,7 +26,7 @@ class UserCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (_) => UserProfilePage(username: user.login)));
-        callback != null ? callback() : null;
+        if (callback != null) callback();
       },
       child: Card(
         child: Container(

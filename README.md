@@ -1,23 +1,19 @@
-<img src="https://gitlab.com/sdk12/dms/viewer/video-player/uploads/7aea2a2436087e4ae1d1ec595837f7ce/image.png" width="150" /> <img src="https://gitlab.com/sdk12/dms/viewer/video-player/uploads/e56cb536325ee0e5d3abc645b2defc43/image.png" width="116" />
-
 # Mobile Challenge
 
-## Objetivo
+[![codecov](https://codecov.io/gh/FabioXimenes/mobile-challenge/branch/master/graph/badge.svg?token=JK8KYXV908)](https://codecov.io/gh/FabioXimenes/mobile-challenge)
 
-Nesse desafio iremos avaliar o seu conhecimento em Flutter e arquiteturas de softwares.
+Este projeto é uma solução apresentada para o desafio da Somos Educação. A aplicação interage com a API do GitHub permitindo a consulta de usuários, acesso a informações mais detalhadas como nome, localização, bio, avatar e email. O usuário pode ainda salvar perfis para ver depois sem a necessidade de conexão com a internet.
 
-Você deverá implementar o desafio descrito em [`CHALLENGE.md`](/CHALLENGE.md) usando esse codebase como base (Adicione ou apague o que for necessário).
+Todo o projeto foi desenvolvido seguindo a metodologia **TDD** e sua estrutura segue a **Clean Architecture**. O projeto conta com um total de **63 testes unitários** e uma cobertura total do código. 
 
-## Critério de avaliação
 
-Abaixo estão algumas caracteristicas que achamos importantes:
+## Get Started
 
-- Organização e legibilidade do código.
-- Simplicidade.
-- Boas praticas.
-- Conhecimento de Flutter.
-- Outros.
+1. Faça o clone do repositório
+2. Entre na pasta do projeto e execute os comandos:
 
-Faça fork do projeto em sua conta pessoal e agora você já esta apto a fazer o [desafio](/CHALLENGE.md).
-
-Boa Sorte!
+```sh
+$ flutter pub get
+$ flutter pub run build_runner build --delete-conflicting-outputs
+$ flutter run
+```

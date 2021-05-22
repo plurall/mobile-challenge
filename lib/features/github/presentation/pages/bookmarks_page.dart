@@ -6,7 +6,6 @@ import 'package:mobile_challenge/features/github/presentation/stores/bookmarks_s
 import 'package:mobile_challenge/features/github/presentation/widgets/github_users_list_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/no_user_found_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/page_title_widget.dart';
-import 'package:mobile_challenge/features/github/presentation/widgets/user_card_widget.dart';
 import 'package:mobile_challenge/injection_container.dart';
 
 class BookmarksPage extends StatefulWidget {

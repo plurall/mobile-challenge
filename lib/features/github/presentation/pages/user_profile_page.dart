@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobile_challenge/core/constants/app_dimensions.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/user_profile_store.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/back_button_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/error_text_widget.dart';
