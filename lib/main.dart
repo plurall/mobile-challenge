@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'features/github/presentation/pages/start_page.dart';
+import 'package:mobile_challenge/features/github/presentation/pages/splash_page.dart';
 
 import 'injection_container.dart' as di;
 
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.amber,
       ),
       debugShowCheckedModeBanner: false,
-      home: StartPage(),
+      home: SplashPage(),
     );
   }
 }

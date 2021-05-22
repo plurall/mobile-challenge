@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile_challenge/core/constants/app_dimensions.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/user_profile_store.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/back_button_widget.dart';
+import 'package:mobile_challenge/features/github/presentation/widgets/error_text_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/profile_background_header_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/profile_card_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/profile_avatar_widget.dart';
@@ -61,7 +62,7 @@ Widget _getWidgetBasedOnStatus(
   } else if (controller.userStatus is Loading) {
     return Center(child: CircularProgressIndicator());
   } else if (controller.userStatus is Error) {
-    return Center(child: Text(controller.userStatus.props.first));
+    return ErrorTextWidget(message: controller.userStatus.props.first);
   }
 
   return UserInfoWidget(

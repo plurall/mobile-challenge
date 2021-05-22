@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobile_challenge/features/github/domain/entities/users_entity.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/users_store.dart';
+import 'package:mobile_challenge/features/github/presentation/widgets/error_text_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/github_users_list_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/no_user_found_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/page_title_widget.dart';
-import 'package:mobile_challenge/features/github/presentation/widgets/user_card_widget.dart';
 
 import '../../../../injection_container.dart';
 
@@ -82,10 +81,11 @@ Widget _getWidgetBasedOnStatus(UsersStore controller) {
   } else if (controller.status is Loading) {
     return Center(child: CircularProgressIndicator());
   } else if (controller.status is Error) {
-    return Center(child: Text(controller.status.props.first));
+    return ErrorTextWidget(message: controller.status.props.first);
   }
 
   return controller.users.users.isEmpty
-      ? NoUserFoundWidget(message: 'Nenhum usuário encontrado com o nome informado')
+      ? NoUserFoundWidget(
+          message: 'Nenhum usuário encontrado com o nome informado')
       : GithubUsersListWidget(usersEntity: controller.users);
 }

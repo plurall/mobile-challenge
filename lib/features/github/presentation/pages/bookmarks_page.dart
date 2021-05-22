@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobile_challenge/core/constants/app_failures_messages.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/bookmarks_store.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/github_users_list_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/no_user_found_widget.dart';
@@ -54,13 +55,14 @@ Widget _getWidgetBasedOnStatus(
   } else if (controller.bookmarksStatus is Loading) {
     return Center(child: CircularProgressIndicator());
   } else if (controller.bookmarksStatus is Error) {
-    return Text(controller.bookmarksStatus.props.first);
+    return NoUserFoundWidget(
+      message: controller.bookmarksStatus.props.first,
+    );
   }
 
   return controller.usersEntity.users.isEmpty
       ? NoUserFoundWidget(
-          message:
-              'Nenhum usuário salvo, continue navegando e adicione os usuários aos seus favoritos para que possa acessá-los mesmo quando não tiver conexão com a internet.',
+          message: AppFailureMessages.NO_USER_CACHED,
         )
       : GithubUsersListWidget(
           usersEntity: controller.usersEntity,
