@@ -9,7 +9,7 @@ class SearchModel {
   int totalCount;
   @JsonValue('incomplete_results')
   bool incompleteResults;
-  List<SearchItemModel> items;
+  List<SearchItemModel> items = [];
 
   SearchModel();
 
