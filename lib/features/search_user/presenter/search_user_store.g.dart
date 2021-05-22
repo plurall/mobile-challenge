@@ -24,10 +24,40 @@ mixin _$SearchUserStore on _SearchUserStoreBase, Store {
     });
   }
 
+  final _$usersAtom = Atom(name: '_SearchUserStoreBase.users');
+
+  @override
+  List<UserEntity> get users {
+    _$usersAtom.reportRead();
+    return super.users;
+  }
+
+  @override
+  set users(List<UserEntity> value) {
+    _$usersAtom.reportWrite(value, super.users, () {
+      super.users = value;
+    });
+  }
+
+  final _$_SearchUserStoreBaseActionController =
+      ActionController(name: '_SearchUserStoreBase');
+
+  @override
+  dynamic setUsers(List<UserEntity> value) {
+    final _$actionInfo = _$_SearchUserStoreBaseActionController.startAction(
+        name: '_SearchUserStoreBase.setUsers');
+    try {
+      return super.setUsers(value);
+    } finally {
+      _$_SearchUserStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-searchText: ${searchText}
+searchText: ${searchText},
+users: ${users}
     ''';
   }
 }

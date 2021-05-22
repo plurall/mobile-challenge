@@ -49,7 +49,8 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
             ),
           ),
           Expanded(child: Observer(builder: (_) {
-            return Container();
+            var user = controller.users;
+            return _buildList(user);
           }))
         ],
       ),
