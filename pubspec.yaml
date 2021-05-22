@@ -26,6 +26,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   dartz: ^0.10.0-nullsafety.2
   equatable: ^2.0.2
+  flutter_modular: ^3.2.2+1
 
 dev_dependencies:
   flutter_test:
