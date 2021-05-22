@@ -1,11 +1,8 @@
 name: Flutter_Tests
 
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
-
+  push
+  pull_request
 
 jobs:
   tests:
@@ -21,11 +18,11 @@ jobs:
         uses: subosito/flutter-action@v1.4.0
         with:
           flutter-version: '2.0.6'
-
+      - name: Run flutter tests
         run: flutter pub get
         run: flutter analyze
         run: flutter test --coverage
-      
+
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v1
         with:
