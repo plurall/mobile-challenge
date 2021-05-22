@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:mobile_challenge/core/usecase/errors/exceptions.dart';
 import 'package:mobile_challenge/features/search_user/data/datasource/search_user_datasource.dart';
 import 'package:mobile_challenge/features/search_user/data/models/user_model.dart';
 
@@ -24,7 +23,7 @@ class SearchUserDatasourceImpl implements ISerchUserDatasource {
           .toList();
       return list;
     } else {
-      throw ServerException();
+      throw Exception();
     }
   }
 }
