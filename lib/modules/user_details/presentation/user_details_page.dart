@@ -52,7 +52,7 @@ class UserDetailsPage extends StatelessWidget {
             } else if (state is Loading) {
               return LoadingWidget();
             } else if (state is Loaded) {
-              return UserDetailsCard();
+              return UserDetailsCard(state.user);
             } else if (state is Error) {
               return MessageWidget(
                 text: state.message,

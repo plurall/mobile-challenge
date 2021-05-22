@@ -27,6 +27,7 @@ class UserDetailRemoteDataSource implements UserDetailRemoteDataSourceProtocol {
       },
     );
     Map<String, dynamic> jsonResponse = json.decode(response.body);
+    print(jsonResponse);
 
     return User.fromJson(jsonResponse);
   }

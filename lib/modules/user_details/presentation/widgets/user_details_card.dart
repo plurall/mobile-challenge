@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/shared/entities/User.dart';
 import 'package:mobile_challenge/utils/palette.dart';
 
 class UserDetailsCard extends StatelessWidget {
+  User user;
+
+  UserDetailsCard(this.user);
+
   Widget _infoChip({@required IconData icon, @required String text}) {
     return Row(
       children: [
@@ -48,7 +53,7 @@ class UserDetailsCard extends StatelessWidget {
                 borderRadius:
                     BorderRadius.circular(media.size.width - imgPadding),
                 child: Image.network(
-                  'https://avatars.githubusercontent.com/u/29781281',
+                  user.profilePhoto,
                   height: media.size.width - imgPadding,
                   width: media.size.width - imgPadding,
                   fit: BoxFit.cover,
@@ -57,14 +62,14 @@ class UserDetailsCard extends StatelessWidget {
             ),
           ),
           Text(
-            'Maxi Costa',
+            user.name,
             style: TextStyle(
                 color: Palette.darkWhiteText,
                 fontSize: 26,
                 fontWeight: FontWeight.w600),
           ),
           Text(
-            'maxiin',
+            user.nickname,
             style: TextStyle(
                 color: Palette.darkGrayText,
                 fontSize: 20,
@@ -73,15 +78,15 @@ class UserDetailsCard extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: commonPadding / 2),
             child: Text(
-              'Personal Account\r\nMobile developer\r\n',
+              user.bio,
               style: TextStyle(
                 color: Palette.darkWhiteText,
                 fontSize: 16,
               ),
             ),
           ),
-          _infoChip(icon: Icons.place_outlined, text: 'São paulo'),
-          _infoChip(icon: Icons.email_outlined, text: 'maxiinne@outlook.com'),
+          _infoChip(icon: Icons.place_outlined, text: user.location),
+          _infoChip(icon: Icons.email_outlined, text: user.email),
         ],
       ),
     );
