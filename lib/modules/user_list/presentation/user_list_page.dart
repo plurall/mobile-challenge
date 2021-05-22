@@ -9,9 +9,9 @@ import 'package:mobile_challenge/modules/user_list/domain/usecases/get_user_sear
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_bloc.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_event.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_state.dart';
-import 'package:mobile_challenge/widgets/loading.dart';
-import 'package:mobile_challenge/widgets/message.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/widgets/user_card.dart';
+import 'package:mobile_challenge/shared/widgets/loading.dart';
+import 'package:mobile_challenge/shared/widgets/message.dart';
 import 'package:mobile_challenge/utils/palette.dart';
 
 import 'package:http/http.dart' as http;
@@ -45,8 +45,8 @@ class UserListPage extends StatelessWidget {
     }
 
     void handleCardClick(String nickname) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => UserDetailsPage()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (_) => UserDetailsPage(nickname)));
     }
 
     return Scaffold(
