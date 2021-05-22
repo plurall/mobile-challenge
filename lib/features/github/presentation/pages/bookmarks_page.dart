@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobile_challenge/core/constants/app_dimensions.dart';
 import 'package:mobile_challenge/core/constants/app_failures_messages.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/bookmarks_store.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/github_users_list_widget.dart';
@@ -27,9 +28,9 @@ class _BookmarksPageState extends State<BookmarksPage> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(
-          top: 20.0,
-          left: 24,
-          right: 24,
+          top: AppDimensions.paddingTop,
+          left: AppDimensions.horizontalPadding,
+          right: AppDimensions.horizontalPadding,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

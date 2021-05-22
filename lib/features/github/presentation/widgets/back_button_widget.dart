@@ -7,7 +7,7 @@ class BackButtonWidget extends StatelessWidget {
     final double paddingTop = MediaQuery.of(context).padding.top;
     return Positioned(
       top: paddingTop + 20,
-      left: AppDimensions.padding,
+      left: AppDimensions.horizontalPadding,
       child: GestureDetector(
         onTap: Navigator.of(context).pop,
         child: Icon(

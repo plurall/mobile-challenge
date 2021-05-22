@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/core/constants/app_dimensions.dart';
+import 'package:mobile_challenge/core/constants/app_typography.dart';
 
 class ProfileBackgroundHeaderWidget extends StatelessWidget {
   @override
@@ -12,7 +13,7 @@ class ProfileBackgroundHeaderWidget extends StatelessWidget {
       child: Container(
         width: _size.width,
         height: _size.height * 0.35,
-        padding: EdgeInsets.only(left: AppDimensions.padding + 20),
+        padding: EdgeInsets.only(left: AppDimensions.horizontalPadding + 20),
         decoration: BoxDecoration(
           color: Colors.black87,
           borderRadius: BorderRadius.vertical(
@@ -23,11 +24,7 @@ class ProfileBackgroundHeaderWidget extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             'Perfil',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppTypography.profileHeaderStyle(context),
           ),
         ),
       ),

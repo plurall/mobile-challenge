@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/core/constants/app_typography.dart';
 
 class NoUserFoundWidget extends StatelessWidget {
   final String message;
@@ -13,10 +14,7 @@ class NoUserFoundWidget extends StatelessWidget {
     return Center(
       child: Text(
         message,
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.grey,
-        ),
+        style: AppTypography.bodyText(context),
         textAlign: TextAlign.center,
       ),
     );

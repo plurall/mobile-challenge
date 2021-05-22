@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/core/constants/app_typography.dart';
 import 'package:mobile_challenge/features/github/presentation/pages/start_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -35,34 +36,24 @@ class _SplashPageState extends State<SplashPage> {
           children: [
             TweenAnimationBuilder<double>(
               tween: Tween<double>(begin: 0.0, end: 1.0),
-              duration: Duration(milliseconds: 500),
+              duration: Duration(milliseconds: 700),
               curve: Curves.decelerate,
-              builder: (context, value, child) {
-                return Positioned(
-                  top: _size.height / 2 - 50,
-                  child: Image.asset(
-                    'assets/icons/logo.png',
-                    height: value * 100,
-                  ),
-                );
-              },
-            ),
-            TweenAnimationBuilder<double>(
-              tween: Tween<double>(begin: -1.0, end: 1.0),
-              duration: Duration(milliseconds: 500),
               builder: (_, value, child) {
-                return Positioned(
-                  top: _size.height / 2 + 60,
-                  left: value * 100,
-                  child: child,
-                );
+                return Opacity(opacity: value, child: child);
               },
-              child: Text(
-                'GitHub Challenge',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/icons/logo.png',
+                    height: 100,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'GitHub Challenge',
+                    style: AppTypography.splashPageTitle(context),
+                  ),
+                ],
               ),
             ),
           ],

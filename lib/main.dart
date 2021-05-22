@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/core/styles/themes.dart';
 import 'package:mobile_challenge/features/github/presentation/pages/splash_page.dart';
 
 import 'injection_container.dart' as di;
@@ -14,11 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Github Challenge',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Color(0xFF242424),
-        accentColor: Colors.amber,
-      ),
+      theme: AppThemes.lightTheme,
       debugShowCheckedModeBanner: false,
       home: SplashPage(),
     );

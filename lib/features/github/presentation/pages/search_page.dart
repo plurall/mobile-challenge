@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobile_challenge/core/constants/app_dimensions.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/users_store.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/error_text_widget.dart';
 import 'package:mobile_challenge/features/github/presentation/widgets/github_users_list_widget.dart';
@@ -36,7 +37,11 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 24, right: 24),
+        padding: const EdgeInsets.only(
+          top: AppDimensions.paddingTop,
+          left: AppDimensions.horizontalPadding,
+          right: AppDimensions.horizontalPadding,
+        ),
         child: Column(
           children: [
             PageTitle(title: 'Busque por um perfil'),

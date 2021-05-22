@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/core/constants/app_typography.dart';
 
 class PageTitle extends StatelessWidget {
   final String title;
@@ -15,10 +16,7 @@ class PageTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTypography.pageTitle(context),
         ),
         Divider(
           color: Colors.black,

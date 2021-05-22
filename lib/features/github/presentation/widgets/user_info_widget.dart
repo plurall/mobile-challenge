@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobile_challenge/core/constants/app_typography.dart';
 import 'package:mobile_challenge/features/github/presentation/stores/user_profile_store.dart';
 
 class UserInfoWidget extends StatelessWidget {
@@ -16,7 +17,6 @@ class UserInfoWidget extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            // mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SizedBox(width: 10),
               Expanded(child: SizedBox()),
@@ -50,11 +50,7 @@ class UserInfoWidget extends StatelessWidget {
           SizedBox(height: 25),
           Text(
             controller.userEntity.name ?? controller.userEntity.login,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppTypography.usernameTitle(context),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -67,9 +63,7 @@ class UserInfoWidget extends StatelessWidget {
                       'Localização não disponível',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
+                  style: AppTypography.subtitle(context),
                 ),
               ),
             ],
@@ -82,10 +76,7 @@ class UserInfoWidget extends StatelessWidget {
               Container(
                 child: Text(
                   controller.userEntity.email ?? 'Email não disponível',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
-                  ),
+                  style: AppTypography.subtitle(context),
                 ),
               ),
             ],
@@ -94,7 +85,10 @@ class UserInfoWidget extends StatelessWidget {
           Divider(color: Colors.grey, thickness: 0.5),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text(controller.userEntity.bio ?? 'Nenhuma descrição'),
+            child: Text(
+              controller.userEntity.bio ?? 'Nenhuma descrição',
+              style: AppTypography.bodyText(context),
+            ),
           ),
         ],
       ),
