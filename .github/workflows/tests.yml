@@ -1,8 +1,10 @@
 name: Flutter_Tests
 
 on:
-  push
-  pull_request
+  push:
+    branches: [master, ci]
+  pull_request:
+    branches: [master, ci]
 
 jobs:
   tests:
@@ -11,18 +13,21 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
+      
       - name: Install and set Flutter version
         uses: subosito/flutter-action@v1.4.0
         with:
-          flutter-version: '2.0.6'
-      - name: Run flutter tests
-        run: flutter pub get
-        run: flutter analyze
-        run: flutter test --coverage
+          flutter-version: '2.0.1'
 
+      - name: Restore packages
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
+      
+      - name: Run tests
+        run: flutter test --coverage
+      
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v1
         with:
