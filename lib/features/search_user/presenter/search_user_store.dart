@@ -13,7 +13,7 @@ abstract class _SearchUserStoreBase with Store {
 
   void makeSearch(String text) async {
     var result = await searchUserByText(text);
-    result.fold((l) => l, (r) => setUsers(r));
+    result.fold((l) => setError(l), (r) => setUsers(r));
   }
 
   @observable

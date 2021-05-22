@@ -39,6 +39,21 @@ mixin _$SearchUserStore on _SearchUserStoreBase, Store {
     });
   }
 
+  final _$errorAtom = Atom(name: '_SearchUserStoreBase.error');
+
+  @override
+  Failure get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(Failure value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
+  }
+
   final _$_SearchUserStoreBaseActionController =
       ActionController(name: '_SearchUserStoreBase');
 
@@ -54,10 +69,22 @@ mixin _$SearchUserStore on _SearchUserStoreBase, Store {
   }
 
   @override
+  dynamic setError(Failure value) {
+    final _$actionInfo = _$_SearchUserStoreBaseActionController.startAction(
+        name: '_SearchUserStoreBase.setError');
+    try {
+      return super.setError(value);
+    } finally {
+      _$_SearchUserStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 searchText: ${searchText},
-users: ${users}
+users: ${users},
+error: ${error}
     ''';
   }
 }
