@@ -1,4 +1,4 @@
-import 'package:mobile_challenge/core/usecase/errors/error.dart';
+import 'package:mobile_challenge/core/errors/error.dart';
 import 'package:mobile_challenge/features/search_user/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/features/search_user/domain/usecases/search_user_by_text.dart';
 import 'package:mobx/mobx.dart';
