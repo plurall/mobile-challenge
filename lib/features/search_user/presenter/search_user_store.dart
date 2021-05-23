@@ -12,8 +12,14 @@ abstract class _SearchUserStoreBase with Store {
   _SearchUserStoreBase(this.searchUserByText);
 
   void makeSearch(String text) async {
+    setIsLoading(true);
     var result = await searchUserByText(text);
-    result.fold((l) => setError(l), (r) => setUsers(r));
+    result.fold((l) {
+      setError(l);
+    }, (r) {
+      setUsers(r);
+    });
+    setIsLoading(false);
   }
 
   @observable
@@ -25,9 +31,15 @@ abstract class _SearchUserStoreBase with Store {
   @observable
   Failure error = Failure();
 
+  @observable
+  bool isLoading = false;
+
   @action
   setUsers(List<UserEntity> value) => users = value;
 
   @action
   setError(Failure value) => error = value;
+
+  @action
+  setIsLoading(bool value) => isLoading = value;
 }

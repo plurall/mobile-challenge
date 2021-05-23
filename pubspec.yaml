@@ -30,6 +30,7 @@ dependencies:
   flutter_mobx: ^2.0.0
   flutter_modular: ^3.2.2+1
   mobx: ^2.0.1
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

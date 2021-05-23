@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/core/usecase/errors/error.dart';
 import 'package:mobile_challenge/features/search_user/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/features/search_user/presenter/search_user_store.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -43,13 +45,45 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
                 border: OutlineInputBorder(),
                 labelText: "Pesquise...",
               ),
-              onSubmitted: (a) {
-                controller.makeSearch(a);
+              onSubmitted: (text) {
+                controller.makeSearch(text);
               },
             ),
           ),
           Expanded(child: Observer(builder: (_) {
             var user = controller.users;
+            var error = controller.error;
+            var isLoading = controller.isLoading;
+            if (isLoading) {
+              return Shimmer.fromColors(
+                baseColor: Color(0xFFE0E0E0),
+                highlightColor: Color(0xFFF5F5F5),
+                child: ListView.builder(
+                  itemCount: 20,
+                  itemBuilder: (_, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          CircleAvatar(),
+                          SizedBox(width: 8),
+                          Container(
+                            color: Colors.white,
+                            height: 8,
+                            width: 100,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              );
+            }
+            if (error is ServiceFailure) {
+              return Center(
+                child: Text('Error ao buscar usuário'),
+              );
+            }
             return _buildList(user);
           }))
         ],

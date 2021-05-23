@@ -16,7 +16,7 @@ class SearchRepositoryImpl implements ISearchUserRepository {
     try {
       listUsers = await datasource.searchUserByText(text);
     } catch (e) {
-      return left(ErrorSearch());
+      return left(ServiceFailure());
     }
     return right(listUsers);
   }

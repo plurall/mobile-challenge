@@ -54,6 +54,21 @@ mixin _$SearchUserStore on _SearchUserStoreBase, Store {
     });
   }
 
+  final _$isLoadingAtom = Atom(name: '_SearchUserStoreBase.isLoading');
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   final _$_SearchUserStoreBaseActionController =
       ActionController(name: '_SearchUserStoreBase');
 
@@ -80,11 +95,23 @@ mixin _$SearchUserStore on _SearchUserStoreBase, Store {
   }
 
   @override
+  dynamic setIsLoading(bool value) {
+    final _$actionInfo = _$_SearchUserStoreBaseActionController.startAction(
+        name: '_SearchUserStoreBase.setIsLoading');
+    try {
+      return super.setIsLoading(value);
+    } finally {
+      _$_SearchUserStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 searchText: ${searchText},
 users: ${users},
-error: ${error}
+error: ${error},
+isLoading: ${isLoading}
     ''';
   }
 }
