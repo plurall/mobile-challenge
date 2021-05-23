@@ -1,8 +1,11 @@
-import 'package:mobile_challenge/core/error/error.dart';
-import 'package:mobile_challenge/features/search_user/domain/entities/user_entity.dart';
+import 'package:mobile_challenge/core/error/failures.dart';
 import 'package:mobile_challenge/features/search_user/domain/usecases/search_user_by_text.dart';
+import 'package:mobile_challenge/features/search_user/presenter/search_user_state.dart';
 import 'package:mobx/mobx.dart';
 part 'search_user_store.g.dart';
+
+const String SERVER_FAILURE_MESSAGE = 'Server Failure';
+const String LOCAL_FAILURE_MESSAGE = 'Cache Failure';
 
 class SearchUserStore = _SearchUserStoreBase with _$SearchUserStore;
 
@@ -12,37 +15,35 @@ abstract class _SearchUserStoreBase with Store {
   _SearchUserStoreBase(this.searchUserByText);
 
   void makeSearch(String text) async {
-    setIsLoading(true);
+    setState(LoadingState());
     var result = await searchUserByText(text);
     result.fold(
       (l) {
-        setError(l);
+        setState(ErrorState(message: _getFailureMessage(l)));
       },
       (r) {
-        setUsers(r);
+        setState(LoadedState(users: r));
       },
     );
-    setIsLoading(false);
+  }
+
+  String _getFailureMessage(Failure failure) {
+    switch (failure.runtimeType) {
+      case ServerFailure:
+        return SERVER_FAILURE_MESSAGE;
+      case LocalFailure:
+        return LOCAL_FAILURE_MESSAGE;
+      default:
+        return 'Unexpected error';
+    }
   }
 
   @observable
   String searchText = "";
 
   @observable
-  List<UserEntity> users = [];
-
-  @observable
-  Failure error = Failure();
-
-  @observable
-  bool isLoading = false;
+  SearchUserState state = StartState();
 
   @action
-  setUsers(List<UserEntity> value) => users = value;
-
-  @action
-  setError(Failure value) => error = value;
-
-  @action
-  setIsLoading(bool value) => isLoading = value;
+  setState(SearchUserState value) => state = value;
 }

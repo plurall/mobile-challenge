@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/core/error/error.dart';
+import 'package:mobile_challenge/core/error/failures.dart';
 import 'package:mobile_challenge/features/search_user/domain/entities/user_entity.dart';
+import 'package:mobile_challenge/features/search_user/presenter/search_user_state.dart';
 import 'package:mobile_challenge/features/search_user/presenter/search_user_store.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -80,20 +81,22 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
           Expanded(
             child: Observer(
               builder: (_) {
-                var user = controller.users;
-                var error = controller.error;
-                var isLoading = controller.isLoading;
-                if (isLoading) {
+                var state = controller.state;
+                if (state is LoadingState) {
                   return _buildLoader();
                 }
 
-                if (error is ServiceFailure) {
+                if (state is ErrorState) {
                   return Center(
                     child: Text('Error ao buscar usuário'),
                   );
                 }
 
-                return _buildList(user);
+                if (state is LoadedState) {
+                  return _buildList(state.users);
+                }
+
+                return SizedBox.shrink();
               },
             ),
           ),

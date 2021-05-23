@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:mobile_challenge/core/error/error.dart';
+import 'package:mobile_challenge/core/error/failures.dart';
 import 'package:mobile_challenge/features/search_user/data/datasource/search_user_datasource.dart';
 import 'package:mobile_challenge/features/search_user/data/models/user_model.dart';
 import 'package:mobile_challenge/features/search_user/domain/entities/user_entity.dart';
@@ -16,7 +16,7 @@ class SearchRepositoryImpl implements ISearchUserRepository {
     try {
       listUsers = await datasource.searchUserByText(text);
     } catch (e) {
-      return left(ServiceFailure());
+      return left(ServerFailure());
     }
 
     return right(listUsers);

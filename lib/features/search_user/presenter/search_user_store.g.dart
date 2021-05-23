@@ -24,48 +24,18 @@ mixin _$SearchUserStore on _SearchUserStoreBase, Store {
     });
   }
 
-  final _$usersAtom = Atom(name: '_SearchUserStoreBase.users');
+  final _$stateAtom = Atom(name: '_SearchUserStoreBase.state');
 
   @override
-  List<UserEntity> get users {
-    _$usersAtom.reportRead();
-    return super.users;
+  SearchUserState get state {
+    _$stateAtom.reportRead();
+    return super.state;
   }
 
   @override
-  set users(List<UserEntity> value) {
-    _$usersAtom.reportWrite(value, super.users, () {
-      super.users = value;
-    });
-  }
-
-  final _$errorAtom = Atom(name: '_SearchUserStoreBase.error');
-
-  @override
-  Failure get error {
-    _$errorAtom.reportRead();
-    return super.error;
-  }
-
-  @override
-  set error(Failure value) {
-    _$errorAtom.reportWrite(value, super.error, () {
-      super.error = value;
-    });
-  }
-
-  final _$isLoadingAtom = Atom(name: '_SearchUserStoreBase.isLoading');
-
-  @override
-  bool get isLoading {
-    _$isLoadingAtom.reportRead();
-    return super.isLoading;
-  }
-
-  @override
-  set isLoading(bool value) {
-    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
-      super.isLoading = value;
+  set state(SearchUserState value) {
+    _$stateAtom.reportWrite(value, super.state, () {
+      super.state = value;
     });
   }
 
@@ -73,33 +43,11 @@ mixin _$SearchUserStore on _SearchUserStoreBase, Store {
       ActionController(name: '_SearchUserStoreBase');
 
   @override
-  dynamic setUsers(List<UserEntity> value) {
+  dynamic setState(SearchUserState value) {
     final _$actionInfo = _$_SearchUserStoreBaseActionController.startAction(
-        name: '_SearchUserStoreBase.setUsers');
+        name: '_SearchUserStoreBase.setState');
     try {
-      return super.setUsers(value);
-    } finally {
-      _$_SearchUserStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setError(Failure value) {
-    final _$actionInfo = _$_SearchUserStoreBaseActionController.startAction(
-        name: '_SearchUserStoreBase.setError');
-    try {
-      return super.setError(value);
-    } finally {
-      _$_SearchUserStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setIsLoading(bool value) {
-    final _$actionInfo = _$_SearchUserStoreBaseActionController.startAction(
-        name: '_SearchUserStoreBase.setIsLoading');
-    try {
-      return super.setIsLoading(value);
+      return super.setState(value);
     } finally {
       _$_SearchUserStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -109,9 +57,7 @@ mixin _$SearchUserStore on _SearchUserStoreBase, Store {
   String toString() {
     return '''
 searchText: ${searchText},
-users: ${users},
-error: ${error},
-isLoading: ${isLoading}
+state: ${state}
     ''';
   }
 }
