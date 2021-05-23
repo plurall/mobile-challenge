@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/core/errors/error.dart';
+import 'package:mobile_challenge/core/error/error.dart';
 import 'package:mobile_challenge/features/search_user/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/features/search_user/presenter/search_user_store.dart';
 import 'package:shimmer/shimmer.dart';
