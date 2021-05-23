@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/core/error/failures.dart';
 import 'package:mobile_challenge/features/search_user/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/features/search_user/presenter/search_user_state.dart';
 import 'package:mobile_challenge/features/search_user/presenter/search_user_store.dart';
@@ -64,7 +63,8 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Github Search"),
+        title: Text("Buscar usuário Github"),
+        brightness: Brightness.dark,
       ),
       body: Column(
         children: [
@@ -76,9 +76,9 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
                   child: TextField(
                     controller: _controller,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Pesquise...",
-                    ),
+                        border: OutlineInputBorder(),
+                        labelText: 'Nome do usuário',
+                        hintText: 'Buscar'),
                     onSubmitted: (text) {
                       controller.makeSearch(text);
                     },
