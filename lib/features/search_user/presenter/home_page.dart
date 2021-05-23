@@ -22,6 +22,9 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
         var item = list[index];
 
         return ListTile(
+          onTap: () {
+            Navigator.of(context).pushNamed('details_user');
+          },
           leading: CircleAvatar(
             backgroundImage: NetworkImage(item.image),
           ),
@@ -67,15 +70,28 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Pesquise...",
-              ),
-              onSubmitted: (text) {
-                controller.makeSearch(text);
-              },
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Pesquise...",
+                    ),
+                    onSubmitted: (text) {
+                      controller.makeSearch(text);
+                    },
+                  ),
+                ),
+                SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    controller.makeSearch(_controller.text);
+                  },
+                  child: Text('Buscar'),
+                )
+              ],
             ),
           ),
           Expanded(
