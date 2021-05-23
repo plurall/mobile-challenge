@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_challenge/modules/user_details/presentation/user_details_page.dart';
-import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_local_data_source.dart';
+
 import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_remote_data_source.dart';
 import 'package:mobile_challenge/modules/user_list/data/repositories/github_search_api_repository.dart';
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_default_user_list.dart';
@@ -19,7 +19,6 @@ import 'package:http/http.dart' as http;
 class UserListPage extends StatelessWidget {
   http.Client client;
   UserListRemoteDataSource remoteDataSource;
-  UserListLocalDataSource localDataSource;
   GetUserSearch searchUseCase;
   GetDefaultUserList defaultListUseCase;
   GithubSearchApiRepository repo;
@@ -27,9 +26,7 @@ class UserListPage extends StatelessWidget {
   UserListPage() {
     client = http.Client();
     remoteDataSource = UserListRemoteDataSource(client: client);
-    localDataSource = UserListLocalDataSource();
-    repo = GithubSearchApiRepository(
-        localDataSource: localDataSource, remoteDataSource: remoteDataSource);
+    repo = GithubSearchApiRepository(remoteDataSource: remoteDataSource);
     searchUseCase = GetUserSearch(repo);
     defaultListUseCase = GetDefaultUserList(repo);
   }

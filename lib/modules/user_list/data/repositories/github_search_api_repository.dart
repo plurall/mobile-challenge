@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_local_data_source.dart';
 import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_remote_data_source.dart';
 import 'package:mobile_challenge/modules/user_list/data/models/user_search_model.dart';
 import 'package:mobile_challenge/shared/entities/User.dart';
@@ -11,11 +10,9 @@ abstract class GithubSearchApiRepositoryProtocol {
 
 class GithubSearchApiRepository implements GithubSearchApiRepositoryProtocol {
   final UserListRemoteDataSourceProtocol remoteDataSource;
-  final UserListLocalDataSourceProtocol localDataSource;
 
   GithubSearchApiRepository({
     @required this.remoteDataSource,
-    @required this.localDataSource,
   });
 
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_challenge/modules/user_details/data/datasources/user_detail_local_data_source.dart';
 import 'package:mobile_challenge/modules/user_details/data/datasources/user_detail_remote_data_source.dart';
 import 'package:mobile_challenge/modules/user_details/data/repositories/github_user_api_repository.dart';
 import 'package:mobile_challenge/modules/user_details/domain/usecases/get_user.dart';
@@ -17,7 +16,6 @@ import 'bloc/user_detail_state.dart';
 class UserDetailsPage extends StatelessWidget {
   http.Client client;
   UserDetailRemoteDataSource remoteDataSource;
-  UserDetailLocalDataSource localDataSource;
   GetUser getUserUseCase;
   GithubUserApiRepository repo;
   final String nickname;
@@ -25,9 +23,7 @@ class UserDetailsPage extends StatelessWidget {
   UserDetailsPage(this.nickname) {
     client = http.Client();
     remoteDataSource = UserDetailRemoteDataSource(client: client);
-    localDataSource = UserDetailLocalDataSource();
-    repo = GithubUserApiRepository(
-        localDataSource: localDataSource, remoteDataSource: remoteDataSource);
+    repo = GithubUserApiRepository(remoteDataSource: remoteDataSource);
     getUserUseCase = GetUser(repo);
   }
 
