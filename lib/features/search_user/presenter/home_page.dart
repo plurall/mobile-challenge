@@ -59,6 +59,31 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
     );
   }
 
+  Expanded _buildBody() {
+    return Expanded(
+      child: Observer(
+        builder: (_) {
+          var state = controller.state;
+          if (state is LoadingState) {
+            return _buildLoader();
+          }
+
+          if (state is ErrorState) {
+            return Center(
+              child: Text('Error ao buscar usuário'),
+            );
+          }
+
+          if (state is LoadedState) {
+            return _buildList(state.users);
+          }
+
+          return SizedBox.shrink();
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,9 +101,10 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
                   child: TextField(
                     controller: _controller,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Nome do usuário',
-                        hintText: 'Buscar'),
+                      border: OutlineInputBorder(),
+                      labelText: 'Nome do usuário',
+                      hintText: 'Buscar',
+                    ),
                     onSubmitted: (text) {
                       controller.makeSearch(text);
                     },
@@ -90,32 +116,11 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
                     controller.makeSearch(_controller.text);
                   },
                   child: Text('Buscar'),
-                )
+                ),
               ],
             ),
           ),
-          Expanded(
-            child: Observer(
-              builder: (_) {
-                var state = controller.state;
-                if (state is LoadingState) {
-                  return _buildLoader();
-                }
-
-                if (state is ErrorState) {
-                  return Center(
-                    child: Text('Error ao buscar usuário'),
-                  );
-                }
-
-                if (state is LoadedState) {
-                  return _buildList(state.users);
-                }
-
-                return SizedBox.shrink();
-              },
-            ),
-          ),
+          _buildBody(),
         ],
       ),
     );
