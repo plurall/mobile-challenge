@@ -1,7 +1,8 @@
 import 'package:mobile_challenge/core/error/failures.dart';
 import 'package:mobile_challenge/features/search_user/domain/usecases/search_user_by_text.dart';
-import 'package:mobile_challenge/features/search_user/presenter/search_user_state.dart';
+import 'package:mobile_challenge/features/search_user/presenter/stores/search_user/search_user_state.dart';
 import 'package:mobx/mobx.dart';
+
 part 'search_user_store.g.dart';
 
 const String SERVER_FAILURE_MESSAGE = 'Server Failure';
@@ -22,7 +23,11 @@ abstract class _SearchUserStoreBase with Store {
         setState(ErrorState(message: _getFailureMessage(l)));
       },
       (r) {
-        setState(LoadedState(users: r));
+        if (r.isEmpty) {
+          setState(EmptyState());
+        } else {
+          setState(LoadedState(users: r));
+        }
       },
     );
   }

@@ -9,6 +9,7 @@ class SearchUserDatasourceImpl implements ISerchUserDatasource {
 
   @override
   Future<List<UserModel>> searchUserByText(String text) async {
+    this.dio.interceptors.add(LogInterceptor());
     var result = await this.dio.get(
           'https://api.github.com/search/users?q=${text.trim().replaceAll(' ', '+')}',
         );

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobile_challenge/features/search_user/domain/entities/user_entity.dart';
-import 'package:mobile_challenge/features/search_user/presenter/search_user_state.dart';
-import 'package:mobile_challenge/features/search_user/presenter/search_user_store.dart';
+import 'package:mobile_challenge/features/search_user/presenter/stores/search_user/search_user_state.dart';
+import 'package:mobile_challenge/features/search_user/presenter/stores/search_user/search_user_store.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
@@ -71,6 +71,12 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
           if (state is ErrorState) {
             return Center(
               child: Text('Error ao buscar usuário'),
+            );
+          }
+
+          if (state is EmptyState) {
+            return Center(
+              child: Text('Nenhum usuário encontrado'),
             );
           }
 
