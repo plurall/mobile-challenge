@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/app/page/main_view_model.dart';
+import 'package:mobile_challenge/app/page/main/main_view_model.dart';
 import 'package:mobile_challenge/app/shared/components/item/search_item_widget.dart';
 import 'package:stacked/stacked.dart';
 
@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> {
   Scaffold _buildRoot(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("GitHub usúarios"),
+        title: Text("GitHub"),
         brightness: Brightness.dark,
       ),
       body: SingleChildScrollView(

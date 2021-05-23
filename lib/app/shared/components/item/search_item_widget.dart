@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/app/helpers/router_helper.dart';
 import 'package:mobile_challenge/app/shared/components/image/custom_network_image.dart';
 import 'package:mobile_challenge/app/shared/model/serach_item/search_item_model.dart';
+import 'package:mobile_challenge/config/main_common.dart';
 
 class SearchItemWidget extends StatelessWidget {
   final SearchItemModel item;
@@ -20,7 +22,7 @@ class SearchItemWidget extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       elevation: 4.0,
       child: InkWell(
-        onTap: () {},
+        onTap: () => onShowNextPage(context),
         splashColor: Colors.grey.withOpacity(0.2),
         highlightColor: Colors.grey.withOpacity(0.3),
         child: Ink(
@@ -76,5 +78,22 @@ class SearchItemWidget extends StatelessWidget {
       item.login,
       style: Theme.of(context).textTheme.bodyText2,
     );
+  }
+
+  void onShowNextPage(BuildContext context) {
+    onHideKeyboard(context);
+    Navigator.pushNamed(
+      context,
+      R.userDetailsPage,
+      arguments: item.login,
+    );
+  }
+
+  void onHideKeyboard(BuildContext context) {
+    try {
+      FocusScope.of(context).unfocus();
+    } catch (error) {
+      logger.d('FocusScope $error');
+    }
   }
 }

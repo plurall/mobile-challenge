@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/app/page/main_page.dart';
+import 'package:mobile_challenge/app/helpers/router_helper.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -15,7 +14,7 @@ class AppWidget extends StatelessWidget {
           minWidth: 12,
         ),
         primaryColor: Colors.blue,
-        accentColor:Colors.blueAccent,
+        accentColor: Colors.blueAccent,
         brightness: Brightness.light,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: const TextTheme(
@@ -42,7 +41,8 @@ class AppWidget extends StatelessWidget {
           ),
         ),
       ),
-      home: MainPage(),
+      onGenerateRoute: (route) => R.generateRoute(route),
+      initialRoute: R.homePage,
     );
   }
 }
