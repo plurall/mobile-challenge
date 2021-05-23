@@ -1,4 +1,4 @@
-import 'package:mobile_challenge/models/Users.dart';
+import 'package:mobile_challenge/models/User.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -7,17 +7,44 @@ class DataBaseHelper {
 
   factory DataBaseHelper() => _instance;
 
-  static final tabelaNome = 'user';
-  static final colId = 'id';
-  static final colLogin = 'login';
-  static final colIsFavorited = 'favorito';
-
-  String createdUsersTableScript = 'CREATE TABLE $tabelaNome('
-      '$colId INTEGER PRIMARY KEY AUTOINCREMENT,'
-      '$colLogin TEXT), '
-      '$colIsFavorited BOOL;';
+  static final tabelaNome = 'usersFavoritos';
 
   DataBaseHelper.internal();
+
+  String createdUsersTableScript = 'CREATE TABLE $tabelaNome(' +
+      'id INTEGER PRIMARY KEY, ' +
+      'login TEXT, ' +
+      'nodeId TEXT, ' +
+      'avatarUrl TEXT, ' +
+      'gravatarId TEXT, ' +
+      'url TEXT, ' +
+      'htmlUrl TEXT, ' +
+      'followersUrl TEXT, ' +
+      'followingUrl TEXT, ' +
+      'gistsUrl TEXT, ' +
+      'starredUrl TEXT, ' +
+      'subscriptionsUrl TEXT, ' +
+      'organizationsUrl TEXT, ' +
+      'reposUrl TEXT, ' +
+      'eventsUrl TEXT, ' +
+      'receivedEventsUrl TEXT, ' +
+      'type TEXT, ' +
+      'siteAdmin BOOL, ' +
+      'name TEXT, ' +
+      'company TEXT, ' +
+      'blog TEXT, ' +
+      'location TEXT, ' +
+      'email TEXT, ' +
+      'hireable BOOL, ' +
+      'bio TEXT, ' +
+      'twitterUsername TEXT, ' +
+      'publicRepos TEXT, ' +
+      'publicGists TEXT, ' +
+      'followers INTEGER, ' +
+      'following INTEGER, ' +
+      'createdAt TEXT, ' +
+      'updatedAt TEXT ' +
+      ')';
 
   Database _db;
 
@@ -45,13 +72,13 @@ class DataBaseHelper {
     }
   }
 
-  Future create(Users model) async {
+  Future create(User user) async {
     try {
       final Database db = await initDb();
 
       await db.insert(
         tabelaNome,
-        model.toJson(),
+        user.toJson(),
       );
     } catch (ex) {
       print(ex);
@@ -59,7 +86,7 @@ class DataBaseHelper {
     }
   }
 
-  Future<List<Users>> getContacts() async {
+  Future<List<User>> getAllUsers() async {
     try {
       final Database db = await initDb();
       final List<Map<String, dynamic>> maps = await db.query(tabelaNome);
@@ -67,12 +94,36 @@ class DataBaseHelper {
       return List.generate(
         maps.length,
         (i) {
-          return Users.fromJson(maps[i]);
+          return User.fromJson(maps[i]);
         },
       );
     } catch (ex) {
       print(ex);
-      return new List<Users>();
+      return new List<User>();
     }
+  }
+
+  Future<void> insertUser(User user) async {
+    final db = await initDb();
+
+    try {
+      await db.insert(
+        '$tabelaNome',
+        user.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> deleteUser(int id) async {
+    final db = await initDb();
+
+    await db.delete(
+      '$tabelaNome',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 }

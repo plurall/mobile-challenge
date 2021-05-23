@@ -5,26 +5,26 @@ import 'package:mobile_challenge/models/User.dart';
 
 class GetGitUserAPI {
   static Future<User> getGitUser(String userName) async {
-    var url = "https://api.github.com/users/$userName";
-
-    var response;
+    String url = "https://api.github.com/users/$userName";
+    var headers = {"Accept": "application/vnd.github.v3+json"};
 
     try {
-      response = await http.get(url);
+      var response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        try {
+          return User.fromJson(jsonDecode(response.body));
+        } catch (e) {
+          print(e.runtimeType);
+          print("erro ${response.statusCode} || ${response.body}");
+          throw Exception('Falhou por ${e.hashCode}');
+        }
+      } else {
+        throw Exception('Falhou');
+      }
     } catch (e) {
       print(e.runtimeType);
-      print("erro ${response.statusCode} || ${response.body}");
+      throw Exception('Falhou por ${e.hashCode}');
     }
-
-    User user = User();
-    if (response.statusCode == 200) {
-      try {
-        user = jsonDecode(response.body);
-      } on TypeError catch (e) {
-        print(e.runtimeType);
-      }
-    }
-
-    return user;
   }
 }

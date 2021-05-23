@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/models/User.dart';
 import 'package:mobile_challenge/models/Users.dart';
+import 'package:mobile_challenge/screens/favoriteUser.dart';
 import 'package:mobile_challenge/screens/infoUser.dart';
+import 'package:mobile_challenge/webApis/getUser.dart';
 import 'package:mobile_challenge/webApis/getUsers.dart';
+import 'package:mobile_challenge/databases/dbUser.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,12 +13,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool _isFavorited = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Usuários do Git'),
+        title: Center(child: const Text('Usuários do Git')),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.star),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => FavoriteUser()));
+            },
+          )
+        ],
       ),
       body: _body(),
     );
@@ -46,6 +58,7 @@ class _HomeState extends State<Home> {
         itemCount: grupoDeUsers != null ? grupoDeUsers.length : 0,
         itemBuilder: (context, index) {
           var user = grupoDeUsers[index];
+          bool _isFavorited = false;
           return Card(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +94,7 @@ class _HomeState extends State<Home> {
                       color: _isFavorited ? Colors.yellow : Colors.blue,
                     ),
                     onTap: () {
-                      _toggleFavorite(user);
+                      _adicionandoFavoritosAoBd(user, _isFavorited);
                     },
                   ),
                 ],
@@ -93,10 +106,30 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void _toggleFavorite(Users user) {
-    print(_isFavorited);
-    setState(() {
-      _isFavorited = user.isFavorited.returnIsFavorited(_isFavorited);
-    });
+  void _adicionandoFavoritosAoBd(Users user, bool _isFavorited) async {
+    DataBaseHelper db = DataBaseHelper();
+
+    User userParaSalvarNoDb = await GetGitUserAPI.getGitUser(user.login);
+    if (_isFavorited == false) {
+      setState(() async {
+        try {
+          await db.insertUser(userParaSalvarNoDb);
+        } catch (e) {
+          print(e.runtimeType);
+        }
+
+        _isFavorited = true;
+      });
+
+      print("ADD");
+    } else {
+      setState(() async {
+        await db.deleteUser(userParaSalvarNoDb.id);
+        print("DELETADO");
+        _isFavorited = false;
+      });
+    }
+
+    print(await db.getAllUsers());
   }
 }

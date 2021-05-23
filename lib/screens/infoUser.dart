@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/models/User.dart';
 import 'package:mobile_challenge/models/Users.dart';
-import 'package:mobile_challenge/webAis/getUser.dart';
-
+import 'package:mobile_challenge/webApis/getUser.dart';
 
 import 'home.dart';
 
@@ -56,42 +55,57 @@ class _InfoUserState extends State<InfoUser> {
             return Center(child: CircularProgressIndicator());
           }
           User userAtual = snapshot.data;
-          return Container(
-            padding: EdgeInsets.all(5),
-            child: Column(
-              children: [
-                Card(
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: Image.network(
-                          "avatar",
-                          width: 250,
-                          height: 250,
-                        ),
-                        title: Text(
-                          "nickname",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                        subtitle: Text(
-                          "bio",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                      Text(
-                        "email",
-                        style: TextStyle(fontSize: 30),
-                      ),
-                      Text(
-                        "location",
-                        style: TextStyle(fontSize: 30),
-                      )
-                    ],
+          return Center(
+            child: Container(
+              //padding: EdgeInsets.all(5),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  ListTile(
+                    leading: Image.network(
+                      _validaCampo(userAtual.avatarUrl),
+                      width: 150,
+                      height: 150,
+                    ),
+                    title: Text(
+                      _validaCampo(userAtual.name),
+                      style: TextStyle(fontSize: 30),
+                    ),
                   ),
-                )
-              ],
+                  ListTile(
+                    leading: Icon(Icons.person),
+                    title: Text(
+                      _validaCampo(userAtual.bio),
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.email),
+                    title: Text(
+                      _validaCampo(userAtual.email),
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  ListTile(
+                      leading: Icon(Icons.location_on),
+                      title: Text(
+                        _validaCampo(userAtual.location),
+                        style: TextStyle(fontSize: 20),
+                      )),
+                ],
+              ),
             ),
           );
         });
+  }
+
+  String _validaCampo(String texto) {
+    if (texto != null) {
+      return texto;
+    } else {
+      return "não se encontra na API";
+    }
   }
 }

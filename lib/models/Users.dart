@@ -17,7 +17,8 @@ class Users {
   String receivedEventsUrl;
   String type;
   bool siteAdmin;
-  IsFavorited isFavorited;
+  //IsFavorited isFavorited;
+  bool isFavorited;
 
   Users({
     String login,
@@ -38,7 +39,7 @@ class Users {
     String receivedEventsUrl,
     String type,
     bool siteAdmin,
-    IsFavorited isFavorited,
+    bool isFavorited,
   }) {
     this.login = login;
     this.id = id;
@@ -104,13 +105,6 @@ class Users {
     data['site_admin'] = this.siteAdmin;
     return data;
   }
-
-
-}
-
-class IsFavorited {
-  bool isFavorited;
-  IsFavorited({this.isFavorited});
 
   bool returnIsFavorited(bool favorited) {
     if (favorited == true) {
