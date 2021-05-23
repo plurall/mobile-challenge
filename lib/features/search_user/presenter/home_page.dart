@@ -22,7 +22,9 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
 
         return ListTile(
           onTap: () {
-            Navigator.of(context).pushNamed('details_user');
+            Navigator.of(context).pushNamed(
+              'details_user/${item.nickname}',
+            );
           },
           leading: CircleAvatar(
             backgroundImage: NetworkImage(item.image),

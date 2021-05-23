@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:mobile_challenge/features/search_user/data/datasource/detail_user/show_detail_user_datasource.dart';
 import 'package:mobile_challenge/features/search_user/data/models/detail_user_model.dart';
 
-class ShowDetailUserImpl implements IShowDetailUserDataSource {
+class ShowDetailUserDatasourceImpl implements IShowDetailUserDataSource {
   final Dio dio;
 
-  ShowDetailUserImpl(this.dio);
+  ShowDetailUserDatasourceImpl(this.dio);
 
   @override
   Future<DetailUserModel> showDetailUser(String text) async {

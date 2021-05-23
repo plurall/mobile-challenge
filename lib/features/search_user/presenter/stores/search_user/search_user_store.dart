@@ -6,7 +6,6 @@ import 'package:mobx/mobx.dart';
 part 'search_user_store.g.dart';
 
 const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String LOCAL_FAILURE_MESSAGE = 'Cache Failure';
 
 class SearchUserStore = _SearchUserStoreBase with _$SearchUserStore;
 
@@ -36,8 +35,6 @@ abstract class _SearchUserStoreBase with Store {
     switch (failure.runtimeType) {
       case ServerFailure:
         return SERVER_FAILURE_MESSAGE;
-      case LocalFailure:
-        return LOCAL_FAILURE_MESSAGE;
       default:
         return 'Unexpected error';
     }
