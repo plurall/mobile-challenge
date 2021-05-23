@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/app/page/main_view_model.dart';
+import 'package:mobile_challenge/app/shared/components/item/search_item_widget.dart';
 import 'package:stacked/stacked.dart';
 
 class MainPage extends StatefulWidget {
@@ -35,6 +36,7 @@ class _MainPageState extends State<MainPage> {
               _buildSearchTextField(),
               const SizedBox(height: 24),
               _buildLoading(),
+              _buildStatusMessage(),
               _buildListView(),
             ],
           ),
@@ -69,31 +71,28 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  Widget _buildStatusMessage() {
+    final length = _viewModel.searchModel?.items?.length ?? 0;
+    return Visibility(
+      visible: (_viewModel.hasError || length == 0) && !_viewModel.isBusy,
+      child: Text(
+        "Nenhum usuário encontrado",
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
   Widget _buildListView() {
     final length = _viewModel.searchModel?.items?.length ?? 0;
-
-    if (_viewModel.hasError || length == 0) {
-      return Visibility(
-        visible: !_viewModel.isBusy,
-        child: Text(
-          "Nenhum usuário encontrado",
-          textAlign: TextAlign.center,
-        ),
-      );
-    }
-
     return Visibility(
       visible: !_viewModel.isBusy,
-      child: ListView.separated(
+      child: ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: length,
-        separatorBuilder: (context, index) {
-          return const Divider(height: 1, color: Colors.grey);
-        },
         itemBuilder: (BuildContext context, int index) {
           final item = _viewModel.searchModel.items[index];
-          return Text(item.login);
+          return SearchItemWidget(item: item);
         },
       ),
     );

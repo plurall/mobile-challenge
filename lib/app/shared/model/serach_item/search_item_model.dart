@@ -6,7 +6,7 @@ part 'search_item_model.g.dart';
 class SearchItemModel{
   String login;
   int id;
-  @JsonValue('avatar_url')
+  @JsonKey(name: 'avatar_url')
   String avatarUrl;
 
   SearchItemModel();

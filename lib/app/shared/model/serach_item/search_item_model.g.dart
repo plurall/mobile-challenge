@@ -10,5 +10,5 @@ SearchItemModel _$SearchItemModelFromJson(Map<String, dynamic> json) {
   return SearchItemModel()
     ..login = json['login'] as String
     ..id = json['id'] as int
-    ..avatarUrl = json['avatarUrl'] as String;
+    ..avatarUrl = json['avatar_url'] as String;
 }

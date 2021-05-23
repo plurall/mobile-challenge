@@ -28,4 +28,10 @@ class MainViewModel extends BaseViewModel {
       throw request.exception;
     }
   }
+
+  @override
+  void onFutureError(error, Object key) {
+    super.onFutureError(error, key);
+    searchModel?.items?.clear();
+  }
 }
