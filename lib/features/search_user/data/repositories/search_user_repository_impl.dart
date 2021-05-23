@@ -18,6 +18,7 @@ class SearchRepositoryImpl implements ISearchUserRepository {
     } catch (e) {
       return left(ServiceFailure());
     }
+
     return right(listUsers);
   }
 }

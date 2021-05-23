@@ -14,11 +14,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends ModularState<HomePage, SearchUserStore> {
   final _controller = TextEditingController();
 
-  Widget _buildList(List<UserEntity> list) {
+  ListView _buildList(List<UserEntity> list) {
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (_, index) {
         var item = list[index];
+
         return ListTile(
           leading: CircleAvatar(
             backgroundImage: NetworkImage(item.image),
@@ -26,6 +27,32 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
           title: Text(item.nickname),
         );
       },
+    );
+  }
+
+  Shimmer _buildLoader() {
+    return Shimmer.fromColors(
+      baseColor: Color(0xFFE0E0E0),
+      highlightColor: Color(0xFFF5F5F5),
+      child: ListView.builder(
+        itemCount: 20,
+        itemBuilder: (_, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                CircleAvatar(),
+                SizedBox(width: 8),
+                Container(
+                  color: Colors.white,
+                  height: 8,
+                  width: 100,
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -50,42 +77,26 @@ class _HomePageState extends ModularState<HomePage, SearchUserStore> {
               },
             ),
           ),
-          Expanded(child: Observer(builder: (_) {
-            var user = controller.users;
-            var error = controller.error;
-            var isLoading = controller.isLoading;
-            if (isLoading) {
-              return Shimmer.fromColors(
-                baseColor: Color(0xFFE0E0E0),
-                highlightColor: Color(0xFFF5F5F5),
-                child: ListView.builder(
-                  itemCount: 20,
-                  itemBuilder: (_, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          CircleAvatar(),
-                          SizedBox(width: 8),
-                          Container(
-                            color: Colors.white,
-                            height: 8,
-                            width: 100,
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              );
-            }
-            if (error is ServiceFailure) {
-              return Center(
-                child: Text('Error ao buscar usuário'),
-              );
-            }
-            return _buildList(user);
-          }))
+          Expanded(
+            child: Observer(
+              builder: (_) {
+                var user = controller.users;
+                var error = controller.error;
+                var isLoading = controller.isLoading;
+                if (isLoading) {
+                  return _buildLoader();
+                }
+
+                if (error is ServiceFailure) {
+                  return Center(
+                    child: Text('Error ao buscar usuário'),
+                  );
+                }
+
+                return _buildList(user);
+              },
+            ),
+          ),
         ],
       ),
     );

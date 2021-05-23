@@ -14,11 +14,14 @@ abstract class _SearchUserStoreBase with Store {
   void makeSearch(String text) async {
     setIsLoading(true);
     var result = await searchUserByText(text);
-    result.fold((l) {
-      setError(l);
-    }, (r) {
-      setUsers(r);
-    });
+    result.fold(
+      (l) {
+        setError(l);
+      },
+      (r) {
+        setUsers(r);
+      },
+    );
     setIsLoading(false);
   }
 

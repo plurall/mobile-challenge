@@ -10,7 +10,8 @@ class SearchUserDatasourceImpl implements ISerchUserDatasource {
   @override
   Future<List<UserModel>> searchUserByText(String text) async {
     var result = await this.dio.get(
-        "https://api.github.com/search/users?q=${text.trim().replaceAll(' ', '+')}");
+          'https://api.github.com/search/users?q=${text.trim().replaceAll(' ', '+')}',
+        );
     if (result.statusCode == 200) {
       var jsonList = result.data['items'] as List;
       var list = jsonList
@@ -21,6 +22,7 @@ class SearchUserDatasourceImpl implements ISerchUserDatasource {
             ),
           )
           .toList();
+
       return list;
     } else {
       throw Exception();
