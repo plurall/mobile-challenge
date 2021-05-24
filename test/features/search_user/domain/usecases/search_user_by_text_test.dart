@@ -32,4 +32,16 @@ void main() {
     verify(repository.getUsers('renankanu'));
     verifyNoMoreInteractions((repository));
   });
+
+  test('should return error ServerFailure get user by text from repository',
+      () async {
+    when(repository.getUsers('renankanu'))
+        .thenAnswer((_) async => Left(ServerFailure()));
+
+    final result = await usecase('renankanu');
+
+    expect(result, Left(ServerFailure()));
+    verify(repository.getUsers('renankanu'));
+    verifyNoMoreInteractions((repository));
+  });
 }
