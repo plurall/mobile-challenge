@@ -28,7 +28,11 @@ class AppModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, __) => HomePage()),
-    ChildRoute('/details_user/:username',
-        child: (_, args) => DetailsUserPage(username: args.params['username'])),
+    ChildRoute(
+      '/details_user/:username',
+      child: (_, args) => DetailsUserPage(
+        username: args.params['username'],
+      ),
+    ),
   ];
 }

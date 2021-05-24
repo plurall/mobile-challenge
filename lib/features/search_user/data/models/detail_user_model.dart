@@ -31,6 +31,7 @@ class DetailUserModel extends UserDetailEntity {
     data['bio'] = this.bio;
     data['nickname'] = this.nickname;
     data['email'] = this.email;
+
     return data;
   }
 }

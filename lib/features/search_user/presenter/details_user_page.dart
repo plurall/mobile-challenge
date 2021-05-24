@@ -35,11 +35,33 @@ class _DetailsUserPageState
             height: 200.0,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  fit: BoxFit.cover, image: NetworkImage(user.image)),
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  user.image,
+                ),
+              ),
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
           ),
-          _rowInfo(label: 'Nickname', desc: user.nickname),
+          Row(
+            children: [
+              Expanded(child: _rowInfo(label: 'Nickname', desc: user.nickname)),
+              Observer(builder: (_) {
+                return IconButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    if (!controller.isFavorited) {
+                      controller.favoriteUser(user);
+                    }
+                  },
+                  icon: Icon(
+                    controller.isFavorited ? Icons.favorite_border : Icons.face,
+                    size: 12,
+                  ),
+                );
+              }),
+            ],
+          ),
           _rowInfo(label: 'E-mail', desc: user.email ?? ''),
           _rowInfo(label: 'Localização', desc: user.location ?? ''),
           _rowInfo(label: 'Bio', desc: user.bio ?? ''),
@@ -50,7 +72,7 @@ class _DetailsUserPageState
 
   Padding _rowInfo({required String label, required String desc}) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -79,23 +101,25 @@ class _DetailsUserPageState
               width: 200.0,
               height: 200.0,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  color: Colors.white),
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                color: Colors.white,
+              ),
             ),
             Column(
               children: [1, 2, 3, 4]
-                  .map((e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Container(
-                                height: 10, width: 40, color: Colors.white),
-                            SizedBox(width: 8),
-                            Container(
-                                height: 10, width: 100, color: Colors.white),
-                          ],
-                        ),
-                      ))
+                  .map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Container(height: 10, width: 40, color: Colors.white),
+                          SizedBox(width: 8),
+                          Container(
+                              height: 10, width: 100, color: Colors.white),
+                        ],
+                      ),
+                    ),
+                  )
                   .toList(),
             )
           ],

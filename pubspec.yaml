@@ -31,6 +31,7 @@ dependencies:
   flutter_modular: ^3.2.2+1
   mobx: ^2.0.1
   shimmer: ^2.0.0
+  sqflite: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:

@@ -39,6 +39,21 @@ mixin _$UserDetailStore on _UserDetailStoreBase, Store {
     });
   }
 
+  final _$isFavoritedAtom = Atom(name: '_UserDetailStoreBase.isFavorited');
+
+  @override
+  bool get isFavorited {
+    _$isFavoritedAtom.reportRead();
+    return super.isFavorited;
+  }
+
+  @override
+  set isFavorited(bool value) {
+    _$isFavoritedAtom.reportWrite(value, super.isFavorited, () {
+      super.isFavorited = value;
+    });
+  }
+
   final _$_UserDetailStoreBaseActionController =
       ActionController(name: '_UserDetailStoreBase');
 
@@ -54,10 +69,22 @@ mixin _$UserDetailStore on _UserDetailStoreBase, Store {
   }
 
   @override
+  dynamic favoriteUser(UserDetailEntity userDetailEntity) {
+    final _$actionInfo = _$_UserDetailStoreBaseActionController.startAction(
+        name: '_UserDetailStoreBase.favoriteUser');
+    try {
+      return super.favoriteUser(userDetailEntity);
+    } finally {
+      _$_UserDetailStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 searchText: ${searchText},
-state: ${state}
+state: ${state},
+isFavorited: ${isFavorited}
     ''';
   }
 }
