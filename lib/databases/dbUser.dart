@@ -84,9 +84,6 @@ class DataBaseHelper {
         },
       );
       
-      //List<User> list =
-      //    maps.isNotEmpty ? maps.map((c) => User.fromJson(c)).toList() : [];
-      // return list;
     } catch (e) {
       print("erro =>> $e");
       return List.empty();

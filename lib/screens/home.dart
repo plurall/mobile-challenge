@@ -92,7 +92,7 @@ class _HomeState extends State<Home> {
                     child: Icon(
                       Icons.star,
                       size: 30,
-                      color: _isFavorited ? Colors.yellow : Colors.blue,
+                      color: Colors.blue,
                     ),
                     onTap: () {
                       _adicionandoFavoritosAoBd(user);
