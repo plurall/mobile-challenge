@@ -67,59 +67,6 @@ class _DetailsUserPageState
           _rowInfo(label: 'E-mail', desc: user.email ?? ''),
           _rowInfo(label: 'Localização', desc: user.location ?? ''),
           _rowInfo(label: 'Bio', desc: user.bio ?? ''),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              controller.getFavorites();
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Observer(
-                    builder: (_) {
-                      var favorites = controller.favorites;
-                      return Column(
-                        children: [
-                          Text(
-                            'Meus favoritos',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount: favorites.length,
-                              itemBuilder: (_, index) {
-                                var item = favorites[index];
-                                return Card(
-                                  child: Column(
-                                    children: [
-                                      _rowInfo(
-                                          label: 'Nickname',
-                                          desc: item.nickname),
-                                      _rowInfo(
-                                          label: 'E-mail',
-                                          desc: item.email ?? ''),
-                                      _rowInfo(
-                                          label: 'Localização',
-                                          desc: item.location ?? ''),
-                                      _rowInfo(
-                                          label: 'Bio', desc: item.bio ?? ''),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-              );
-            },
-            child: Text('Meus Favoritos'),
-          )
         ],
       ),
     );
@@ -194,23 +141,79 @@ class _DetailsUserPageState
         brightness: Brightness.dark,
       ),
       body: Container(
-        child: Observer(builder: (_) {
-          var state = controller.state;
-          if (state is LoadingState) {
-            return _buildLoader();
-          }
-          if (state is ErrorState) {
-            return Center(
-              child: Text('Error ao buscar detalhes do usuário'),
-            );
-          }
+        child: Column(
+          children: [
+            Observer(builder: (_) {
+              var state = controller.state;
+              if (state is LoadingState) {
+                return _buildLoader();
+              }
+              if (state is ErrorState) {
+                return Center(
+                  child: Text('Error ao buscar detalhes do usuário'),
+                );
+              }
 
-          if (state is LoadedState) {
-            return _buildUserDetail(state.user);
-          }
+              if (state is LoadedState) {
+                return _buildUserDetail(state.user);
+              }
 
-          return Container();
-        }),
+              return Container();
+            }),
+            ElevatedButton(
+              onPressed: () {
+                controller.getFavorites();
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return Observer(
+                      builder: (_) {
+                        var favorites = controller.favorites;
+                        return Column(
+                          children: [
+                            Text(
+                              'Meus favoritos',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: favorites.length,
+                                itemBuilder: (_, index) {
+                                  var item = favorites[index];
+                                  return Card(
+                                    child: Column(
+                                      children: [
+                                        _rowInfo(
+                                            label: 'Nickname',
+                                            desc: item.nickname),
+                                        _rowInfo(
+                                            label: 'E-mail',
+                                            desc: item.email ?? ''),
+                                        _rowInfo(
+                                            label: 'Localização',
+                                            desc: item.location ?? ''),
+                                        _rowInfo(
+                                            label: 'Bio', desc: item.bio ?? ''),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+              child: Text('Meus Favoritos'),
+            )
+          ],
+        ),
       ),
     );
   }
