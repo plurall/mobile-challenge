@@ -25,7 +25,7 @@ class Error extends UserListState {
   final IconData icon;
   final String message;
 
-  Error({@required this.message, @required this.icon});
+  Error({@required this.message, this.icon});
 
   @override
   List<Object> get props => [message];

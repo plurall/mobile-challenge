@@ -10,10 +10,10 @@ import 'package:mobile_challenge/modules/user_list/domain/usecases/get_user_sear
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_bloc.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_event.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_state.dart';
-import 'package:mobile_challenge/shared/entities/User.dart';
+import 'package:mobile_challenge/modules/user_list/presentation/widgets/search_bar.dart';
 import 'package:mobile_challenge/shared/widgets/loading.dart';
 import 'package:mobile_challenge/shared/widgets/message.dart';
-import 'package:mobile_challenge/shared/widgets/user_list.dart';
+import 'package:mobile_challenge/shared/widgets/user_card.dart';
 import 'package:mobile_challenge/utils/palette.dart';
 
 import 'package:http/http.dart' as http;
@@ -40,10 +40,17 @@ class _UserListPage extends State<UserListPage> {
     newPageUserUseCase = GetNewPageUserSearch(repo);
   }
 
+  final _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   String DEFAULT_SEARCH = 'followers:>10000';
 
   String _loadedQuery = '';
-  List<User> _loadedUsers = [];
   int _currentPage = 1;
 
   @override
@@ -56,6 +63,8 @@ class _UserListPage extends State<UserListPage> {
           _loadedQuery = DEFAULT_SEARCH;
         }
       });
+      print("searching");
+      print(_loadedQuery);
       BlocProvider.of<UserListBloc>(ctx).add(
         GetUserSearchEvent(query),
       );
@@ -120,32 +129,56 @@ class _UserListPage extends State<UserListPage> {
             } else if (state is Loading) {
               return LoadingWidget();
             } else if (state is Loaded) {
+              int length = state.users.length;
+
               return Column(
                 children: [
-                  TextFormField(
-                    style: TextStyle(
-                      color: Palette.darkWhiteText,
-                    ),
-                    onFieldSubmitted: (val) => callUserSearch(context, val),
+                  SearchBar(
+                    onclick: () =>
+                        callUserSearch(context, _searchController.text),
+                    controller: _searchController,
                   ),
                   Expanded(
-                      child: UserListWidget(
-                          length: state.users.length,
-                          list: state.users,
-                          callback: handleCardClick)),
-                  state.hasMore
-                      ? ElevatedButton(
-                          onPressed: () => callLoadMore(context),
-                          child: Text("Load More"),
-                        )
-                      : SizedBox(),
+                      child: ListView.builder(
+                    itemCount: length + 1,
+                    itemBuilder: (ctx, index) {
+                      if (index == length) {
+                        if (state.hasMore) {
+                          return Center(
+                            child: ElevatedButton(
+                              onPressed: () => callLoadMore(context),
+                              child: Text("Load More"),
+                            ),
+                          );
+                        }
+                        return SizedBox();
+                      }
+                      return UserCardWidget(
+                        state.users[index],
+                        handleCardClick,
+                      );
+                    },
+                  )),
                 ],
               );
             } else if (state is Error) {
-              return MessageWidget(
-                text: state.message,
+              return Column(
+                children: [
+                  SearchBar(
+                    onclick: () =>
+                        callUserSearch(context, _searchController.text),
+                    controller: _searchController,
+                  ),
+                  Expanded(
+                    child: MessageWidget(
+                      icon: state.icon,
+                      text: state.message,
+                    ),
+                  ),
+                ],
               );
             }
+            return SizedBox();
           },
         ),
       ),

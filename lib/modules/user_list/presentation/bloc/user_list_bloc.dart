@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_challenge/clean/exception.dart';
 import 'package:mobile_challenge/clean/usecase.dart';
 import 'package:mobile_challenge/modules/user_list/data/models/user_search_reponse_model.dart';
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_new_page_user_search.dart';
@@ -8,11 +9,6 @@ import 'package:mobile_challenge/modules/user_list/domain/usecases/get_default_u
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_user_search.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_event.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_state.dart';
-
-//TODO i18n
-const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
-const String INVALID_INPUT_FAILURE_MESSAGE = 'Invalid Input';
 
 class UserListBloc extends Bloc<UserListEvent, UserListState> {
   final GetUserSearch getUserSearchUseCase;
@@ -38,27 +34,23 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
   Stream<UserListState> mapEventToState(
     UserListEvent event,
   ) async* {
-    if (event is GetUserSearchEvent) {
-      final input = event.query;
-      yield Loading();
-      try {
+    try {
+      if (event is GetUserSearchEvent) {
+        final input = event.query;
+        yield Loading();
+
         final UserSearchResponseModel result =
             await getUserSearchUseCase(GetUserSearchParams(input));
+        if (result.users.length == 0) {
+          throw EmptyList();
+        }
         yield Loaded(users: result.users, hasMore: result.hasMore);
-      } catch (err) {
-        yield* _errorHandler(err);
-      }
-    } else if (event is GetDefaultUserListEvent) {
-      yield Loading();
-      try {
+      } else if (event is GetDefaultUserListEvent) {
+        yield Loading();
         final UserSearchResponseModel result =
             await getDefaultUserListUseCase(NoParams());
         yield Loaded(users: result.users, hasMore: result.hasMore);
-      } catch (err) {
-        yield* _errorHandler(err);
-      }
-    } else if (event is GetNewPageUserSearchEvent) {
-      try {
+      } else if (event is GetNewPageUserSearchEvent) {
         final UserSearchResponseModel result =
             await getNewPageUserListUseCase(GetNewPageUserSearchParams(
           event.query,
@@ -72,14 +64,17 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
         } else {
           yield Loaded(users: result.users, hasMore: result.hasMore);
         }
-      } catch (err) {
-        yield* _errorHandler(err);
       }
+    } catch (err) {
+      yield* _errorHandler(err);
     }
   }
 
-  //TODO
   Stream<UserListState> _errorHandler(dynamic response) async* {
-    //handle Error()
+    if (response is AppExceptions) {
+      yield Error(message: response.message, icon: response.icon);
+    } else {
+      yield Error(message: response.toString());
+    }
   }
 }

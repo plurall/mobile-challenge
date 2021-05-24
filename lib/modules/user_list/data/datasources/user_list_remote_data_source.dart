@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile_challenge/clean/exception.dart';
 import 'package:mobile_challenge/modules/user_list/data/models/user_search_model.dart';
 
 abstract class UserListRemoteDataSourceProtocol {
@@ -45,7 +47,9 @@ class UserListRemoteDataSource implements UserListRemoteDataSourceProtocol {
         },
       );
     } catch (err) {
-      print(err);
+      if (err is SocketException) {
+        throw ConnectionError();
+      }
     }
 
     if (response.statusCode == 200) {
@@ -57,7 +61,7 @@ class UserListRemoteDataSource implements UserListRemoteDataSourceProtocol {
         print(err);
       }
     } else {
-      // throw Exception();
+      throw ApiError();
     }
   }
 }
