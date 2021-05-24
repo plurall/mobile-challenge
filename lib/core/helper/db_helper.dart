@@ -10,7 +10,7 @@ class DBHelper {
       path.join(dbPath, 'favorite.db'),
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE favorites(id INTEGER PRIMARY KEY,location TEXT,bio TEXT,nickname TEXT,email TEXT)',
+          'CREATE TABLE favorites(id INTEGER PRIMARY KEY,image TEXT,location TEXT,bio TEXT,nickname TEXT,email TEXT)',
         );
       },
       version: 1,
