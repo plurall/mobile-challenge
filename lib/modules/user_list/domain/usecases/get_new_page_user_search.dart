@@ -20,7 +20,4 @@ class GetNewPageUserSearchParams {
 
   final String query;
   final int page;
-
-  @override
-  List<Object> get props => [query, page];
 }

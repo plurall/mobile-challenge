@@ -17,7 +17,4 @@ class GetUserParams {
   GetUserParams(this.nickname);
 
   final String nickname;
-
-  @override
-  List<Object> get props => [];
 }

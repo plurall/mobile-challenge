@@ -13,14 +13,21 @@ import 'bloc/user_detail_bloc.dart';
 import 'bloc/user_detail_event.dart';
 import 'bloc/user_detail_state.dart';
 
-class UserDetailsPage extends StatelessWidget {
+class UserDetailsPage extends StatefulWidget {
+  UserDetailsPage(this.nickname);
+  final String nickname;
+
+  @override
+  State<StatefulWidget> createState() => _UserDetailsPage();
+}
+
+class _UserDetailsPage extends State<UserDetailsPage> {
   http.Client client;
   UserDetailRemoteDataSource remoteDataSource;
   GetUser getUserUseCase;
   GithubUserApiRepository repo;
-  final String nickname;
 
-  UserDetailsPage(this.nickname) {
+  _UserDetailsPage() {
     client = http.Client();
     remoteDataSource = UserDetailRemoteDataSource(client: client);
     repo = GithubUserApiRepository(remoteDataSource: remoteDataSource);
@@ -30,13 +37,24 @@ class UserDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void callUserRequest(BuildContext ctx) {
-      BlocProvider.of<UserDetailBloc>(ctx).add(GetUserEvent(nickname));
+      BlocProvider.of<UserDetailBloc>(ctx).add(GetUserEvent(widget.nickname));
     }
+
+    void handleToggleFavorite() {}
 
     return Scaffold(
       backgroundColor: Palette.backgroundDarkBlack,
       appBar: AppBar(
         title: Text('User'),
+        actions: [
+          IconButton(
+            onPressed: () => handleToggleFavorite(),
+            icon: Icon(
+              Icons.star_border,
+              color: Palette.darkWhiteText,
+            ),
+          ),
+        ],
       ),
       body: BlocProvider(
         create: (_) => UserDetailBloc(getUser: getUserUseCase),

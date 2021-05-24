@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 @immutable
-abstract class FavoritesEvent {
-  @override
-  List<Object> get props => [];
-}
+abstract class FavoritesEvent {}
 
 class GetFavoritesEvent extends FavoritesEvent {}
 

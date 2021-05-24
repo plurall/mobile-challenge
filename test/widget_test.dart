@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mobile_challenge/main.dart';
-import 'package:mobile_challenge/modules/favorites/data/datasources/favorites_remote_data_source.dart';
+import 'package:mobile_challenge/modules/favorites/data/datasources/favorites_local_data_source.dart';
 
 void main() {
   // testWidgets('Counter increments smoke test', (WidgetTester tester) async {
@@ -31,12 +31,4 @@ void main() {
   //   expect(find.text('0'), findsNothing);
   //   expect(find.text('1'), findsOneWidget);
   // });
-
-  test('test direct file write', () async {
-    FavoritesLocalDataSource dataSource = FavoritesLocalDataSource();
-
-    await dataSource.writeDb("test.json", {"test": "test passed"});
-    var saved = await FavoritesLocalDataSource().readDb("test.json");
-    expect(saved["test"], "test passed");
-  });
 }

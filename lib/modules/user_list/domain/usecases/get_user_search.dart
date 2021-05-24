@@ -18,7 +18,4 @@ class GetUserSearchParams {
   GetUserSearchParams(this.query);
 
   final String query;
-
-  @override
-  List<Object> get props => [];
 }
