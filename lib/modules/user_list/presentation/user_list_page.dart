@@ -48,7 +48,7 @@ class _UserListPage extends State<UserListPage> {
     super.dispose();
   }
 
-  String DEFAULT_SEARCH = 'followers:>10000';
+  static const String DEFAULT_SEARCH = 'followers:>10000';
 
   String _loadedQuery = '';
   int _currentPage = 1;

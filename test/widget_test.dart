@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mobile_challenge/main.dart';
-import 'package:mobile_challenge/modules/favorites/data/datasources/favorites_local_data_source.dart';
 
 void main() {
   // testWidgets('Counter increments smoke test', (WidgetTester tester) async {

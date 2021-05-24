@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_challenge/modules/favorites/data/datasources/favorites_local_data_source.dart';
 import 'package:mobile_challenge/modules/favorites/data/repositories/favorites_repository.dart';
 import 'package:mobile_challenge/modules/favorites/domain/usecases/get_favorite_list.dart';
 import 'package:mobile_challenge/modules/favorites/presentation/bloc/favorites_bloc.dart';
 import 'package:mobile_challenge/modules/favorites/presentation/bloc/favorites_event.dart';
 import 'package:mobile_challenge/modules/favorites/presentation/bloc/favorites_state.dart';
 import 'package:mobile_challenge/modules/user_details/presentation/user_details_page.dart';
+import 'package:mobile_challenge/shared/datasources/favorites_local_data_source.dart';
 import 'package:mobile_challenge/shared/widgets/user_card.dart';
 import 'package:mobile_challenge/shared/widgets/loading.dart';
 import 'package:mobile_challenge/shared/widgets/message.dart';

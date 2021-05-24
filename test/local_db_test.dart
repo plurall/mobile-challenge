@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/modules/favorites/data/datasources/favorites_local_data_source.dart';
+import 'package:mobile_challenge/shared/datasources/favorites_local_data_source.dart';
 
 void main() {
   test('test direct file write', () async {

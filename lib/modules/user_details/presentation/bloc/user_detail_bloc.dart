@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_challenge/modules/user_details/domain/usecases/get_is_favorite.dart';
 import 'package:mobile_challenge/modules/user_details/domain/usecases/get_user.dart';
 import 'package:mobile_challenge/modules/user_details/presentation/bloc/user_detail_event.dart';
 import 'package:mobile_challenge/modules/user_details/presentation/bloc/user_detail_state.dart';
@@ -12,11 +13,15 @@ const String INVALID_INPUT_FAILURE_MESSAGE = 'Invalid Input';
 
 class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
   final GetUser getUserUseCase;
+  final GetIsFavorite isFavoriteUseCase;
 
   UserDetailBloc({
     @required GetUser getUser,
+    @required GetIsFavorite isFavorite,
   })  : assert(getUser != null),
+        assert(isFavorite != null),
         getUserUseCase = getUser,
+        isFavoriteUseCase = isFavorite,
         super(null);
 
   @override
@@ -30,7 +35,9 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
       yield Loading();
       try {
         final User result = await getUserUseCase(GetUserParams(event.nickname));
-        yield Loaded(user: result);
+        final bool isUserFavorite =
+            await isFavoriteUseCase(GetIsFavoriteParams(event.nickname));
+        yield Loaded(user: result, favorite: isUserFavorite);
       } catch (err) {
         yield* _errorHandler(err);
       }

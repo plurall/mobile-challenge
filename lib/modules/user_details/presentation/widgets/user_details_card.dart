@@ -48,24 +48,29 @@ class UserDetailsCard extends StatelessWidget {
           Padding(
             padding:
                 EdgeInsets.only(top: commonPadding, bottom: commonPadding / 2),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(media.size.width - imgPadding)),
-                  border: Border.all(
-                      width: 2,
-                      color: Palette.backgroundDarkGrayBorder,
-                      style: BorderStyle.solid)),
-              child: ClipRRect(
-                borderRadius:
-                    BorderRadius.circular(media.size.width - imgPadding),
-                child: Image.network(
-                  user.profilePhoto,
-                  height: media.size.width - imgPadding,
-                  width: media.size.width - imgPadding,
-                  fit: BoxFit.cover,
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(media.size.width - imgPadding)),
+                      border: Border.all(
+                          width: 2,
+                          color: Palette.backgroundDarkGrayBorder,
+                          style: BorderStyle.solid)),
+                  child: ClipRRect(
+                    borderRadius:
+                        BorderRadius.circular(media.size.width - imgPadding),
+                    child: Image.network(
+                      user.profilePhoto,
+                      height: media.size.width - imgPadding,
+                      width: media.size.width - imgPadding,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-              ),
+                Text('AAAAAAAAAAAAAAA')
+              ],
             ),
           ),
           Text(
