@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:mobile_challenge/core/helper/db_helper.dart';
 import 'package:mobile_challenge/features/search_user/data/datasource/detail_user/show_detail_user_datasource.dart';
 import 'package:mobile_challenge/features/search_user/data/models/detail_user_model.dart';
 
 class ShowDetailUserDatasourceImpl implements IShowDetailUserDataSource {
   final Dio dio;
+  final DBHelper dbHelper;
 
-  ShowDetailUserDatasourceImpl(this.dio);
+  ShowDetailUserDatasourceImpl(this.dio, this.dbHelper);
 
   @override
   Future<DetailUserModel> showDetailUser(String text) async {
@@ -21,5 +23,27 @@ class ShowDetailUserDatasourceImpl implements IShowDetailUserDataSource {
     } else {
       throw Exception();
     }
+  }
+
+  @override
+  Future<List<DetailUserModel>> gelAllFavoriteLocal() async {
+    var result = await this.dbHelper.getData();
+    var list = result
+        .map(
+          (item) => DetailUserModel(
+            image: item[''],
+            nickname: item['nickname'],
+            bio: item['bio'],
+            email: item['email'],
+            location: item['location'],
+          ),
+        )
+        .toList();
+    return list;
+  }
+
+  @override
+  Future<void> saveFavoriteLocal(DetailUserModel detailUserModel) async {
+    await dbHelper.insert(detailUserModel.toJson());
   }
 }

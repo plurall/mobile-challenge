@@ -17,4 +17,15 @@ class ShowDetailUserRepositoryImpl implements IShowDetailUserRepository {
       return left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> saveFavoriteLocalUser(
+      UserDetailEntity userDetailEntity) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, List<UserDetailEntity>>> showFavoriteLocalUsers() {
+    throw UnimplementedError();
+  }
 }

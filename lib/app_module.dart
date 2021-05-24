@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/core/helper/db_helper.dart';
 import 'package:mobile_challenge/features/search_user/data/datasource/detail_user/show_detail_user_datasource_impl.dart';
 import 'package:mobile_challenge/features/search_user/data/repositories/show_detail_user_repository_impl.dart';
 import 'package:mobile_challenge/features/search_user/domain/usecases/show_detail_user.dart';
@@ -22,8 +23,9 @@ class AppModule extends Module {
     Bind((i) => SearchRepositoryImpl(i())),
     Bind((i) => ShowDetailUserRepositoryImpl(i())),
     Bind((i) => SearchUserDatasourceImpl(i())),
-    Bind((i) => ShowDetailUserDatasourceImpl(i())),
+    Bind((i) => ShowDetailUserDatasourceImpl(i(), i())),
     Bind((i) => Dio()),
+    Bind((i) => DBHelper()),
   ];
   @override
   final List<ModularRoute> routes = [

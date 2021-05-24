@@ -1,6 +1,5 @@
 import 'package:mobile_challenge/core/error/failures.dart';
 import 'package:mobile_challenge/features/search_user/domain/entities/user_detail_entity.dart';
-import 'package:mobile_challenge/features/search_user/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/features/search_user/domain/usecases/show_detail_user.dart';
 import 'package:mobile_challenge/features/search_user/presenter/stores/user_detail/user_detail_state.dart';
 import 'package:mobx/mobx.dart';
