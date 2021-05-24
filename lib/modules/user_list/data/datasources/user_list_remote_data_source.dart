@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_challenge/modules/user_list/data/models/user_search_model.dart';
+import 'package:mobile_challenge/modules/user_list/data/models/user_search_api_model.dart';
 
 abstract class UserListRemoteDataSourceProtocol {
-  Future<UserSearchModel> getSearch(String query, {int page = 1});
+  Future<UserSearchApiModel> getSearch(String query, {int page = 1});
 }
 
 const BASE_URL = "api.github.com";
@@ -17,17 +17,17 @@ class UserListRemoteDataSource implements UserListRemoteDataSourceProtocol {
   UserListRemoteDataSource({@required this.client});
 
   @override
-  Future<UserSearchModel> getSearch(String query, {int page = 1}) async {
+  Future<UserSearchApiModel> getSearch(String query, {int page = 1}) async {
     var queryParams = {
       'q': query,
       'per_page': PER_PAGE.toString(),
       'page': page.toString()
     };
-    UserSearchModel response = await _getSearch(queryParams);
+    UserSearchApiModel response = await _getSearch(queryParams);
     return response;
   }
 
-  Future<UserSearchModel> _getSearch(Map<String, Object> params) async {
+  Future<UserSearchApiModel> _getSearch(Map<String, Object> params) async {
     Uri uri;
     try {
       uri = Uri.https(BASE_URL, BASE_SUBURL, params);
@@ -52,7 +52,7 @@ class UserListRemoteDataSource implements UserListRemoteDataSourceProtocol {
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       print(jsonResponse);
       try {
-        UserSearchModel model = UserSearchModel.fromJson(jsonResponse);
+        UserSearchApiModel model = UserSearchApiModel.fromJson(jsonResponse);
         print(model.totalCount);
         return model;
       } catch (err) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_challenge/clean/usecase.dart';
+import 'package:mobile_challenge/modules/user_list/data/models/user_search_reponse_model.dart';
 import 'package:mobile_challenge/shared/entities/User.dart';
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_default_user_list.dart';
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_user_search.dart';
@@ -36,17 +37,18 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
       final input = event.query;
       yield Loading();
       try {
-        final List<User> result =
+        final UserSearchResponseModel result =
             await getUserSearchUseCase(GetUserSearchParams(input));
-        yield Loaded(users: result);
+        yield Loaded(users: result.users, hasMore: result.hasMore);
       } catch (err) {
         yield* _errorHandler(err);
       }
     } else if (event is GetDefaultUserListEvent) {
       yield Loading();
       try {
-        final result = await getDefaultUserListUseCase(NoParams());
-        yield Loaded(users: result);
+        final UserSearchResponseModel result =
+            await getDefaultUserListUseCase(NoParams());
+        yield Loaded(users: result.users, hasMore: result.hasMore);
       } catch (err) {
         yield* _errorHandler(err);
       }

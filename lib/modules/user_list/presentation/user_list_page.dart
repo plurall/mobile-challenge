@@ -31,10 +31,18 @@ class UserListPage extends StatelessWidget {
     defaultListUseCase = GetDefaultUserList(repo);
   }
 
+  String _loadedQuery = '';
+
   @override
   Widget build(BuildContext context) {
     void callUserSearch(BuildContext ctx, String query) {
+      _loadedQuery = query;
       BlocProvider.of<UserListBloc>(ctx).add(GetUserSearchEvent(query));
+    }
+
+    void callLoadMore(BuildContext ctx, int page) {
+      BlocProvider.of<UserListBloc>(ctx)
+          .add(GetNewPageUserSearchEvent(_loadedQuery, page));
     }
 
     void callDefaultList(BuildContext ctx) {
@@ -89,6 +97,12 @@ class UserListPage extends StatelessWidget {
                           length: state.users.length,
                           list: state.users,
                           callback: handleCardClick)),
+                  state.hasMore
+                      ? ElevatedButton(
+                          onPressed: () => callLoadMore,
+                          child: Text("Load More"),
+                        )
+                      : SizedBox(),
                 ],
               );
             } else if (state is Error) {

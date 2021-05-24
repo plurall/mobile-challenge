@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_remote_data_source.dart';
-import 'package:mobile_challenge/modules/user_list/data/models/user_search_model.dart';
+import 'package:mobile_challenge/modules/user_list/data/models/user_search_api_model.dart';
+import 'package:mobile_challenge/modules/user_list/data/models/user_search_reponse_model.dart';
 import 'package:mobile_challenge/shared/entities/User.dart';
 
 abstract class GithubSearchApiRepositoryProtocol {
-  Future<List<User>> getDefaultUserList();
-  Future<List<User>> getUserSearch(String query);
+  Future<UserSearchResponseModel> getDefaultUserList();
+  Future<UserSearchResponseModel> getUserSearch(String query);
 }
 
 class GithubSearchApiRepository implements GithubSearchApiRepositoryProtocol {
@@ -16,15 +17,17 @@ class GithubSearchApiRepository implements GithubSearchApiRepositoryProtocol {
   });
 
   @override
-  Future<List<User>> getDefaultUserList() async {
-    UserSearchModel response =
+  Future<UserSearchResponseModel> getDefaultUserList() async {
+    UserSearchApiModel response =
         await remoteDataSource.getSearch('followers:>10000');
-    return response.items;
+    return UserSearchResponseModel(
+        response.items, response.items.length < response.totalCount);
   }
 
   @override
-  Future<List<User>> getUserSearch(String query) async {
-    UserSearchModel response = await remoteDataSource.getSearch(query);
-    return response.items;
+  Future<UserSearchResponseModel> getUserSearch(String query) async {
+    UserSearchApiModel response = await remoteDataSource.getSearch(query);
+    return UserSearchResponseModel(
+        response.items, response.items.length < response.totalCount);
   }
 }

@@ -13,11 +13,12 @@ class Loading extends UserListState {}
 
 class Loaded extends UserListState {
   final List<User> users;
+  final bool hasMore;
 
-  Loaded({@required this.users});
+  Loaded({@required this.users, @required this.hasMore});
 
   @override
-  List<Object> get props => [users];
+  List<Object> get props => [users, hasMore];
 }
 
 class Error extends UserListState {

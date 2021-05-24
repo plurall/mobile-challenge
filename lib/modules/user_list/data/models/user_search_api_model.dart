@@ -1,13 +1,13 @@
 import 'package:mobile_challenge/shared/entities/User.dart';
 
-class UserSearchModel {
-  UserSearchModel();
+class UserSearchApiModel {
+  UserSearchApiModel();
 
   int totalCount;
   bool incompleteResults;
   List<User> items;
 
-  factory UserSearchModel.fromJson(Map<String, dynamic> json) {
+  factory UserSearchApiModel.fromJson(Map<String, dynamic> json) {
     List<User> items = [];
     List<dynamic> jsonItems = json['items'];
     jsonItems.forEach((obj) {
@@ -17,7 +17,7 @@ class UserSearchModel {
     int totalCount = json['total_count'];
     bool results = json['incomplete_results'];
 
-    UserSearchModel result = UserSearchModel()
+    UserSearchApiModel result = UserSearchApiModel()
       ..totalCount = totalCount
       ..incompleteResults = results
       ..items = items;
