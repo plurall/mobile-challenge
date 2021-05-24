@@ -5,6 +5,7 @@ import 'package:mobile_challenge/shared/entities/User.dart';
 abstract class FavoritesLocalDataSourceProtocol {
   Future<List<User>> getFavorites();
   Future<bool> isFavorite(String nickname);
+  Future<bool> toggleFavorite(User user);
 }
 
 const FILE = "favorites.json";
@@ -48,5 +49,39 @@ class FavoritesLocalDataSource extends LocalDataSource
     } catch (err) {
       return false;
     }
+  }
+
+  @override
+  Future<bool> toggleFavorite(User user) async {
+    List<Object> jsonUserList;
+
+    try {
+      Map<String, Object> response = await readDb(FILE);
+
+      jsonUserList = response['users'] as List<Object>;
+    } catch (err) {
+      jsonUserList = [];
+    }
+    bool removed = false;
+    bool result = false;
+    List<User> users;
+
+    jsonUserList.forEach((element) {
+      // Remove if exists
+      User currentUser = User.fromJson(element);
+      if (currentUser.nickname != user.nickname) {
+        users.add(currentUser);
+        removed = true;
+      }
+    });
+
+    if (!removed) {
+      users.add(user);
+      result = true;
+    }
+
+    await writeDb(FILE, {"users": users});
+
+    return result;
   }
 }

@@ -7,6 +7,7 @@ class User {
   String location = '';
   String bio = '';
   String email = '';
+  bool favorite = false;
 
   factory User.fromJson(Map<String, dynamic> json) {
     String _isJsonKeyAvailable(String json) {

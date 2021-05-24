@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:mobile_challenge/shared/entities/User.dart';
 import 'package:mobile_challenge/utils/palette.dart';
 
-class UserDetailsCard extends StatelessWidget {
+class UserDetailsCard extends StatefulWidget {
   User user;
+  void Function() favoriteToggleCallback;
 
-  UserDetailsCard(this.user);
+  UserDetailsCard(this.user, this.favoriteToggleCallback);
+
+  @override
+  State<StatefulWidget> createState() => _UserDetailsCard();
+}
+
+class _UserDetailsCard extends State<UserDetailsCard> {
+  _UserDetailsCard();
+
+  bool _disabled = false; //Will reset every bloc event
 
   Widget _infoChip({@required IconData icon, @required String text}) {
     return Row(
@@ -40,6 +50,83 @@ class UserDetailsCard extends StatelessWidget {
     final media = MediaQuery.of(context);
     final double imgPadding = 64;
     final double commonPadding = imgPadding / 2;
+    final double imageSize = media.size.width - imgPadding;
+
+    final User user = widget.user;
+    final bool favorite = widget.user.favorite;
+
+    Widget _profilePhoto() {
+      return Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(imageSize)),
+            border: Border.all(
+                width: 2,
+                color: Palette.backgroundDarkGrayBorder,
+                style: BorderStyle.solid)),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(imageSize),
+          child: Image.network(
+            user.profilePhoto,
+            height: imageSize,
+            width: imageSize,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }
+
+    Widget _favoriteButton() {
+      return Padding(
+        padding: EdgeInsets.only(top: imageSize / 1.5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Opacity(
+              opacity: _disabled ? 0.5 : 1,
+              child: GestureDetector(
+                onTap: () {
+                  if (!_disabled) {
+                    widget.favoriteToggleCallback();
+                  }
+                  setState(() {
+                    _disabled = !_disabled;
+                  });
+                },
+                child: Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    color: Palette.backgroundDarkBlack,
+                    borderRadius: BorderRadius.all(Radius.circular(imageSize)),
+                    border: Border.all(
+                        width: 2,
+                        color: Palette.backgroundDarkGrayBorder,
+                        style: BorderStyle.solid),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        favorite ? Icons.favorite : Icons.favorite_border,
+                        color: Palette.darkWhiteText,
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        favorite ? 'Favorite' : 'Add Favorite',
+                        style: TextStyle(color: Palette.darkWhiteText),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Padding(
       padding: EdgeInsets.all(commonPadding),
       child: Column(
@@ -50,26 +137,8 @@ class UserDetailsCard extends StatelessWidget {
                 EdgeInsets.only(top: commonPadding, bottom: commonPadding / 2),
             child: Stack(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(media.size.width - imgPadding)),
-                      border: Border.all(
-                          width: 2,
-                          color: Palette.backgroundDarkGrayBorder,
-                          style: BorderStyle.solid)),
-                  child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.circular(media.size.width - imgPadding),
-                    child: Image.network(
-                      user.profilePhoto,
-                      height: media.size.width - imgPadding,
-                      width: media.size.width - imgPadding,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Text('AAAAAAAAAAAAAAA')
+                _profilePhoto(),
+                _favoriteButton(),
               ],
             ),
           ),

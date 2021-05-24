@@ -10,9 +10,8 @@ class Loading extends UserDetailState {}
 
 class Loaded extends UserDetailState {
   final User user;
-  final bool favorite;
 
-  Loaded({@required this.user, @required this.favorite});
+  Loaded({@required this.user});
 }
 
 class Error extends UserDetailState {
