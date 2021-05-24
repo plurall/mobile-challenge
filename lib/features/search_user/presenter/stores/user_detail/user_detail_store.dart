@@ -1,5 +1,6 @@
 import 'package:mobile_challenge/core/error/failures.dart';
 import 'package:mobile_challenge/features/search_user/domain/entities/user_detail_entity.dart';
+import 'package:mobile_challenge/features/search_user/domain/usecases/get_all_favorite_local.dart';
 import 'package:mobile_challenge/features/search_user/domain/usecases/save_favorite_local.dart';
 import 'package:mobile_challenge/features/search_user/domain/usecases/show_detail_user.dart';
 import 'package:mobile_challenge/features/search_user/presenter/stores/user_detail/user_detail_state.dart';
@@ -14,8 +15,13 @@ class UserDetailStore = _UserDetailStoreBase with _$UserDetailStore;
 abstract class _UserDetailStoreBase with Store {
   final ShowDetailUser showDetailUser;
   final SaveFavoriteLocal saveFavoriteLocal;
+  final GetAllFavoriteLocal getAllFavoriteLocal;
 
-  _UserDetailStoreBase(this.showDetailUser, this.saveFavoriteLocal);
+  _UserDetailStoreBase(
+    this.showDetailUser,
+    this.saveFavoriteLocal,
+    this.getAllFavoriteLocal,
+  );
 
   void showUserDetail(String text) async {
     setState(LoadingState());
@@ -43,6 +49,19 @@ abstract class _UserDetailStoreBase with Store {
     );
   }
 
+  void getFavorites() async {
+    var result = await getAllFavoriteLocal();
+
+    result.fold(
+      (l) {
+        setState(ErrorState(message: _getFailureMessage(l)));
+      },
+      (r) {
+        favorites = r;
+      },
+    );
+  }
+
   String _getFailureMessage(Failure failure) {
     switch (failure.runtimeType) {
       case ServerFailure:
@@ -60,6 +79,9 @@ abstract class _UserDetailStoreBase with Store {
 
   @observable
   bool isFavorited = false;
+
+  @observable
+  List<UserDetailEntity> favorites = [];
 
   @action
   setState(UserDetailState value) => state = value;

@@ -55,7 +55,9 @@ class _DetailsUserPageState
                     }
                   },
                   icon: Icon(
-                    controller.isFavorited ? Icons.favorite_border : Icons.face,
+                    controller.isFavorited
+                        ? Icons.favorite
+                        : Icons.favorite_border,
                     size: 12,
                   ),
                 );
@@ -65,6 +67,59 @@ class _DetailsUserPageState
           _rowInfo(label: 'E-mail', desc: user.email ?? ''),
           _rowInfo(label: 'Localização', desc: user.location ?? ''),
           _rowInfo(label: 'Bio', desc: user.bio ?? ''),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              controller.getFavorites();
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Observer(
+                    builder: (_) {
+                      var favorites = controller.favorites;
+                      return Column(
+                        children: [
+                          Text(
+                            'Meus favoritos',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: favorites.length,
+                              itemBuilder: (_, index) {
+                                var item = favorites[index];
+                                return Card(
+                                  child: Column(
+                                    children: [
+                                      _rowInfo(
+                                          label: 'Nickname',
+                                          desc: item.nickname),
+                                      _rowInfo(
+                                          label: 'E-mail',
+                                          desc: item.email ?? ''),
+                                      _rowInfo(
+                                          label: 'Localização',
+                                          desc: item.location ?? ''),
+                                      _rowInfo(
+                                          label: 'Bio', desc: item.bio ?? ''),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              );
+            },
+            child: Text('Meus Favoritos'),
+          )
         ],
       ),
     );

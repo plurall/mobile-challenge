@@ -19,6 +19,15 @@ class LoadedState extends UserDetailState {
   List<Object> get props => [user];
 }
 
+class LoadedFavoriteState extends UserDetailState {
+  final List<UserDetailEntity> users;
+
+  LoadedFavoriteState({required this.users});
+
+  @override
+  List<Object> get props => [users];
+}
+
 class ErrorState extends UserDetailState {
   late final String message;
 

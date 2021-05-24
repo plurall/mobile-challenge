@@ -27,19 +27,23 @@ class ShowDetailUserDatasourceImpl implements IShowDetailUserDataSource {
 
   @override
   Future<List<DetailUserModel>> gelAllFavoriteLocal() async {
-    var result = await this.dbHelper.getData();
-    var list = result
-        .map(
-          (item) => DetailUserModel(
-            image: item[''],
-            nickname: item['nickname'],
-            bio: item['bio'],
-            email: item['email'],
-            location: item['location'],
-          ),
-        )
-        .toList();
-    return list;
+    try {
+      var result = await this.dbHelper.getData();
+      var list = result
+          .map(
+            (item) => DetailUserModel(
+              image: item['image'],
+              nickname: item['nickname'],
+              bio: item['bio'],
+              email: item['email'],
+              location: item['location'],
+            ),
+          )
+          .toList();
+      return list;
+    } catch (e) {
+      throw Exception();
+    }
   }
 
   @override

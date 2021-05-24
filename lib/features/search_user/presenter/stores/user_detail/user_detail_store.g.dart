@@ -54,6 +54,21 @@ mixin _$UserDetailStore on _UserDetailStoreBase, Store {
     });
   }
 
+  final _$favoritesAtom = Atom(name: '_UserDetailStoreBase.favorites');
+
+  @override
+  List<UserDetailEntity> get favorites {
+    _$favoritesAtom.reportRead();
+    return super.favorites;
+  }
+
+  @override
+  set favorites(List<UserDetailEntity> value) {
+    _$favoritesAtom.reportWrite(value, super.favorites, () {
+      super.favorites = value;
+    });
+  }
+
   final _$_UserDetailStoreBaseActionController =
       ActionController(name: '_UserDetailStoreBase');
 
@@ -84,7 +99,8 @@ mixin _$UserDetailStore on _UserDetailStoreBase, Store {
     return '''
 searchText: ${searchText},
 state: ${state},
-isFavorited: ${isFavorited}
+isFavorited: ${isFavorited},
+favorites: ${favorites}
     ''';
   }
 }
