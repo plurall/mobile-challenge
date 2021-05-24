@@ -20,7 +20,7 @@ class AppModule extends Module {
   final List<Bind> binds = [
     Bind((i) => SearchUserStore(i())),
     Bind((i) => UserDetailStore(i(), i(), i())),
-    Bind((i) => SearchUserByText(i())),
+    Bind((i) => SearchUserByTextDatasource(i())),
     Bind((i) => ShowDetailUser(i())),
     Bind((i) => SearchRepositoryImpl(i())),
     Bind((i) => ShowDetailUserRepositoryImpl(i())),

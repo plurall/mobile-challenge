@@ -10,7 +10,7 @@ const String SERVER_FAILURE_MESSAGE = 'Server Failure';
 class SearchUserStore = _SearchUserStoreBase with _$SearchUserStore;
 
 abstract class _SearchUserStoreBase with Store {
-  final SearchUserByText searchUserByText;
+  final SearchUserByTextDatasource searchUserByText;
 
   _SearchUserStoreBase(this.searchUserByText);
 
