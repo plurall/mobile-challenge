@@ -51,7 +51,7 @@ class _DetailsUserPageState
                   padding: EdgeInsets.zero,
                   onPressed: () {
                     if (!controller.isFavorited) {
-                      controller.favoriteUser(user);
+                      controller.saveFavorite(user);
                     }
                   },
                   icon: Icon(

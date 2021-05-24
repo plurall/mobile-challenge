@@ -10,6 +10,7 @@ import 'package:mobile_challenge/features/search_user/presenter/stores/user_deta
 
 import 'features/search_user/data/datasource/search_user/search_user_datasource_impl.dart';
 import 'features/search_user/data/repositories/search_user_repository_impl.dart';
+import 'features/search_user/domain/usecases/save_favorite_local.dart';
 import 'features/search_user/domain/usecases/search_user_by_text.dart';
 import 'features/search_user/presenter/home_page.dart';
 
@@ -17,13 +18,14 @@ class AppModule extends Module {
   @override
   final List<Bind> binds = [
     Bind((i) => SearchUserStore(i())),
-    Bind((i) => UserDetailStore(i())),
+    Bind((i) => UserDetailStore(i(), i())),
     Bind((i) => SearchUserByText(i())),
     Bind((i) => ShowDetailUser(i())),
     Bind((i) => SearchRepositoryImpl(i())),
     Bind((i) => ShowDetailUserRepositoryImpl(i())),
     Bind((i) => SearchUserDatasourceImpl(i())),
     Bind((i) => ShowDetailUserDatasourceImpl(i(), i())),
+    Bind((i) => SaveFavoriteLocal(i())),
     Bind((i) => Dio()),
     Bind((i) => DBHelper()),
   ];

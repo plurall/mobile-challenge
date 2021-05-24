@@ -1,5 +1,6 @@
 import 'package:mobile_challenge/core/error/failures.dart';
 import 'package:mobile_challenge/features/search_user/domain/entities/user_detail_entity.dart';
+import 'package:mobile_challenge/features/search_user/domain/usecases/save_favorite_local.dart';
 import 'package:mobile_challenge/features/search_user/domain/usecases/show_detail_user.dart';
 import 'package:mobile_challenge/features/search_user/presenter/stores/user_detail/user_detail_state.dart';
 import 'package:mobx/mobx.dart';
@@ -12,8 +13,9 @@ class UserDetailStore = _UserDetailStoreBase with _$UserDetailStore;
 
 abstract class _UserDetailStoreBase with Store {
   final ShowDetailUser showDetailUser;
+  final SaveFavoriteLocal saveFavoriteLocal;
 
-  _UserDetailStoreBase(this.showDetailUser);
+  _UserDetailStoreBase(this.showDetailUser, this.saveFavoriteLocal);
 
   void showUserDetail(String text) async {
     setState(LoadingState());
@@ -24,6 +26,19 @@ abstract class _UserDetailStoreBase with Store {
       },
       (r) {
         setState(LoadedState(user: r));
+      },
+    );
+  }
+
+  void saveFavorite(UserDetailEntity userDetailEntity) async {
+    var result = await saveFavoriteLocal(userDetailEntity);
+
+    result.fold(
+      (l) {
+        setState(ErrorState(message: _getFailureMessage(l)));
+      },
+      (r) {
+        favoriteUser(userDetailEntity);
       },
     );
   }
