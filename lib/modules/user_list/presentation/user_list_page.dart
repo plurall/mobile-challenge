@@ -5,10 +5,12 @@ import 'package:mobile_challenge/modules/user_details/presentation/user_details_
 import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_remote_data_source.dart';
 import 'package:mobile_challenge/modules/user_list/data/repositories/github_search_api_repository.dart';
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_default_user_list.dart';
+import 'package:mobile_challenge/modules/user_list/domain/usecases/get_new_page_user_search.dart';
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_user_search.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_bloc.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_event.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_state.dart';
+import 'package:mobile_challenge/shared/entities/User.dart';
 import 'package:mobile_challenge/shared/widgets/loading.dart';
 import 'package:mobile_challenge/shared/widgets/message.dart';
 import 'package:mobile_challenge/shared/widgets/user_list.dart';
@@ -16,42 +18,73 @@ import 'package:mobile_challenge/utils/palette.dart';
 
 import 'package:http/http.dart' as http;
 
-class UserListPage extends StatelessWidget {
+class UserListPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _UserListPage();
+}
+
+class _UserListPage extends State<UserListPage> {
   http.Client client;
   UserListRemoteDataSource remoteDataSource;
   GetUserSearch searchUseCase;
   GetDefaultUserList defaultListUseCase;
+  GetNewPageUserSearch newPageUserUseCase;
   GithubSearchApiRepository repo;
 
-  UserListPage() {
+  _UserListPage() {
     client = http.Client();
     remoteDataSource = UserListRemoteDataSource(client: client);
     repo = GithubSearchApiRepository(remoteDataSource: remoteDataSource);
     searchUseCase = GetUserSearch(repo);
     defaultListUseCase = GetDefaultUserList(repo);
+    newPageUserUseCase = GetNewPageUserSearch(repo);
   }
 
+  String DEFAULT_SEARCH = 'followers:>10000';
+
   String _loadedQuery = '';
+  List<User> _loadedUsers = [];
+  int _currentPage = 1;
 
   @override
   Widget build(BuildContext context) {
     void callUserSearch(BuildContext ctx, String query) {
-      _loadedQuery = query;
-      BlocProvider.of<UserListBloc>(ctx).add(GetUserSearchEvent(query));
+      setState(() {
+        _currentPage = 1;
+        _loadedQuery = query;
+        if (_loadedQuery.isEmpty) {
+          _loadedQuery = DEFAULT_SEARCH;
+        }
+      });
+      BlocProvider.of<UserListBloc>(ctx).add(
+        GetUserSearchEvent(query),
+      );
     }
 
-    void callLoadMore(BuildContext ctx, int page) {
-      BlocProvider.of<UserListBloc>(ctx)
-          .add(GetNewPageUserSearchEvent(_loadedQuery, page));
+    void callLoadMore(BuildContext ctx) {
+      setState(() {
+        if (_loadedQuery.isEmpty) {
+          _loadedQuery = DEFAULT_SEARCH;
+        }
+        _currentPage++;
+      });
+      BlocProvider.of<UserListBloc>(ctx).add(
+        GetNewPageUserSearchEvent(_loadedQuery, _currentPage),
+      );
     }
 
     void callDefaultList(BuildContext ctx) {
-      BlocProvider.of<UserListBloc>(ctx).add(GetDefaultUserListEvent());
+      BlocProvider.of<UserListBloc>(ctx).add(
+        GetDefaultUserListEvent(),
+      );
     }
 
     void handleCardClick(String nickname) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (_) => UserDetailsPage(nickname)));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => UserDetailsPage(nickname),
+          ));
     }
 
     void handleFavoritesListClick() {
@@ -74,8 +107,11 @@ class UserListPage extends StatelessWidget {
         ],
       ),
       body: BlocProvider(
-        create: (_) =>
-            UserListBloc(search: searchUseCase, empty: defaultListUseCase),
+        create: (_) => UserListBloc(
+          search: searchUseCase,
+          empty: defaultListUseCase,
+          newPage: newPageUserUseCase,
+        ),
         child: BlocBuilder<UserListBloc, UserListState>(
           builder: (context, state) {
             if (state is Empty || state == null) {
@@ -99,7 +135,7 @@ class UserListPage extends StatelessWidget {
                           callback: handleCardClick)),
                   state.hasMore
                       ? ElevatedButton(
-                          onPressed: () => callLoadMore,
+                          onPressed: () => callLoadMore(context),
                           child: Text("Load More"),
                         )
                       : SizedBox(),

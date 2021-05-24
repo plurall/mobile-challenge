@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_challenge/modules/user_list/data/models/user_search_api_model.dart';
+import 'package:mobile_challenge/modules/user_list/data/models/user_search_model.dart';
 
 abstract class UserListRemoteDataSourceProtocol {
   Future<UserSearchApiModel> getSearch(String query, {int page = 1});
@@ -50,10 +50,8 @@ class UserListRemoteDataSource implements UserListRemoteDataSourceProtocol {
 
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse = json.decode(response.body);
-      print(jsonResponse);
       try {
         UserSearchApiModel model = UserSearchApiModel.fromJson(jsonResponse);
-        print(model.totalCount);
         return model;
       } catch (err) {
         print(err);
