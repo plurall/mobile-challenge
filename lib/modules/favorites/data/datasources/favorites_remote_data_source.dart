@@ -12,15 +12,20 @@ class FavoritesLocalDataSource extends LocalDataSource
     implements FavoritesLocalDataSourceProtocol {
   @override
   Future<List<User>> getFavorites() async {
-    List<User> users;
-    Map<String, Object> response = await readDb(FILE);
+    try {
+      Map<String, Object> response = await readDb(FILE);
 
-    List<Object> jsonUserList = response['users'] as List<Object>;
+      List<User> users;
 
-    jsonUserList.forEach((element) {
-      users.add(User.fromJson(element));
-    });
+      List<Object> jsonUserList = response['users'] as List<Object>;
 
-    return users;
+      jsonUserList.forEach((element) {
+        users.add(User.fromJson(element));
+      });
+
+      return users;
+    } catch (err) {
+      return [];
+    }
   }
 }

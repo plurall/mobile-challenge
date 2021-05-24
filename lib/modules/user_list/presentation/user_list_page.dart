@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_challenge/modules/favorites/presentation/favorites_page.dart';
 import 'package:mobile_challenge/modules/user_details/presentation/user_details_page.dart';
 import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_remote_data_source.dart';
 import 'package:mobile_challenge/modules/user_list/data/repositories/github_search_api_repository.dart';
@@ -45,10 +46,24 @@ class UserListPage extends StatelessWidget {
           MaterialPageRoute(builder: (_) => UserDetailsPage(nickname)));
     }
 
+    void handleFavoritesListClick() {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (_) => FavoritesPage()));
+    }
+
     return Scaffold(
       backgroundColor: Palette.backgroundDarkBlack,
       appBar: AppBar(
         title: Text('Github User List'),
+        actions: [
+          IconButton(
+            onPressed: () => handleFavoritesListClick(),
+            icon: Icon(
+              Icons.star_border,
+              color: Palette.darkWhiteText,
+            ),
+          ),
+        ],
       ),
       body: BlocProvider(
         create: (_) =>
