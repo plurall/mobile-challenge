@@ -8,9 +8,9 @@ import 'package:mobile_challenge/modules/user_list/domain/usecases/get_user_sear
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_bloc.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_event.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_state.dart';
+import 'package:mobile_challenge/shared/widgets/user_card.dart';
 import 'package:mobile_challenge/shared/widgets/loading.dart';
 import 'package:mobile_challenge/shared/widgets/message.dart';
-import 'package:mobile_challenge/shared/widgets/user_list.dart';
 import 'package:mobile_challenge/utils/palette.dart';
 
 import 'package:http/http.dart' as http;
@@ -48,7 +48,7 @@ class UserListPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Palette.backgroundDarkBlack,
       appBar: AppBar(
-        title: Text('Github User List'),
+        title: Text('Favorites'),
       ),
       body: BlocProvider(
         create: (_) =>
@@ -63,17 +63,17 @@ class UserListPage extends StatelessWidget {
             } else if (state is Loaded) {
               return Column(
                 children: [
-                  TextFormField(
-                    style: TextStyle(
-                      color: Palette.darkWhiteText,
-                    ),
-                    onFieldSubmitted: (val) => callUserSearch(context, val),
-                  ),
                   Expanded(
-                      child: UserListWidget(
-                          length: state.users.length,
-                          list: state.users,
-                          callback: handleCardClick)),
+                    child: ListView.builder(
+                      itemCount: state.users.length,
+                      itemBuilder: (ctx, index) {
+                        return UserCardWidget(
+                          state.users[index],
+                          handleCardClick,
+                        );
+                      },
+                    ),
+                  ),
                 ],
               );
             } else if (state is Error) {
