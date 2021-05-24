@@ -115,13 +115,16 @@ class _DetailsUserPageState
                           Container(height: 10, width: 40, color: Colors.white),
                           SizedBox(width: 8),
                           Container(
-                              height: 10, width: 100, color: Colors.white),
+                            height: 10,
+                            width: 100,
+                            color: Colors.white,
+                          ),
                         ],
                       ),
                     ),
                   )
                   .toList(),
-            )
+            ),
           ],
         ),
       ),

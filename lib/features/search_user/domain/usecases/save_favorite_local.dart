@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobile_challenge/core/error/failures.dart';
 import 'package:mobile_challenge/features/search_user/domain/entities/user_detail_entity.dart';
-import 'package:mobile_challenge/features/search_user/domain/repositories/save_favorite_local_repository.dart';
+import 'package:mobile_challenge/features/search_user/domain/repositories/favorite_local_repository.dart';
 
 class SaveFavoriteLocal {
-  final ISaveFavoriteLocalRepository repository;
+  final IFavoriteLocalRepository repository;
 
   SaveFavoriteLocal(this.repository);
 
