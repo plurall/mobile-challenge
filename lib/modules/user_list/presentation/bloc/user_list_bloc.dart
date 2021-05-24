@@ -34,6 +34,8 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
   Stream<UserListState> mapEventToState(
     UserListEvent event,
   ) async* {
+    print("User List called Event");
+    print(event);
     try {
       if (event is GetUserSearchEvent) {
         final input = event.query;
@@ -66,6 +68,8 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
         }
       }
     } catch (err) {
+      print('User List Bloc Error');
+      print(err);
       yield* _errorHandler(err);
     }
   }

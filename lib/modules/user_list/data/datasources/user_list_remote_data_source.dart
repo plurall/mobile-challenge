@@ -34,7 +34,7 @@ class UserListRemoteDataSource implements UserListRemoteDataSourceProtocol {
     try {
       uri = Uri.https(BASE_URL, BASE_SUBURL, params);
     } catch (err) {
-      print(err);
+      throw ConnectionError();
     }
 
     var response;
