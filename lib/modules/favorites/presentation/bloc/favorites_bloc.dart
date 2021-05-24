@@ -13,12 +13,12 @@ const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
 const String INVALID_INPUT_FAILURE_MESSAGE = 'Invalid Input';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
-  final GetFavoriteList useCase;
+  final GetFavoriteList favoritesUseCase;
 
   FavoritesBloc({
-    @required GetFavoriteList useCase,
-  })  : assert(useCase != null),
-        useCase = useCase,
+    @required GetFavoriteList favoritesUseCase,
+  })  : assert(favoritesUseCase != null),
+        favoritesUseCase = favoritesUseCase,
         super(null);
 
   @override
@@ -31,7 +31,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     if (event is GetFavoritesEvent) {
       yield Loading();
       try {
-        final List<User> result = await useCase(NoParams());
+        final List<User> result = await favoritesUseCase(NoParams());
         yield Loaded(users: result);
       } catch (err) {
         yield* _errorHandler(err);
