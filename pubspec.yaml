@@ -21,6 +21,15 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  dartz:
+  dio: ^4.0.0
+  flutter_modular: ^3.2.2
+  bloc: ^6.0.1
+  rxdart: ^0.26.0
+  http: ^0.13.3
+  sqflite: ^2.0.0+3
+  intl: ^0.17.0
+  fluttertoast: ^8.0.6
   flutter:
     sdk: flutter
 
@@ -30,6 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  mockito: ^5.0.8
   flutter_test:
     sdk: flutter
 
@@ -45,9 +55,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - imagens/logo_plurall.png
+    - imagens/logo_somos_educacao.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
