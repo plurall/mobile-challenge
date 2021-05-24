@@ -14,22 +14,22 @@ class DataBaseHelper {
   String createdUsersTableScript = 'CREATE TABLE $tabelaNome(' +
       'id INTEGER PRIMARY KEY, ' +
       'login TEXT, ' +
-      'nodeId TEXT, ' +
-      'avatarUrl TEXT, ' +
-      'gravatarId TEXT, ' +
+      'node_id TEXT, ' +
+      'avatar_url TEXT, ' +
+      'gravatar_id TEXT, ' +
       'url TEXT, ' +
-      'htmlUrl TEXT, ' +
-      'followersUrl TEXT, ' +
-      'followingUrl TEXT, ' +
-      'gistsUrl TEXT, ' +
-      'starredUrl TEXT, ' +
-      'subscriptionsUrl TEXT, ' +
-      'organizationsUrl TEXT, ' +
-      'reposUrl TEXT, ' +
-      'eventsUrl TEXT, ' +
-      'receivedEventsUrl TEXT, ' +
+      'html_url TEXT, ' +
+      'followers_url TEXT, ' +
+      'following_url TEXT, ' +
+      'gists_url TEXT, ' +
+      'starred_url TEXT, ' +
+      'subscriptions_url TEXT, ' +
+      'organizations_url TEXT, ' +
+      'repos_url TEXT, ' +
+      'events_url TEXT, ' +
+      'received_events_url TEXT, ' +
       'type TEXT, ' +
-      'siteAdmin BOOL, ' +
+      'site_admin BOOL, ' +
       'name TEXT, ' +
       'company TEXT, ' +
       'blog TEXT, ' +
@@ -37,13 +37,13 @@ class DataBaseHelper {
       'email TEXT, ' +
       'hireable BOOL, ' +
       'bio TEXT, ' +
-      'twitterUsername TEXT, ' +
-      'publicRepos TEXT, ' +
-      'publicGists TEXT, ' +
+      'twitter_username TEXT, ' +
+      'public_repos TEXT, ' +
+      'public_gists TEXT, ' +
       'followers INTEGER, ' +
       'following INTEGER, ' +
-      'createdAt TEXT, ' +
-      'updatedAt TEXT ' +
+      'created_at TEXT, ' +
+      'updated_at TEXT ' +
       ')';
 
   Database _db;
@@ -72,20 +72,6 @@ class DataBaseHelper {
     }
   }
 
-  Future create(User user) async {
-    try {
-      final Database db = await initDb();
-
-      await db.insert(
-        tabelaNome,
-        user.toJson(),
-      );
-    } catch (ex) {
-      print(ex);
-      return;
-    }
-  }
-
   Future<List<User>> getAllUsers() async {
     try {
       final Database db = await initDb();
@@ -97,9 +83,13 @@ class DataBaseHelper {
           return User.fromJson(maps[i]);
         },
       );
-    } catch (ex) {
-      print(ex);
-      return new List<User>();
+      
+      //List<User> list =
+      //    maps.isNotEmpty ? maps.map((c) => User.fromJson(c)).toList() : [];
+      // return list;
+    } catch (e) {
+      print("erro =>> $e");
+      return List.empty();
     }
   }
 
@@ -120,10 +110,14 @@ class DataBaseHelper {
   Future<void> deleteUser(int id) async {
     final db = await initDb();
 
-    await db.delete(
-      '$tabelaNome',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    try {
+      await db.delete(
+        '$tabelaNome',
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 }

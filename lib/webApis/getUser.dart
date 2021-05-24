@@ -24,7 +24,7 @@ class GetGitUserAPI {
       }
     } catch (e) {
       print(e.runtimeType);
-      throw Exception('Falhou por ${e.hashCode}');
+      throw Exception('Falhou por ${e.runtimeType}');
     }
   }
 }

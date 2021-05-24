@@ -17,8 +17,6 @@ class Users {
   String receivedEventsUrl;
   String type;
   bool siteAdmin;
-  //IsFavorited isFavorited;
-  bool isFavorited;
 
   Users({
     String login,
@@ -39,7 +37,6 @@ class Users {
     String receivedEventsUrl,
     String type,
     bool siteAdmin,
-    bool isFavorited,
   }) {
     this.login = login;
     this.id = id;
@@ -59,7 +56,6 @@ class Users {
     this.receivedEventsUrl = receivedEventsUrl;
     this.type = type;
     this.siteAdmin = siteAdmin;
-    this.isFavorited = isFavorited;
   }
 
   Users.fromJson(Map<String, dynamic> json) {
@@ -104,14 +100,5 @@ class Users {
     data['type'] = this.type;
     data['site_admin'] = this.siteAdmin;
     return data;
-  }
-
-  bool returnIsFavorited(bool favorited) {
-    if (favorited == true) {
-      isFavorited = false;
-    } else {
-      isFavorited = true;
-    }
-    return isFavorited;
   }
 }

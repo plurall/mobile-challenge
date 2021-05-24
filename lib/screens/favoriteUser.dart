@@ -29,7 +29,7 @@ class _FavoriteUserState extends State<FavoriteUser> {
           title: const Text('Lista de Favoritos'),
         ),
         body: ListView.builder(
-          itemCount: usersFavoritos.length,
+          itemCount: usersFavoritos.length != null ? usersFavoritos.length : 0,
           itemBuilder: (context, index) {
             return _listaDeUsers(context, index);
           },

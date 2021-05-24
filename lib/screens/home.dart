@@ -13,6 +13,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  DataBaseHelper db = DataBaseHelper();
+  bool _isFavorited = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +60,6 @@ class _HomeState extends State<Home> {
         itemCount: grupoDeUsers != null ? grupoDeUsers.length : 0,
         itemBuilder: (context, index) {
           var user = grupoDeUsers[index];
-          bool _isFavorited = false;
           return Card(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +95,7 @@ class _HomeState extends State<Home> {
                       color: _isFavorited ? Colors.yellow : Colors.blue,
                     ),
                     onTap: () {
-                      _adicionandoFavoritosAoBd(user, _isFavorited);
+                      _adicionandoFavoritosAoBd(user);
                     },
                   ),
                 ],
@@ -106,30 +107,33 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void _adicionandoFavoritosAoBd(Users user, bool _isFavorited) async {
-    DataBaseHelper db = DataBaseHelper();
-
+  void _adicionandoFavoritosAoBd(Users user) async {
     User userParaSalvarNoDb = await GetGitUserAPI.getGitUser(user.login);
     if (_isFavorited == false) {
-      setState(() async {
-        try {
-          await db.insertUser(userParaSalvarNoDb);
-        } catch (e) {
-          print(e.runtimeType);
-        }
+      try {
+        await db.insertUser(userParaSalvarNoDb);
+      } catch (e) {
+        print(e.runtimeType);
+      }
 
+      setState(() {
         _isFavorited = true;
       });
 
-      print("ADD");
+      print("${user.login} ADD");
     } else {
-      setState(() async {
+      try {
         await db.deleteUser(userParaSalvarNoDb.id);
-        print("DELETADO");
+      } catch (e) {
+        print(e.runtimeType);
+      }
+
+      setState(() {
         _isFavorited = false;
       });
+      print("${user.login} DELETADO");
     }
 
-    print(await db.getAllUsers());
+    print("Todos os favoritos: ${await db.getAllUsers()}");
   }
 }
