@@ -3,13 +3,13 @@ import 'package:mobile_challenge/modules/user_details/data/repositories/favorite
 import 'package:mobile_challenge/shared/entities/User.dart';
 
 class SetToggleUserFavorite
-    implements UseCase<bool, SetToggleUserFavoriteParams> {
+    implements UseCase<User, SetToggleUserFavoriteParams> {
   SetToggleUserFavorite(this.localRepo);
 
   final FavoriteUserRepositoryProtocol localRepo;
 
   @override
-  Future<bool> call(SetToggleUserFavoriteParams params) async {
+  Future<User> call(SetToggleUserFavoriteParams params) async {
     return await localRepo.toggleFavorite(params.user);
   }
 }

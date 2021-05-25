@@ -36,6 +36,8 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
   Stream<UserDetailState> mapEventToState(
     UserDetailEvent event,
   ) async* {
+    print("User Detail called Event");
+    print(event);
     try {
       if (event is GetUserEvent) {
         yield Loading();
@@ -45,15 +47,14 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
         result.favorite = isUserFavorite;
         yield Loaded(user: result);
       } else if (event is GetToggleFavoriteEvent) {
-        if (state is Loaded) {
-          Loaded currentState = state;
-          final bool isUserNowFavorite = await toggleFavoriteUseCase(
-              SetToggleUserFavoriteParams(event.user));
-          currentState.user.favorite = isUserNowFavorite;
-          yield Loaded(user: currentState.user);
-        }
+        final User updatedUser = await toggleFavoriteUseCase(
+            SetToggleUserFavoriteParams(event.user));
+        print('isFavorite');
+        print(updatedUser);
+        yield Loaded(user: updatedUser);
       }
     } catch (err) {
+      print(err);
       yield* _errorHandler(err);
     }
   }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/shared/entities/User.dart';
 import 'package:mobile_challenge/utils/palette.dart';
@@ -6,7 +8,10 @@ class UserDetailsCard extends StatefulWidget {
   User user;
   void Function() favoriteToggleCallback;
 
-  UserDetailsCard(this.user, this.favoriteToggleCallback);
+  UserDetailsCard(
+    this.user,
+    this.favoriteToggleCallback,
+  );
 
   @override
   State<StatefulWidget> createState() => _UserDetailsCard();
@@ -14,8 +19,6 @@ class UserDetailsCard extends StatefulWidget {
 
 class _UserDetailsCard extends State<UserDetailsCard> {
   _UserDetailsCard();
-
-  bool _disabled = false; //Will reset every bloc event
 
   Widget _infoChip({@required IconData icon, @required String text}) {
     return Row(
@@ -81,44 +84,36 @@ class _UserDetailsCard extends State<UserDetailsCard> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Opacity(
-              opacity: _disabled ? 0.5 : 1,
-              child: GestureDetector(
-                onTap: () {
-                  if (!_disabled) {
-                    widget.favoriteToggleCallback();
-                  }
-                  setState(() {
-                    _disabled = !_disabled;
-                  });
-                },
-                child: Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    color: Palette.backgroundDarkBlack,
-                    borderRadius: BorderRadius.all(Radius.circular(imageSize)),
-                    border: Border.all(
-                        width: 2,
-                        color: Palette.backgroundDarkGrayBorder,
-                        style: BorderStyle.solid),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        favorite ? Icons.favorite : Icons.favorite_border,
-                        color: Palette.darkWhiteText,
-                      ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        favorite ? 'Favorite' : 'Add Favorite',
-                        style: TextStyle(color: Palette.darkWhiteText),
-                      ),
-                    ],
-                  ),
+            GestureDetector(
+              onTap: () {
+                widget.favoriteToggleCallback();
+              },
+              child: Container(
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  color: Palette.backgroundDarkBlack,
+                  borderRadius: BorderRadius.all(Radius.circular(imageSize)),
+                  border: Border.all(
+                      width: 2,
+                      color: Palette.backgroundDarkGrayBorder,
+                      style: BorderStyle.solid),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(
+                      favorite ? Icons.favorite : Icons.favorite_border,
+                      color: Palette.darkWhiteText,
+                    ),
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      favorite ? 'Favorite' : 'Add Favorite',
+                      style: TextStyle(color: Palette.darkWhiteText),
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -9,6 +9,15 @@ class User {
   String email = '';
   bool favorite = false;
 
+  Map<String, dynamic> toJson() => {
+        'login': nickname,
+        'avatar_url': profilePhoto,
+        'name': name,
+        'location': location,
+        'bio': bio,
+        'email': email,
+      };
+
   factory User.fromJson(Map<String, dynamic> json) {
     String _isJsonKeyAvailable(String json) {
       if (json == null || json.isEmpty) {

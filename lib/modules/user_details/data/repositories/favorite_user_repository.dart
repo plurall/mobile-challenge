@@ -4,7 +4,7 @@ import 'package:mobile_challenge/shared/entities/User.dart';
 
 abstract class FavoriteUserRepositoryProtocol {
   Future<bool> isFavorite(String nickname);
-  Future<bool> toggleFavorite(User user);
+  Future<User> toggleFavorite(User user);
 }
 
 class FavoriteUserRepository implements FavoriteUserRepositoryProtocol {
@@ -20,7 +20,8 @@ class FavoriteUserRepository implements FavoriteUserRepositoryProtocol {
   }
 
   @override
-  Future<bool> toggleFavorite(User user) async {
+  Future<User> toggleFavorite(User user) async {
+    user.favorite = !user.favorite;
     return await localDataSource.toggleFavorite(user);
   }
 }

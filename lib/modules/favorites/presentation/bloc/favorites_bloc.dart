@@ -28,6 +28,8 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   Stream<FavoritesState> mapEventToState(
     FavoritesEvent event,
   ) async* {
+    print("Favorite called Event");
+    print(event);
     if (event is GetFavoritesEvent) {
       yield Loading();
       try {

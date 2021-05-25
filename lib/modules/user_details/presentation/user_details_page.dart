@@ -77,8 +77,13 @@ class _UserDetailsPage extends State<UserDetailsPage> {
             } else if (state is Loading) {
               return LoadingWidget();
             } else if (state is Loaded) {
+              //button will be disabled when clicked then in a Loaded will be unlocked;
+              bool _disableButton = false;
+
               return UserDetailsCard(
-                  state.user, () => handleToggleFavorite(context, state.user));
+                state.user,
+                () => handleToggleFavorite(context, state.user),
+              );
             } else if (state is Error) {
               return MessageWidget(
                 text: state.message,
