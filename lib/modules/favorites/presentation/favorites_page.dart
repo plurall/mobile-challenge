@@ -33,9 +33,10 @@ class FavoritesPage extends StatelessWidget {
       BlocProvider.of<FavoritesBloc>(ctx).add(GetFavoritesEvent());
     }
 
-    void handleCardClick(String nickname) {
+    void handleCardClick(BuildContext context, String nickname) async {
       Navigator.push(context,
-          MaterialPageRoute(builder: (_) => UserDetailsPage(nickname)));
+              MaterialPageRoute(builder: (_) => UserDetailsPage(nickname)))
+          .then((value) => callDefaultList(context));
     }
 
     return Scaffold(
@@ -61,7 +62,8 @@ class FavoritesPage extends StatelessWidget {
                       itemBuilder: (ctx, index) {
                         return UserCardWidget(
                           state.users[index],
-                          handleCardClick,
+                          (String nickname) =>
+                              handleCardClick(context, nickname),
                         );
                       },
                     ),

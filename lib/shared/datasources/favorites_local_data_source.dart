@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:mobile_challenge/clean/local_data_source.dart';
 import 'package:mobile_challenge/shared/entities/User.dart';
 

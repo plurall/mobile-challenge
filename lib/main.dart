@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/modules/user_list/presentation/user_list_page.dart';
 
 import 'modules/user_list/user_list.dart';
 import 'utils/palette.dart';

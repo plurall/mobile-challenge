@@ -28,6 +28,9 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       yield Loading();
       try {
         final List<User> result = await favoritesUseCase(NoParams());
+        if (result.length == 0) {
+          throw EmptyList();
+        }
         yield Loaded(users: result);
       } catch (err) {
         yield* _errorHandler(err);
