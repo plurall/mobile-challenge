@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/shared/entities/User.dart';
 import 'package:mobile_challenge/utils/palette.dart';
@@ -18,10 +19,14 @@ class UserCardWidget extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.network(
-                  user.profilePhoto,
+                child: CachedNetworkImage(
+                  imageUrl: user.profilePhoto,
                   height: 32,
                   width: 32,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) =>
+                      new CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => new Icon(Icons.error),
                 ),
               ),
               SizedBox(

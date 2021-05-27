@@ -51,7 +51,7 @@ class UserListRemoteDataSource implements UserListRemoteDataSourceProtocol {
       if (err is SocketException) {
         throw ConnectionError();
       } else {
-        print(err);
+        throw err;
       }
     }
 
@@ -61,7 +61,7 @@ class UserListRemoteDataSource implements UserListRemoteDataSourceProtocol {
         UserSearchApiModel model = UserSearchApiModel.fromJson(jsonResponse);
         return model;
       } catch (err) {
-        print(err);
+        throw err;
       }
     } else {
       throw ApiError();

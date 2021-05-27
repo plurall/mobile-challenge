@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/shared/entities/User.dart';
 import 'package:mobile_challenge/utils/palette.dart';
@@ -68,11 +67,13 @@ class _UserDetailsCard extends State<UserDetailsCard> {
                 style: BorderStyle.solid)),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(imageSize),
-          child: Image.network(
-            user.profilePhoto,
+          child: CachedNetworkImage(
+            imageUrl: user.profilePhoto,
             height: imageSize,
             width: imageSize,
             fit: BoxFit.cover,
+            placeholder: (context, url) => new CircularProgressIndicator(),
+            errorWidget: (context, url, error) => new Icon(Icons.error),
           ),
         ),
       );

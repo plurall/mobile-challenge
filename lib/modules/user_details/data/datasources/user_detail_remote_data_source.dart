@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_challenge/clean/exception.dart';
@@ -20,12 +21,24 @@ class UserDetailRemoteDataSource implements UserDetailRemoteDataSourceProtocol {
   @override
   Future<User> getUser(String nickname) async {
     Uri uri = Uri.https(BASE_URL, BASE_SUBURL + '/$nickname');
-    var response = await client.get(
-      uri,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
+
+    var response;
+
+    try {
+      response = await client.get(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+    } catch (err) {
+      if (err is SocketException) {
+        throw ConnectionError();
+      } else {
+        throw err;
+      }
+    }
+
     Map<String, dynamic> jsonResponse;
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
