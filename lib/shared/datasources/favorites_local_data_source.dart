@@ -85,8 +85,9 @@ class FavoritesLocalDataSource extends LocalDataSource
     }
 
     if (!removed) {
-      users.add(user);
       result.favorite = true;
+      user.favorite = true;
+      users.add(user);
     }
 
     await writeDb(FILE, {
