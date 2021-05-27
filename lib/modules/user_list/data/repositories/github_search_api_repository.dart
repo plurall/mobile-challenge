@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_remote_data_source.dart';
 import 'package:mobile_challenge/modules/user_list/data/models/user_search_model.dart';
 import 'package:mobile_challenge/modules/user_list/data/models/user_search_reponse_model.dart';
-import 'package:mobile_challenge/shared/entities/User.dart';
 
 abstract class GithubSearchApiRepositoryProtocol {
   Future<UserSearchResponseModel> getDefaultUserList();

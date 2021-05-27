@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_challenge/modules/favorites/presentation/bloc/favorites_event.dart';
 import 'package:mobile_challenge/modules/user_details/data/datasources/user_detail_remote_data_source.dart';
 import 'package:mobile_challenge/modules/user_details/data/repositories/favorite_user_repository.dart';
 import 'package:mobile_challenge/modules/user_details/data/repositories/github_user_api_repository.dart';
@@ -77,9 +76,6 @@ class _UserDetailsPage extends State<UserDetailsPage> {
             } else if (state is Loading) {
               return LoadingWidget();
             } else if (state is Loaded) {
-              //button will be disabled when clicked then in a Loaded will be unlocked;
-              bool _disableButton = false;
-
               return UserDetailsCard(
                 state.user,
                 () => handleToggleFavorite(context, state.user),
