@@ -29,7 +29,7 @@ class UserDetailRemoteDataSource implements UserDetailRemoteDataSourceProtocol {
     Map<String, dynamic> jsonResponse;
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
-    } else if (response.statusCode == 400) {
+    } else if (response.statusCode == 404) {
       throw UserNotFoundError();
     } else {
       throw ApiError();

@@ -516,3 +516,49 @@ var responseMissing = {
   ],
   "documentation_url": "https://docs.github.com/v3/search"
 };
+
+var emptyResponse = {
+  "total_count": 0,
+  "incomplete_results": false,
+  "items": []
+};
+
+var responseUserNotFound = {
+  "message": "Not Found",
+  "documentation_url": "https://docs.github.com/rest/reference/users#get-a-user"
+};
+
+var responseUser = {
+  "login": "maxiin",
+  "id": 29781281,
+  "node_id": "MDQ6VXNlcjI5NzgxMjgx",
+  "avatar_url": "https://avatars.githubusercontent.com/u/29781281?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/maxiin",
+  "html_url": "https://github.com/maxiin",
+  "followers_url": "https://api.github.com/users/maxiin/followers",
+  "following_url": "https://api.github.com/users/maxiin/following{/other_user}",
+  "gists_url": "https://api.github.com/users/maxiin/gists{/gist_id}",
+  "starred_url": "https://api.github.com/users/maxiin/starred{/owner}{/repo}",
+  "subscriptions_url": "https://api.github.com/users/maxiin/subscriptions",
+  "organizations_url": "https://api.github.com/users/maxiin/orgs",
+  "repos_url": "https://api.github.com/users/maxiin/repos",
+  "events_url": "https://api.github.com/users/maxiin/events{/privacy}",
+  "received_events_url": "https://api.github.com/users/maxiin/received_events",
+  "type": "User",
+  "site_admin": false,
+  "name": "Maxi Costa",
+  "company": null,
+  "blog": "maxiinne.me",
+  "location": "São paulo",
+  "email": null,
+  "hireable": true,
+  "bio": "Personal Account\r\nMobile developer\r\n",
+  "twitter_username": null,
+  "public_repos": 40,
+  "public_gists": 15,
+  "followers": 23,
+  "following": 31,
+  "created_at": "2017-06-29T16:35:50Z",
+  "updated_at": "2021-05-24T17:20:30Z"
+};

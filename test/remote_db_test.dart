@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/clean/exception.dart';
+import 'package:mobile_challenge/modules/user_details/data/datasources/user_detail_remote_data_source.dart';
 import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_remote_data_source.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_challenge/modules/user_list/data/models/user_search_model.dart';
@@ -49,8 +50,20 @@ class _mochClient implements http.Client {
       return new http.Response(jsonEncode(usersResponse), 200);
     }
     if (url ==
+        Uri.parse(
+            'https://api.github.com/search/users?q=EmptyResultSearch&per_page=10&page=1')) {
+      return new http.Response(jsonEncode(emptyResponse), 200);
+    }
+    if (url ==
         Uri.parse('https://api.github.com/search/users?q&per_page=10&page=1')) {
       return new http.Response(jsonEncode(responseMissing), 422);
+    }
+
+    if (url == Uri.parse('https://api.github.com/users/maxiin')) {
+      return new http.Response(jsonEncode(responseUser), 200);
+    }
+    if (url == Uri.parse('https://api.github.com/users/nonExistingUser')) {
+      return new http.Response(jsonEncode(responseUserNotFound), 404);
     }
   }
 }
@@ -81,7 +94,7 @@ main() {
     expect(response.items.length, greaterThan(1));
     expect(response.items[0].runtimeType, User);
   });
-  test('Throws Api Error when search is empty', () async {
+  test('Throws Api Error when search is empt y', () async {
     UserListRemoteDataSourceProtocol dataSource =
         UserListRemoteDataSource(client: _mochClient());
 
@@ -98,6 +111,43 @@ main() {
     expect(error, isInstanceOf<ApiError>(),
         reason:
             "Will return ApiError when query in the api is empty, returns 422 on the api instead of 200");
+    expect(response, isNull);
+  });
+  test('Gets empty list when searching for a non-existing user', () async {
+    UserListRemoteDataSourceProtocol dataSource =
+        UserListRemoteDataSource(client: _mochClient());
+
+    UserSearchApiModel response =
+        await dataSource.getSearch('EmptyResultSearch');
+
+    expect(response.totalCount, equals(0));
+    expect(response.items.length, equals(0));
+  });
+
+  test('Gets user details from api', () async {
+    UserDetailRemoteDataSource dataSource =
+        UserDetailRemoteDataSource(client: _mochClient());
+
+    User response = await dataSource.getUser('maxiin');
+
+    expect(response, isNotNull);
+    expect(response, isInstanceOf<User>());
+  });
+  test('Gets empty for a non-existing user', () async {
+    UserDetailRemoteDataSource dataSource =
+        UserDetailRemoteDataSource(client: _mochClient());
+
+    User response;
+    Exception error;
+
+    try {
+      response = await dataSource.getUser('nonExistingUser');
+    } catch (err) {
+      error = err;
+    }
+
+    expect(error, isException);
+    expect(error, isInstanceOf<UserNotFoundError>());
     expect(response, isNull);
   });
 }
