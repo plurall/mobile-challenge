@@ -20,7 +20,7 @@ import 'package:http/http.dart' as http;
 
 class UserListPage extends StatefulWidget {
   final http.Client client;
-  UserListRemoteDataSource remoteDataSource;
+  UserListRemoteDataSourceProtocol remoteDataSource;
   GetUserSearch searchUseCase;
   GetDefaultUserList defaultListUseCase;
   GetNewPageUserSearch newPageUserUseCase;
@@ -47,7 +47,7 @@ class UserListPage extends StatefulWidget {
 
 class _UserListPage extends State<UserListPage> {
   http.Client client;
-  UserListRemoteDataSource remoteDataSource;
+  UserListRemoteDataSourceProtocol remoteDataSource;
   GetUserSearch searchUseCase;
   GetDefaultUserList defaultListUseCase;
   GetNewPageUserSearch newPageUserUseCase;

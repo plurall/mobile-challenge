@@ -10,7 +10,7 @@ import 'domain/usecases/get_user_search.dart';
 
 class UserList {
   http.Client _client;
-  UserListRemoteDataSource _remoteDataSource;
+  UserListRemoteDataSourceProtocol _remoteDataSource;
   GetUserSearch _searchUseCase;
   GetDefaultUserList _defaultListUseCase;
   GetNewPageUserSearch _newPageUserUseCase;
