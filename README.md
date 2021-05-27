@@ -1,23 +1,54 @@
-<img src="https://gitlab.com/sdk12/dms/viewer/video-player/uploads/7aea2a2436087e4ae1d1ec595837f7ce/image.png" width="150" /> <img src="https://gitlab.com/sdk12/dms/viewer/video-player/uploads/e56cb536325ee0e5d3abc645b2defc43/image.png" width="116" />
-
 # Mobile Challenge
 
-## Objetivo
+## Objetivos Cumpridos
 
-Nesse desafio iremos avaliar o seu conhecimento em Flutter e arquiteturas de softwares.
+### Funcionais
 
-Você deverá implementar o desafio descrito em [`CHALLENGE.md`](/CHALLENGE.md) usando esse codebase como base (Adicione ou apague o que for necessário).
+✔️ Permitir a pesquisa dos usuário do GitHub. Os resultados devem ser exibidos em uma lista
 
-## Critério de avaliação
+✔️ Permitir visualizar as seguintes informações dos usuários encontrados: Avatar, login
 
-Abaixo estão algumas caracteristicas que achamos importantes:
+✔️ Permitir a visualização as informações de um usuário selecionado:
+  ✔️ Avatar,
+  ✔️ localização,
+  ✔️ bio,
+  ✔️ nickname,
+  ⚠️ e-mail. (A informação de email de usuário não apareceu em meus testes comuns, é possivel que seja necessário o uso de uma api key)
+  
+✔️ Permitir favoritar os usuários do GitHub
 
-- Organização e legibilidade do código.
-- Simplicidade.
-- Boas praticas.
-- Conhecimento de Flutter.
-- Outros.
+✔️ Permitir visualizar os itens favoritados de forma offline ✔️ Imagens de perfil são salvas em cache
 
-Faça fork do projeto em sua conta pessoal e agora você já esta apto a fazer o [desafio](/CHALLENGE.md).
+### Técnicos
 
-Boa Sorte!
+✔️ Clean Architecture 
+  
+  Separados em 
+   - Presentation | 
+        - Page (Widget principal)
+        - Widgets (Pequenos Widgets específicos para page, mas repetitivos) 
+        - State Management (Bloc nesse caso, utilizado para mudar os estados visuais da pagina)
+   - Domain | 
+        - Use Cases (usados para ditar os parâmetros ou funções necessarias para uma ação vinda da página para a ação do repositório)
+   - Data |
+        - Repositories (usados para converter o resultado dos modelos vindos os Data Sourcers para Modelos que serão usados pela Página)
+        - Models (Modelos de Objeto da maneira entregue pelo backend)
+        - Data Sources (Funções que conectam com o backend e transformam sua resposta em Modelos)
+
+  ⚠️ Alguns arquivos foram usados em Shared, estes foram usados por varios repositorios diferentes, há a possibilidade de ambos: tirar todos os Data Sources de seus módulos ou deixar que qualquer repositorio acesse qualquer modulo, foi usada um método misto nesse projeto para demonstrar como pode ser feito.
+  
+✔️ Tratamento de erros (Foram feitos resultados visuais e Exceptions customizadas para os erros do app)
+
+✔️ Testes unitários (Foram feitos 8 testes unitários testando a resposta de api e resolução de erro com dados mocados)
+
+## Visual do app
+
+Aqui estão algumas prints tiradas do app
+
+Default Loading List       | Pesquisa 1                 | Pesquisa 2                
+:-------------------------:|:--------------------------:|:-------------------------:
+![](./README/top.jpg)      |  ![](./README/search1.jpg) | ![](./README/search2.jpg) 
+
+Favorites                  | User 1                     | User 2                
+:-------------------------:|:--------------------------:|:-------------------------:
+![](./README/favs.jpg)     |  ![](./README/user.jpg)    | ![](./README/fav.jpg) 
