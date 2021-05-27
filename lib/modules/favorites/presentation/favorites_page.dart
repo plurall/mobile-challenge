@@ -7,6 +7,7 @@ import 'package:mobile_challenge/modules/favorites/presentation/bloc/favorites_e
 import 'package:mobile_challenge/modules/favorites/presentation/bloc/favorites_state.dart';
 import 'package:mobile_challenge/modules/user_details/presentation/user_details_page.dart';
 import 'package:mobile_challenge/shared/datasources/favorites_local_data_source.dart';
+import 'package:mobile_challenge/shared/entities/User.dart';
 import 'package:mobile_challenge/shared/widgets/user_card.dart';
 import 'package:mobile_challenge/shared/widgets/loading.dart';
 import 'package:mobile_challenge/shared/widgets/message.dart';
@@ -33,9 +34,11 @@ class FavoritesPage extends StatelessWidget {
       BlocProvider.of<FavoritesBloc>(ctx).add(GetFavoritesEvent());
     }
 
-    void handleCardClick(BuildContext context, String nickname) async {
-      Navigator.push(context,
-              MaterialPageRoute(builder: (_) => UserDetailsPage(nickname)))
+    void handleCardClick(BuildContext context, User user) async {
+      Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => UserDetailsPage(user.nickname, user: user)))
           .then((value) => callDefaultList(context));
     }
 
@@ -63,7 +66,7 @@ class FavoritesPage extends StatelessWidget {
                         return UserCardWidget(
                           state.users[index],
                           (String nickname) =>
-                              handleCardClick(context, nickname),
+                              handleCardClick(context, state.users[index]),
                         );
                       },
                     ),

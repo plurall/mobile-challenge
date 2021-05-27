@@ -44,6 +44,8 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
         final User updatedUser = await toggleFavoriteUseCase(
             SetToggleUserFavoriteParams(event.user));
         yield Loaded(user: updatedUser);
+      } else if (event is FillUserEvent) {
+        yield Loaded(user: event.user);
       }
     } catch (err) {
       yield* _errorHandler(err);

@@ -19,7 +19,8 @@ import 'bloc/user_detail_event.dart';
 import 'bloc/user_detail_state.dart';
 
 class UserDetailsPage extends StatefulWidget {
-  UserDetailsPage(this.nickname);
+  UserDetailsPage(this.nickname, {this.user});
+  final User user;
   final String nickname;
 
   @override
@@ -57,6 +58,10 @@ class _UserDetailsPage extends State<UserDetailsPage> {
       BlocProvider.of<UserDetailBloc>(ctx).add(GetToggleFavoriteEvent(user));
     }
 
+    void fillUserData(BuildContext ctx) {
+      BlocProvider.of<UserDetailBloc>(ctx).add(FillUserEvent(widget.user));
+    }
+
     return Scaffold(
       backgroundColor: Palette.backgroundDarkBlack,
       appBar: AppBar(
@@ -71,7 +76,11 @@ class _UserDetailsPage extends State<UserDetailsPage> {
         child: BlocBuilder<UserDetailBloc, UserDetailState>(
           builder: (context, state) {
             if (state is Empty || state == null) {
-              callUserRequest(context);
+              if (widget.user == null) {
+                callUserRequest(context);
+              } else {
+                fillUserData(context);
+              }
               return LoadingWidget();
             } else if (state is Loading) {
               return LoadingWidget();

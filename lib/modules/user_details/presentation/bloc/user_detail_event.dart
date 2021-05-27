@@ -15,3 +15,9 @@ class GetToggleFavoriteEvent extends UserDetailEvent {
 
   GetToggleFavoriteEvent(this.user);
 }
+
+class FillUserEvent extends UserDetailEvent {
+  final User user;
+
+  FillUserEvent(this.user);
+}
