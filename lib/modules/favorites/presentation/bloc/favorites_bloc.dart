@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_challenge/clean/exception.dart';
 import 'package:mobile_challenge/clean/usecase.dart';
 import 'package:mobile_challenge/modules/favorites/domain/usecases/get_favorite_list.dart';
 import 'package:mobile_challenge/modules/favorites/presentation/bloc/favorites_event.dart';
 import 'package:mobile_challenge/shared/entities/User.dart';
 
 import 'favorites_state.dart';
-
-//TODO i18n
-const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
-const String INVALID_INPUT_FAILURE_MESSAGE = 'Invalid Input';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   final GetFavoriteList favoritesUseCase;
@@ -28,8 +24,6 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   Stream<FavoritesState> mapEventToState(
     FavoritesEvent event,
   ) async* {
-    print("Favorite called Event");
-    print(event);
     if (event is GetFavoritesEvent) {
       yield Loading();
       try {
@@ -41,8 +35,11 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     }
   }
 
-  //TODO
   Stream<FavoritesState> _errorHandler(dynamic response) async* {
-    //handle Error()
+    if (response is AppExceptions) {
+      yield Error(message: response.message, icon: response.icon);
+    } else {
+      yield Error(message: response.toString());
+    }
   }
 }

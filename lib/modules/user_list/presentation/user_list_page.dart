@@ -85,8 +85,6 @@ class _UserListPage extends State<UserListPage> {
           _loadedQuery = DEFAULT_SEARCH;
         }
       });
-      print("searching");
-      print(_loadedQuery);
       BlocProvider.of<UserListBloc>(ctx).add(
         GetUserSearchEvent(query),
       );

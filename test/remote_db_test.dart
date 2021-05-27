@@ -68,6 +68,7 @@ main() {
 
     expect(response.totalCount, greaterThan(1));
     expect(response.items.length, greaterThan(1));
+    expect(response.items[0].runtimeType, User);
   });
   test('Gets initial user list', () async {
     UserListRemoteDataSourceProtocol dataSource =

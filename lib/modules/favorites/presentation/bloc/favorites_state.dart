@@ -18,5 +18,5 @@ class Error extends FavoritesState {
   final IconData icon;
   final String message;
 
-  Error({@required this.message, @required this.icon});
+  Error({@required this.message, this.icon});
 }

@@ -4,7 +4,6 @@ import 'package:mobile_challenge/clean/exception.dart';
 import 'package:mobile_challenge/clean/usecase.dart';
 import 'package:mobile_challenge/modules/user_list/data/models/user_search_reponse_model.dart';
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_new_page_user_search.dart';
-import 'package:mobile_challenge/shared/entities/User.dart';
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_default_user_list.dart';
 import 'package:mobile_challenge/modules/user_list/domain/usecases/get_user_search.dart';
 import 'package:mobile_challenge/modules/user_list/presentation/bloc/user_list_event.dart';
@@ -34,8 +33,6 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
   Stream<UserListState> mapEventToState(
     UserListEvent event,
   ) async* {
-    print("User List called Event");
-    print(event);
     try {
       if (event is GetUserSearchEvent) {
         final input = event.query;
@@ -68,8 +65,6 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
         }
       }
     } catch (err) {
-      print('User List Bloc Error');
-      print(err);
       yield* _errorHandler(err);
     }
   }

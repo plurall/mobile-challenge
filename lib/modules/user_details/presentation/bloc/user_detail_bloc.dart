@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_challenge/clean/exception.dart';
 import 'package:mobile_challenge/modules/user_details/domain/usecases/get_is_favorite.dart';
 import 'package:mobile_challenge/modules/user_details/domain/usecases/get_user.dart';
 import 'package:mobile_challenge/modules/user_details/domain/usecases/set_toggle_user_favorite.dart';
 import 'package:mobile_challenge/modules/user_details/presentation/bloc/user_detail_event.dart';
 import 'package:mobile_challenge/modules/user_details/presentation/bloc/user_detail_state.dart';
 import 'package:mobile_challenge/shared/entities/User.dart';
-
-//TODO i18n
-const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
-const String INVALID_INPUT_FAILURE_MESSAGE = 'Invalid Input';
 
 class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
   final GetUser getUserUseCase;
@@ -36,8 +32,6 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
   Stream<UserDetailState> mapEventToState(
     UserDetailEvent event,
   ) async* {
-    print("User Detail called Event");
-    print(event);
     try {
       if (event is GetUserEvent) {
         yield Loading();
@@ -49,18 +43,18 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
       } else if (event is GetToggleFavoriteEvent) {
         final User updatedUser = await toggleFavoriteUseCase(
             SetToggleUserFavoriteParams(event.user));
-        print('isFavorite');
-        print(updatedUser);
         yield Loaded(user: updatedUser);
       }
     } catch (err) {
-      print(err);
       yield* _errorHandler(err);
     }
   }
 
-  //TODO
   Stream<UserDetailState> _errorHandler(dynamic response) async* {
-    //handle Error()
+    if (response is AppExceptions) {
+      yield Error(message: response.message, icon: response.icon);
+    } else {
+      yield Error(message: response.toString());
+    }
   }
 }

@@ -39,12 +39,6 @@ class UserList {
     _newPageUserUseCase = newPageUserUseCase == null
         ? GetNewPageUserSearch(_repo)
         : newPageUserUseCase;
-    print(_client);
-    print(_remoteDataSource);
-    print(_repo);
-    print(_searchUseCase);
-    print(_defaultListUseCase);
-    print(_newPageUserUseCase);
   }
 
   routeToPage() => UserListPage(

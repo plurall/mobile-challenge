@@ -31,3 +31,8 @@ class ConversionError extends AppExceptions {
             icon: Icons.signal_wifi_connected_no_internet_4_outlined,
             message: "Data could not be shown, please try again later");
 }
+
+class UserNotFoundError extends AppExceptions {
+  UserNotFoundError()
+      : super(icon: Icons.person, message: "User could not be found");
+}
