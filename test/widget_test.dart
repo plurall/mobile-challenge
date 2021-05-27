@@ -10,25 +10,35 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile_challenge/modules/user_list/data/datasources/user_list_remote_data_source.dart';
+import 'package:mobile_challenge/modules/user_list/data/models/user_search_model.dart';
 
-import 'package:mobile_challenge/main.dart';
+import 'package:mobile_challenge/modules/user_list/presentation/user_list_page.dart';
+import 'package:mobile_challenge/modules/user_list/user_list.dart';
+
+class MochSource implements UserListRemoteDataSourceProtocol {
+  @override
+  Future<UserSearchApiModel> getSearch(String query, {int page = 1}) {
+    print("mochSearch Called");
+    UserSearchApiModel.fromJson({
+      'total_count': 0,
+      'incomplete_results': false,
+      'items': [{}]
+    });
+  }
+}
 
 void main() {
   testWidgets('Should load inital screen with default list',
       (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester
+        .pumpWidget(UserList(remoteDataSource: MochSource()).routeToPage());
+    await tester.pump(Duration(seconds: 100));
+    // var resp = tester.firstState(find.ancestor(UserListPage()));
+    // print(resp);
+    var base = find.byElementType(Scaffold);
+    expect(base, findsOneWidget);
+    // var list = find.byKey(Key('UserListPageListView'));
+    // expect(list, findsOneWidget);
   });
 }

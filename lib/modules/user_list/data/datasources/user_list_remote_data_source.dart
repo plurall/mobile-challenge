@@ -46,9 +46,12 @@ class UserListRemoteDataSource implements UserListRemoteDataSourceProtocol {
           'Content-Type': 'application/json',
         },
       );
+      print(response.body);
     } catch (err) {
       if (err is SocketException) {
         throw ConnectionError();
+      } else {
+        print(err);
       }
     }
 

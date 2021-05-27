@@ -19,8 +19,30 @@ import 'package:mobile_challenge/utils/palette.dart';
 import 'package:http/http.dart' as http;
 
 class UserListPage extends StatefulWidget {
+  final http.Client client;
+  UserListRemoteDataSource remoteDataSource;
+  GetUserSearch searchUseCase;
+  GetDefaultUserList defaultListUseCase;
+  GetNewPageUserSearch newPageUserUseCase;
+  GithubSearchApiRepository repo;
+  UserListPage({
+    this.client,
+    this.remoteDataSource,
+    this.searchUseCase,
+    this.defaultListUseCase,
+    this.newPageUserUseCase,
+    this.repo,
+  });
+
   @override
-  State<StatefulWidget> createState() => _UserListPage();
+  State<StatefulWidget> createState() => _UserListPage(
+        client: client,
+        remoteDataSource: remoteDataSource,
+        searchUseCase: searchUseCase,
+        defaultListUseCase: defaultListUseCase,
+        newPageUserUseCase: newPageUserUseCase,
+        repo: repo,
+      );
 }
 
 class _UserListPage extends State<UserListPage> {
@@ -31,14 +53,14 @@ class _UserListPage extends State<UserListPage> {
   GetNewPageUserSearch newPageUserUseCase;
   GithubSearchApiRepository repo;
 
-  _UserListPage() {
-    client = http.Client();
-    remoteDataSource = UserListRemoteDataSource(client: client);
-    repo = GithubSearchApiRepository(remoteDataSource: remoteDataSource);
-    searchUseCase = GetUserSearch(repo);
-    defaultListUseCase = GetDefaultUserList(repo);
-    newPageUserUseCase = GetNewPageUserSearch(repo);
-  }
+  _UserListPage({
+    this.client,
+    this.remoteDataSource,
+    this.searchUseCase,
+    this.defaultListUseCase,
+    this.newPageUserUseCase,
+    this.repo,
+  });
 
   final _searchController = TextEditingController();
 
@@ -140,6 +162,7 @@ class _UserListPage extends State<UserListPage> {
                   ),
                   Expanded(
                       child: ListView.builder(
+                    key: Key('UserListPageListView'),
                     itemCount: length + 1,
                     itemBuilder: (ctx, index) {
                       if (index == length) {
