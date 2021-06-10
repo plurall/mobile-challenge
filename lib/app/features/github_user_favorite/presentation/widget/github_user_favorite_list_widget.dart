@@ -15,7 +15,7 @@ class GithubUserFavoriteListWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         var item = favorite[index];
         return GithubUserCardWidget(
-          avatar_url: item.avatar_url,
+          avatar_url: '',
           bio: item.bio,
           email: item.email,
           location: item.location,
