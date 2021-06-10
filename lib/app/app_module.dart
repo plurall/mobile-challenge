@@ -1,15 +1,26 @@
-import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/theme/app_theme.dart';
+import 'core/services/local_storage_interface.dart';
+import 'core/services/local_storage_service.dart';
+import 'features/github_user/github_module.dart';
+import 'features/github_user_favorite/github_user_favorite_module.dart';
+//import 'features/github_user_favorite/github_user_favorite_module.dart';
 
-class AppWidget extends StatelessWidget {
+class AppModule extends Module {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Mobile Challenge',
-      theme: AppTheme(context).dark,
-    ).modular();
-  }
+  final List<Bind> binds = [
+    //external
+    Bind((i) => Dio()),
+    Bind((i) => SharedPreferences.getInstance()),
+    //internal
+    Bind<ILocaStorage>((i) => LocalStorageService(i())),
+  ];
+
+  @override
+  final List<ModularRoute> routes = [
+    ModuleRoute(Modular.initialRoute, module: GithubUserModule()),
+    ModuleRoute('/favorite', module: GithubUserFavoriteModule()),
+  ];
 }

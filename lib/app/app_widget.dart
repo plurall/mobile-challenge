@@ -1,12 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/app/github/github_module.dart';
 
-class AppModule extends Module {
-  @override
-  final List<Bind> binds = [];
+import 'core/theme/app_theme.dart';
 
+class AppWidget extends StatelessWidget {
   @override
-  final List<ModularRoute> routes = [
-    ModuleRoute(Modular.initialRoute, module: GitHubModule()),
-  ];
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Mobile Challenge',
+      theme: AppTheme(context).dark,
+    ).modular();
+  }
 }
