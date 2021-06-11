@@ -5,29 +5,51 @@ import 'package:mobile_challenge/app/modules/users/domain/entities/user.entity.d
 import '../../../../fixtures/fixture.dart';
 
 main() {
-  final model = UserModel(id: 11, login: '', avatarUrl: '');
-  final entity = UserEntity(id: 11, login: '', avatarUrl: '');
+  final model = UserModel(
+      id: 11,
+      login: 'user',
+      avatarUrl: 'image',
+      bio: 'bio',
+      email: 'email',
+      location: 'location');
+  final entity = UserEntity(
+      id: 11,
+      login: 'user',
+      avatarUrl: 'image',
+      bio: 'bio',
+      email: 'email',
+      location: 'location');
 
   setUp(() {});
 
-  test('Should model is  entity', () async {
+  test('Should model is entity', () async {
     expect(model is UserEntity, true);
   });
 
-  test('Should do json parse', () async {
+  test('Should return model when json is given', () async {
     Map<String, dynamic> jsonMap = json.decode(fixture('user.json'));
     final result = UserModel.fromJson(jsonMap);
     expect(model, result);
   });
 
-  test('Should return entity', () async {
+  test('Should return model when entity is given', () async {
+    final result = UserModel.fromEntity(entity);
+    expect(result, model);
+  });
+
+  test('Should return entity when model is given', () async {
     final result = UserModel.toEntity(model);
     expect(result, entity);
   });
 
-  test('Should return map from user', () async {
+  test('Should return map when model is given', () async {
     final result = UserModel.toMap(model);
-    expect(result,
-        {'id': 11, 'login': '', 'location': null, 'bio': null, 'email': null});
+    expect(result, {
+      'id': 11,
+      'login': 'user',
+      'location': 'location',
+      'bio': 'bio',
+      'email': 'email'
+    });
   });
 }

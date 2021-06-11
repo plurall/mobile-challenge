@@ -22,6 +22,10 @@ class UsersPage extends StatefulWidget {
 class _UsersPageState extends ModularState<UsersPage, UsersController> {
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  final String loadingKey = "loadingPage";
+  final String loadingBottomKey = "loadingBottomPage";
+  final String searchButtonKey = "search";
+  final String tryAgainKey = "tryAgain";
 
   @override
   void initState() {
@@ -41,7 +45,7 @@ class _UsersPageState extends ModularState<UsersPage, UsersController> {
     double maxScroll = _scrollController.position.maxScrollExtent;
     double currentScroll = _scrollController.position.pixels;
     double delta = 0;
-    if (maxScroll - currentScroll == delta && !controller.isLoadingButton) {
+    if (maxScroll - currentScroll == delta && !controller.isLoadingBottom) {
       controller.getUserList();
     }
   }
@@ -109,6 +113,7 @@ class _UsersPageState extends ModularState<UsersPage, UsersController> {
             )),
             Container(
                 child: OutlinedButton(
+              key: Key(searchButtonKey),
               child: Text(Constants.SEARCH_BUTTON),
               onPressed: () {
                 controller.searchValue = _searchController.text;
@@ -126,7 +131,9 @@ class _UsersPageState extends ModularState<UsersPage, UsersController> {
       return controller.isError
           ? _errorPage()
           : controller.isLoading
-              ? Expanded(child: Center(child: CircularProgressIndicator()))
+              ? Expanded(
+                  child: Center(
+                      child: CircularProgressIndicator(key: Key(loadingKey))))
               : Expanded(
                   child: Container(
                       width: Constrains.fullWidth(context),
@@ -168,6 +175,7 @@ class _UsersPageState extends ModularState<UsersPage, UsersController> {
     return Expanded(
         child: Center(
             child: InkWell(
+                key: Key(tryAgainKey),
                 onTap: () {
                   controller.getUserList();
                 },
@@ -179,13 +187,15 @@ class _UsersPageState extends ModularState<UsersPage, UsersController> {
 
   Widget _bottomLoading() {
     return Observer(builder: (_) {
-      return controller.isLoadingButton
+      return controller.isLoadingBottom
           ? Column(
               children: [
                 Container(
                     width: 25,
                     height: 25,
-                    child: Center(child: CircularProgressIndicator())),
+                    child: Center(
+                        child: CircularProgressIndicator(
+                            key: Key(loadingBottomKey)))),
                 SizedBox(height: Constrains.layoutSpace(LayoutSpace.xxs)),
               ],
             )

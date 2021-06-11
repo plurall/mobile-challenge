@@ -21,20 +21,20 @@ main() {
   var errorDioResponse400 = Response(data: [
     {"id": 11, "login": "", "avatar_url": ""}
   ], statusCode: 400);
-  Map<String, dynamic> queryParameters = {"per_page": 15, "page": input};
+  Map<String, dynamic> queryParameters = {"per_page": 15, "since": input};
 
   setUp(() {
     _datasource = GetUsersDatasourceImpl(_dio);
   });
 
-  test('Should call dio method when datasource is call', () async {
+  test('Should do dio method when datasource is call', () async {
     when(_dio.get(route, queryParameters: queryParameters))
         .thenAnswer((_) async => successDioResponse);
     await _datasource(input);
     verify(_dio.get(route, queryParameters: queryParameters)).called(1);
   });
 
-  test('Should datasource return List<UserModel> when dio return', () async {
+  test('Should return List<UserModel> when datasource is call', () async {
     when(_dio.get(route, queryParameters: queryParameters))
         .thenAnswer((_) async => successDioResponse);
     var result = await _datasource(input);

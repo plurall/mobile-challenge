@@ -1,5 +1,8 @@
 {
     "id": 11,
-    "login": "", 
-    "avatar_url": ""
+    "login": "user", 
+    "avatar_url": "image",
+    "bio": "bio",
+    "email": "email",
+    "location": "location"
 }

@@ -20,10 +20,10 @@ abstract class _UsersControllerBase with Store {
   changeLoading(value) => isLoading = value;
 
   @observable
-  bool isLoadingButton = false;
+  bool isLoadingBottom = false;
 
   @action
-  changeLoadingButton(value) => isLoadingButton = value;
+  changeLoadingBottom(value) => isLoadingBottom = value;
 
   @observable
   bool isError = false;
@@ -53,6 +53,7 @@ abstract class _UsersControllerBase with Store {
   }
 
   getUserList() async {
+    changeError(false);
     if (isSearching) {
       getSearchUsers();
     } else {
@@ -66,12 +67,12 @@ abstract class _UsersControllerBase with Store {
       changeError(false);
       changeLoading(true);
     } else {
-      changeLoadingButton(true);
+      changeLoadingBottom(true);
     }
     int lastId = users.length == 0 ? 0 : users.last.id;
     var result = await _usecase(lastId);
     changeLoading(false);
-    changeLoadingButton(false);
+    changeLoadingBottom(false);
     result.fold((error) {
       if (page == 1) {
         changeError(true);
@@ -92,11 +93,11 @@ abstract class _UsersControllerBase with Store {
       changeError(false);
       changeLoading(true);
     } else {
-      changeLoadingButton(true);
+      changeLoadingBottom(true);
     }
     var result = await _searchUsecase(searchValue, page);
     changeLoading(false);
-    changeLoadingButton(false);
+    changeLoadingBottom(false);
     result.fold((error) {
       if (page == 1) {
         changeError(true);

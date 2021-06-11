@@ -34,19 +34,19 @@ mixin _$UsersController on _UsersControllerBase, Store {
     });
   }
 
-  final _$isLoadingButtonAtom =
-      Atom(name: '_UsersControllerBase.isLoadingButton');
+  final _$isLoadingBottomAtom =
+      Atom(name: '_UsersControllerBase.isLoadingBottom');
 
   @override
-  bool get isLoadingButton {
-    _$isLoadingButtonAtom.reportRead();
-    return super.isLoadingButton;
+  bool get isLoadingBottom {
+    _$isLoadingBottomAtom.reportRead();
+    return super.isLoadingBottom;
   }
 
   @override
-  set isLoadingButton(bool value) {
-    _$isLoadingButtonAtom.reportWrite(value, super.isLoadingButton, () {
-      super.isLoadingButton = value;
+  set isLoadingBottom(bool value) {
+    _$isLoadingBottomAtom.reportWrite(value, super.isLoadingBottom, () {
+      super.isLoadingBottom = value;
     });
   }
 
@@ -95,11 +95,11 @@ mixin _$UsersController on _UsersControllerBase, Store {
   }
 
   @override
-  dynamic changeLoadingButton(dynamic value) {
+  dynamic changeLoadingBottom(dynamic value) {
     final _$actionInfo = _$_UsersControllerBaseActionController.startAction(
-        name: '_UsersControllerBase.changeLoadingButton');
+        name: '_UsersControllerBase.changeLoadingBottom');
     try {
-      return super.changeLoadingButton(value);
+      return super.changeLoadingBottom(value);
     } finally {
       _$_UsersControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -131,7 +131,7 @@ mixin _$UsersController on _UsersControllerBase, Store {
   String toString() {
     return '''
 isLoading: ${isLoading},
-isLoadingButton: ${isLoadingButton},
+isLoadingBottom: ${isLoadingBottom},
 isError: ${isError},
 users: ${users}
     ''';
