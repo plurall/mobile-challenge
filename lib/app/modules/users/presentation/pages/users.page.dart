@@ -55,12 +55,9 @@ class _UsersPageState extends ModularState<UsersPage, UsersController> {
     return Scaffold(
         body: SafeArea(
             child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
                 onTap: () {
-                  FocusScopeNode currentFocus = FocusScope.of(context);
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                  if (!currentFocus.hasPrimaryFocus) {
-                    currentFocus.unfocus();
-                  }
+                  FocusScope.of(context).unfocus();
                 },
                 child: Column(children: [_headerPage(), _bodyPage()]))));
   }
@@ -116,6 +113,7 @@ class _UsersPageState extends ModularState<UsersPage, UsersController> {
               key: Key(searchButtonKey),
               child: Text(Constants.SEARCH_BUTTON),
               onPressed: () {
+                FocusScope.of(context).unfocus();
                 controller.searchValue = _searchController.text;
                 controller.getUserListForSearch();
               },
