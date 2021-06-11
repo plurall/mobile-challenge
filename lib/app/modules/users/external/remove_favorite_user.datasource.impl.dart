@@ -1,5 +1,5 @@
+import 'package:mobile_challenge/app/core/shared/helper/db_helper.dart';
 import 'package:mobile_challenge/app/modules/users/data/datasource/remove_favorite_user.datasource.dart';
-import 'package:mobile_challenge/app/shared/helper/db_helper.dart';
 
 class RemoveFavoriteUserDatasourceImpl implements RemoveFavoriteUserDatasource {
   final DatabaseHelp _db;

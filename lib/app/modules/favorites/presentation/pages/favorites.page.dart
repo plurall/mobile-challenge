@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobile_challenge/app/app_controller.dart';
+import 'package:mobile_challenge/app/core/utils/colors.dart';
+import 'package:mobile_challenge/app/core/utils/constants.dart';
+import 'package:mobile_challenge/app/core/utils/constrains.dart';
+import 'package:mobile_challenge/app/core/utils/fonts.dart';
+import 'package:mobile_challenge/app/core/utils/routes.dart';
 import 'package:mobile_challenge/app/modules/favorites/presentation/controllers/favorites_controller.dart';
 import 'package:mobile_challenge/app/modules/users/domain/entities/user.entity.dart';
 import 'package:mobile_challenge/app/modules/users/presentation/widgets/user_item.widget.dart';
-import 'package:mobile_challenge/app/shared/utils/colors.dart';
-import 'package:mobile_challenge/app/shared/utils/constants.dart';
-import 'package:mobile_challenge/app/shared/utils/constrains.dart';
-import 'package:mobile_challenge/app/shared/utils/fonts.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobile_challenge/app/shared/utils/routes.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({Key key}) : super(key: key);

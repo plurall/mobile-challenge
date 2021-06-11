@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/core/shared/helper/db_helper.dart';
+import 'package:mobile_challenge/app/core/utils/constants.dart';
 import 'package:mobile_challenge/app/modules/favorites/data/repositories/get_favorites.repository.impl.dart';
 import 'package:mobile_challenge/app/modules/favorites/domain/usecases/get_favorites.usecase.impl.dart';
 import 'package:mobile_challenge/app/modules/favorites/external/get_favorites.datasource.impl.dart';
@@ -11,8 +13,6 @@ import 'package:mobile_challenge/app/modules/users/domain/usecases/get_users.use
 import 'package:mobile_challenge/app/modules/users/external/get_search_users.datasource.impl.dart';
 import 'package:mobile_challenge/app/modules/users/external/get_users.datasource.impl.dart';
 import 'package:mobile_challenge/app/modules/users/presentation/controllers/users_controller.dart';
-import 'package:mobile_challenge/app/shared/helper/db_helper.dart';
-import 'package:mobile_challenge/app/shared/utils/constants.dart';
 import 'package:dio/dio.dart';
 
 import 'presentation/pages/home_page.dart';

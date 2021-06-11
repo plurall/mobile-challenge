@@ -1,16 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile_challenge/app/core/shared/failures/failure_system.dart';
 import 'package:mobile_challenge/app/modules/users/data/datasource/get_users.datasource.dart';
 import 'package:mobile_challenge/app/modules/users/data/models/user.model.dart';
 import 'package:mobile_challenge/app/modules/users/external/get_users.datasource.impl.dart';
-import 'package:mobile_challenge/app/shared/failures/failure_system.dart';
 import 'package:mockito/mockito.dart';
 
 class DioMock extends Mock implements Dio {}
 
 main() {
   final Dio _dio = DioMock();
-  final String route = "/users";
+  final String route = GetUsersDatasourceImpl.ROUTE;
   GetUsersDatasource _datasource;
   int input = 1;
 

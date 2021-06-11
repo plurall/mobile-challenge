@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/app/core/shared/widgets/alert_system.widget.dart';
+import 'package:mobile_challenge/app/core/utils/constants.dart';
 import 'package:mobile_challenge/app/modules/users/domain/entities/user.entity.dart';
 import 'package:mobile_challenge/app/modules/users/domain/usecases/do_favorite_user.usecase.dart';
 import 'package:mobile_challenge/app/modules/users/domain/usecases/get_user.usecase.dart';
 import 'package:mobile_challenge/app/modules/users/domain/usecases/remove_favorite_user.usecase.dart';
-import 'package:mobile_challenge/app/shared/utils/constants.dart';
-import 'package:mobile_challenge/app/shared/widgets/alert_system.widget.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile_challenge/app/core/utils/constants.dart';
+import 'package:mobile_challenge/app/core/utils/keys.dart';
 import 'package:mobile_challenge/app/modules/users/domain/entities/user.entity.dart';
 import 'package:mobile_challenge/app/modules/users/domain/usecases/get_search_users.usecase.dart';
 import 'package:mobile_challenge/app/modules/users/domain/usecases/get_users.usecase.dart';
@@ -11,7 +13,6 @@ import 'package:mobile_challenge/app/modules/users/presentation/controllers/user
 import 'package:mobile_challenge/app/modules/users/presentation/pages/users.page.dart';
 import 'package:mobile_challenge/app/modules/users/users_module.dart';
 import 'package:dartz/dartz.dart' as Dartz;
-import 'package:mobile_challenge/app/shared/utils/constants.dart';
 import 'package:mockito/mockito.dart';
 import '../controllers/users.controller_test.dart';
 
@@ -57,7 +58,7 @@ main() {
       await tester.pumpWidget(MaterialApp(home: Material(child: page)));
       _controller.changeLoading(true);
       await tester.pump();
-      final progress = find.byKey(Key("loadingPage"));
+      final progress = find.byKey(Key(Keys.LOADING));
       expect(progress, findsOneWidget);
       _controller.changeLoading(false);
       await tester.pump();
@@ -72,7 +73,7 @@ main() {
       await tester.pumpWidget(MaterialApp(home: Material(child: page)));
       _controller.changeLoadingBottom(true);
       await tester.pump();
-      final progress = find.byKey(Key("loadingBottomPage"));
+      final progress = find.byKey(Key(Keys.LOADING_BUTTON));
       expect(progress, findsOneWidget);
       _controller.changeLoadingBottom(false);
       await tester.pump();
@@ -133,7 +134,7 @@ main() {
     await tester.runAsync(() async {
       var page = UsersPage();
       await tester.pumpWidget(MaterialApp(home: Material(child: page)));
-      final button = find.byKey(Key("search"));
+      final button = find.byKey(Key(Keys.SEARCH_BUTTON));
       OutlinedButton send = button.evaluate().first.widget;
       send.onPressed();
       await tester.pump(const Duration(milliseconds: 900));
@@ -152,7 +153,7 @@ main() {
     await tester.pumpWidget(MaterialApp(home: Material(child: page)));
     _controller.changeError(true);
     await tester.pump();
-    final button = find.byKey(Key("tryAgain"));
+    final button = find.byKey(Key(Keys.TRY_AGAIN));
     await tester.pump();
     InkWell send = button.evaluate().first.widget;
     _controller.page = 1;

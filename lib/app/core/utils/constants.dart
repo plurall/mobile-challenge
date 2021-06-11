@@ -1,6 +1,6 @@
 class Constants {
   //ENDPOINT
-  static const String ENDPOINT = "https://api.github.com";
+  static const ENDPOINT = "https://api.github.com";
 
   //SHARED
   static const ERROR_NETWORK =

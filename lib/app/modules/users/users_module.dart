@@ -1,4 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/core/shared/helper/db_helper.dart';
+import 'package:mobile_challenge/app/core/utils/constants.dart';
+import 'package:mobile_challenge/app/core/utils/routes.dart';
 import 'package:mobile_challenge/app/modules/users/data/repositories/get_search_users.repository.impl.dart';
 import 'package:mobile_challenge/app/modules/users/data/repositories/get_users.repository.impl.dart';
 import 'package:mobile_challenge/app/modules/users/domain/usecases/get_search_users.usecase.impl.dart';
@@ -9,10 +12,7 @@ import 'package:mobile_challenge/app/modules/users/presentation/controllers/user
 import 'package:mobile_challenge/app/modules/users/presentation/controllers/users_controller.dart';
 import 'package:mobile_challenge/app/modules/users/presentation/pages/user_detail.page.dart';
 import 'package:mobile_challenge/app/modules/users/presentation/pages/users.page.dart';
-import 'package:mobile_challenge/app/shared/helper/db_helper.dart';
-import 'package:mobile_challenge/app/shared/utils/constants.dart';
 import 'package:dio/dio.dart';
-import 'package:mobile_challenge/app/shared/utils/routes.dart';
 
 import 'data/repositories/do_favorite_user.repository.impl.dart';
 import 'data/repositories/get_user.repository.impl.dart';

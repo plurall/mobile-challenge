@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/core/utils/colors.dart';
 import 'package:mobile_challenge/app/modules/favorites/presentation/pages/favorites.page.dart';
 import 'package:mobile_challenge/app/modules/home/presentation/controllers/home_controller.dart';
 import 'package:mobile_challenge/app/modules/users/presentation/pages/users.page.dart';
-import 'package:mobile_challenge/app/shared/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
   final String title;

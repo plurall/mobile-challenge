@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/app/shared/utils/colors.dart';
-import 'package:mobile_challenge/app/shared/utils/constants.dart';
-import 'package:mobile_challenge/app/shared/utils/constrains.dart';
-import 'package:mobile_challenge/app/shared/utils/fonts.dart';
+import 'package:mobile_challenge/app/core/utils/colors.dart';
+import 'package:mobile_challenge/app/core/utils/constants.dart';
+import 'package:mobile_challenge/app/core/utils/constrains.dart';
+import 'package:mobile_challenge/app/core/utils/fonts.dart';
 
 class UserDetailItem extends StatelessWidget {
   final String avatarUrl;
