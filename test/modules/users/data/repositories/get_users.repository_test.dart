@@ -4,7 +4,7 @@ import 'package:mobile_challenge/app/modules/users/data/datasource/get_users.dat
 import 'package:mobile_challenge/app/modules/users/data/models/user.model.dart';
 import 'package:mobile_challenge/app/modules/users/data/repositories/get_users.repository.impl.dart';
 import 'package:mobile_challenge/app/modules/users/domain/entities/user.entity.dart';
-import 'package:mobile_challenge/app/modules/users/domain/repositories/get_users.repositoory.dart';
+import 'package:mobile_challenge/app/modules/users/domain/repositories/get_users.repository.dart';
 import 'package:mockito/mockito.dart';
 
 class GetUsersDatasourceMock extends Mock implements GetUsersDatasource {}
@@ -12,7 +12,7 @@ class GetUsersDatasourceMock extends Mock implements GetUsersDatasource {}
 main() {
   final GetUsersDatasource _datasource = GetUsersDatasourceMock();
   GetUsersRepository _repository;
-  String input = "";
+  int input = 1;
   var resultSuccess = [UserModel(id: 11, avatarUrl: "", login: "")];
   var resultError = Exception(null);
 

@@ -7,7 +7,7 @@ part of 'users_controller.dart';
 // **************************************************************************
 
 final $UsersController = BindInject(
-  (i) => UsersController(i<GetUsersUsecase>()),
+  (i) => UsersController(i<GetUsersUsecase>(), i<GetSearchUsersUsecase>()),
   isSingleton: true,
   isLazy: true,
 );
@@ -34,6 +34,22 @@ mixin _$UsersController on _UsersControllerBase, Store {
     });
   }
 
+  final _$isLoadingButtonAtom =
+      Atom(name: '_UsersControllerBase.isLoadingButton');
+
+  @override
+  bool get isLoadingButton {
+    _$isLoadingButtonAtom.reportRead();
+    return super.isLoadingButton;
+  }
+
+  @override
+  set isLoadingButton(bool value) {
+    _$isLoadingButtonAtom.reportWrite(value, super.isLoadingButton, () {
+      super.isLoadingButton = value;
+    });
+  }
+
   final _$isErrorAtom = Atom(name: '_UsersControllerBase.isError');
 
   @override
@@ -46,6 +62,21 @@ mixin _$UsersController on _UsersControllerBase, Store {
   set isError(bool value) {
     _$isErrorAtom.reportWrite(value, super.isError, () {
       super.isError = value;
+    });
+  }
+
+  final _$usersAtom = Atom(name: '_UsersControllerBase.users');
+
+  @override
+  List<UserEntity> get users {
+    _$usersAtom.reportRead();
+    return super.users;
+  }
+
+  @override
+  set users(List<UserEntity> value) {
+    _$usersAtom.reportWrite(value, super.users, () {
+      super.users = value;
     });
   }
 
@@ -64,6 +95,17 @@ mixin _$UsersController on _UsersControllerBase, Store {
   }
 
   @override
+  dynamic changeLoadingButton(dynamic value) {
+    final _$actionInfo = _$_UsersControllerBaseActionController.startAction(
+        name: '_UsersControllerBase.changeLoadingButton');
+    try {
+      return super.changeLoadingButton(value);
+    } finally {
+      _$_UsersControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic changeError(dynamic value) {
     final _$actionInfo = _$_UsersControllerBaseActionController.startAction(
         name: '_UsersControllerBase.changeError');
@@ -75,10 +117,23 @@ mixin _$UsersController on _UsersControllerBase, Store {
   }
 
   @override
+  dynamic changeUsers(List<UserEntity> value) {
+    final _$actionInfo = _$_UsersControllerBaseActionController.startAction(
+        name: '_UsersControllerBase.changeUsers');
+    try {
+      return super.changeUsers(value);
+    } finally {
+      _$_UsersControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 isLoading: ${isLoading},
-isError: ${isError}
+isLoadingButton: ${isLoadingButton},
+isError: ${isError},
+users: ${users}
     ''';
   }
 }

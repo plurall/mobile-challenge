@@ -4,4 +4,4 @@ class FailureSystem implements Exception {
   FailureSystem({this.type, this.errorMessage});
 }
 
-enum ErrorSystem { MESSAGE, CONNECTION }
+enum ErrorSystem { MESSAGE, CONNECTION, NOTFOUND }

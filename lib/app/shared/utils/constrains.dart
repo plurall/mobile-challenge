@@ -27,31 +27,6 @@ class Constrains {
     return 0;
   }
 
-  static double iconSize(IconSize iconSize) {
-    switch (iconSize) {
-      case IconSize.s:
-        return 15;
-
-      case IconSize.sxm:
-        return 25;
-
-      case IconSize.m:
-        return 30;
-
-      case IconSize.sm:
-        return 35;
-
-      case IconSize.xm:
-        return 40;
-
-      case IconSize.l:
-        return 45;
-      case IconSize.xl:
-        return 60;
-    }
-    return 0;
-  }
-
   static double fullWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
   }
@@ -66,5 +41,3 @@ class Constrains {
 }
 
 enum LayoutSpace { xxxs, xxs, xs, s, m, l, xl, xxl, xxxl }
-
-enum IconSize { s, m, sm, xm, l, xl, sxm }

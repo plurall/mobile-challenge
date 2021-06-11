@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/app/modules/users/presentation/pages/users_page.dart';
+import 'package:mobile_challenge/app/modules/favorites/presentation/pages/favorites.page.dart';
+import 'package:mobile_challenge/app/modules/home/presentation/controllers/home_controller.dart';
+import 'package:mobile_challenge/app/modules/users/presentation/pages/users.page.dart';
 import 'package:mobile_challenge/app/shared/utils/colors.dart';
-
-import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -47,7 +47,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                             icon: Icon(Icons.group, size: 30),
                           ),
                           Tab(
-                            icon: Icon(Icons.favorite_sharp, size: 30),
+                            icon: Icon(Icons.star, size: 30),
                           ),
                         ],
                         labelColor: ColorSystem.primary,
@@ -59,7 +59,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         physics: NeverScrollableScrollPhysics(),
                         children: <Widget>[
                           UsersPage(),
-                          Center(),
+                          FavoritesPage(),
                         ],
                       )))
             ])));

@@ -8,17 +8,14 @@ class GetUsersDatasourceImpl implements GetUsersDatasource {
   GetUsersDatasourceImpl(this._dio);
 
   @override
-  Future<List<UserModel>> call(String text) async {
+  Future<List<UserModel>> call(int id) async {
+    int perPage = 15;
+    Map<String, dynamic> queryParameters = {"per_page": perPage, "since": id};
+    String route = '/users';
     try {
-      var result = await _dio.get('/users/$text');
-      if (result.statusCode == 200) {
-        List responseJson = result.data;
-        return responseJson.map((item) {
-          return UserModel.fromJson(item);
-        }).toList();
-      } else {
-        return throw FailureSystem(type: ErrorSystem.CONNECTION);
-      }
+      var result = await _dio.get(route, queryParameters: queryParameters);
+      List responseJson = result.data;
+      return responseJson.map((item) => UserModel.fromJson(item)).toList();
     } catch (error) {
       return throw FailureSystem(type: ErrorSystem.CONNECTION);
     }
