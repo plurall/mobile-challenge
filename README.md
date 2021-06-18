@@ -6,7 +6,9 @@
 
 Nesse desafio iremos avaliar o seu conhecimento em Flutter e arquiteturas de softwares.
 
-Você deverá implementar o desafio descrito em [`CHALLENGE.md`](/CHALLENGE.md) usando esse codebase como base. Fique a vontade para apagar ou adicionar o que for necessário. É sempre interessante também sempre usar as versões mais recentes do Flutter e Dart para tirar proveitos das melhorias lançadas.
+Você deverá implementar o desafio descrito em [`CHALLENGE.md`](/CHALLENGE.md) usando esse codebase como base. Fique a vontade para apagar ou adicionar o que for necessário. 
+
+É sempre interessante também sempre usar as versões mais recentes do Flutter e Dart para tirar proveito das melhorias lançadas.
 
 ## Critério de avaliação
 
