@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:mobile_challenge/modules/search/domain/entities/result_search.dart';
 import 'package:mobile_challenge/modules/search/domain/usecases/search_by_text.dart';
 import 'package:mobile_challenge/modules/search/presenter/search/states/state.dart';
 import 'package:rxdart/rxdart.dart';

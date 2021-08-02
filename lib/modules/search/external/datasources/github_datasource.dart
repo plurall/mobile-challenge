@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:mobile_challenge/modules/search/domain/errors/errors.dart';
 import 'package:mobile_challenge/modules/search/infra/datasources/search_datasource.dart';
 import 'package:mobile_challenge/modules/search/infra/models/result_search_model.dart';
+import 'package:mobile_challenge/modules/search/infra/models/result_search_perfil_model.dart';
 
 extension on String {
   normalize(){
@@ -24,5 +27,17 @@ class GithubDatasource implements SearchDatasource{
       }else{
         throw DatasourceError();
       }
+  }
+
+  @override
+  Future<ResultSearchPerfilModel> getPerfil(String searchText) async{
+    final response = await dio.get("https://api.github.com/users/${searchText.normalize()}");
+    if(response.statusCode==200){
+     // ResultSearchPerfilModel modelObject = ResultSearchPerfilModel.fromMap(response.data);
+
+      return ResultSearchPerfilModel.fromMap(response.data);
+    }else{
+      throw DatasourceError();
+    }
   }
 }

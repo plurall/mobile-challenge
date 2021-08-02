@@ -38,41 +38,59 @@ class _SearchPageState extends State<SearchPage> {
 
           Expanded(
               child:
-              StreamBuilder(
-              stream: bloc,
-              builder: (context,snapshot){
-                final state = bloc.state;
-                if(state is SearchStart){
-                  return Center(
-                    child: Text('Digite o nome'),
-                  );
-                }
-                if(state is SearchError){
-                  return Center(
-                    child: Text('Ocorreu um erro'),
-                  );
-                }
-                if(state is SearchLoading){
-                  return CircularProgressIndicator();
-                }
+                  StreamBuilder(
+                    stream: bloc,
+                    builder: (context,snapshot){
+                      final state = bloc.state;
+                      if(state is SearchStart){
+                        return Center(
+                          child: Text('Digite o nome'),
+                        );
+                      }
+                      if(state is SearchError){
+                        return Center(
+                          child: Text('Ocorreu um erro'),
+                        );
+                      }
+                      if(state is SearchLoading){
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
 
-                final list = (state as SearchSucces).list;
-                return  ListView.builder(
-                    itemCount: list.length,
-                    itemBuilder: (_,id){
-                      final item = list[id];
-                      return ListTile(
-                        leading: item.avatar_url ==null ? Container() :CircleAvatar(
-                          backgroundImage: NetworkImage(item.avatar_url),
-                        ),
-                        title: Text(item.login ?? ""),
-                        subtitle: Text(item.id.toString() ?? ""),
+                      }
 
+                      final list = (state as SearchSucces).list;
+
+
+                      return  ListView.builder(
+                          itemCount: list.length,
+                          itemBuilder: (_,id){
+                            final item = list[id];
+
+                           return GestureDetector(
+                                onTap: (){
+                                  Modular.to.pushNamed('/perfil/'+item.login ?? "");
+                                },
+                                child:
+                             ListTile(
+                              leading: item.avatar_url ==null ? Container() :CircleAvatar(
+                                backgroundImage: NetworkImage(item.avatar_url),
+                              ),
+                              title: Text(item.login ?? ""),
+                              subtitle: Text(item.id.toString() ?? ""),
+
+                            )
+                            );
+
+                          }
                       );
-                    }
-                    );
-              } ,
-          )
+
+
+                    } ,
+                  ),
+
+
+
 
 
 
