@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/app/modules/search/ui/search_page.dart';
+
+import '../search/ui/search_page.dart';
 
 
 class ProfileModule extends Module {

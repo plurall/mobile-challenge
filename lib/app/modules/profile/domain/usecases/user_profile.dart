@@ -1,6 +1,6 @@
-import 'package:mobile_challenge/app/modules/profile/domain/entities/user_detail_entity.dart';
-import 'package:mobile_challenge/app/modules/profile/domain/errors/profile_errors.dart';
-import 'package:mobile_challenge/app/modules/profile/domain/repositories/profile_repository.dart';
+import '../entities/user_detail_entity.dart';
+import '../errors/profile_errors.dart';
+import '../repositories/profile_repository.dart';
 
 abstract class UserProfile {
   Future<UserDetailEntity> getUserDetail (String username);
