@@ -31,4 +31,12 @@ void main() {
     expect(result, user);
   });
 
+  test('Should throws an exception if username is invalid', () async {
+    final invalidUserName = "";
+    when(() => repository.getUserDetail(invalidUserName)).thenThrow((_) async => InvalidUserName());
+
+    final future =  usecase.getUserDetail(invalidUserName);
+
+    expect(future, throwsA(isA<InvalidUserName>()));
+  });
 }
