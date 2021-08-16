@@ -1,5 +1,5 @@
-import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/models/user_detail_model.dart';
 
 abstract class ProfileDatasource {
-  Future<UserDetailEntity> getUser(String username);
+  Future<UserDetailModel> getUser(String username);
 }

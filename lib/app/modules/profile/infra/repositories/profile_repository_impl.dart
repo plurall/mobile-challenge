@@ -9,6 +9,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<UserDetailEntity> getUserDetail(String username) async {
     final user = await datasource.getUser(username);
-    return user;
+    return user.toEntity();
   }
 }
