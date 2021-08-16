@@ -38,4 +38,13 @@ void main() {
 
     expect(future, throwsA(isA<UnavailableServiceError>()));
   });
+
+  test('Should return an Exception if status code is different from 200 and 503', () async {    
+    when(() => http.get(searchEndpoint))
+      .thenAnswer((_) async => Response("{}", 403));
+
+    final future = datasource.search(searchText);
+
+    expect(future, throwsA(isA<Exception>()));
+  });
 }
