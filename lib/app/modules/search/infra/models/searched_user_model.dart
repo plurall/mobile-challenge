@@ -1,7 +1,7 @@
 import '../../domain/entities/searched_user_entity.dart';
 
 class SearchedUserModel {
-  final String id;
+  final int id;
   final String login;
   final String avatarUrl;
 
@@ -16,7 +16,7 @@ class SearchedUserModel {
   }
 
   SearchedUserEntity toEntity() => SearchedUserEntity(
-    id: id, 
+    id: id.toString(), 
     login: login, 
     avatarUrl: avatarUrl
   );
