@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart';
+import 'package:mobile_challenge/app/modules/search/domain/errors/search_errors.dart';
 import 'package:mobile_challenge/app/shared/utils/endpoints.dart';
 
 import '../infra/datasources/search_user_datasource.dart';
@@ -25,7 +26,10 @@ class RemoteSearchUserDataSource implements SearchUserDataSource {
         final users = items.map((item) => SearchedUserModel.fromMap(item)).toList();
 
         return users;
-    } else {
+    } else if (response.statusCode == 503) {
+       throw UnavailableServiceError();
+    }
+    else {
       throw Exception();
     }
   }

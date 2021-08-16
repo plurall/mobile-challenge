@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mobile_challenge/app/modules/search/data/remote_search_user_datasource.dart';
+import 'package:mobile_challenge/app/modules/search/domain/errors/search_errors.dart';
 import 'package:mobile_challenge/app/modules/search/infra/models/searched_user_model.dart';
 import 'package:mobile_challenge/app/shared/utils/endpoints.dart';
 import 'package:mocktail/mocktail.dart';
@@ -19,7 +20,7 @@ void main() {
     http = ClientMock();
     datasource = RemoteSearchUserDataSource(http);
   });
-
+  
   test('Should return a List of SearchedUserModel if status code is 200', () async {
     when(() => http.get(searchEndpoint))
       .thenAnswer((_) async => Response(fixture("search_user_response.json"), 200));
@@ -29,4 +30,12 @@ void main() {
     expect(result, isA<List<SearchedUserModel>>());
   });
 
+  test('Should return a UnavailableServiceError if status code is 503', () async {    
+    when(() => http.get(searchEndpoint))
+      .thenAnswer((_) async => Response("{}", 503));
+
+    final future = datasource.search(searchText);
+
+    expect(future, throwsA(isA<UnavailableServiceError>()));
+  });
 }
