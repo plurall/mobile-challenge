@@ -8,12 +8,16 @@ import 'package:mocktail/mocktail.dart';
 class SearchUserRepositoryMock extends Mock implements SearchUserRepository{}
 
 void main() {
+  late final SearchUserRepository repository;
+  late final SearchUser usecase;
+
+  setUpAll(() {
+    repository = SearchUserRepositoryMock();
+    usecase = SearchUserImpl(repository);
+  });
 
   test('Should return a list of SearchedUser', () async {
     final searchText = "random_text";
-    final repository = SearchUserRepositoryMock();
-    final usecase = SearchUserImpl(repository);
-
     when(() => repository.search(searchText)).thenAnswer((_) async => <SearchedUser>[]);
 
     final result = await usecase.search(searchText);
@@ -23,8 +27,6 @@ void main() {
 
   test('Should throw and InvalidSearchText if search text is empty', () async {
     final emptySearchText = "";
-    final repository = SearchUserRepositoryMock();
-    final usecase = SearchUserImpl(repository);
 
     final future = usecase.search(emptySearchText);
 
