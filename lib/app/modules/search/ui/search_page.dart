@@ -112,7 +112,7 @@ class _SearchPageState extends State<SearchPage> {
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
               isCollapsed: true,              
-              hintText: "Search user",
+              hintText: "Type to search",
               suffixIcon: Icon(Icons.search, color: AppColors.primaryTextColor),
             ),
             textAlignVertical: TextAlignVertical.center,

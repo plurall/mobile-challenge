@@ -29,10 +29,11 @@ abstract class _SearchPageControllerBase with Store {
     _searchTypeDelay = Timer(Duration(milliseconds: 500), () => _searchUsers(searchText));    
   }
 
+  @action
   Future<Null> _searchUsers(String searchText) async{
     state = SearchPageState.LOADING;
     searchedUsers.clear();
-
+    
     try {
       final result = await usecase.search(searchText);
       searchedUsers.addAll(result);

@@ -16,7 +16,7 @@ void main() {
   final String searchText = "random_text";
   final searchEndpoint = Uri.parse(Endpoints.searchUser + searchText);
 
-  setUp(() {
+  setUpAll(() {
     http = ClientMock();
     datasource = RemoteSearchUserDataSource(http);
   });
