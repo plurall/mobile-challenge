@@ -1,5 +1,5 @@
-import 'package:mobile_challenge/app/modules/search/domain/entities/searched_user.dart';
+import 'package:mobile_challenge/app/modules/search/domain/entities/searched_user_entity.dart';
 
 abstract class SearchUserRepository {
-  Future<List<SearchedUser>> search(String searchText);
+  Future<List<SearchedUserEntity>> search(String searchText);
 }

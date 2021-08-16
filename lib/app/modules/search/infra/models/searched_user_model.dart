@@ -1,4 +1,4 @@
-import '../../domain/entities/searched_user.dart';
+import '../../domain/entities/searched_user_entity.dart';
 
 class SearchedUserModel {
   final String id;
@@ -15,7 +15,7 @@ class SearchedUserModel {
     );
   }
 
-  SearchedUser toEntity() => SearchedUser(
+  SearchedUserEntity toEntity() => SearchedUserEntity(
     id: id, 
     login: login, 
     avatarUrl: avatarUrl

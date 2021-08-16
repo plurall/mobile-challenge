@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/search/domain/entities/searched_user.dart';
+import 'package:mobile_challenge/app/modules/search/domain/entities/searched_user_entity.dart';
 import 'package:mobile_challenge/app/modules/search/infra/datasources/search_user_datasource.dart';
 import 'package:mobile_challenge/app/modules/search/infra/models/searched_user_model.dart';
 import 'package:mobile_challenge/app/modules/search/infra/repositories/search_user_repository_impl.dart';
@@ -16,6 +16,6 @@ void main() {
 
     final result = await repository.search(searchText);
 
-    expect(result, isA<List<SearchedUser>>());
+    expect(result, isA<List<SearchedUserEntity>>());
   });
 }
