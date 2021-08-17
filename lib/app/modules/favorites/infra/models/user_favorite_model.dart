@@ -9,8 +9,18 @@ class UserFavoriteModel {
   final String avatarUrl;
   final bool isFavorite;
 
-  UserFavoriteModel({required this.login, this.bio, this.name,
-  this.location, this.email, required this.avatarUrl,  required this.isFavorite});
+  UserFavoriteModel({required this.login, required this.bio, required this.name,
+   required this.location, required this.email, required this.avatarUrl,  required this.isFavorite});
+
+  factory UserFavoriteModel.fromJson(Map<String,dynamic> json) => UserFavoriteModel(
+    login: json["login"], 
+    bio: json["bio"], 
+    name: json["name"], 
+    location: json["location"], 
+    email: json["email"], 
+    avatarUrl: json["avatar_url"], 
+    isFavorite: json["isFavorite"]
+  );
 
   UserFavorite toEntity() => UserFavorite(
     login: login, 
