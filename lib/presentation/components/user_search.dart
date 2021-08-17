@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class UserSearch extends StatefulWidget {
   final String searchFeedback;
   final Function onPress;
+  final Function clearSearchFeedback;
 
-  UserSearch(this.onPress, this.searchFeedback);
+  UserSearch(this.onPress, this.searchFeedback, this.clearSearchFeedback);
 
   @override
   _UserSearchState createState() => _UserSearchState();
@@ -12,6 +13,22 @@ class UserSearch extends StatefulWidget {
 
 class _UserSearchState extends State<UserSearch> {
   final searchFieldController = TextEditingController();
+
+  onSearchFieldChange() {
+    widget.clearSearchFeedback();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    searchFieldController.addListener(onSearchFieldChange);
+  }
+
+  @override
+  void dispose() {
+    searchFieldController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

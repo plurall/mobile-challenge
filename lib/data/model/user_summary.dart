@@ -1,16 +1,16 @@
-class User {
+class UserSummary {
   final int id;
   final String login;
   final String avatar;
 
-  User({
+  UserSummary({
     required this.id,
     required this.login,
     required this.avatar,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory UserSummary.fromJson(Map<String, dynamic> json) {
+    return UserSummary(
       avatar: json['avatar_url'],
       id: json['id'],
       login: json['login'],

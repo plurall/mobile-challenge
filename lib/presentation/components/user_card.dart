@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/data/model/user.dart';
+import 'package:mobile_challenge/data/model/user_summary.dart';
 
 class UserCard extends StatelessWidget {
-  final User user;
+  final UserSummary user;
 
   UserCard(this.user);
 
   void selectUser(BuildContext context) {
-    Navigator.of(context).pushNamed('/user-profile', arguments: this.user);
+    Navigator.of(context)
+        .pushNamed('/user-profile', arguments: this.user.login);
   }
 
   @override

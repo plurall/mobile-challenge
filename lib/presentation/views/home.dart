@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/remote/github_api.dart';
-import 'package:mobile_challenge/data/model/user.dart';
+import 'package:mobile_challenge/data/model/user_summary.dart';
 import 'package:mobile_challenge/presentation/components/user_card.dart';
 import 'package:mobile_challenge/presentation/components/user_search.dart';
 
@@ -10,7 +10,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<User> users = [];
+  List<UserSummary> users = [];
   String searchFeedback = '';
 
   onSearch(String search) async {
@@ -30,6 +30,12 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  clearSearchFeedback() {
+    setState(() {
+      searchFeedback = '';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +50,7 @@ class _HomeViewState extends State<HomeView> {
                 UserSearch(
                   onSearch,
                   searchFeedback,
+                  clearSearchFeedback,
                 ),
                 Expanded(
                   child: Container(
