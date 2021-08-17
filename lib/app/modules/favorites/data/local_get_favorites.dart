@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../infra/datasources/get_favorites_datasource.dart';
@@ -13,7 +14,7 @@ class LocalGetFavorites implements GetFavoritesDataSource {
   Future<List<UserFavoriteModel>> getFavorites() async {
     List<UserFavoriteModel> favorites = [];
 
-    final savedFavorites = prefs.getString("favorites");
+    final savedFavorites = prefs.getString(PrefsKey.CACHED_FAVORITES);
 
     if (savedFavorites != null) {
         final items  = jsonDecode(savedFavorites)["favorites"];

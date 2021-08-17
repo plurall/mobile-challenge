@@ -19,6 +19,14 @@ void main() {
     datasource = LocalGetFavorites(prefs);
   });
 
+  test('Should call prefs.getString() with the correct key', () async {
+    when(() => prefs.getString(PrefsKey.CACHED_FAVORITES)).thenAnswer((_) => null);
+
+    await datasource.getFavorites();
+
+    verify(() => prefs.getString(PrefsKey.CACHED_FAVORITES));
+  });
+
   test('Should return a list of UserFavoritesModel', () async {
     when(() => prefs.getString(PrefsKey.CACHED_FAVORITES)).thenAnswer((_) => fixture("user_favorites_list.json"));
 
