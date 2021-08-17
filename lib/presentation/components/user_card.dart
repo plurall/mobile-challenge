@@ -10,6 +10,10 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(5),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      clipBehavior: Clip.antiAlias,
       child: Container(
         color: Colors.grey,
         padding: EdgeInsets.all(10),

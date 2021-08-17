@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/remote/github_api.dart';
 import 'package:mobile_challenge/data/model/user.dart';
 import 'package:mobile_challenge/presentation/components/user_card.dart';
+import 'package:mobile_challenge/presentation/components/user_search.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,13 +10,23 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String searchField = '';
   List<User> users = [];
+  String searchFeedback = '';
 
-  onSearch() async {
-    final response = await GithubAPI().getUsers(searchField);
+  onSearch(String search) async {
+    if (search.isEmpty) {
+      setState(() {
+        users = [];
+        searchFeedback = 'Digite o nome do usuário';
+      });
+      return;
+    }
+    final response = await GithubAPI().getUsers(search);
     setState(() {
       users = response;
+      searchFeedback = response.length > 0
+          ? ''
+          : 'Não foram encontrados usuários com este nome';
     });
   }
 
@@ -30,29 +41,13 @@ class _HomeState extends State<Home> {
           child: Form(
             child: Column(
               children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Nome',
-                  ),
-                  initialValue: searchField,
-                  onChanged: (value) => searchField = value,
-                ),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                ),
-                Container(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    child: Text('Buscar'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).primaryColor,
-                    ),
-                    onPressed: () => onSearch(),
-                  ),
+                UserSearch(
+                  onSearch,
+                  searchFeedback,
                 ),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.all(20),
+                    margin: EdgeInsets.only(top: 10),
                     child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: users.length,

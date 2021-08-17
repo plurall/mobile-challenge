@@ -23,7 +23,6 @@ class GithubAPI {
           .map((user) => User.fromJson(user))
           .toList();
     }
-
     return throw Exception('Error loading users');
   }
 }
