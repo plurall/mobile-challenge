@@ -2,23 +2,30 @@ import 'package:mobile_challenge/app/modules/profile/domain/entities/user_detail
 
 class UserDetailModel {
   final String login;
-  final String bio;
-  final String name;
   final String avatarUrl;
+  final String? name;
+  final String? bio;
+  final String? email;
+  final String? location;
 
-  UserDetailModel({required this.login, required this.bio, required this.name, required this.avatarUrl});
+  UserDetailModel({required this.login, required this.bio, required this.name, 
+    required this.location, required this.email, required this.avatarUrl });
 
   factory UserDetailModel.fromJson(Map<String,dynamic> json) => UserDetailModel(
-    login: "login",
-    bio: "bio",
-    name: "name",
-    avatarUrl: "avatar_url"
+    login: json["login"],
+    bio: json["bio"],
+    name: json["name"],
+    email: json["email"],
+    location: json["location"],
+    avatarUrl: json["avatar_url"]
   );
 
   UserDetailEntity toEntity() => UserDetailEntity(
     login: login, 
     bio: bio, 
-    name: name, 
+    name: name,
+    email: email,
+    location: location, 
     avatarUrl: avatarUrl
   );
 }

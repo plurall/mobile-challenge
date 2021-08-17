@@ -22,6 +22,8 @@ void main() {
       login: username,
       avatarUrl: "https://randomurl.com/",
       name: "João Aramndo",
+      location: "Petrópolis - RJ",
+      email: "joaoaarmando@hotmail.com",
       bio: "Olá, Plurall!! ;)"
     );
     when(() => repository.getUserDetail(username)).thenAnswer((_) async => user);

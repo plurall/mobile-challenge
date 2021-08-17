@@ -124,35 +124,38 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildUserTile(SearchedUserEntity user) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(12, 12, 12, 0),
-      padding: const EdgeInsets.all(12),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
-        border: Border.all(color: AppColors.borderColor, width: 1),
-        borderRadius: BorderRadius.circular(10)
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(99),
-            child: CachedNetworkImage(
-              imageUrl: user.avatarUrl,
-              height: 56,
-              width: 56,
+    return GestureDetector(
+      onTap: () => Modular.to.pushNamed("/profile/${user.login}"),
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+        padding: const EdgeInsets.all(12),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: AppColors.backgroundColor,
+          border: Border.all(color: AppColors.borderColor, width: 1),
+          borderRadius: BorderRadius.circular(10)
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(99),
+              child: CachedNetworkImage(
+                imageUrl: user.avatarUrl,
+                height: 56,
+                width: 56,
+              ),
             ),
-          ),
-          SizedBox(width: 12),
-          Text(user.login,
-            style: TextStyle(
-              color: AppColors.primaryTextColor,
-              fontWeight: FontWeight.w400
-            ),
-          )
-        ],
+            SizedBox(width: 12),
+            Text(user.login,
+              style: TextStyle(
+                color: AppColors.primaryTextColor,
+                fontWeight: FontWeight.w400
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
