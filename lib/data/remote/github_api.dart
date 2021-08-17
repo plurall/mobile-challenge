@@ -21,7 +21,7 @@ class GithubAPI {
           .map((user) => UserSummary.fromJson(user))
           .toList();
     }
-    return throw Exception('Error loading users');
+    return throw Exception(jsonDecode(response.body)['message']);
   }
 
   Future<UserProfile> getUser(String login) async {
@@ -35,6 +35,6 @@ class GithubAPI {
       return UserProfile.fromJson(jsonResponse);
     }
 
-    return throw Exception('Error loading user');
+    return throw Exception(jsonDecode(response.body)['message']);
   }
 }

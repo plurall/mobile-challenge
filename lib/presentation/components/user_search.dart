@@ -45,7 +45,13 @@ class _UserSearchState extends State<UserSearch> {
       Container(
         width: double.infinity,
         child: ElevatedButton(
-          child: Text('Buscar'),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Buscar'),
+              Icon(Icons.search),
+            ],
+          ),
           style: ElevatedButton.styleFrom(
             primary: Theme.of(context).primaryColor,
           ),

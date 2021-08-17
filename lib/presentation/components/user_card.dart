@@ -40,6 +40,7 @@ class UserCard extends StatelessWidget {
                   user.login,
                   style: TextStyle(
                     color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

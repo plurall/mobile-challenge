@@ -15,13 +15,14 @@ class _UserProfileViewState extends State<UserProfileView> {
       appBar: AppBar(
         title: Text('Dados de $login'),
       ),
-      body: Center(
-        child: FutureBuilder<UserProfile>(
-          future: GithubAPI().getUser(login),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final user = snapshot.data;
-              return Column(children: [
+      body: FutureBuilder<UserProfile>(
+        future: GithubAPI().getUser(login),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final user = snapshot.data;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text('Nome: ${user!.name}'),
                 Image.network(
                   user.avatar,
@@ -30,14 +31,14 @@ class _UserProfileViewState extends State<UserProfileView> {
                 Text('Email: ${user.email}'),
                 Text('Bio: ${user.bio}'),
                 Text('Localização: ${user.location}'),
-              ]);
-            } else if (snapshot.hasError) {
-              return Text('Erro no carregamento: ${snapshot.error}');
-            }
-            // By default, show a loading spinner.
-            return const CircularProgressIndicator();
-          },
-        ),
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+          // By default, show a loading spinner.
+          return const CircularProgressIndicator();
+        },
       ),
     );
   }

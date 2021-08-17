@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Github API',
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        fontFamily: 'RobotoCondensed',
       ),
       routes: {
         AppRoutes.Home: (context) => HomeView(),

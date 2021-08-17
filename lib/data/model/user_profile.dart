@@ -1,6 +1,6 @@
 class UserProfile {
   final int id;
-  final String name;
+  final String? name;
   final String login;
   final String avatar;
   final String? location;
