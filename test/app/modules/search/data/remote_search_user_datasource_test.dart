@@ -21,6 +21,15 @@ void main() {
     datasource = RemoteSearchUserDataSource(http);
   });
   
+  test('Should call get with correct endpoint', () async {
+    when(() => http.get(searchEndpoint))
+      .thenAnswer((_) async => Response(fixture("search_user_response.json"), 200));
+
+    await datasource.search(searchText);
+
+    verify(() => http.get(searchEndpoint));
+  });
+  
   test('Should return a List of SearchedUserModel if status code is 200', () async {
     when(() => http.get(searchEndpoint))
       .thenAnswer((_) async => Response(fixture("search_user_response.json"), 200));
