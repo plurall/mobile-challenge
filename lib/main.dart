@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/presentation/features/home.dart';
+import 'package:mobile_challenge/presentation/views/home.dart';
+import 'package:mobile_challenge/presentation/views/user_profile.dart';
+import 'package:mobile_challenge/utils/app_routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,9 +14,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Github API',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
-      home: Home(),
+      routes: {
+        AppRoutes.Home: (context) => HomeView(),
+        AppRoutes.UserProfile: (context) => UserProfileView(),
+      },
     );
   }
 }

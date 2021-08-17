@@ -4,12 +4,12 @@ import 'package:mobile_challenge/data/model/user.dart';
 import 'package:mobile_challenge/presentation/components/user_card.dart';
 import 'package:mobile_challenge/presentation/components/user_search.dart';
 
-class Home extends StatefulWidget {
+class HomeView extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeViewState extends State<HomeView> {
   List<User> users = [];
   String searchFeedback = '';
 
