@@ -16,9 +16,8 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   }
 
   @override
-  Future<bool> saveFavorite(UserFavorite user) {
-    // TODO: implement saveFavorite
-    throw UnimplementedError();
+  Future<bool> saveFavorite(UserFavorite user) async {
+    return await dataSource.saveFavorites(user);
   }
 
 }
