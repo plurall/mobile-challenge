@@ -15,4 +15,10 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
     return favoritesToEntity;
   }
 
+  @override
+  Future<bool> saveFavorite(UserFavorite user) {
+    // TODO: implement saveFavorite
+    throw UnimplementedError();
+  }
+
 }
