@@ -14,7 +14,7 @@ void main() {
   late final SharedPreferencesMock prefs;
   late final LocalGetFavorites datasource;
 
-  setUp(() {
+  setUpAll(() {
     prefs = SharedPreferencesMock();
     datasource = LocalGetFavorites(prefs);
   });
