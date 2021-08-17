@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../infra/datasources/get_favorites_datasource.dart';
+import '../infra/datasources/favorites_datasource.dart';
 import '../infra/models/user_favorite_model.dart';
 
-class LocalGetFavorites implements GetFavoritesDataSource {
+class LocalGetFavorites implements FavoritesDataSource {
   final SharedPreferences prefs;
 
   LocalGetFavorites(this.prefs);

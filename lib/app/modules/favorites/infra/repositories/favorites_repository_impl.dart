@@ -1,10 +1,10 @@
-import 'package:mobile_challenge/app/modules/favorites/infra/datasources/get_favorites_datasource.dart';
+import 'package:mobile_challenge/app/modules/favorites/infra/datasources/favorites_datasource.dart';
 
 import '../../domain/entities/user_favorite.dart';
 import '../../domain/favorites_repository.dart';
 
 class FavoritesRepositoryImpl implements FavoritesRepository {
-  final GetFavoritesDataSource dataSource;
+  final FavoritesDataSource dataSource;
 
   FavoritesRepositoryImpl(this.dataSource);
 

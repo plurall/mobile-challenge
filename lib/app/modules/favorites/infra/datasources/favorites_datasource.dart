@@ -1,5 +1,5 @@
 import '../models/user_favorite_model.dart';
 
-abstract class GetFavoritesDataSource {
+abstract class FavoritesDataSource {
   Future<List<UserFavoriteModel>> getFavorites();
 }
