@@ -12,6 +12,7 @@ class ClientMock extends Mock implements Client {}
 
 void main() {
   final username = "joaoarmando";
+  final userDetailEndpoint = Uri.parse(Endpoints.userDetail + username);
   late final client;
   late final datasource;
 
@@ -20,8 +21,17 @@ void main() {
     datasource = RemoteProfileDatasource(client);
   });
 
+  test('Should call get with correct endpoint', () async {
+    when(() => client.get(userDetailEndpoint))
+      .thenAnswer((_) async => Response(fixture("user_detail_response.json"), 200));
+
+    await datasource.getUser(username);
+
+    verify(() => client.get(userDetailEndpoint));
+  });
+
   test('Should return a UserDetailModel', () async {
-    when(() => client.get(Uri.parse(Endpoints.userDetail + username)))
+    when(() => client.get(userDetailEndpoint))
       .thenAnswer((_) async => Response(fixture("user_detail_response.json"), 200));
 
     final result = await datasource.getUser(username);
@@ -30,11 +40,13 @@ void main() {
   });
 
   test('Should throws an UnauthorizedError if status code is 401', () async {
-    when(() => client.get(Uri.parse(Endpoints.userDetail + username)))
+    when(() => client.get(userDetailEndpoint))
       .thenAnswer((_) async => Response("{}", 401));
 
     final future = datasource.getUser(username);
 
     expect(future, throwsA(isA<UnauthorizedError>()));
   });
+
+  
 }
