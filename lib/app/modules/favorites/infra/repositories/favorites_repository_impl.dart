@@ -20,4 +20,10 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
     return await dataSource.saveFavorites(user);
   }
 
+  @override
+  Future<bool> removeFavorite(UserFavorite user) {
+    // TODO: implement removeFavorite
+    throw UnimplementedError();
+  }
+
 }
