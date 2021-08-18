@@ -38,6 +38,16 @@ class UserFavoriteModel {
     );
   }
 
+  factory UserFavoriteModel.fromEntity(UserFavorite entity) => UserFavoriteModel(
+    login: entity.login,
+    bio: entity.bio,
+    name: entity.name,
+    location: entity.location,
+    email: entity.email,
+    avatarUrl: entity.avatarUrl,
+    isFavorite: entity.isFavorite,
+  );
+
   UserFavorite toEntity() => UserFavorite(
     login: login,
     bio: bio,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:mobile_challenge/app/modules/favorites/domain/entities/user_favorite.dart';
+import 'package:mobile_challenge/app/modules/favorites/domain/errors/favorites_errors.dart';
 import 'package:mobile_challenge/app/modules/favorites/infra/models/users_favorite_model.dart';
 import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,17 +27,21 @@ class LocalGetFavorites implements FavoritesDataSource {
 
   @override
   Future<bool> saveFavorites(UserFavorite user) async {
-    // final userModel = UserFavoriteModel.fromEntity(user);
-    // final favorites = await getFavorites();
-    // final alreadyAdded = _checkIfAlreadyFavorite(userModel, favorites);
+    List<UserFavoriteModel> favorites = [];
 
-    // if (alreadyAdded) throw FavoriteAlreadyExists();
+    try {
+      favorites = await getFavorites();
+    } catch (error){}
 
-    // favorites.add(userModel);
-    // Map<String,dynamic> json = {
-    //   "favorites": favorites.map((item) => item.toJson())
-    // };
-    // await prefs.setString(PrefsKey.CACHED_FAVORITES, jsonEncode(json));
+    final userModel = UserFavoriteModel.fromEntity(user);
+    final alreadyAdded = _checkIfAlreadyFavorite(userModel, favorites);
+
+    if (alreadyAdded) throw FavoriteAlreadyExists();
+
+    favorites.add(userModel);
+    final newFavorites = UsersFavoriteModel(favorites: favorites);
+    final json =  newFavorites.toJson();
+    await prefs.setString(PrefsKey.CACHED_FAVORITES, json);
     return true;
   }
 

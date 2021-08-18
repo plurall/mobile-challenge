@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/modules/favorites/data/local_get_favorites.dart';
 import 'package:mobile_challenge/app/modules/favorites/infra/models/user_favorite_model.dart';
+import 'package:mobile_challenge/app/modules/favorites/infra/models/users_favorite_model.dart';
 import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +14,15 @@ class SharedPreferencesMock extends Mock implements SharedPreferences {}
 void main() {
   late final SharedPreferencesMock prefs;
   late final LocalGetFavorites datasource;
+  final tUser = UserFavoriteModel(
+    login: "test_user", 
+    bio: "bio", 
+    name: "name", 
+    location: "location", 
+    email: "email", 
+    avatarUrl: "avatarUrl", 
+    isFavorite: true,
+  );
 
   setUpAll(() {
     prefs = SharedPreferencesMock();
@@ -44,15 +54,13 @@ void main() {
     });
   });
 
-  // group('Save Favorites', () {
-  //   test('Should call prefs.setString() with the correct key', () async {
-  //     final userJson = jsonDecode(fixture("single_user_favorite.json"));
-  //     final user = UserFavoriteModel.fromMap(userJson);
-  //     when(() => prefs.setString(PrefsKey.CACHED_FAVORITES, any()));
+  group('Save Favorites', () {
+    test('Should call prefs.setString() with the correct key', () async {
+      when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);
+      
+      await datasource.saveFavorites(tUser.toEntity());
 
-  //     await datasource.saveFavorites(user.toEntity());
-
-  //     verify(() => prefs.setString(PrefsKey.CACHED_FAVORITES, any()));
-  //   });
-  // });
+      verify(() => prefs.setString(PrefsKey.CACHED_FAVORITES, any()));
+    });
+  });
 }
