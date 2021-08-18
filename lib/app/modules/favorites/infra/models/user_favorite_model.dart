@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:mobile_challenge/app/modules/favorites/domain/entities/user_favorite.dart';
 
 class UserFavoriteModel {
