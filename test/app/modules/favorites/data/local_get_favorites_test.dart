@@ -29,13 +29,13 @@ void main() {
     datasource = LocalGetFavorites(prefs);
   });
 
-  void _mockRequest() {
+  void _mockListUsersRequest() {
     when(() => prefs.getString(PrefsKey.CACHED_FAVORITES)).thenAnswer((_) => fixture("user_favorites_list.json"));
   }
 
   group('Get UserFavorites', () {
     test('Should call prefs.getString() with the correct key', () async {
-      _mockRequest();
+      _mockListUsersRequest();
 
       datasource.getFavorites();
 
@@ -43,7 +43,7 @@ void main() {
     });
 
     test('Should return a list of UserFavoritesModel', () async {
-      _mockRequest();
+      _mockListUsersRequest();
 
       final result = await datasource.getFavorites();
 
@@ -62,5 +62,18 @@ void main() {
 
       verify(() => prefs.setString(PrefsKey.CACHED_FAVORITES, any()));
     });
+
+    test('Should add a new favorite to a list of favories', () async {
+      _mockListUsersRequest();
+      when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);
+      
+      await datasource.saveFavorites(tUser.toEntity());
+
+      expect(datasource.favorites.length, equals(3));
+      expect(datasource.favorites[2].login, tUser.login);
+    });
+
+
+
   });
 }

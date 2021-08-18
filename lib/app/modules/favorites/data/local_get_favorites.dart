@@ -11,14 +11,15 @@ import '../infra/models/user_favorite_model.dart';
 
 class LocalGetFavorites implements FavoritesDataSource {
   final SharedPreferences prefs;
-
   LocalGetFavorites(this.prefs);
+
+  List<UserFavoriteModel> favorites = [];
   @override
   Future<List<UserFavoriteModel>> getFavorites() async {
     final savedFavorites = prefs.getString(PrefsKey.CACHED_FAVORITES);
 
     if (savedFavorites != null) {
-        final favorites = UsersFavoriteModel.fromMap(jsonDecode(savedFavorites)).favorites;
+        favorites = UsersFavoriteModel.fromMap(jsonDecode(savedFavorites)).favorites;
         return favorites;
     }
 
@@ -27,14 +28,13 @@ class LocalGetFavorites implements FavoritesDataSource {
 
   @override
   Future<bool> saveFavorites(UserFavorite user) async {
-    List<UserFavoriteModel> favorites = [];
-
+    
     try {
-      favorites = await getFavorites();
+      await getFavorites();
     } catch (error){}
 
     final userModel = UserFavoriteModel.fromEntity(user);
-    final alreadyAdded = _checkIfAlreadyFavorite(userModel, favorites);
+    final alreadyAdded = _checkIfAlreadyFavorite(userModel);
 
     if (alreadyAdded) throw FavoriteAlreadyExists();
 
@@ -45,7 +45,7 @@ class LocalGetFavorites implements FavoritesDataSource {
     return true;
   }
 
-  bool _checkIfAlreadyFavorite(UserFavoriteModel user, List<UserFavoriteModel> favorites) {
+  bool _checkIfAlreadyFavorite(UserFavoriteModel user) {
     for (final favorite in favorites) {
         if (favorite.location == user.login) {
             return true;
