@@ -63,7 +63,7 @@ void main() {
       verify(() => prefs.setString(PrefsKey.CACHED_FAVORITES, any()));
     });
 
-    test('Should add a new favorite to a list of favories', () async {
+    test('Should be able add a new favorite to a list of favories', () async {
       _mockListUsersRequest();
       when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);
       
@@ -72,8 +72,5 @@ void main() {
       expect(datasource.favorites.length, equals(3));
       expect(datasource.favorites[2].login, tUser.login);
     });
-
-
-
   });
 }

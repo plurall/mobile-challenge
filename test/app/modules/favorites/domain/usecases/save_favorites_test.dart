@@ -20,7 +20,7 @@ void main() {
 
   test('Should return success after save a new favorite', () async {
     final userJson = jsonDecode(fixture("single_user_favorite.json"));
-    final user = UserFavoriteModel.fromJson(userJson).toEntity();    
+    final user = UserFavoriteModel.fromMap(userJson).toEntity();    
     when(() => repository.saveFavorite(user)).thenAnswer((_) async => true);
 
     final result = await usecase.saveUserFavorite(user);
