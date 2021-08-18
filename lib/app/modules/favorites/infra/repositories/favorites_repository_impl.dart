@@ -17,7 +17,7 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
 
   @override
   Future<bool> saveFavorite(UserFavorite user) async {
-    return await dataSource.saveFavorites(user);
+    return await dataSource.saveFavorite(user);
   }
 
   @override

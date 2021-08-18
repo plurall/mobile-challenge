@@ -27,7 +27,7 @@ class LocalGetFavorites implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> saveFavorites(UserFavorite user) async {    
+  Future<bool> saveFavorite(UserFavorite user) async {    
     try {
       await getFavorites();
     } catch (error){}

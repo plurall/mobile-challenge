@@ -58,7 +58,7 @@ void main() {
     test('Should call prefs.setString() with the correct key', () async {
       when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);
       
-      await datasource.saveFavorites(tUser.toEntity());
+      await datasource.saveFavorite(tUser.toEntity());
 
       verify(() => prefs.setString(PrefsKey.CACHED_FAVORITES, any()));
     });
@@ -67,7 +67,7 @@ void main() {
       _mockListUsersRequest();
       when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);
       
-      await datasource.saveFavorites(tUser.toEntity());
+      await datasource.saveFavorite(tUser.toEntity());
 
       expect(datasource.favorites.length, equals(3));
       expect(datasource.favorites[2].login, tUser.login);
