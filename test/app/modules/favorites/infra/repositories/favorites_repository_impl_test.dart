@@ -37,4 +37,14 @@ void main() {
 
     expect(result, equals(true));
   });
+
+  test('Should return true if favorite was successfully removed', () async {
+    final userJson = jsonDecode(fixture("single_user_favorite.json"));
+    final user = UserFavoriteModel.fromMap(userJson).toEntity();    
+    when(() => datasource.removeFavorite(user)).thenAnswer((_) async => true);
+
+    final result = await repository.removeFavorite(user);
+
+    expect(result, equals(true));
+  });
 }

@@ -21,9 +21,8 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   }
 
   @override
-  Future<bool> removeFavorite(UserFavorite user) {
-    // TODO: implement removeFavorite
-    throw UnimplementedError();
+  Future<bool> removeFavorite(UserFavorite user) async {
+    return await dataSource.removeFavorite(user);
   }
 
 }

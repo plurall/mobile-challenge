@@ -27,8 +27,7 @@ class LocalGetFavorites implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> saveFavorites(UserFavorite user) async {
-    
+  Future<bool> saveFavorites(UserFavorite user) async {    
     try {
       await getFavorites();
     } catch (error){}
@@ -39,10 +38,22 @@ class LocalGetFavorites implements FavoritesDataSource {
     if (alreadyAdded) throw FavoriteAlreadyExists();
 
     favorites.add(userModel);
-    final newFavorites = UsersFavoriteModel(favorites: favorites);
-    final json =  newFavorites.toJson();
-    await prefs.setString(PrefsKey.CACHED_FAVORITES, json);
-    return true;
+    return await _updateFavoritesSharedPreferences();
+  }
+
+  @override
+  Future<bool> removeFavorite(UserFavorite user) async{
+    try {
+      await getFavorites();
+    } catch (error){}
+
+    final index = favorites.indexWhere((item) => item.login == user.login);
+
+    if (index == -1) throw FavoriteDoesntExists();
+
+    favorites.removeAt(index);   
+
+    return await _updateFavoritesSharedPreferences();
   }
 
   bool _checkIfAlreadyFavorite(UserFavoriteModel user) {
@@ -53,4 +64,11 @@ class LocalGetFavorites implements FavoritesDataSource {
     }
     return false;
   }
+
+  Future _updateFavoritesSharedPreferences() async {
+    final newFavorites = UsersFavoriteModel(favorites: favorites);
+    final json =  newFavorites.toJson();
+    return await prefs.setString(PrefsKey.CACHED_FAVORITES, json);
+  }
+
 }

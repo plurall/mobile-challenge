@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/modules/favorites/data/local_get_favorites.dart';
 import 'package:mobile_challenge/app/modules/favorites/infra/models/user_favorite_model.dart';
+import 'package:mobile_challenge/app/modules/favorites/infra/models/users_favorite_model.dart';
 import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,7 +63,7 @@ void main() {
       verify(() => prefs.setString(PrefsKey.CACHED_FAVORITES, any()));
     });
 
-    test('Should be able add a new favorite to a list of favories', () async {
+    test('Should be able add a new favorite to a list of favorites', () async {
       _mockListUsersRequest();
       when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);
       
@@ -68,6 +71,29 @@ void main() {
 
       expect(datasource.favorites.length, equals(3));
       expect(datasource.favorites[2].login, tUser.login);
+    });
+  });
+
+  group('Remove Favorites', () {
+    test('Should call prefs.setString() with the correct key', () async {
+      final tListUsers = UsersFavoriteModel.fromMap(jsonDecode(fixture("user_favorites_list.json"))).favorites;
+      _mockListUsersRequest();
+      when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);
+      
+      await datasource.removeFavorite(tListUsers[0].toEntity());
+
+      verify(() => prefs.setString(PrefsKey.CACHED_FAVORITES, any()));
+    });
+
+    test('Should be able remove an existing favorite from a list of favorites', () async {
+      final tListUsers = UsersFavoriteModel.fromMap(jsonDecode(fixture("user_favorites_list.json"))).favorites;
+      _mockListUsersRequest();
+      when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);      
+      
+      await datasource.removeFavorite(tListUsers[0].toEntity());
+
+      expect(datasource.favorites.length, equals(1));
+      expect(datasource.favorites[0].login, tListUsers[1].login);
     });
   });
 }
