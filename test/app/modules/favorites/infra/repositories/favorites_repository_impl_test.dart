@@ -30,7 +30,7 @@ void main() {
 
   test('Should return true if favorite was successfully saved', () async {
     final userJson = jsonDecode(fixture("single_user_favorite.json"));
-    final user = UserFavoriteModel.fromJson(userJson).toEntity();    
+    final user = UserFavoriteModel.fromMap(userJson).toEntity();    
     when(() => datasource.saveFavorites(user)).thenAnswer((_) async => true);
 
     final result = await repository.saveFavorite(user);
