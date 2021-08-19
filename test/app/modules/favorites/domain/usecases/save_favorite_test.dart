@@ -11,11 +11,11 @@ import '../../../fixtures/fixture_reader.dart';
 class FavoritesRepositoryMock extends Mock implements FavoritesRepository {}
 void main() {
   late final FavoritesRepositoryMock repository;
-  late final SaveFavoritesImpl usecase;
+  late final SaveFavoriteImpl usecase;
 
   setUpAll(() {
     repository = FavoritesRepositoryMock();
-    usecase = SaveFavoritesImpl(repository);
+    usecase = SaveFavoriteImpl(repository);
   });
 
   test('Should return success after save a new favorite', () async {
