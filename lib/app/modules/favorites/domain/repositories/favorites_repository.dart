@@ -1,4 +1,5 @@
-import 'entities/user_favorite_entity.dart';
+import '../entities/user_favorite_entity.dart';
+
 
 abstract class FavoritesRepository {
   Future<List<UserFavoriteEntity>> getFavorites();

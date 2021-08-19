@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/modules/favorites/domain/entities/user_favorite_entity.dart';
-import 'package:mobile_challenge/app/modules/favorites/domain/favorites_repository.dart';
+import 'package:mobile_challenge/app/modules/favorites/domain/repositories/favorites_repository.dart';
 import 'package:mobile_challenge/app/modules/favorites/domain/usecases/get_favorites.dart';
 import 'package:mocktail/mocktail.dart';
 

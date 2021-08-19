@@ -1,5 +1,5 @@
 import '../entities/user_favorite_entity.dart';
-import '../favorites_repository.dart';
+import '../repositories/favorites_repository.dart';
 
 abstract class RemoveFavorite {
   Future<bool> removeUserFavorite(UserFavoriteEntity user);

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/favorites/domain/favorites_repository.dart';
+import 'package:mobile_challenge/app/modules/favorites/domain/repositories/favorites_repository.dart';
 import 'package:mobile_challenge/app/modules/favorites/domain/usecases/save_favorite.dart';
 import 'package:mobile_challenge/app/modules/favorites/infra/models/user_favorite_model.dart';
 import 'package:mocktail/mocktail.dart';

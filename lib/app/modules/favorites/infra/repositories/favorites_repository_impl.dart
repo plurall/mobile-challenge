@@ -1,5 +1,5 @@
 import '../../domain/entities/user_favorite_entity.dart';
-import '../../domain/favorites_repository.dart';
+import '../../domain/repositories/favorites_repository.dart';
 import '../datasources/favorites_datasource.dart';
 
 class FavoritesRepositoryImpl implements FavoritesRepository {
