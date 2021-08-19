@@ -1,4 +1,4 @@
-import 'package:mobile_challenge/app/modules/favorites/domain/entities/user_favorite.dart';
+import 'package:mobile_challenge/app/modules/favorites/domain/entities/user_favorite_entity.dart';
 
 class UserFavoriteModel {
   final String login;
@@ -36,7 +36,7 @@ class UserFavoriteModel {
     );
   }
 
-  factory UserFavoriteModel.fromEntity(UserFavorite entity) => UserFavoriteModel(
+  factory UserFavoriteModel.fromEntity(UserFavoriteEntity entity) => UserFavoriteModel(
     login: entity.login,
     bio: entity.bio,
     name: entity.name,
@@ -46,7 +46,7 @@ class UserFavoriteModel {
     isFavorite: entity.isFavorite,
   );
 
-  UserFavorite toEntity() => UserFavorite(
+  UserFavoriteEntity toEntity() => UserFavoriteEntity(
     login: login,
     bio: bio,
     name: name,

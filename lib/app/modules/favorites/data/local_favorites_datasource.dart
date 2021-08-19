@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:mobile_challenge/app/modules/favorites/domain/entities/user_favorite.dart';
+import 'package:mobile_challenge/app/modules/favorites/domain/entities/user_favorite_entity.dart';
 import 'package:mobile_challenge/app/modules/favorites/domain/errors/favorites_errors.dart';
 import 'package:mobile_challenge/app/modules/favorites/infra/models/users_favorite_model.dart';
 import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
@@ -27,7 +27,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> saveFavorite(UserFavorite user) async {    
+  Future<bool> saveFavorite(UserFavoriteEntity user) async {    
     try {
       await getFavorites();
     } catch (error){}
@@ -42,7 +42,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> removeFavorite(UserFavorite user) async{
+  Future<bool> removeFavorite(UserFavoriteEntity user) async{
     try {
       await getFavorites();
     } catch (error){}

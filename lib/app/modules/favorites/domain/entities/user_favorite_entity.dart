@@ -1,4 +1,4 @@
-class UserFavorite {
+class UserFavoriteEntity {
   final String login;
   final String? bio;
   final String? name;
@@ -7,6 +7,6 @@ class UserFavorite {
   final String avatarUrl;
   final bool isFavorite;
 
-  UserFavorite({required this.login, required this.bio, required this.name, 
+  UserFavoriteEntity({required this.login, required this.bio, required this.name, 
   required this.location, required this.email, required this.avatarUrl,  required this.isFavorite});
 }

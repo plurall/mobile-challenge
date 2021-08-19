@@ -1,8 +1,8 @@
-import '../entities/user_favorite.dart';
+import '../entities/user_favorite_entity.dart';
 import '../favorites_repository.dart';
 
 abstract class RemoveFavorites {
-  Future<bool> removeUserFavorite(UserFavorite user);
+  Future<bool> removeUserFavorite(UserFavoriteEntity user);
 }
 
 class RemoveFavoritesImpl implements RemoveFavorites {
@@ -10,7 +10,7 @@ class RemoveFavoritesImpl implements RemoveFavorites {
 
   RemoveFavoritesImpl(this.repository);
   @override
-  Future<bool> removeUserFavorite(UserFavorite user) async {
+  Future<bool> removeUserFavorite(UserFavoriteEntity user) async {
     return await repository.removeFavorite(user);
   }
 

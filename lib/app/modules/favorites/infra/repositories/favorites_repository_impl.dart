@@ -1,7 +1,6 @@
-import 'package:mobile_challenge/app/modules/favorites/infra/datasources/favorites_datasource.dart';
-
-import '../../domain/entities/user_favorite.dart';
+import '../../domain/entities/user_favorite_entity.dart';
 import '../../domain/favorites_repository.dart';
+import '../datasources/favorites_datasource.dart';
 
 class FavoritesRepositoryImpl implements FavoritesRepository {
   final FavoritesDataSource dataSource;
@@ -9,19 +8,19 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   FavoritesRepositoryImpl(this.dataSource);
 
   @override
-  Future<List<UserFavorite>> getFavorites() async {
+  Future<List<UserFavoriteEntity>> getFavorites() async {
     final favorites = await dataSource.getFavorites();
     final favoritesToEntity = favorites.map((item) => item.toEntity()).toList();
     return favoritesToEntity;
   }
 
   @override
-  Future<bool> saveFavorite(UserFavorite user) async {
+  Future<bool> saveFavorite(UserFavoriteEntity user) async {
     return await dataSource.saveFavorite(user);
   }
 
   @override
-  Future<bool> removeFavorite(UserFavorite user) async {
+  Future<bool> removeFavorite(UserFavoriteEntity user) async {
     return await dataSource.removeFavorite(user);
   }
 

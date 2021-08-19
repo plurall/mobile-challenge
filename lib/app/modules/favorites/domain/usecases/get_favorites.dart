@@ -1,9 +1,8 @@
-import 'package:mobile_challenge/app/modules/favorites/domain/entities/user_favorite.dart';
-
+import '../entities/user_favorite_entity.dart';
 import '../favorites_repository.dart';
 
 abstract class GetFavorites {
-  Future<List<UserFavorite>> getFavorites();
+  Future<List<UserFavoriteEntity>> getFavorites();
 }
 
 class GetFavoritesImpl implements GetFavorites {
@@ -11,7 +10,7 @@ class GetFavoritesImpl implements GetFavorites {
 
   GetFavoritesImpl(this.repository);
   @override
-  Future<List<UserFavorite>> getFavorites() async {
+  Future<List<UserFavoriteEntity>> getFavorites() async {
     final favorites = await repository.getFavorites();
     return favorites;
   }
