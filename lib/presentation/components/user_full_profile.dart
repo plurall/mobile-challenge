@@ -9,26 +9,29 @@ class UserFullProfile extends StatelessWidget {
   UserFullProfile(this.user);
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 20,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          UserProfilePicture(user!.avatar, user!.login),
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                UserInfo(Icons.account_box, 'Nome', user!.name),
-                UserInfo(Icons.email, 'Email', user!.email),
-                UserInfo(Icons.info, 'Localização', user!.location),
-                UserInfo(Icons.summarize, 'Sobre', user!.bio),
-              ],
-            ),
-          )
-        ],
+    return Container(
+      width: double.infinity,
+      child: Card(
+        elevation: 20,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            UserProfilePicture(user!.avatar, user!.login),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  UserInfo(Icons.account_box, 'Nome', user!.name),
+                  UserInfo(Icons.email, 'Email', user!.email),
+                  UserInfo(Icons.info, 'Localização', user!.location),
+                  UserInfo(Icons.summarize, 'Sobre', user!.bio),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
