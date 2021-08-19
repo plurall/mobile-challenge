@@ -58,7 +58,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
 
   bool _checkIfAlreadyFavorite(UserFavoriteModel user) {
     for (final favorite in favorites) {
-        if (favorite.location == user.login) {
+        if (favorite.login == user.login) {
             return true;
         }
     }

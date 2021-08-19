@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/modules/favorites/data/local_favorites_datasource.dart';
+import 'package:mobile_challenge/app/modules/favorites/domain/errors/favorites_errors.dart';
 import 'package:mobile_challenge/app/modules/favorites/infra/models/user_favorite_model.dart';
 import 'package:mobile_challenge/app/modules/favorites/infra/models/users_favorite_model.dart';
 import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
@@ -9,6 +10,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../fixtures/fixture_reader.dart';
+
 
 class SharedPreferencesMock extends Mock implements SharedPreferences {}
 void main() {
@@ -62,18 +64,29 @@ void main() {
   });
 
   group('Save Favorites', () {
-    test('Should call prefs.setString() with the correct key', () async {     
+    test('Should call prefs.setString() with the correct key', () async {
       await datasource.saveFavorite(tUser.toEntity());
 
       verify(() => prefs.setString(PrefsKey.CACHED_FAVORITES, any()));
     });
 
-    test('Should be able add a new favorite to a list of favorites', () async {      
+    test('Should be able add a new favorite to a list of favorites', () async {
       await datasource.saveFavorite(tUser.toEntity());
 
       expect(datasource.favorites.length, equals(3));
       expect(datasource.favorites[2].login, tUser.login);
     });
+
+    test('should throws an exception if user already exist in favorites list', () async {
+      final favoritesJson = jsonDecode(fixture("user_favorites_list.json"));
+      final favorites = UsersFavoriteModel.fromMap(favoritesJson).favorites;
+      final existingUser = favorites[0];
+
+      final future = datasource.saveFavorite(existingUser.toEntity());
+
+      expect(future, throwsA(isA<FavoriteAlreadyExists>()));      
+    });
+
   });
 
   group('Remove Favorites', () {
