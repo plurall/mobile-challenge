@@ -4,6 +4,7 @@ import 'package:mobile_challenge/presentation/views/favorites.dart';
 import 'package:mobile_challenge/presentation/views/search.dart';
 
 class HomeView extends StatelessWidget {
+  static String routeName = '/';
   final List<UserSummary> favoriteUsers;
   HomeView(this.favoriteUsers);
   @override

@@ -4,7 +4,6 @@ import 'package:mobile_challenge/presentation/views/favorites.dart';
 import 'package:mobile_challenge/presentation/views/search.dart';
 import 'package:mobile_challenge/presentation/views/home.dart';
 import 'package:mobile_challenge/presentation/views/user_profile.dart';
-import 'package:mobile_challenge/utils/app_routes.dart';
 import 'package:mobile_challenge/utils/utils.dart';
 
 void main() {
@@ -42,10 +41,11 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        AppRoutes.Home: (context) => HomeView(widget.favoriteUsers),
-        AppRoutes.Favorites: (context) => FavoritesView(widget.favoriteUsers),
-        AppRoutes.Search: (context) => SearchView(),
-        AppRoutes.UserProfile: (context) =>
+        HomeView.routeName: (context) => HomeView(widget.favoriteUsers),
+        FavoritesView.routeName: (context) =>
+            FavoritesView(widget.favoriteUsers),
+        SearchView.routeName: (context) => SearchView(),
+        UserProfileView.routeName: (context) =>
             UserProfileView(widget.favoriteUsers, updateFavorites),
       },
     );

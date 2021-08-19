@@ -7,6 +7,7 @@ import 'package:mobile_challenge/presentation/components/user_full_profile.dart'
 import 'package:mobile_challenge/utils/utils.dart';
 
 class UserProfileView extends StatefulWidget {
+  static String routeName = '/user-profile';
   final List<UserSummary> favoriteUsers;
   final Function updateFavorites;
   UserProfileView(this.favoriteUsers, this.updateFavorites);

@@ -5,6 +5,7 @@ import 'package:mobile_challenge/presentation/components/user_card.dart';
 import 'package:mobile_challenge/presentation/components/user_search.dart';
 
 class SearchView extends StatefulWidget {
+  static String routeName = '/search';
   @override
   _SearchViewState createState() => _SearchViewState();
 }

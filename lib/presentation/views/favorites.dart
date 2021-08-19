@@ -3,6 +3,7 @@ import 'package:mobile_challenge/data/model/user_summary.dart';
 import 'package:mobile_challenge/presentation/components/user_card.dart';
 
 class FavoritesView extends StatelessWidget {
+  static String routeName = '/favorites';
   final List<UserSummary> favoriteUsers;
   FavoritesView(this.favoriteUsers);
   @override
