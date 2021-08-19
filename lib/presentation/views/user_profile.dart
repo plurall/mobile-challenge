@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/model/user_profile.dart';
 import 'package:mobile_challenge/data/remote/github_api.dart';
 import 'package:mobile_challenge/presentation/components/user_info.dart';
+import 'package:mobile_challenge/presentation/components/user_profile_picture.dart';
 
 class UserProfileView extends StatefulWidget {
   @override
@@ -26,31 +27,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    width: 200,
-                    child: Column(
-                      children: [
-                        ClipOval(
-                          child: Image.network(
-                            user!.avatar,
-                            fit: BoxFit.cover,
-                            width: 90,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 8),
-                          child: Text(
-                            user.login.toString(),
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  UserProfilePicture(user!.avatar, user.login),
                   Container(
                     margin: EdgeInsets.only(top: 20),
                     child: Column(
