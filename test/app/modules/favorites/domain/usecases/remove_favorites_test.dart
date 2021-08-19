@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/modules/favorites/domain/favorites_repository.dart';
-import 'package:mobile_challenge/app/modules/favorites/domain/usecases/remove_favorites.dart';
+import 'package:mobile_challenge/app/modules/favorites/domain/usecases/remove_favorite.dart';
 import 'package:mobile_challenge/app/modules/favorites/infra/models/user_favorite_model.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -11,11 +11,11 @@ import '../../../fixtures/fixture_reader.dart';
 class FavoritesRepositoryMock extends Mock implements FavoritesRepository {}
 void main() {
   late final FavoritesRepositoryMock repository;
-  late final RemoveFavoritesImpl usecase;
+  late final RemoveFavoriteImpl usecase;
 
   setUpAll(() {
     repository = FavoritesRepositoryMock();
-    usecase = RemoveFavoritesImpl(repository);
+    usecase = RemoveFavoriteImpl(repository);
   });
 
   test('Should return success after remove an existing favorite', () async {
