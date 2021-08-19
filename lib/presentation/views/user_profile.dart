@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/model/user_profile.dart';
 import 'package:mobile_challenge/data/remote/github_api.dart';
-import 'package:mobile_challenge/presentation/components/user_info.dart';
-import 'package:mobile_challenge/presentation/components/user_profile_picture.dart';
+import 'package:mobile_challenge/presentation/components/user_full_profile.dart';
 
 class UserProfileView extends StatefulWidget {
   @override
@@ -15,34 +14,14 @@ class _UserProfileViewState extends State<UserProfileView> {
     final String login = ModalRoute.of(context)!.settings.arguments.toString();
     return Scaffold(
       appBar: AppBar(
-        title: Text(login),
+        title: Text('Dados pessoais'),
       ),
       body: FutureBuilder<UserProfile>(
         future: GithubAPI().getUser(login),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final user = snapshot.data;
-            return Card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  UserProfilePicture(user!.avatar, user.login),
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        UserInfo(Icons.account_box, 'Nome', user.name),
-                        UserInfo(Icons.email, 'Email', user.email),
-                        UserInfo(Icons.info, 'Localização', user.location),
-                        UserInfo(Icons.summarize, 'Sobre', user.bio),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            );
+            return UserFullProfile(user);
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
