@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         fontFamily: 'RobotoCondensed',
       ),
+      debugShowCheckedModeBanner: false,
       routes: {
         AppRoutes.Home: (context) => HomeView(),
         AppRoutes.UserProfile: (context) => UserProfileView(),

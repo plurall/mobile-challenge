@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/model/user_profile.dart';
 import 'package:mobile_challenge/data/remote/github_api.dart';
+import 'package:mobile_challenge/presentation/components/user_info.dart';
 
 class UserProfileView extends StatefulWidget {
   @override
@@ -13,31 +14,63 @@ class _UserProfileViewState extends State<UserProfileView> {
     final String login = ModalRoute.of(context)!.settings.arguments.toString();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dados de $login'),
+        title: Text(login),
       ),
       body: FutureBuilder<UserProfile>(
         future: GithubAPI().getUser(login),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final user = snapshot.data;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Nome: ${user!.name}'),
-                Image.network(
-                  user.avatar,
-                  width: 50,
-                ),
-                Text('Email: ${user.email}'),
-                Text('Bio: ${user.bio}'),
-                Text('Localização: ${user.location}'),
-              ],
+            return Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    width: 200,
+                    child: Column(
+                      children: [
+                        ClipOval(
+                          child: Image.network(
+                            user!.avatar,
+                            fit: BoxFit.cover,
+                            width: 90,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 8),
+                          child: Text(
+                            user.login.toString(),
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        UserInfo(Icons.account_box, 'Nome', user.name),
+                        UserInfo(Icons.email, 'Email', user.email),
+                        UserInfo(Icons.info, 'Localização', user.location),
+                        UserInfo(Icons.summarize, 'Sobre', user.bio),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             );
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
-          // By default, show a loading spinner.
-          return const CircularProgressIndicator();
+
+          return Center(child: CircularProgressIndicator());
         },
       ),
     );
