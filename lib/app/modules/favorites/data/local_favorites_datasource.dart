@@ -27,7 +27,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> saveFavorite(UserFavoriteEntity user) async {    
+  Future<bool> saveFavorite(UserFavoriteEntity user) async {
     try {
       await getFavorites();
     } catch (error){}
@@ -42,7 +42,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> removeFavorite(UserFavoriteEntity user) async{
+  Future<bool> removeFavorite(UserFavoriteEntity user) async {
     try {
       await getFavorites();
     } catch (error){}
