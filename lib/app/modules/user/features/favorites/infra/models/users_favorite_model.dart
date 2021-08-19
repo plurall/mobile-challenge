@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:mobile_challenge/app/modules/favorites/infra/models/user_favorite_model.dart';
+import 'user_favorite_model.dart';
+
 
 class UsersFavoriteModel {
   List<UserFavoriteModel> favorites;

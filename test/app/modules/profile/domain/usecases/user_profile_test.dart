@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/profile/domain/entities/user_detail_entity.dart';
-import 'package:mobile_challenge/app/modules/profile/domain/errors/profile_errors.dart';
-import 'package:mobile_challenge/app/modules/profile/domain/repositories/profile_repository.dart';
-import 'package:mobile_challenge/app/modules/profile/domain/usecases/user_profile.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/domain/entities/user_detail_entity.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/domain/errors/profile_errors.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/domain/repositories/profile_repository.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/domain/usecases/user_profile.dart';
 import 'package:mocktail/mocktail.dart';
 
 class ProfileRepositoryMock extends Mock implements ProfileRepository {}

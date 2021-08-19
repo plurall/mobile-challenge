@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:mobile_challenge/app/modules/favorites/domain/entities/user_favorite_entity.dart';
-import 'package:mobile_challenge/app/modules/favorites/domain/errors/favorites_errors.dart';
-import 'package:mobile_challenge/app/modules/favorites/infra/models/users_favorite_model.dart';
-import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../shared/utils/prefs_key.dart';
+import '../domain/entities/user_favorite_entity.dart';
+import '../domain/errors/favorites_errors.dart';
 import '../infra/datasources/favorites_datasource.dart';
 import '../infra/models/user_favorite_model.dart';
+import '../infra/models/users_favorite_model.dart';
 
 class LocalFavoritesDatasource implements FavoritesDataSource {
   final SharedPreferences prefs;

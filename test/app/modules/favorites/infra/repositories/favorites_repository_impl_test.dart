@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/favorites/domain/entities/user_favorite_entity.dart';
-import 'package:mobile_challenge/app/modules/favorites/infra/datasources/favorites_datasource.dart';
-import 'package:mobile_challenge/app/modules/favorites/infra/models/user_favorite_model.dart';
-import 'package:mobile_challenge/app/modules/favorites/infra/repositories/favorites_repository_impl.dart';
+import 'package:mobile_challenge/app/modules/user/features/favorites/domain/entities/user_favorite_entity.dart';
+import 'package:mobile_challenge/app/modules/user/features/favorites/infra/datasources/favorites_datasource.dart';
+import 'package:mobile_challenge/app/modules/user/features/favorites/infra/models/user_favorite_model.dart';
+import 'package:mobile_challenge/app/modules/user/features/favorites/infra/repositories/favorites_repository_impl.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../fixtures/fixture_reader.dart';

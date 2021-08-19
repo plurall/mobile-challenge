@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../shared/utils/app_colors.dart';
+import '../../../../../shared/utils/app_colors.dart';
 import '../domain/entities/searched_user_entity.dart';
 import '../domain/usecases/search_user.dart';
 import 'search_page_controller.dart';

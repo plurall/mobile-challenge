@@ -1,4 +1,5 @@
-import 'package:mobile_challenge/app/modules/profile/domain/entities/user_detail_entity.dart';
+
+import '../../domain/entities/user_detail_entity.dart';
 
 class UserDetailModel {
   final String login;

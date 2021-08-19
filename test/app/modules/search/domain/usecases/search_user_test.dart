@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/search/domain/entities/searched_user_entity.dart';
-import 'package:mobile_challenge/app/modules/search/domain/errors/search_errors.dart';
-import 'package:mobile_challenge/app/modules/search/domain/repositories/search_user_repository.dart';
-import 'package:mobile_challenge/app/modules/search/domain/usecases/search_user.dart';
+import 'package:mobile_challenge/app/modules/user/features/search/domain/entities/searched_user_entity.dart';
+import 'package:mobile_challenge/app/modules/user/features/search/domain/errors/search_errors.dart';
+import 'package:mobile_challenge/app/modules/user/features/search/domain/repositories/search_user_repository.dart';
+import 'package:mobile_challenge/app/modules/user/features/search/domain/usecases/search_user.dart';
 import 'package:mocktail/mocktail.dart';
 
 class SearchUserRepositoryMock extends Mock implements SearchUserRepository{}

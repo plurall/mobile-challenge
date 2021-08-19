@@ -1,6 +1,6 @@
-import 'package:mobile_challenge/app/modules/profile/domain/entities/user_detail_entity.dart';
-import 'package:mobile_challenge/app/modules/profile/domain/repositories/profile_repository.dart';
-import 'package:mobile_challenge/app/modules/profile/infra/datasources/profile_datasource.dart';
+import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/repositories/profile_repository.dart';
+import '../datasources/profile_datasource.dart';
 
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileDatasource datasource;

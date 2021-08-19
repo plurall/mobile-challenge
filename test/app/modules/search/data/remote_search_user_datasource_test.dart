@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
-import 'package:mobile_challenge/app/modules/search/data/remote_search_user_datasource.dart';
-import 'package:mobile_challenge/app/modules/search/domain/errors/search_errors.dart';
-import 'package:mobile_challenge/app/modules/search/infra/models/searched_user_model.dart';
+import 'package:mobile_challenge/app/modules/user/features/search/data/remote_search_user_datasource.dart';
+import 'package:mobile_challenge/app/modules/user/features/search/domain/errors/search_errors.dart';
+import 'package:mobile_challenge/app/modules/user/features/search/infra/models/searched_user_model.dart';
 import 'package:mobile_challenge/app/shared/utils/endpoints.dart';
 import 'package:mocktail/mocktail.dart';
 

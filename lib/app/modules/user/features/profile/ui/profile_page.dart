@@ -5,9 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/app/modules/profile/domain/entities/user_detail_entity.dart';
-import 'package:mobile_challenge/app/shared/utils/app_colors.dart';
 
+import '../../../../../shared/utils/app_colors.dart';
+import '../domain/entities/user_detail_entity.dart';
 import '../domain/usecases/user_profile.dart';
 import 'profile_page_controller.dart';
 

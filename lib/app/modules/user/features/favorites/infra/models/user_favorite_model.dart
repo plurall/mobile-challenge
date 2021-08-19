@@ -1,4 +1,4 @@
-import 'package:mobile_challenge/app/modules/favorites/domain/entities/user_favorite_entity.dart';
+import '../../domain/entities/user_favorite_entity.dart';
 
 class UserFavoriteModel {
   final String login;

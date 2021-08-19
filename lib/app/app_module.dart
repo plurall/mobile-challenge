@@ -1,9 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart';
-import 'package:mobile_challenge/app/modules/profile/profile_module.dart';
-
-import 'modules/search/search_module.dart';
-
+import 'package:mobile_challenge/app/modules/user/user_module.dart';
 
 class AppModule extends Module {
   @override
@@ -13,8 +10,7 @@ class AppModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ModuleRoute("/", module: SearchModule()),
-    ModuleRoute("/profile", module: ProfileModule()),
+    ModuleRoute("/", module: UserModule()),
   ];
 
 }
