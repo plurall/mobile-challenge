@@ -17,6 +17,8 @@ void main() {
 
   late final SharedPreferencesMock prefs;
   late final LocalFavoritesDatasource datasource;
+  final tListUsers = 
+    UsersFavoriteModel.fromMap(jsonDecode(fixture("user_favorites_list.json"))).favorites;
   final tUser = UserFavoriteModel(
     login: "test_user", 
     bio: "bio", 
@@ -78,9 +80,7 @@ void main() {
     });
 
     test('should throws an exception if user already exist in favorites list', () async {
-      final favoritesJson = jsonDecode(fixture("user_favorites_list.json"));
-      final favorites = UsersFavoriteModel.fromMap(favoritesJson).favorites;
-      final existingUser = favorites[0];
+      final existingUser = tListUsers[0];
 
       final future = datasource.saveFavorite(existingUser.toEntity());
 
@@ -90,17 +90,13 @@ void main() {
   });
 
   group('Remove Favorites', () {
-    test('Should call prefs.setString() with the correct key', () async {
-      final tListUsers = UsersFavoriteModel.fromMap(jsonDecode(fixture("user_favorites_list.json"))).favorites;
-      
+    test('Should call prefs.setString() with the correct key', () async {     
       await datasource.removeFavorite(tListUsers[0].toEntity());
 
       verify(() => prefs.setString(PrefsKey.CACHED_FAVORITES, any()));
     });
 
-    test('Should be able remove an existing favorite from a list of favorites', () async {
-      final tListUsers = UsersFavoriteModel.fromMap(jsonDecode(fixture("user_favorites_list.json"))).favorites; 
-      
+    test('Should be able remove an existing favorite from a list of favorites', () async {      
       await datasource.removeFavorite(tListUsers[0].toEntity());
 
       expect(datasource.favorites.length, equals(1));
