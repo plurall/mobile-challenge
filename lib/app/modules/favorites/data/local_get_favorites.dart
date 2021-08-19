@@ -60,7 +60,7 @@ class LocalGetFavorites implements FavoritesDataSource {
     for (final favorite in favorites) {
         if (favorite.location == user.login) {
             return true;
-        }        
+        }
     }
     return false;
   }

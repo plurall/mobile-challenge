@@ -14,10 +14,13 @@ class FavoritesDataSourceMock extends Mock implements FavoritesDataSource {}
 void main() {
   late final FavoritesDataSourceMock datasource;
   late final FavoritesRepositoryImpl repository;
+  late UserFavorite tUser;
 
   setUpAll(() {
     datasource = FavoritesDataSourceMock();
     repository = FavoritesRepositoryImpl(datasource);
+    final userJson = jsonDecode(fixture("single_user_favorite.json"));
+    tUser = UserFavoriteModel.fromMap(userJson).toEntity();  
   });
 
   test('Should return a list of UserFavorites', () async {     
@@ -29,21 +32,17 @@ void main() {
   });
 
   test('Should return true if favorite was successfully saved', () async {
-    final userJson = jsonDecode(fixture("single_user_favorite.json"));
-    final user = UserFavoriteModel.fromMap(userJson).toEntity();    
-    when(() => datasource.saveFavorite(user)).thenAnswer((_) async => true);
+    when(() => datasource.saveFavorite(tUser)).thenAnswer((_) async => true);
 
-    final result = await repository.saveFavorite(user);
+    final result = await repository.saveFavorite(tUser);
 
     expect(result, equals(true));
   });
 
   test('Should return true if favorite was successfully removed', () async {
-    final userJson = jsonDecode(fixture("single_user_favorite.json"));
-    final user = UserFavoriteModel.fromMap(userJson).toEntity();    
-    when(() => datasource.removeFavorite(user)).thenAnswer((_) async => true);
+    when(() => datasource.removeFavorite(tUser)).thenAnswer((_) async => true);
 
-    final result = await repository.removeFavorite(user);
+    final result = await repository.removeFavorite(tUser);
 
     expect(result, equals(true));
   });
