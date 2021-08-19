@@ -106,5 +106,11 @@ void main() {
       expect(datasource.favorites.length, equals(1));
       expect(datasource.favorites[0].login, tListUsers[1].login);
     });
+
+    test("should throws an exception if the user to be unfavorite doesn't exist in favorites list", () async {
+      final future = datasource.removeFavorite(tUser.toEntity());
+
+      expect(future, throwsA(isA<FavoriteDoesntExists>()));      
+    });
   });
 }
