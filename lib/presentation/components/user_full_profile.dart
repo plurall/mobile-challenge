@@ -10,6 +10,7 @@ class UserFullProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 20,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,

@@ -29,6 +29,10 @@ class _UserProfileViewState extends State<UserProfileView> {
           return Center(child: CircularProgressIndicator());
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.star),
+        onPressed: () => {},
+      ),
     );
   }
 }
