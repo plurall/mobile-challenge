@@ -12,6 +12,7 @@ import '../../fixtures/fixture_reader.dart';
 
 class SharedPreferencesMock extends Mock implements SharedPreferences {}
 void main() {
+
   late final SharedPreferencesMock prefs;
   late final LocalGetFavorites datasource;
   final tUser = UserFavoriteModel(
@@ -24,27 +25,33 @@ void main() {
     isFavorite: true,
   );
 
+  void _mockListUsersRequest() =>
+    when(() => prefs.getString(PrefsKey.CACHED_FAVORITES)).thenAnswer((_) => fixture("user_favorites_list.json"));
+  
+
+  void _mockPrefsSetStringResponse() =>
+   when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);
+  
+
   setUpAll(() {
     prefs = SharedPreferencesMock();
     datasource = LocalGetFavorites(prefs);
   });
 
-  void _mockListUsersRequest() {
-    when(() => prefs.getString(PrefsKey.CACHED_FAVORITES)).thenAnswer((_) => fixture("user_favorites_list.json"));
-  }
+
+  setUp(() {
+    _mockListUsersRequest();
+    _mockPrefsSetStringResponse();    
+  });
 
   group('Get UserFavorites', () {
     test('Should call prefs.getString() with the correct key', () async {
-      _mockListUsersRequest();
-
       datasource.getFavorites();
 
       verify(() => prefs.getString(PrefsKey.CACHED_FAVORITES));
     });
 
     test('Should return a list of UserFavoritesModel', () async {
-      _mockListUsersRequest();
-
       final result = await datasource.getFavorites();
 
       expect(result, isA<List<UserFavoriteModel>>());
@@ -55,18 +62,13 @@ void main() {
   });
 
   group('Save Favorites', () {
-    test('Should call prefs.setString() with the correct key', () async {
-      when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);
-      
+    test('Should call prefs.setString() with the correct key', () async {     
       await datasource.saveFavorite(tUser.toEntity());
 
       verify(() => prefs.setString(PrefsKey.CACHED_FAVORITES, any()));
     });
 
-    test('Should be able add a new favorite to a list of favorites', () async {
-      _mockListUsersRequest();
-      when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);
-      
+    test('Should be able add a new favorite to a list of favorites', () async {      
       await datasource.saveFavorite(tUser.toEntity());
 
       expect(datasource.favorites.length, equals(3));
@@ -77,8 +79,6 @@ void main() {
   group('Remove Favorites', () {
     test('Should call prefs.setString() with the correct key', () async {
       final tListUsers = UsersFavoriteModel.fromMap(jsonDecode(fixture("user_favorites_list.json"))).favorites;
-      _mockListUsersRequest();
-      when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);
       
       await datasource.removeFavorite(tListUsers[0].toEntity());
 
@@ -86,9 +86,7 @@ void main() {
     });
 
     test('Should be able remove an existing favorite from a list of favorites', () async {
-      final tListUsers = UsersFavoriteModel.fromMap(jsonDecode(fixture("user_favorites_list.json"))).favorites;
-      _mockListUsersRequest();
-      when(() => prefs.setString(any(), any())).thenAnswer((_) async => true);      
+      final tListUsers = UsersFavoriteModel.fromMap(jsonDecode(fixture("user_favorites_list.json"))).favorites; 
       
       await datasource.removeFavorite(tListUsers[0].toEntity());
 
