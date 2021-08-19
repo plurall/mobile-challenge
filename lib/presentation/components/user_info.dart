@@ -9,6 +9,9 @@ class UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (info == null) {
+      return SizedBox.shrink();
+    }
     return Container(
       margin: EdgeInsets.only(top: 5, bottom: 5, left: 5),
       child: Column(
@@ -31,7 +34,7 @@ class UserInfo extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(top: 10, bottom: 10),
-            child: (info != null) ? Text(info!) : null,
+            child: Text(info!),
           ),
         ],
       ),
