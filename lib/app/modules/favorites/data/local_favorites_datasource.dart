@@ -9,9 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../infra/datasources/favorites_datasource.dart';
 import '../infra/models/user_favorite_model.dart';
 
-class LocalGetFavorites implements FavoritesDataSource {
+class LocalFavoritesDatasource implements FavoritesDataSource {
   final SharedPreferences prefs;
-  LocalGetFavorites(this.prefs);
+  LocalFavoritesDatasource(this.prefs);
 
   List<UserFavoriteModel> favorites = [];
   @override

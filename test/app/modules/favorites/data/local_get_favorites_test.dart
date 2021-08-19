@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/favorites/data/local_get_favorites.dart';
+import 'package:mobile_challenge/app/modules/favorites/data/local_favorites_datasource.dart';
 import 'package:mobile_challenge/app/modules/favorites/infra/models/user_favorite_model.dart';
 import 'package:mobile_challenge/app/modules/favorites/infra/models/users_favorite_model.dart';
 import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
@@ -14,7 +14,7 @@ class SharedPreferencesMock extends Mock implements SharedPreferences {}
 void main() {
 
   late final SharedPreferencesMock prefs;
-  late final LocalGetFavorites datasource;
+  late final LocalFavoritesDatasource datasource;
   final tUser = UserFavoriteModel(
     login: "test_user", 
     bio: "bio", 
@@ -35,7 +35,7 @@ void main() {
 
   setUpAll(() {
     prefs = SharedPreferencesMock();
-    datasource = LocalGetFavorites(prefs);
+    datasource = LocalFavoritesDatasource(prefs);
   });
 
 
