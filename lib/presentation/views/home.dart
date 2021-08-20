@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/data/model/user_summary.dart';
 import 'package:mobile_challenge/presentation/views/favorites.dart';
 import 'package:mobile_challenge/presentation/views/search.dart';
 
 class HomeView extends StatelessWidget {
   static String routeName = '/';
-  final List<UserSummary> favoriteUsers;
-  HomeView(this.favoriteUsers);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -28,7 +25,7 @@ class HomeView extends StatelessWidget {
         body: TabBarView(
           children: [
             SearchView(),
-            FavoritesView(favoriteUsers),
+            FavoritesView(),
           ],
         ),
       ),

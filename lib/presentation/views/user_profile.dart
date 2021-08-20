@@ -1,16 +1,14 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/model/user_profile.dart';
 import 'package:mobile_challenge/data/model/user_summary.dart';
+import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/data/remote/github_api.dart';
 import 'package:mobile_challenge/presentation/components/user_full_profile.dart';
 import 'package:mobile_challenge/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class UserProfileView extends StatefulWidget {
   static String routeName = '/user-profile';
-  final List<UserSummary> favoriteUsers;
-  final Function updateFavorites;
-  UserProfileView(this.favoriteUsers, this.updateFavorites);
   @override
   _UserProfileViewState createState() => _UserProfileViewState();
 }
@@ -18,10 +16,11 @@ class UserProfileView extends StatefulWidget {
 class _UserProfileViewState extends State<UserProfileView> {
   @override
   Widget build(BuildContext context) {
+    final favoriteUsersProvider = Provider.of<FavoriteUsersProvider>(context);
+    final favoriteUsers = favoriteUsersProvider.items;
     final UserSummary userSummary =
         ModalRoute.of(context)!.settings.arguments as UserSummary;
-    final isFavoriteUser =
-        Utils.isFavoriteUser(widget.favoriteUsers, userSummary);
+    final isFavoriteUser = Utils.isFavoriteUser(favoriteUsers, userSummary);
     return Scaffold(
       appBar: AppBar(
         title: Text('Dados pessoais'),
@@ -40,12 +39,11 @@ class _UserProfileViewState extends State<UserProfileView> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor:
-            isFavoriteUser ? Colors.red : Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
         child: Icon(
-          isFavoriteUser ? Icons.delete : Icons.star,
+          isFavoriteUser ? Icons.star_border : Icons.star,
         ),
-        onPressed: () => widget.updateFavorites(userSummary),
+        onPressed: () => favoriteUsersProvider.add(userSummary),
       ),
     );
   }

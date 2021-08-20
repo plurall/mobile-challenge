@@ -32,6 +32,7 @@ class _UserSearchState extends State<UserSearch> {
 
   @override
   Widget build(BuildContext context) {
+    print(searchFieldController.text.toString());
     return Column(children: [
       TextFormField(
         decoration: InputDecoration(
