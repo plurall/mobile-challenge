@@ -16,8 +16,9 @@ class UserProfileView extends StatefulWidget {
 class _UserProfileViewState extends State<UserProfileView> {
   @override
   Widget build(BuildContext context) {
-    final favoriteUsersProvider = Provider.of<FavoriteUsersProvider>(context);
-    final favoriteUsers = favoriteUsersProvider.items;
+    final FavoriteUsersProvider favoriteUsersProvider =
+        Provider.of<FavoriteUsersProvider>(context);
+    final List<UserSummary> favoriteUsers = favoriteUsersProvider.items;
     final UserSummary userSummary =
         ModalRoute.of(context)!.settings.arguments as UserSummary;
     final isFavoriteUser = Utils.isFavoriteUser(favoriteUsers, userSummary);
