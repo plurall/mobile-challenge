@@ -12,7 +12,7 @@ class GithubAPI {
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
-      print('User summary from server: $jsonResponse');
+      //print('User summary from server: $jsonResponse');
 
       if (jsonResponse['items'] == null) {
         return throw Exception('Error loading users');
@@ -30,7 +30,7 @@ class GithubAPI {
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
-      print('User profile from server: $jsonResponse');
+      //print('User profile from server: $jsonResponse');
 
       return UserProfile.fromJson(jsonResponse);
     }
