@@ -36,13 +36,5 @@ class GithubAPI {
     }
 
     return throw Exception(jsonDecode(response.body)['message']);
-    /*return UserProfile(
-        name: 'teste',
-        id: 10,
-        login: 'teste',
-        bio: 'teste',
-        avatar: 'https://avatars.githubusercontent.com/u/1655785?v=4',
-        email: 'teste@gmail.com',
-        location: 'SP');*/
   }
 }

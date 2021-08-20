@@ -41,7 +41,7 @@ class _UserProfileViewState extends State<UserProfileView> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
         child: Icon(
-          isFavoriteUser ? Icons.star_border : Icons.star,
+          isFavoriteUser ? Icons.star : Icons.star_border,
         ),
         onPressed: () => favoriteUsersProvider.add(userSummary),
       ),
