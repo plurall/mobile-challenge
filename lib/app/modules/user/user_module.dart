@@ -27,6 +27,8 @@ class UserModule extends Module {
     Bind((i) => UserProfileImpl(i())),
     //favorites
     Bind((i) => GetFavoritesImpl(i())),
+    Bind((i) => SaveFavoriteImpl(i())),
+    Bind((i) => RemoveFavoriteImpl(i())),
     Bind((i) => FavoritesRepositoryImpl(i())),
     Bind((i) => RemoveFavoriteImpl(i())),
     Bind((i) => SaveFavoriteImpl(i())),
@@ -35,7 +37,7 @@ class UserModule extends Module {
   @override
   List<ModularRoute> get routes => [
     ChildRoute('/', child: (_, args) => SearchPage()),
-    ChildRoute('/:username', child: (_, args) => ProfilePage(args.params["username"])),
+    ChildRoute('/profile/:username', child: (_, args) => ProfilePage(args.params["username"])),
     ChildRoute('/favorites', child: (_, args) => FavoritesPage()),
   ];
 
