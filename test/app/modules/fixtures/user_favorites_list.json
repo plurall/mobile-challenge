@@ -2,24 +2,22 @@
   "favorites": [
     {
     "login": "joaoarmando",
-    "id": 28633653,
     "avatar_url": "https://avatars.githubusercontent.com/u/28633653?v=4",
     "name": "João Armando",
     "location": "Petrópolis - RJ - Brazil",
     "email": "joaoaarmando@hotmail.com",
     "bio": null,
-    "isFavorite":true
+    "is_favorite":true
     },
 
     {
     "login": "joaoarmando2",
-    "id": 11111111111,
     "avatar_url": "https://avatars.githubusercontent.com/u/28633653?v=4",
     "name": "João Armando2",
     "location": "Petrópolis - RJ - Brazil",
     "email": "oi@joaoarmando.com",
     "bio": null,
-    "isFavorite":false
+    "is_favorite":false
     }
   ]
 }

@@ -8,7 +8,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../shared/utils/app_colors.dart';
 import '../domain/entities/user_detail_entity.dart';
-import '../domain/usecases/user_profile.dart';
 import 'profile_page_controller.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -24,8 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   void initState() {
-    final usecase = Modular.get<UserProfile>();
-    controller = ProfilePageController(usecase);
+    controller = ProfilePageController();
     controller.getUserDetail(widget.username);
     super.initState();
   }
@@ -158,6 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ) : SizedBox(),
+            SizedBox(height: 12),
             _buildFavoriteButton(),
           ],
         ),
@@ -166,27 +165,32 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildFavoriteButton() {
+    bool isFavorite = controller.isFavorite;
     return Container(
       height: 50,
       margin: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
-        color: AppColors.accentColor,
+        color: isFavorite ? AppColors.accentColor.withOpacity(.1) : AppColors.accentColor,
         borderRadius: BorderRadius.circular(10)
       ),
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
-          onTap: (){},
+          onTap: () => isFavorite
+            ? controller.removeFavorite()
+            : controller.saveFavorite(),
           splashColor: AppColors.primaryTextColor.withOpacity(.3),
           borderRadius: BorderRadius.circular(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.favorite_border_outlined, color: Colors.white),
+              Icon(isFavorite ? Icons.favorite : Icons.favorite_border_outlined ,
+                color: isFavorite? AppColors.accentColor : Colors.white
+              ),
               SizedBox(width: 12),
               Text("Favorito",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: isFavorite? AppColors.accentColor : Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600
                 ),

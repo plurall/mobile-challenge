@@ -1,25 +1,26 @@
 import 'dart:convert';
 
+import 'package:mobile_challenge/app/modules/user/features/profile/domain/entities/user_detail_entity.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/infra/models/user_detail_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../shared/utils/prefs_key.dart';
-import '../domain/entities/user_favorite_entity.dart';
 import '../domain/errors/favorites_errors.dart';
 import '../infra/datasources/favorites_datasource.dart';
-import '../infra/models/user_favorite_model.dart';
 import '../infra/models/users_favorite_model.dart';
 
 class LocalFavoritesDatasource implements FavoritesDataSource {
   final SharedPreferences prefs;
   LocalFavoritesDatasource(this.prefs);
 
-  List<UserFavoriteModel> favorites = [];
+  List<UserDetailModel> favorites = [];
   @override
-  Future<List<UserFavoriteModel>> getFavorites() async {
+  Future<List<UserDetailModel>> getFavorites() async {
     final savedFavorites = prefs.getString(PrefsKey.CACHED_FAVORITES);
 
     if (savedFavorites != null) {
-        favorites = UsersFavoriteModel.fromMap(jsonDecode(savedFavorites)).favorites;
+        UsersFavoriteModel model = UsersFavoriteModel.fromMap(json.decode(savedFavorites));
+        favorites = model.favorites;
         return favorites;
     }
 
@@ -27,13 +28,14 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> saveFavorite(UserFavoriteEntity user) async {
+  Future<bool> saveFavorite(UserDetailEntity user) async {
     try {
       await getFavorites();
     } catch (error){}
 
-    final userModel = UserFavoriteModel.fromEntity(user);
-    final alreadyAdded = _checkIfAlreadyFavorite(userModel);
+    final userModel = UserDetailModel.fromEntity(user);
+
+    final alreadyAdded = favorites.indexWhere((item) => item.login == user.login) != -1;
 
     if (alreadyAdded) throw FavoriteAlreadyExists();
 
@@ -42,7 +44,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> removeFavorite(UserFavoriteEntity user) async {
+  Future<bool> removeFavorite(UserDetailEntity user) async {
     try {
       await getFavorites();
     } catch (error){}
@@ -56,15 +58,6 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
     return await _updateFavoritesSharedPreferences();
   }
 
-  bool _checkIfAlreadyFavorite(UserFavoriteModel user) {
-    for (final favorite in favorites) {
-        if (favorite.login == user.login) {
-            return true;
-        }
-    }
-    return false;
-  }
-
   Future _updateFavoritesSharedPreferences() async {
     final newFavorites = UsersFavoriteModel(favorites: favorites);
     final json =  newFavorites.toJson();
@@ -72,12 +65,14 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> verifyFavorite(String login) async {
+  Future<bool> verifyFavorite(UserDetailEntity user) async {
     try {
       await getFavorites();
-    } catch (error){}
+    } catch (error){
+      print("Error: ${error}");
+    }
 
-    final isFavorite = favorites.indexWhere((favorite) => favorite.login == login) != -1; 
+    final isFavorite = favorites.indexWhere((favorite) => favorite.login == user.login) != -1; 
 
     return isFavorite;
   }

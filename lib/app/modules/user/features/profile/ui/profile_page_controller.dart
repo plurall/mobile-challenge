@@ -1,3 +1,7 @@
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/domain/usecases/remove_favorite.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/domain/usecases/save_favorite.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/domain/usecases/verify_favorite.dart';
 import 'package:mobx/mobx.dart';
 
 import '../domain/entities/user_detail_entity.dart';
@@ -9,22 +13,49 @@ class ProfilePageController = _ProfilePageControllerBase with _$ProfilePageContr
 enum ProfilePageState {IDLE, LOADING}
 
 abstract class _ProfilePageControllerBase with Store {
-  final UserProfile usecase;
+  final UserProfile userProfileUsecase = Modular.get();
+  final VerifyFavorite verifyFavoriteUsecase = Modular.get();
+  final SaveFavorite saveFavoriteUsecase = Modular.get();
+  final RemoveFavorite removeFavoriteUsecase = Modular.get();
 
   @observable
   UserDetailEntity? userDetail;
 
   @observable
+  bool isFavorite = false;
+
+  @observable
   ProfilePageState state = ProfilePageState.LOADING;
 
-  _ProfilePageControllerBase(this.usecase);
 
 
   @action
   Future<Null> getUserDetail(String username) async {
     state = ProfilePageState.LOADING;
-    userDetail  = await usecase.getUserDetail(username);
+
+    userDetail = await userProfileUsecase.getUserDetail(username);
+
+    isFavorite = await verifyFavoriteUsecase.verify(userDetail!);
+
     state = ProfilePageState.IDLE;
+  }
+
+  @action
+  Future<Null> saveFavorite() async {
+    await saveFavoriteUsecase.saveUserFavorite(userDetail!);
+
+    isFavorite = true;
+
+    return;
+  }
+
+  @action
+  Future<Null> removeFavorite() async {
+    await removeFavoriteUsecase.removeUserFavorite(userDetail!);
+
+    isFavorite = false;
+
+    return;
   }
 
 }

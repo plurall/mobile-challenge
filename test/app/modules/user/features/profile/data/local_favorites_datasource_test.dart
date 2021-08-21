@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/user/features/favorites/data/local_favorites_datasource.dart';
-import 'package:mobile_challenge/app/modules/user/features/favorites/domain/errors/favorites_errors.dart';
-import 'package:mobile_challenge/app/modules/user/features/favorites/infra/models/user_favorite_model.dart';
-import 'package:mobile_challenge/app/modules/user/features/favorites/infra/models/users_favorite_model.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/data/local_favorites_datasource.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/domain/errors/favorites_errors.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/infra/models/user_detail_model.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/infra/models/users_favorite_model.dart';
 import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,14 +19,13 @@ void main() {
   late final LocalFavoritesDatasource datasource;
   final tListUsers = 
     UsersFavoriteModel.fromMap(jsonDecode(fixture("user_favorites_list.json"))).favorites;
-  final tUser = UserFavoriteModel(
+  final tUser = UserDetailModel(
     login: "test_user", 
     bio: "bio", 
     name: "name", 
     location: "location", 
     email: "email", 
-    avatarUrl: "avatarUrl", 
-    isFavorite: true,
+    avatarUrl: "avatarUrl",
   );
 
   void _mockListUsersRequest() =>
@@ -55,27 +54,25 @@ void main() {
       verify(() => prefs.getString(PrefsKey.CACHED_FAVORITES));
     });
 
-    test('Should return a list of UserFavoritesModel', () async {
+    test('Should return a list of favorites', () async {
       final result = await datasource.getFavorites();
 
-      expect(result, isA<List<UserFavoriteModel>>());
+      expect(result, isA<List<UserDetailModel>>());
       expect(result.length, greaterThan(1));
-      expect(result[0].isFavorite, equals(true));
-      expect(result[1].isFavorite, equals(false));
     });
   });
 
   group('Verify user favorites', () {
     test('Should return true if user is a favorite', () async {
-      final login = "joaoarmando";
-      final result = await datasource.verifyFavorite(login);
+      final tFavoriteUser = tListUsers[0].toEntity();
+      final result = await datasource.verifyFavorite(tFavoriteUser);
 
       expect(result, equals(true));
     });
 
     test('Should return false if user is not a favorite', () async {
-      final login = "random_login";
-      final result = await datasource.verifyFavorite(login);
+      final tNotFavoriteUser = tUser.toEntity();
+      final result = await datasource.verifyFavorite(tNotFavoriteUser);
 
       expect(result, equals(false));
     });

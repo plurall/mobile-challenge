@@ -10,7 +10,7 @@ class UserDetailModel {
   final String? location;
 
   UserDetailModel({required this.login, required this.bio, required this.name, 
-    required this.location, required this.email, required this.avatarUrl });
+    required this.location, required this.email, required this.avatarUrl});
 
   factory UserDetailModel.fromJson(Map<String,dynamic> json) => UserDetailModel(
     login: json["login"],
@@ -21,12 +21,32 @@ class UserDetailModel {
     avatarUrl: json["avatar_url"]
   );
 
+   Map<String, dynamic> toMap() {
+    return {
+      'login': login,
+      'bio': bio,
+      'name': name,
+      'location': location,
+      'email': email,
+      'avatar_url': avatarUrl,
+    };
+  }
+
+  factory UserDetailModel.fromEntity(UserDetailEntity entity) => UserDetailModel(
+    login: entity.login,
+    bio: entity.bio,
+    name: entity.name,
+    location: entity.location,
+    email: entity.email,
+    avatarUrl: entity.avatarUrl,
+  );
+
   UserDetailEntity toEntity() => UserDetailEntity(
     login: login, 
     bio: bio, 
     name: name,
     email: email,
     location: location, 
-    avatarUrl: avatarUrl
+    avatarUrl: avatarUrl,
   );
 }

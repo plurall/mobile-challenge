@@ -24,6 +24,21 @@ mixin _$ProfilePageController on _ProfilePageControllerBase, Store {
     });
   }
 
+  final _$isFavoriteAtom = Atom(name: '_ProfilePageControllerBase.isFavorite');
+
+  @override
+  bool get isFavorite {
+    _$isFavoriteAtom.reportRead();
+    return super.isFavorite;
+  }
+
+  @override
+  set isFavorite(bool value) {
+    _$isFavoriteAtom.reportWrite(value, super.isFavorite, () {
+      super.isFavorite = value;
+    });
+  }
+
   final _$stateAtom = Atom(name: '_ProfilePageControllerBase.state');
 
   @override
@@ -47,10 +62,27 @@ mixin _$ProfilePageController on _ProfilePageControllerBase, Store {
     return _$getUserDetailAsyncAction.run(() => super.getUserDetail(username));
   }
 
+  final _$saveFavoriteAsyncAction =
+      AsyncAction('_ProfilePageControllerBase.saveFavorite');
+
+  @override
+  Future<Null> saveFavorite() {
+    return _$saveFavoriteAsyncAction.run(() => super.saveFavorite());
+  }
+
+  final _$removeFavoriteAsyncAction =
+      AsyncAction('_ProfilePageControllerBase.removeFavorite');
+
+  @override
+  Future<Null> removeFavorite() {
+    return _$removeFavoriteAsyncAction.run(() => super.removeFavorite());
+  }
+
   @override
   String toString() {
     return '''
 userDetail: ${userDetail},
+isFavorite: ${isFavorite},
 state: ${state}
     ''';
   }

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/user/features/favorites/domain/repositories/favorites_repository.dart';
-import 'package:mobile_challenge/app/modules/user/features/favorites/domain/usecases/save_favorite.dart';
-import 'package:mobile_challenge/app/modules/user/features/favorites/infra/models/user_favorite_model.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/domain/repositories/favorites_repository.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/domain/usecases/save_favorite.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/infra/models/user_detail_model.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../../fixtures/fixture_reader.dart';
@@ -20,7 +20,7 @@ void main() {
 
   test('Should return success after save a new favorite', () async {
     final userJson = jsonDecode(fixture("single_user_favorite.json"));
-    final user = UserFavoriteModel.fromMap(userJson).toEntity();    
+    final user = UserDetailModel.fromJson(userJson).toEntity();    
     when(() => repository.saveFavorite(user)).thenAnswer((_) async => true);
 
     final result = await usecase.saveUserFavorite(user);

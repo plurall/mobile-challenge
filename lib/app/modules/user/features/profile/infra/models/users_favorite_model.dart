@@ -1,10 +1,9 @@
 import 'dart:convert';
-
-import 'user_favorite_model.dart';
+import 'user_detail_model.dart';
 
 
 class UsersFavoriteModel {
-  List<UserFavoriteModel> favorites;
+  List<UserDetailModel> favorites;
   UsersFavoriteModel({
     required this.favorites,
   });
@@ -17,7 +16,7 @@ class UsersFavoriteModel {
 
   factory UsersFavoriteModel.fromMap(Map<String, dynamic> map) {
     return UsersFavoriteModel(
-      favorites: List<UserFavoriteModel>.from(map['favorites'].map((x) => UserFavoriteModel.fromMap(x))),
+      favorites: List<UserDetailModel>.from(map['favorites'].map((x) => UserDetailModel.fromJson(x))),
     );
   }
 
