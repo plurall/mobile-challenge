@@ -7,7 +7,7 @@ import 'package:mobile_challenge/app/modules/user/features/favorites/infra/model
 import 'package:mobile_challenge/app/modules/user/features/favorites/infra/repositories/favorites_repository_impl.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../fixtures/fixture_reader.dart';
+import '../../../../../fixtures/fixture_reader.dart';
 
 class FavoritesDataSourceMock extends Mock implements FavoritesDataSource {}
 

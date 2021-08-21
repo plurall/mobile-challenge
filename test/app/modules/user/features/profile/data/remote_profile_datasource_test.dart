@@ -6,7 +6,8 @@ import 'package:mobile_challenge/app/modules/user/features/profile/infra/models/
 import 'package:mobile_challenge/app/shared/utils/endpoints.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../fixtures/fixture_reader.dart';
+import '../../../../fixtures/fixture_reader.dart';
+
 
 class ClientMock extends Mock implements Client {}
 

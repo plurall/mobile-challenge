@@ -71,4 +71,10 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
     return await prefs.setString(PrefsKey.CACHED_FAVORITES, json);
   }
 
+  @override
+  Future<bool> verifyFavorite(String userId) {
+    // TODO: implement verifyFavorite
+    throw UnimplementedError();
+  }
+
 }
