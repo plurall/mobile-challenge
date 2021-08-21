@@ -65,12 +65,19 @@ void main() {
     });
   });
 
-  group('Verify  user favorites', () {
+  group('Verify user favorites', () {
     test('Should return true if user is a favorite', () async {
       final login = "joaoarmando";
       final result = await datasource.verifyFavorite(login);
 
       expect(result, equals(true));
+    });
+
+    test('Should return false if user is not a favorite', () async {
+      final login = "random_login";
+      final result = await datasource.verifyFavorite(login);
+
+      expect(result, equals(false));
     });
   });
 
