@@ -1,7 +1,7 @@
 import '../repositories/favorites_repository.dart';
 
 abstract class VerifyFavorite {
-  Future<bool> verify(String userId);
+  Future<bool> verify(String login);
 }
 
 class VerifyFavoriteImpl implements VerifyFavorite {
@@ -9,7 +9,7 @@ class VerifyFavoriteImpl implements VerifyFavorite {
 
   VerifyFavoriteImpl(this.repository);
   @override
-  Future<bool> verify(String userId) async {
-    return await repository.verifyFavorite(userId);
+  Future<bool> verify(String login) async {
+    return await repository.verifyFavorite(login);
   }
 }

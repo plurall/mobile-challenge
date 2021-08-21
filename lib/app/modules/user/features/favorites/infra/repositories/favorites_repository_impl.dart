@@ -15,8 +15,8 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   }
 
   @override
-  Future<bool> verifyFavorite(String userId) async {
-    return await dataSource.verifyFavorite(userId);
+  Future<bool> verifyFavorite(String login) async {
+    return await dataSource.verifyFavorite(login);
   }
 
   @override

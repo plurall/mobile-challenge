@@ -13,6 +13,21 @@ void main() {
     usecase = VerifyFavoriteImpl(repository);
   });
 
-  test('Should return true if a user is already a favorite', () async {
+  test('Should return true if a user is a favorite', () async {
+    String login = "joaoarmando";
+    when(() => repository.verifyFavorite(login)).thenAnswer((_) async => true);
+
+    final result = await usecase.verify(login);
+
+    expect(result, equals(true));    
+  });
+
+  test('Should return false if a user is not a favorite', () async {
+    String login = "joaoarmando";
+    when(() => repository.verifyFavorite(login)).thenAnswer((_) async => false);
+
+    final result = await usecase.verify(login);
+
+    expect(result, equals(false));    
   });
 }
