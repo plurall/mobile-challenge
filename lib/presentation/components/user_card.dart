@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/data/model/user_summary.dart';
+import 'package:mobile_challenge/data/model/user.dart';
 import 'package:mobile_challenge/presentation/views/user_profile.dart';
 
 class UserCard extends StatelessWidget {
-  final UserSummary user;
+  final User user;
 
   UserCard(this.user);
 

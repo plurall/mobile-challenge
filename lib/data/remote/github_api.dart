@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:mobile_challenge/data/model/user_summary.dart';
-import 'package:mobile_challenge/data/model/user_profile.dart';
+import 'package:mobile_challenge/data/model/user.dart';
 
 class GithubAPI {
   final String domain = 'https://api.github.com';
 
-  Future<List<UserSummary>> getUsers(String search) async {
+  Future<List<User>> getUsers(String search) async {
     final String path = '/search/users';
     final response = await http.get(Uri.parse('$domain$path?q=$search'));
 
@@ -18,13 +17,13 @@ class GithubAPI {
         return throw Exception('Error loading users');
       }
       return (jsonResponse['items'] as List)
-          .map((user) => UserSummary.fromJson(user))
+          .map((user) => User.fromJson(user))
           .toList();
     }
     return throw Exception(jsonDecode(response.body)['message']);
   }
 
-  Future<UserProfile> getUser(String login) async {
+  Future<User> getUser(String login) async {
     final String path = '/users/';
     final response = await http.get(Uri.parse('$domain$path$login'));
 
@@ -32,7 +31,7 @@ class GithubAPI {
       final jsonResponse = jsonDecode(response.body);
       //print('User profile from server: $jsonResponse');
 
-      return UserProfile.fromJson(jsonResponse);
+      return User.fromJson(jsonResponse);
     }
 
     return throw Exception(jsonDecode(response.body)['message']);

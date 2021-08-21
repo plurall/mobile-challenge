@@ -1,4 +1,4 @@
-class UserProfile {
+class User {
   final int id;
   final String? name;
   final String login;
@@ -7,7 +7,7 @@ class UserProfile {
   final String? email;
   final String? bio;
 
-  UserProfile({
+  User({
     required this.name,
     required this.id,
     required this.login,
@@ -17,8 +17,8 @@ class UserProfile {
     required this.location,
   });
 
-  factory UserProfile.fromJson(Map<String, dynamic> json) {
-    return UserProfile(
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
       name: json['name'],
       id: json['id'],
       login: json['login'],

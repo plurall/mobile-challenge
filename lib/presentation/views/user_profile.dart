@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/data/model/user_profile.dart';
-import 'package:mobile_challenge/data/model/user_summary.dart';
+import 'package:mobile_challenge/data/model/user.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/data/remote/github_api.dart';
 import 'package:mobile_challenge/presentation/components/user_full_profile.dart';
@@ -18,20 +17,19 @@ class _UserProfileViewState extends State<UserProfileView> {
   Widget build(BuildContext context) {
     final FavoriteUsersProvider favoriteUsersProvider =
         Provider.of<FavoriteUsersProvider>(context);
-    final List<UserSummary> favoriteUsers = favoriteUsersProvider.items;
-    final UserSummary userSummary =
-        ModalRoute.of(context)!.settings.arguments as UserSummary;
-    final isFavoriteUser = Utils.isFavoriteUser(favoriteUsers, userSummary);
+    final List<User> favoriteUsers = favoriteUsersProvider.items;
+    final User user = ModalRoute.of(context)!.settings.arguments as User;
+    final isFavoriteUser = Utils.isFavoriteUser(favoriteUsers, user);
     return Scaffold(
       appBar: AppBar(
         title: Text('Dados pessoais'),
       ),
-      body: FutureBuilder<UserProfile>(
-        future: GithubAPI().getUser(userSummary.login),
+      body: FutureBuilder<User>(
+        future: GithubAPI().getUser(user.login),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final user = snapshot.data;
-            return UserFullProfile(user);
+            final fullUserProfile = snapshot.data;
+            return UserFullProfile(fullUserProfile);
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
@@ -44,7 +42,9 @@ class _UserProfileViewState extends State<UserProfileView> {
         child: Icon(
           isFavoriteUser ? Icons.star : Icons.star_border,
         ),
-        onPressed: () => favoriteUsersProvider.add(userSummary),
+        onPressed: () => {
+          favoriteUsersProvider.addFavorite(user),
+        },
       ),
     );
   }

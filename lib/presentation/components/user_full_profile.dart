@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/data/model/user_profile.dart';
+import 'package:mobile_challenge/data/model/user.dart';
 import 'package:mobile_challenge/presentation/components/user_info.dart';
 import 'package:mobile_challenge/presentation/components/user_profile_picture.dart';
 
 class UserFullProfile extends StatelessWidget {
-  final UserProfile? user;
+  final User? user;
 
   UserFullProfile(this.user);
   @override

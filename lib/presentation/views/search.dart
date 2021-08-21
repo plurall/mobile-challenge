@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/data/model/user.dart';
 import 'package:mobile_challenge/data/remote/github_api.dart';
-import 'package:mobile_challenge/data/model/user_summary.dart';
 import 'package:mobile_challenge/presentation/components/user_card.dart';
 import 'package:mobile_challenge/presentation/components/user_search.dart';
 
@@ -11,7 +11,7 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  List<UserSummary> users = [];
+  List<User> users = [];
   String searchFeedback = '';
 
   onSearch(String search) async {
