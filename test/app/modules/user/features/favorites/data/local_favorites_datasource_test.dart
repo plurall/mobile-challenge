@@ -65,6 +65,15 @@ void main() {
     });
   });
 
+  group('Verify  user favorites', () {
+    test('Should return true if user is a favorite', () async {
+      final login = "joaoarmando";
+      final result = await datasource.verifyFavorite(login);
+
+      expect(result, equals(true));
+    });
+  });
+
   group('Save Favorites', () {
     test('Should call prefs.setString() with the correct key', () async {
       await datasource.saveFavorite(tUser.toEntity());

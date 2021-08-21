@@ -72,9 +72,14 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> verifyFavorite(String userId) {
-    // TODO: implement verifyFavorite
-    throw UnimplementedError();
+  Future<bool> verifyFavorite(String login) async {
+    try {
+      await getFavorites();
+    } catch (error){}
+
+    final isFavorite = favorites.indexWhere((favorite) => favorite.login == login) != -1; 
+
+    return isFavorite;
   }
 
 }
