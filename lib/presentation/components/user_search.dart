@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/data/providers/search.dart';
+import 'package:provider/provider.dart';
 
 class UserSearch extends StatefulWidget {
   final String searchFeedback;
@@ -21,6 +23,8 @@ class _UserSearchState extends State<UserSearch> {
   @override
   void initState() {
     super.initState();
+    searchFieldController.text =
+        Provider.of<SearchProvider>(context, listen: false).search;
     searchFieldController.addListener(onSearchFieldChange);
   }
 
@@ -38,6 +42,8 @@ class _UserSearchState extends State<UserSearch> {
           hintText: 'Nome',
         ),
         controller: searchFieldController,
+        onChanged: (value) =>
+            Provider.of<SearchProvider>(context, listen: false).search = value,
       ),
       Padding(
         padding: EdgeInsets.only(top: 10),

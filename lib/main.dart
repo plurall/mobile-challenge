@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
+import 'package:mobile_challenge/data/providers/search.dart';
 import 'package:mobile_challenge/presentation/views/favorites.dart';
 import 'package:mobile_challenge/presentation/views/search.dart';
 import 'package:mobile_challenge/presentation/views/home.dart';
@@ -13,8 +14,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => FavoriteUsersProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => FavoriteUsersProvider(),
+        ),
+        Provider(
+          create: (context) => SearchProvider(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Github API',
         theme: ThemeData(
