@@ -36,44 +36,47 @@ class _UserSearchState extends State<UserSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      TextFormField(
-        decoration: InputDecoration(
-          hintText: 'Nome',
-        ),
-        controller: searchFieldController,
-        onChanged: (value) =>
-            Provider.of<SearchProvider>(context, listen: false).search = value,
-      ),
-      Padding(
-        padding: EdgeInsets.only(top: 10),
-      ),
-      Container(
-        width: double.infinity,
-        child: ElevatedButton(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Buscar'),
-              Icon(Icons.search),
-            ],
+    return Column(
+      children: [
+        TextFormField(
+          decoration: InputDecoration(
+            hintText: 'Nome',
           ),
-          style: ElevatedButton.styleFrom(
-            primary: Theme.of(context).primaryColor,
-          ),
-          onPressed: () => widget.onPress(searchFieldController.text),
+          controller: searchFieldController,
+          onChanged: (value) =>
+              Provider.of<SearchProvider>(context, listen: false).search =
+                  value,
         ),
-      ),
-      if (widget.searchFeedback.isNotEmpty)
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+        ),
         Container(
-          margin: EdgeInsets.all(10),
-          child: Text(
-            widget.searchFeedback,
-            style: TextStyle(
-              color: Colors.red,
+          width: double.infinity,
+          child: ElevatedButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Buscar'),
+                Icon(Icons.search),
+              ],
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).primaryColor,
+            ),
+            onPressed: () => widget.onPress(searchFieldController.text),
+          ),
+        ),
+        if (widget.searchFeedback.isNotEmpty)
+          Container(
+            margin: EdgeInsets.all(10),
+            child: Text(
+              widget.searchFeedback,
+              style: TextStyle(
+                color: Colors.red,
+              ),
             ),
           ),
-        ),
-    ]);
+      ],
+    );
   }
 }

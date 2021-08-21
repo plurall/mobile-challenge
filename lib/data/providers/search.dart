@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class SearchProvider {
   String _search = '';
   String get search => _search;
