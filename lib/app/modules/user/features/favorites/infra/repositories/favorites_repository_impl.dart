@@ -15,6 +15,11 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   }
 
   @override
+  Future<bool> verifyFavorite(String userId) async {
+    return await dataSource.verifyFavorite(userId);
+  }
+
+  @override
   Future<bool> saveFavorite(UserFavoriteEntity user) async {
     return await dataSource.saveFavorite(user);
   }
@@ -23,5 +28,6 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   Future<bool> removeFavorite(UserFavoriteEntity user) async {
     return await dataSource.removeFavorite(user);
   }
+
 
 }
