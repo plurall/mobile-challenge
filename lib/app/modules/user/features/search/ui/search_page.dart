@@ -20,7 +20,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final usecase = Modular.get<SearchUserImpl>();
   late final SearchPageController controller;
-
+  final double searchBarHeight = 60;
   @override
   void initState() {
     controller = SearchPageController(usecase);
@@ -30,72 +30,58 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _buildAppBar(),
       backgroundColor: AppColors.backgroundColor,
-      body: SafeArea(
-        bottom: false,
-        child: Column(
-          children: [
-            _buildHeader(),
-            Expanded(
-              child: Observer(builder: (_) {
-                if (controller.state == SearchPageState.IDLE) {
-                    if (controller.searchedUsers.isEmpty) {
-                        return Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Text("There's nothing here yet",
-                              style: TextStyle(
-                                color: AppColors.secondaryTextColor,
-                                fontWeight: FontWeight.w300,
-                                fontSize: 14
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        );
-                    }
-                    return ListView.builder(
-                      itemCount: controller.searchedUsers.length,
-                      itemBuilder: (_, index) {
-                        final user = controller.searchedUsers[index];
-                        return _buildUserTile(user);
-                      }
-                    );
-                }
-                else if (controller.state == SearchPageState.LOADING) {
-                  return Center(
-                    child: Platform.isIOS ? CupertinoActivityIndicator() 
-                    : CircularProgressIndicator(
-                      strokeWidth: 1,
-                    ),
-                  );
-                } 
-                else {
-                  return Container();
-                }
-              }),
-            )
-          ],
-        )
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Observer(builder: (_) {
+              if (controller.state == SearchPageState.IDLE) {
+                  if (controller.searchedUsers.isEmpty) {
+                      return _buildEmptyListContent();
+                  }
+                  return _buildSearchedUserListView();
+              }
+              else if (controller.state == SearchPageState.LOADING) {
+                return _buildLoadingIndicator();
+              }
+              return Container();
+            }),
+          ),
+          _buildHeader(),
+        ],
       ),
+    );
+  }
+
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      title: Text("Github Search",
+        style: TextStyle(
+          color: AppColors.primaryTextColor,
+          fontSize: 21,
+          fontWeight: FontWeight.w500
+        ),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () => Modular.to.pushNamed('/profile/favorites'), 
+          icon: Icon(Icons.favorite, color: Colors.redAccent)
+        )
+      ],
     );
   }
 
   Widget _buildHeader() {
     return Column(
       children: [
-        Text("Github Search",
-          style: TextStyle(
-            color: AppColors.primaryTextColor,
-            fontSize: 21,
-            fontWeight: FontWeight.w500
-          ),
-        ),
-        SizedBox(height: 24),
-        //SearchBox
         Container(
-          margin: const EdgeInsets.all(12),
+          margin: const EdgeInsets.symmetric(horizontal: 12),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          height: searchBarHeight,
           decoration: BoxDecoration(
             color: AppColors.backgroundColor,
             borderRadius: BorderRadius.circular(10),
@@ -120,6 +106,43 @@ class _SearchPageState extends State<SearchPage> {
           ),
         )
       ],
+    );
+  }
+
+  Widget _buildEmptyListContent() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Text("There's nothing here yet",
+          style: TextStyle(
+            color: AppColors.secondaryTextColor,
+            fontWeight: FontWeight.w300,
+            fontSize: 14
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
+
+  Widget _buildSearchedUserListView() {
+    return ListView.builder(
+      padding: EdgeInsets.only(top: searchBarHeight + 24),
+      itemCount: controller.searchedUsers.length,
+      itemBuilder: (_, index) {
+        final user = controller.searchedUsers[index];
+        return _buildUserTile(user);
+      }
+    );
+  }
+
+  Widget _buildLoadingIndicator() {
+    return Center(
+      child: Platform.isIOS ? CupertinoActivityIndicator() 
+      : CircularProgressIndicator(
+        strokeWidth: 1,
+      ),
     );
   }
 
