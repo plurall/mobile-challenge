@@ -2,7 +2,7 @@ import 'package:mobile_challenge/app/modules/user/features/profile/domain/entiti
 import '../../../profile/domain/repositories/favorites_repository.dart';
 
 abstract class SaveFavorite {
-  Future<bool> saveUserFavorite(UserDetailEntity user);
+  Future<bool> call(UserDetailEntity user);
 }
 
 class SaveFavoriteImpl implements SaveFavorite {
@@ -10,7 +10,7 @@ class SaveFavoriteImpl implements SaveFavorite {
 
   SaveFavoriteImpl(this.repository);
   @override
-  Future<bool> saveUserFavorite(UserDetailEntity user) async {
+  Future<bool> call(UserDetailEntity user) async {
     return await repository.saveFavorite(user);
   }
 

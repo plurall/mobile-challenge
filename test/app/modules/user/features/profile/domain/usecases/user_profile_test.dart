@@ -28,7 +28,7 @@ void main() {
     );
     when(() => repository.getUserDetail(username)).thenAnswer((_) async => user);
 
-    final result = await usecase.getUserDetail(username);
+    final result = await usecase(username);
 
     expect(result, user);
   });
@@ -37,7 +37,7 @@ void main() {
     final invalidUserName = "";
     when(() => repository.getUserDetail(invalidUserName)).thenThrow((_) async => InvalidUserName());
 
-    final future =  usecase.getUserDetail(invalidUserName);
+    final future =  usecase(invalidUserName);
 
     expect(future, throwsA(isA<InvalidUserName>()));
   });

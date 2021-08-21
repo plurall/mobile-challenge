@@ -28,7 +28,7 @@ void main() {
     final tUserEntity = tUserFavorite.toEntity();  
     when(() => repository.verifyFavorite(tUserEntity)).thenAnswer((_) async => true);
 
-    final result = await usecase.verify(tUserEntity);
+    final result = await usecase(tUserEntity);
 
     expect(result, equals(true));    
   });
@@ -37,7 +37,7 @@ void main() {
     final tUserEntity = tUserNotFavorite.toEntity();
     when(() => repository.verifyFavorite(tUserEntity)).thenAnswer((_) async => false);
 
-    final result = await usecase.verify(tUserEntity);
+    final result = await usecase(tUserEntity);
 
     expect(result, equals(false));    
   });

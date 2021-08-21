@@ -33,16 +33,16 @@ abstract class _ProfilePageControllerBase with Store {
   Future<Null> getUserDetail(String username) async {
     state = ProfilePageState.LOADING;
 
-    userDetail = await userProfileUsecase.getUserDetail(username);
+    userDetail = await userProfileUsecase(username);
 
-    isFavorite = await verifyFavoriteUsecase.verify(userDetail!);
+    isFavorite = await verifyFavoriteUsecase(userDetail!);
 
     state = ProfilePageState.IDLE;
   }
 
   @action
   Future<Null> saveFavorite() async {
-    await saveFavoriteUsecase.saveUserFavorite(userDetail!);
+    await saveFavoriteUsecase(userDetail!);
 
     isFavorite = true;
 
@@ -51,7 +51,7 @@ abstract class _ProfilePageControllerBase with Store {
 
   @action
   Future<Null> removeFavorite() async {
-    await removeFavoriteUsecase.removeUserFavorite(userDetail!);
+    await removeFavoriteUsecase(userDetail!);
 
     isFavorite = false;
 

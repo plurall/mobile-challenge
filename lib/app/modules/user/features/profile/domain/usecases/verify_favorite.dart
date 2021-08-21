@@ -3,7 +3,7 @@ import 'package:mobile_challenge/app/modules/user/features/profile/domain/entiti
 import '../../../profile/domain/repositories/favorites_repository.dart';
 
 abstract class VerifyFavorite {
-  Future<bool> verify(UserDetailEntity user);
+  Future<bool> call(UserDetailEntity user);
 }
 
 class VerifyFavoriteImpl implements VerifyFavorite {
@@ -11,7 +11,7 @@ class VerifyFavoriteImpl implements VerifyFavorite {
 
   VerifyFavoriteImpl(this.repository);
   @override
-  Future<bool> verify(UserDetailEntity user) async {
+  Future<bool> call(UserDetailEntity user) async {
     return await repository.verifyFavorite(user);
   }
 }

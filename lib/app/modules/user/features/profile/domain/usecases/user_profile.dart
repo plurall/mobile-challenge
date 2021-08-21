@@ -3,7 +3,7 @@ import '../errors/profile_errors.dart';
 import '../repositories/profile_repository.dart';
 
 abstract class UserProfile {
-  Future<UserDetailEntity> getUserDetail (String username);
+  Future<UserDetailEntity> call (String username);
 }
 
 class UserProfileImpl implements UserProfile {
@@ -12,7 +12,7 @@ class UserProfileImpl implements UserProfile {
   UserProfileImpl(this.repository);
 
   @override
-  Future<UserDetailEntity> getUserDetail(String username) async {
+  Future<UserDetailEntity> call(String username) async {
     if (username.isEmpty || username.contains(" ")) {
         throw InvalidUserName();
     }

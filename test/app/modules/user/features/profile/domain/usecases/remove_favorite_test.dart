@@ -24,7 +24,7 @@ void main() {
     final user = UserDetailModel.fromJson(userJson).toEntity();    
     when(() => repository.removeFavorite(user)).thenAnswer((_) async => true);
 
-    final result = await usecase.removeUserFavorite(user);
+    final result = await usecase(user);
 
     expect(result, equals(true));
   });

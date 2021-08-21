@@ -35,7 +35,7 @@ abstract class _SearchPageControllerBase with Store {
     searchedUsers.clear();
     
     try {
-      final result = await usecase.search(searchText);
+      final result = await usecase(searchText);
       searchedUsers.addAll(result);
     } catch (error) { }
 

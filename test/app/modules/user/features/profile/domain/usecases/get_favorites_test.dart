@@ -12,7 +12,7 @@ void main() {
     final usecase = GetFavoritesImpl(repository);
     when(() => repository.getFavorites()).thenAnswer((_) async => <UserDetailEntity>[]);
 
-    final result = await usecase.getFavorites();
+    final result = await usecase();
 
     expect(result, isA<List<UserDetailEntity>>());
   });

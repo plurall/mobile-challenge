@@ -20,7 +20,7 @@ void main() {
     final searchText = "random_text";
     when(() => repository.search(searchText)).thenAnswer((_) async => <SearchedUserEntity>[]);
 
-    final result = await usecase.search(searchText);
+    final result = await usecase(searchText);
 
     expect(result, isA<List<SearchedUserEntity>>());
   });
@@ -28,7 +28,7 @@ void main() {
   test('Should throw and InvalidSearchText if search text is empty', () async {
     final emptySearchText = "";
 
-    final future = usecase.search(emptySearchText);
+    final future = usecase(emptySearchText);
 
     expect(future, throwsA(isA<InvalidSearchText>()));
   });

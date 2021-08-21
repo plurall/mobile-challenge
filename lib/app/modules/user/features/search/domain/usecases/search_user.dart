@@ -3,7 +3,7 @@ import '../errors/search_errors.dart';
 import '../repositories/search_user_repository.dart';
 
 abstract class SearchUser {
-  Future<List<SearchedUserEntity>> search(String searchText);
+  Future<List<SearchedUserEntity>> call(String searchText);
 }
 
 class SearchUserImpl implements SearchUser{
@@ -11,7 +11,7 @@ class SearchUserImpl implements SearchUser{
 
   SearchUserImpl(this.repository);
   @override
-  Future<List<SearchedUserEntity>> search(String searchText) async {
+  Future<List<SearchedUserEntity>> call(String searchText) async {
     if (searchText.isEmpty) {
         throw InvalidSearchText();
     }

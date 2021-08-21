@@ -23,7 +23,7 @@ void main() {
     final user = UserDetailModel.fromJson(userJson).toEntity();    
     when(() => repository.saveFavorite(user)).thenAnswer((_) async => true);
 
-    final result = await usecase.saveUserFavorite(user);
+    final result = await usecase(user);
 
     expect(result, equals(true));
   });
