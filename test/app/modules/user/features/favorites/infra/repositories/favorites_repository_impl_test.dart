@@ -31,6 +31,16 @@ void main() {
     expect(result, isA<List<UserFavoriteEntity>>());
   });
 
+  test('Should return true if user is favorite', () async {    
+    String login = "joaoarmando"; 
+    when(() => datasource.verifyFavorite(login)).thenAnswer((_) async => true);
+
+    final result = await repository.verifyFavorite(login);
+
+    expect(result, equals(true));
+  });
+
+
   test('Should return true if favorite was successfully saved', () async {
     when(() => datasource.saveFavorite(tUser)).thenAnswer((_) async => true);
 
