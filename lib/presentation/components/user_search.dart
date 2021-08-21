@@ -23,8 +23,12 @@ class _UserSearchState extends State<UserSearch> {
   @override
   void initState() {
     super.initState();
-    searchFieldController.text =
+    final String initialSearchValue =
         Provider.of<SearchProvider>(context, listen: false).search;
+    searchFieldController.text = initialSearchValue;
+    if (initialSearchValue.length > 0) {
+      widget.onPress(initialSearchValue);
+    }
     searchFieldController.addListener(onSearchFieldChange);
   }
 
