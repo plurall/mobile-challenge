@@ -40,6 +40,14 @@ void main() {
     expect(result, equals(true));
   });
 
+  test('Should return false if user is not a favorite favorite', () async {    
+    String login = "joaoarmando"; 
+    when(() => datasource.verifyFavorite(login)).thenAnswer((_) async => false);
+
+    final result = await repository.verifyFavorite(login);
+
+    expect(result, equals(false));
+  });
 
   test('Should return true if favorite was successfully saved', () async {
     when(() => datasource.saveFavorite(tUser)).thenAnswer((_) async => true);
