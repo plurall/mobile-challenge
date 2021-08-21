@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/model/user.dart';
+import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/presentation/views/user_profile.dart';
+import 'package:mobile_challenge/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class UserCard extends StatelessWidget {
   final User user;
@@ -14,6 +17,8 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoriteUsers = Provider.of<FavoriteUsersProvider>(context).items;
+    final isFavorite = Utils.isFavoriteUser(favoriteUsers, user);
     return InkWell(
       onTap: () => selectUser(context),
       splashColor: Theme.of(context).primaryColor,
@@ -29,22 +34,27 @@ class UserCard extends StatelessWidget {
           padding: EdgeInsets.all(10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.network(
-                user.avatar,
-                width: 50,
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10),
-                child: Text(
-                  user.login,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  Image.network(
+                    user.avatar,
+                    width: 50,
                   ),
-                ),
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Text(
+                      user.login,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              if (isFavorite) Icon(Icons.star, color: Colors.white)
             ],
           ),
         ),
