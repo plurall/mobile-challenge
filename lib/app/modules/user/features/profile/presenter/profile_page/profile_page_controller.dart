@@ -4,8 +4,8 @@ import 'package:mobile_challenge/app/modules/user/features/profile/domain/usecas
 import 'package:mobile_challenge/app/modules/user/features/profile/domain/usecases/verify_favorite.dart';
 import 'package:mobx/mobx.dart';
 
-import '../domain/entities/user_detail_entity.dart';
-import '../domain/usecases/user_profile.dart';
+import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/usecases/user_profile.dart';
 
 part 'profile_page_controller.g.dart';
 
