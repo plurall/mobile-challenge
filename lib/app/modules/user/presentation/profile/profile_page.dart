@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/modules/user/presentation/widgets/no_internet_connection_widget.dart';
 
 import '../../../../shared/utils/app_colors.dart';
 import '../../domain/entities/user_detail_entity.dart';
@@ -37,12 +38,17 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Positioned.fill(
               child: Observer(builder: (_) {
-                if (controller.state == ProfilePageState.LOADING) {
-                  return _buildLoadingIndicator();
-                } else {
-                  final userDetail = controller.userDetail!;
-                  return _buildUserDetailContent(userDetail);
+                if (controller.state == ProfilePageState.IDLE) {
+                    final userDetail = controller.userDetail!;
+                    return _buildUserDetailContent(userDetail);
                 }
+                else if (controller.state == ProfilePageState.LOADING) {
+                  return _buildLoadingIndicator();
+                }
+                else if (controller.state == ProfilePageState.NO_INTERNET) {
+                  return NoInternetConnectionWidget();
+                }
+                return Container();
               }),
             ),
             Positioned(
