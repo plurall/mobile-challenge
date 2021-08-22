@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/modules/user/presentation/widgets/loading_indicator_widget.dart';
 import 'package:mobile_challenge/app/modules/user/presentation/widgets/no_internet_connection_widget.dart';
 
 import '../../../../shared/utils/app_colors.dart';
@@ -43,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     return _buildUserDetailContent(userDetail);
                 }
                 else if (controller.state == ProfilePageState.LOADING) {
-                  return _buildLoadingIndicator();
+                  return LoadingIndicatorWidget();
                 }
                 else if (controller.state == ProfilePageState.NO_INTERNET) {
                   return NoInternetConnectionWidget();
@@ -86,13 +87,6 @@ class _ProfilePageState extends State<ProfilePage> {
           )
         ),
       ),
-    );
-  }
-
-  Widget _buildLoadingIndicator() {
-    return Center(
-      child: Platform.isIOS ? CupertinoActivityIndicator() 
-        : CircularProgressIndicator(strokeWidth: 1, color: AppColors.accentColor),
     );
   }
 

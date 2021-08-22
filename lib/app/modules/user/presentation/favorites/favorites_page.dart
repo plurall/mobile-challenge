@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/modules/user/presentation/widgets/loading_indicator_widget.dart';
+import 'package:mobile_challenge/app/modules/user/presentation/widgets/user_tile.dart';
 
 import '../../../../shared/utils/app_colors.dart';
 import '../../domain/entities/user_detail_entity.dart';
@@ -41,7 +43,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   return _buildSearchedUserListView();
               }
               else if (controller.state == FavoritesPageState.LOADING) {
-                return _buildLoadingIndicator();
+                return LoadingIndicatorWidget();
               }
               return Container();
             }),
@@ -92,54 +94,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
       itemCount: controller.favorites.length,
       itemBuilder: (_, index) {
         final user = controller.favorites[index];
-        return _buildUserTile(user);
+        return UserTile(user);
       }
     );
   }
 
-  Widget _buildLoadingIndicator() {
-    return Center(
-      child: Platform.isIOS ? CupertinoActivityIndicator() 
-      : CircularProgressIndicator(
-        strokeWidth: 1,
-      ),
-    );
-  }
-
-  Widget _buildUserTile(UserDetailEntity user) {
-    return GestureDetector(
-      onTap: () => Modular.to.pushNamed("/profile/${user.login}"),
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(12, 12, 12, 0),
-        padding: const EdgeInsets.all(12),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: AppColors.backgroundColor,
-          border: Border.all(color: AppColors.borderColor, width: 1),
-          borderRadius: BorderRadius.circular(10)
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(99),
-              child: CachedNetworkImage(
-                imageUrl: user.avatarUrl,
-                height: 56,
-                width: 56,
-              ),
-            ),
-            SizedBox(width: 12),
-            Text(user.login,
-              style: TextStyle(
-                color: AppColors.primaryTextColor,
-                fontWeight: FontWeight.w400
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
 }

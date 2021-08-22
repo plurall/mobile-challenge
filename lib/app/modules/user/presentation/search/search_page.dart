@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/modules/user/presentation/widgets/loading_indicator_widget.dart';
 import 'package:mobile_challenge/app/modules/user/presentation/widgets/user_tile.dart';
 import 'package:mobile_challenge/app/shared/utils/app_colors.dart';
 import 'package:mobile_challenge/app/modules/user/presentation/widgets/no_internet_connection_widget.dart';
@@ -45,7 +46,7 @@ class _SearchPageState extends State<SearchPage> {
                   return _buildSearchedUserListView();
               }
               else if (controller.state == SearchPageState.LOADING) {
-                return _buildLoadingIndicator();
+                return LoadingIndicatorWidget();
               }
               else if (controller.state == SearchPageState.NO_INTERNET) {
                 return NoInternetConnectionWidget();
@@ -139,15 +140,6 @@ class _SearchPageState extends State<SearchPage> {
         final user = controller.searchedUsers[index];
         return UserTile(user);
       }
-    );
-  }
-
-  Widget _buildLoadingIndicator() {
-    return Center(
-      child: Platform.isIOS ? CupertinoActivityIndicator() 
-      : CircularProgressIndicator(
-        strokeWidth: 1,
-      ),
     );
   }
 }
