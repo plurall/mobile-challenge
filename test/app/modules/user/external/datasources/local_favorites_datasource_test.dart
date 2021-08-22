@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile_challenge/app/core/utils/prefs_key.dart';
 import 'package:mobile_challenge/app/modules/user/external/datasources/local_favorites_datasource.dart';
 import 'package:mobile_challenge/app/modules/user/domain/errors/favorites_errors.dart';
 import 'package:mobile_challenge/app/modules/user/data/models/user_detail_model.dart';
 import 'package:mobile_challenge/app/modules/user/data/models/users_detail_model.dart';
-import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

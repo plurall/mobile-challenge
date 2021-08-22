@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
-import '../../../../shared/utils/endpoints.dart';
+import '../../../../core/utils/endpoints.dart';
 import '../../data/datasources/search_user_datasource.dart';
 import '../../data/models/searched_user_model.dart';
 import '../../domain/errors/search_errors.dart';

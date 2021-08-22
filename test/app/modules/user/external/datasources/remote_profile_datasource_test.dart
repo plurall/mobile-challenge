@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
+import 'package:mobile_challenge/app/core/utils/endpoints.dart';
 import 'package:mobile_challenge/app/modules/user/external/datasources/remote_profile_datasource.dart';
 import 'package:mobile_challenge/app/modules/user/domain/errors/profile_errors.dart';
 import 'package:mobile_challenge/app/modules/user/data/models/user_detail_model.dart';
-import 'package:mobile_challenge/app/shared/utils/endpoints.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../fixtures/fixture_reader.dart';

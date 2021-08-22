@@ -1,19 +1,15 @@
-import 'dart:io' show Platform;
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/app/modules/user/presentation/widgets/empty_content_widget.dart';
-import 'package:mobile_challenge/app/modules/user/presentation/widgets/loading_indicator_widget.dart';
-import 'package:mobile_challenge/app/modules/user/presentation/widgets/user_listview.dart';
-import 'package:mobile_challenge/app/modules/user/presentation/widgets/user_tile.dart';
-import 'package:mobile_challenge/app/shared/utils/app_colors.dart';
-import 'package:mobile_challenge/app/modules/user/presentation/widgets/no_internet_connection_widget.dart';
 
-import '../../domain/entities/user_detail_entity.dart';
+import '../../../../core/utils/app_colors.dart';
 import '../../domain/usecases/search_user.dart';
+import '../widgets/empty_content_widget.dart';
+import '../widgets/loading_indicator_widget.dart';
+import '../widgets/no_internet_connection_widget.dart';
+import '../widgets/user_listview.dart';
 import 'search_page_controller.dart';
 
 

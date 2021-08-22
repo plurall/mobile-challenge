@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobile_challenge/app/modules/user/presentation/widgets/user_listview.dart';
 
-import '../../../../shared/utils/app_colors.dart';
+import '../../../../core/utils/app_colors.dart';
 import '../widgets/empty_content_widget.dart';
 import '../widgets/loading_indicator_widget.dart';
-import '../widgets/user_tile.dart';
+import '../widgets/user_listview.dart';
 import 'favorites_page_controller.dart';
 
 class FavoritesPage extends StatefulWidget {

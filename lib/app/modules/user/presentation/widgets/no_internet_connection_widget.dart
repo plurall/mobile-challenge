@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/app/core/utils/app_colors.dart';
 
-import '../../../../shared/utils/app_colors.dart';
 
 class NoInternetConnectionWidget extends StatelessWidget {
   const NoInternetConnectionWidget({ Key? key }) : super(key: key);

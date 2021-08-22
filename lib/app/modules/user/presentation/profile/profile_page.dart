@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../../shared/utils/app_colors.dart';
+import '../../../../core/utils/app_colors.dart';
 import '../../domain/entities/user_detail_entity.dart';
 import '../widgets/loading_indicator_widget.dart';
 import '../widgets/no_internet_connection_widget.dart';

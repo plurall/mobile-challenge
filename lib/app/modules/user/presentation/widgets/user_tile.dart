@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/app/modules/user/domain/entities/user_detail_entity.dart';
-import 'package:mobile_challenge/app/shared/utils/app_colors.dart';
+
+import '../../../../core/utils/app_colors.dart';
+import '../../domain/entities/user_detail_entity.dart';
 
 class UserTile extends StatelessWidget {
   final UserDetailEntity user;
