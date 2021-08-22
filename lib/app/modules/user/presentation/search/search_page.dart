@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/modules/user/presentation/widgets/empty_content_widget.dart';
 import 'package:mobile_challenge/app/modules/user/presentation/widgets/loading_indicator_widget.dart';
 import 'package:mobile_challenge/app/modules/user/presentation/widgets/user_tile.dart';
 import 'package:mobile_challenge/app/shared/utils/app_colors.dart';
@@ -41,7 +42,7 @@ class _SearchPageState extends State<SearchPage> {
             child: Observer(builder: (_) {
               if (controller.state == SearchPageState.IDLE) {
                   if (controller.searchedUsers.isEmpty) {
-                      return _buildEmptyListContent();
+                      return EmptyContentWidget();
                   }
                   return _buildSearchedUserListView();
               }
@@ -114,24 +115,6 @@ class _SearchPageState extends State<SearchPage> {
       ],
     );
   }
-
-  Widget _buildEmptyListContent() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Text("There's nothing here yet",
-          style: TextStyle(
-            color: AppColors.secondaryTextColor,
-            fontWeight: FontWeight.w300,
-            fontSize: 14
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
-
-
   Widget _buildSearchedUserListView() {
     return ListView.builder(
       padding: EdgeInsets.only(top: searchBarHeight + 24),
