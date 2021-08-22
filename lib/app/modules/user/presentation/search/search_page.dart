@@ -7,6 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobile_challenge/app/modules/user/presentation/widgets/empty_content_widget.dart';
 import 'package:mobile_challenge/app/modules/user/presentation/widgets/loading_indicator_widget.dart';
+import 'package:mobile_challenge/app/modules/user/presentation/widgets/user_listview.dart';
 import 'package:mobile_challenge/app/modules/user/presentation/widgets/user_tile.dart';
 import 'package:mobile_challenge/app/shared/utils/app_colors.dart';
 import 'package:mobile_challenge/app/modules/user/presentation/widgets/no_internet_connection_widget.dart';
@@ -44,7 +45,10 @@ class _SearchPageState extends State<SearchPage> {
                   if (controller.searchedUsers.isEmpty) {
                       return EmptyContentWidget();
                   }
-                  return _buildSearchedUserListView();
+                  return UserListView(
+                    padding: EdgeInsets.only(top: searchBarHeight + 12),
+                    users: controller.searchedUsers
+                  );
               }
               else if (controller.state == SearchPageState.LOADING) {
                 return LoadingIndicatorWidget();
@@ -113,16 +117,6 @@ class _SearchPageState extends State<SearchPage> {
           ),
         )
       ],
-    );
-  }
-  Widget _buildSearchedUserListView() {
-    return ListView.builder(
-      padding: EdgeInsets.only(top: searchBarHeight + 24),
-      itemCount: controller.searchedUsers.length,
-      itemBuilder: (_, index) {
-        final user = controller.searchedUsers[index];
-        return UserTile(user);
-      }
     );
   }
 }

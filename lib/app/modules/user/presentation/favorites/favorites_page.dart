@@ -1,15 +1,12 @@
-import 'dart:io' show Platform;
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/app/modules/user/presentation/widgets/loading_indicator_widget.dart';
-import 'package:mobile_challenge/app/modules/user/presentation/widgets/user_tile.dart';
+import 'package:mobile_challenge/app/modules/user/presentation/widgets/user_listview.dart';
 
 import '../../../../shared/utils/app_colors.dart';
-import '../../domain/entities/user_detail_entity.dart';
+import '../widgets/empty_content_widget.dart';
+import '../widgets/loading_indicator_widget.dart';
+import '../widgets/user_tile.dart';
 import 'favorites_page_controller.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -38,9 +35,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
             child: Observer(builder: (_) {
               if (controller.state == FavoritesPageState.IDLE) {
                   if (controller.favorites.isEmpty) {
-                      return _buildEmptyFavoriteList();
+                      return EmptyContentWidget();
                   }
-                  return _buildSearchedUserListView();
+                  return UserListView(
+                    padding: EdgeInsets.only(top: 24),
+                    users: controller.favorites,
+                  );
               }
               else if (controller.state == FavoritesPageState.LOADING) {
                 return LoadingIndicatorWidget();
@@ -68,34 +68,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
           fontWeight: FontWeight.w500
         ),
       ),
-    );
-  }
-
-  Widget _buildEmptyFavoriteList() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Text("There's nothing here yet",
-          style: TextStyle(
-            color: AppColors.secondaryTextColor,
-            fontWeight: FontWeight.w300,
-            fontSize: 14
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
-
-
-  Widget _buildSearchedUserListView() {
-    return ListView.builder(
-      padding: EdgeInsets.only(top: 24),
-      itemCount: controller.favorites.length,
-      itemBuilder: (_, index) {
-        final user = controller.favorites[index];
-        return UserTile(user);
-      }
     );
   }
 

@@ -1,15 +1,13 @@
-import 'dart:io' show Platform;
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/app/modules/user/presentation/widgets/loading_indicator_widget.dart';
-import 'package:mobile_challenge/app/modules/user/presentation/widgets/no_internet_connection_widget.dart';
 
 import '../../../../shared/utils/app_colors.dart';
 import '../../domain/entities/user_detail_entity.dart';
+import '../widgets/loading_indicator_widget.dart';
+import '../widgets/no_internet_connection_widget.dart';
 import 'profile_page_controller.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -64,29 +62,9 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildBackButton() {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.1),
-            offset: Offset(0,10),
-            blurRadius: 20
-          )
-        ]
-      ),
-      child: Material(
-        type: MaterialType.transparency,
-        child: InkWell(
-          onTap: () => Modular.to.pop(),
-          borderRadius: BorderRadius.circular(999),
-          child: Padding(
-            padding: const EdgeInsets.all(6),
-            child: Icon(Icons.close, size: 32),
-          )
-        ),
-      ),
+    return BackButton(
+      onPressed: () => Modular.to.pop(),
+      color: AppColors.primaryTextColor,
     );
   }
 
