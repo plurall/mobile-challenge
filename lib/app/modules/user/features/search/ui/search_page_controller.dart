@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:mobile_challenge/app/core/error/errors.dart';
 import 'package:mobx/mobx.dart';
 
 import '../domain/entities/searched_user_entity.dart';
@@ -23,7 +24,6 @@ abstract class _SearchPageControllerBase with Store {
   _SearchPageControllerBase(this.usecase);
 
   void onChangeSearchText(String searchText) {
-
     if (_searchTypeDelay != null)  _searchTypeDelay!.cancel();
 
     _searchTypeDelay = Timer(Duration(milliseconds: 500), () => _searchUsers(searchText));    
@@ -37,7 +37,12 @@ abstract class _SearchPageControllerBase with Store {
     try {
       final result = await usecase(searchText);
       searchedUsers.addAll(result);
-    } catch (error) { }
+    } on CacheException {
+      //Delay gives to the user a feedback that something happens after the types some text
+      await Future.delayed(Duration(milliseconds: 300))
+        .then((_) => state = SearchPageState.NO_INTERNET);    
+      return;
+    } catch(exception) {}
 
     state = SearchPageState.IDLE;
   }

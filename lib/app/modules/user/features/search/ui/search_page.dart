@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/shared/widgets/no_internet_connection_widget.dart';
 
 import '../../../../../shared/utils/app_colors.dart';
 import '../domain/entities/searched_user_entity.dart';
@@ -44,6 +45,9 @@ class _SearchPageState extends State<SearchPage> {
               }
               else if (controller.state == SearchPageState.LOADING) {
                 return _buildLoadingIndicator();
+              }
+              else if (controller.state == SearchPageState.NO_INTERNET) {
+                return NoInternetConnectionWidget();
               }
               return Container();
             }),
