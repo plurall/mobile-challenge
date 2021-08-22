@@ -3,9 +3,9 @@ import 'package:mobile_challenge/app/core/error/errors.dart';
 import 'package:mobile_challenge/app/core/error/failures.dart';
 import 'package:mobile_challenge/app/core/network/network_info.dart';
 import 'package:mobile_challenge/app/modules/user/domain/entities/user_detail_entity.dart';
-import 'package:mobile_challenge/app/modules/user/infra/datasources/search_user_datasource.dart';
-import 'package:mobile_challenge/app/modules/user/infra/models/searched_user_model.dart';
-import 'package:mobile_challenge/app/modules/user/infra/repositories/search_user_repository_impl.dart';
+import 'package:mobile_challenge/app/modules/user/data/datasources/search_user_datasource.dart';
+import 'package:mobile_challenge/app/modules/user/data/models/searched_user_model.dart';
+import 'package:mobile_challenge/app/modules/user/data/repositories/search_user_repository_impl.dart';
 import 'package:mocktail/mocktail.dart';
 
 class SearchUserDataSourceMock extends Mock implements SearchUserDataSource {}

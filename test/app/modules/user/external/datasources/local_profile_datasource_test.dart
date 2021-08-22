@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/core/error/errors.dart';
-import 'package:mobile_challenge/app/modules/user/data/local_profile_datasource.dart';
-import 'package:mobile_challenge/app/modules/user/infra/models/user_detail_model.dart';
+import 'package:mobile_challenge/app/modules/user/external/datasources/local_profile_datasource.dart';
+import 'package:mobile_challenge/app/modules/user/data/models/user_detail_model.dart';
 import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../fixtures/fixture_reader.dart';
+import '../../../fixtures/fixture_reader.dart';
 
 class SharedPreferencesMock extends Mock implements SharedPreferences {}
 void main() {

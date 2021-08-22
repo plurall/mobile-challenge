@@ -1,9 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/user/infra/models/user_detail_model.dart';
-import 'package:mobile_challenge/app/modules/user/infra/models/users_detail_model.dart';
-
+import 'package:mobile_challenge/app/modules/user/data/models/user_detail_model.dart';
+import 'package:mobile_challenge/app/modules/user/data/models/users_detail_model.dart';
 import '../../../fixtures/fixture_reader.dart';
 
 

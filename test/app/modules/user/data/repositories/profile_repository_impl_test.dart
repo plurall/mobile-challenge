@@ -3,10 +3,10 @@ import 'package:mobile_challenge/app/core/error/errors.dart';
 import 'package:mobile_challenge/app/core/error/failures.dart';
 import 'package:mobile_challenge/app/core/network/network_info.dart';
 import 'package:mobile_challenge/app/modules/user/domain/entities/user_detail_entity.dart';
-import 'package:mobile_challenge/app/modules/user/infra/datasources/local_profile_datasource.dart';
-import 'package:mobile_challenge/app/modules/user/infra/datasources/profile_datasource.dart';
-import 'package:mobile_challenge/app/modules/user/infra/models/user_detail_model.dart';
-import 'package:mobile_challenge/app/modules/user/infra/repositories/profile_repository_impl.dart';
+import 'package:mobile_challenge/app/modules/user/data/datasources/local_profile_datasource.dart';
+import 'package:mobile_challenge/app/modules/user/data/datasources/profile_datasource.dart';
+import 'package:mobile_challenge/app/modules/user/data/models/user_detail_model.dart';
+import 'package:mobile_challenge/app/modules/user/data/repositories/profile_repository_impl.dart';
 import 'package:mocktail/mocktail.dart';
 
 class RemoteProfileDatasourceMock extends Mock implements RemoteProfileDatasource {}

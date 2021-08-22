@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/modules/user/domain/repositories/favorites_repository.dart';
 import 'package:mobile_challenge/app/modules/user/domain/usecases/save_favorite.dart';
-import 'package:mobile_challenge/app/modules/user/infra/models/user_detail_model.dart';
+import 'package:mobile_challenge/app/modules/user/data/models/user_detail_model.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../fixtures/fixture_reader.dart';

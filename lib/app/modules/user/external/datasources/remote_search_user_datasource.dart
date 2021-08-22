@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:mobile_challenge/app/shared/utils/endpoints.dart';
 
-import '../domain/errors/search_errors.dart';
-import '../infra/datasources/search_user_datasource.dart';
-import '../infra/models/searched_user_model.dart';
+import '../../../../shared/utils/endpoints.dart';
+import '../../data/datasources/search_user_datasource.dart';
+import '../../data/models/searched_user_model.dart';
+import '../../domain/errors/search_errors.dart';
+
 
 class RemoteSearchUserDataSource implements SearchUserDataSource {
   final Client http;

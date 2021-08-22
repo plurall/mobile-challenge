@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:mobile_challenge/app/shared/utils/endpoints.dart';
 
-import '../domain/errors/profile_errors.dart';
-import '../infra/datasources/profile_datasource.dart';
-import '../infra/models/user_detail_model.dart';
+import '../../../../shared/utils/endpoints.dart';
+import '../../data/datasources/profile_datasource.dart';
+import '../../data/models/user_detail_model.dart';
+import '../../domain/errors/profile_errors.dart';
 
 class RemoteProfileDatasourceImpl implements RemoteProfileDatasource {
   final Client http;

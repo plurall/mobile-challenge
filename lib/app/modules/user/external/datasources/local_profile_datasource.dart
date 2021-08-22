@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../core/error/errors.dart';
-import '../../../shared/utils/prefs_key.dart';
-import '../infra/datasources/local_profile_datasource.dart';
-import '../infra/models/user_detail_model.dart';
-import '../infra/models/users_detail_model.dart';
+import '../../../../core/error/errors.dart';
+import '../../../../shared/utils/prefs_key.dart';
+import '../../data/datasources/local_profile_datasource.dart';
+import '../../data/models/user_detail_model.dart';
+import '../../data/models/users_detail_model.dart';
+
 
 class LocalProfileDatasourceImpl implements LocalProfileDatasource {
   final SharedPreferences prefs;
