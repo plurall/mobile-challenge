@@ -1,13 +1,12 @@
 {
-  "favorites": [
+  "users": [
     {
     "login": "joaoarmando",
     "avatar_url": "https://avatars.githubusercontent.com/u/28633653?v=4",
     "name": "João Armando",
     "location": "Petrópolis - RJ - Brazil",
     "email": "joaoaarmando@hotmail.com",
-    "bio": null,
-    "is_favorite":true
+    "bio": null
     },
 
     {
@@ -16,8 +15,7 @@
     "name": "João Armando2",
     "location": "Petrópolis - RJ - Brazil",
     "email": "oi@joaoarmando.com",
-    "bio": null,
-    "is_favorite":false
+    "bio": null
     }
   ]
 }

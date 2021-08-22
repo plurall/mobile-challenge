@@ -1,8 +1,8 @@
-import 'package:mobile_challenge/app/core/error/errors.dart';
-import 'package:mobile_challenge/app/modules/user/features/search/domain/errors/search_errors.dart';
+import 'package:mobile_challenge/app/core/network/network_info.dart';
 
+import '../../../../../../core/error/errors.dart';
+import '../../../../../../core/error/failures.dart';
 import '../../domain/entities/searched_user_entity.dart';
-import '../../domain/network/network_info.dart';
 import '../../domain/repositories/search_user_repository.dart';
 import '../datasources/search_user_datasource.dart';
 

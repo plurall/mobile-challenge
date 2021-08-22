@@ -19,7 +19,7 @@ void main() {
 
   setUpAll(() {
     client = ClientMock();
-    datasource = RemoteProfileDatasource(client);
+    datasource = RemoteProfileDatasourceImpl(client);
   });
 
   test('Should call get with correct endpoint', () async {

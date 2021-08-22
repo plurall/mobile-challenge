@@ -7,10 +7,10 @@ import '../domain/errors/profile_errors.dart';
 import '../infra/datasources/profile_datasource.dart';
 import '../infra/models/user_detail_model.dart';
 
-class RemoteProfileDatasource implements ProfileDatasource {
+class RemoteProfileDatasourceImpl implements RemoteProfileDatasource {
   final Client http;
 
-  RemoteProfileDatasource(this.http);  
+  RemoteProfileDatasourceImpl(this.http);  
   @override
   Future<UserDetailModel> getUser(String username) async {
     final endpoint = Endpoints.userDetail + username;

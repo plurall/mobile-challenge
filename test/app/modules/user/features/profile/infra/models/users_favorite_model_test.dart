@@ -2,18 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/modules/user/features/profile/infra/models/user_detail_model.dart';
-import 'package:mobile_challenge/app/modules/user/features/profile/infra/models/users_favorite_model.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/infra/models/users_detail_model.dart';
 
 import '../../../../../fixtures/fixture_reader.dart';
 
 void main() {
   test('Should convert a json to a UserFavoritesModel with correct values', () async {
-    final json = jsonDecode(fixture("user_favorites_list.json"));
+    final json = jsonDecode(fixture("user_detail_list.json"));
 
-    final result = UsersFavoriteModel.fromMap(json);
+    final result = UsersDetailModel.fromMap(json);
 
-    expect(result.favorites, isA<List<UserDetailModel>>());
-    expect(result.favorites.length, equals(2));
+    expect(result.users, isA<List<UserDetailModel>>());
+    expect(result.users.length, equals(2));
   });
 
   test('Should convert a UserFavoritesModel to a json with correct values', () async {
@@ -35,11 +35,11 @@ void main() {
           avatarUrl: "https://randopictureurl.com"
         ),
     ];
-    final expectedList = UsersFavoriteModel(favorites:  tUserDetailList);
+    final expectedList = UsersDetailModel(users:  tUserDetailList);
 
     final result = expectedList.toMap();
 
-    expect(result["favorites"], isA<List<Map<String, dynamic>>>());
-    expect(result["favorites"].length, equals(2));
+    expect(result["users"], isA<List<Map<String, dynamic>>>());
+    expect(result["users"].length, equals(2));
   });
 }

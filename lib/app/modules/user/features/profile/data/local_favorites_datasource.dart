@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../shared/utils/prefs_key.dart';
 import '../domain/errors/favorites_errors.dart';
 import '../infra/datasources/favorites_datasource.dart';
-import '../infra/models/users_favorite_model.dart';
+import '../infra/models/users_detail_model.dart';
 
 class LocalFavoritesDatasource implements FavoritesDataSource {
   final SharedPreferences prefs;
@@ -19,8 +19,8 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
     final savedFavorites = prefs.getString(PrefsKey.CACHED_FAVORITES);
 
     if (savedFavorites != null) {
-        UsersFavoriteModel model = UsersFavoriteModel.fromMap(json.decode(savedFavorites));
-        favorites = model.favorites;
+        UsersDetailModel model = UsersDetailModel.fromMap(json.decode(savedFavorites));
+        favorites = model.users;
         return favorites;
     }
 
@@ -59,7 +59,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   Future _updateFavoritesSharedPreferences() async {
-    final newFavorites = UsersFavoriteModel(favorites: favorites);
+    final newFavorites = UsersDetailModel(users: favorites);
     final json =  newFavorites.toJson();
     return await prefs.setString(PrefsKey.CACHED_FAVORITES, json);
   }

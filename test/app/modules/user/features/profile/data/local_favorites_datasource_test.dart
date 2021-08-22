@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/modules/user/features/profile/data/local_favorites_datasource.dart';
 import 'package:mobile_challenge/app/modules/user/features/profile/domain/errors/favorites_errors.dart';
 import 'package:mobile_challenge/app/modules/user/features/profile/infra/models/user_detail_model.dart';
-import 'package:mobile_challenge/app/modules/user/features/profile/infra/models/users_favorite_model.dart';
+import 'package:mobile_challenge/app/modules/user/features/profile/infra/models/users_detail_model.dart';
 import 'package:mobile_challenge/app/shared/utils/prefs_key.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +18,7 @@ void main() {
   late final SharedPreferencesMock prefs;
   late final LocalFavoritesDatasource datasource;
   final tListUsers = 
-    UsersFavoriteModel.fromMap(jsonDecode(fixture("user_favorites_list.json"))).favorites;
+    UsersDetailModel.fromMap(jsonDecode(fixture("user_detail_list.json"))).users;
   final tUser = UserDetailModel(
     login: "test_user", 
     bio: "bio", 
@@ -29,7 +29,7 @@ void main() {
   );
 
   void _mockListUsersRequest() =>
-    when(() => prefs.getString(PrefsKey.CACHED_FAVORITES)).thenAnswer((_) => fixture("user_favorites_list.json"));
+    when(() => prefs.getString(PrefsKey.CACHED_FAVORITES)).thenAnswer((_) => fixture("user_detail_list.json"));
   
 
   void _mockPrefsSetStringResponse() =>

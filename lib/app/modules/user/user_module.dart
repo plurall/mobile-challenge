@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'features/profile/data/local_favorites_datasource.dart';
+import 'features/profile/data/local_profile_datasource.dart';
 import 'features/profile/data/remote_profile_datasource.dart';
 import 'features/profile/domain/usecases/get_favorites.dart';
 import 'features/profile/domain/usecases/remove_favorite.dart';
@@ -21,11 +22,12 @@ class UserModule extends Module {
   List<Bind> get binds => [
     //search
     Bind((i) => RemoteSearchUserDataSource(i())),
-    // Bind((i) => SearchUserRepositoryImpl(i())),
+    Bind((i) => SearchUserRepositoryImpl(datasource: i(), networkInfo: i())),
     Bind((i) => SearchUserImpl(i())),
     //profile
-    Bind((i) => RemoteProfileDatasource(i())),
-    Bind((i) => ProfileRepositoryImpl(i())),
+    Bind((i) => RemoteProfileDatasourceImpl(i())),
+    Bind((i) => LocalProfileDatasourceImpl(i())),
+    Bind((i) => ProfileRepositoryImpl(remoteDatasource: i(),localDatasource: i(), networkInfo: i())),
     Bind((i) => UserProfileImpl(i())),
     //favorites
     Bind((i) => LocalFavoritesDatasource(i())),
