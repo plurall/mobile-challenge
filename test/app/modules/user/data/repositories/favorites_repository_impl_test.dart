@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/user/domain/entities/user_detail_entity.dart';
+import 'package:mobile_challenge/app/modules/user/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/app/modules/user/data/datasources/favorites_datasource.dart';
 import 'package:mobile_challenge/app/modules/user/data/models/user_detail_model.dart';
 import 'package:mobile_challenge/app/modules/user/data/models/users_detail_model.dart';
@@ -16,7 +16,7 @@ class FavoritesDataSourceMock extends Mock implements FavoritesDataSource {}
 void main() {
   late final FavoritesDataSourceMock datasource;
   late final FavoritesRepositoryImpl repository;
-  late UserDetailEntity tUser;
+  late UserEntity tUser;
   final UsersDetailModel tUserList = UsersDetailModel
       .fromMap(jsonDecode(fixture("user_detail_list.json")));
 
@@ -32,7 +32,7 @@ void main() {
 
     final result = await repository.getFavorites();
 
-    expect(result, isA<List<UserDetailEntity>>());
+    expect(result, isA<List<UserEntity>>());
   });
 
   test('Should return true if favorite was successfully saved', () async {

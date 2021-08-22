@@ -6,7 +6,7 @@ import '../../../../core/utils/prefs_key.dart';
 import '../../data/datasources/favorites_datasource.dart';
 import '../../data/models/user_detail_model.dart';
 import '../../data/models/users_detail_model.dart';
-import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../domain/errors/favorites_errors.dart';
 
 class LocalFavoritesDatasource implements FavoritesDataSource {
@@ -28,7 +28,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> saveFavorite(UserDetailEntity user) async {
+  Future<bool> saveFavorite(UserEntity user) async {
     try {
       await getFavorites();
     } catch (error){}
@@ -44,7 +44,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> removeFavorite(UserDetailEntity user) async {
+  Future<bool> removeFavorite(UserEntity user) async {
     try {
       await getFavorites();
     } catch (error){}
@@ -65,7 +65,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   }
 
   @override
-  Future<bool> verifyFavorite(UserDetailEntity user) async {
+  Future<bool> verifyFavorite(UserEntity user) async {
     try {
       await getFavorites();
     } catch (error){}

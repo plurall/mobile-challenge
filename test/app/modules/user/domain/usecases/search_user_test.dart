@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/user/domain/entities/user_detail_entity.dart';
+import 'package:mobile_challenge/app/modules/user/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/app/modules/user/domain/errors/search_errors.dart';
 import 'package:mobile_challenge/app/modules/user/domain/repositories/search_user_repository.dart';
 import 'package:mobile_challenge/app/modules/user/domain/usecases/search_user.dart';
@@ -18,11 +18,11 @@ void main() {
 
   test('Should return a list of SearchedUser', () async {
     final searchText = "random_text";
-    when(() => repository.search(searchText)).thenAnswer((_) async => <UserDetailEntity>[]);
+    when(() => repository.search(searchText)).thenAnswer((_) async => <UserEntity>[]);
 
     final result = await usecase(searchText);
 
-    expect(result, isA<List<UserDetailEntity>>());
+    expect(result, isA<List<UserEntity>>());
   });
 
   test('Should throw and InvalidSearchText if search text is empty', () async {

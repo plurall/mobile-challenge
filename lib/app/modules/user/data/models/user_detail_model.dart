@@ -1,5 +1,5 @@
 
-import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/entities/user_entity.dart';
 
 class UserDetailModel {
   final String login;
@@ -32,7 +32,7 @@ class UserDetailModel {
     };
   }
 
-  factory UserDetailModel.fromEntity(UserDetailEntity entity) => UserDetailModel(
+  factory UserDetailModel.fromEntity(UserEntity entity) => UserDetailModel(
     login: entity.login,
     bio: entity.bio,
     name: entity.name,
@@ -41,7 +41,7 @@ class UserDetailModel {
     avatarUrl: entity.avatarUrl,
   );
 
-  UserDetailEntity toEntity() => UserDetailEntity(
+  UserEntity toEntity() => UserEntity(
     login: login, 
     bio: bio, 
     name: name,

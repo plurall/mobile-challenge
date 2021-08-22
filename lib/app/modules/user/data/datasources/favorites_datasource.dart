@@ -1,9 +1,9 @@
-import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/entities/user_entity.dart';
 import '../models/user_detail_model.dart';
 
 abstract class FavoritesDataSource {
   Future<List<UserDetailModel>> getFavorites();
-  Future<bool> verifyFavorite(UserDetailEntity user);
-  Future<bool> saveFavorite(UserDetailEntity user);
-  Future<bool> removeFavorite(UserDetailEntity user);
+  Future<bool> verifyFavorite(UserEntity user);
+  Future<bool> saveFavorite(UserEntity user);
+  Future<bool> removeFavorite(UserEntity user);
 }

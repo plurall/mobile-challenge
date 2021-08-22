@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/user/domain/entities/user_detail_entity.dart';
+import 'package:mobile_challenge/app/modules/user/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/app/modules/user/domain/errors/profile_errors.dart';
 import 'package:mobile_challenge/app/modules/user/domain/repositories/profile_repository.dart';
 import 'package:mobile_challenge/app/modules/user/domain/usecases/user_profile.dart';
@@ -18,7 +18,7 @@ void main() {
   });
 
   test('Should return a UserDetailEntity', () async {
-    final user = UserDetailEntity(
+    final user = UserEntity(
       login: username,
       avatarUrl: "https://randomurl.com/",
       name: "João Aramndo",

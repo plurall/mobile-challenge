@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/core/error/errors.dart';
 import 'package:mobile_challenge/app/core/error/failures.dart';
 import 'package:mobile_challenge/app/core/network/network_info.dart';
-import 'package:mobile_challenge/app/modules/user/domain/entities/user_detail_entity.dart';
+import 'package:mobile_challenge/app/modules/user/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/app/modules/user/data/datasources/search_user_datasource.dart';
 import 'package:mobile_challenge/app/modules/user/data/models/searched_user_model.dart';
 import 'package:mobile_challenge/app/modules/user/data/repositories/search_user_repository_impl.dart';
@@ -44,7 +44,7 @@ void main() {
       final result = await repository.search(searchText);
 
       verify(() => datasource.search(searchText));
-      expect(result, isA<List<UserDetailEntity>>());
+      expect(result, isA<List<UserEntity>>());
     });
 
     test('Should throws a Serverfailure when remoteDataSource is unsuccessful', () async {

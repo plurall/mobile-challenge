@@ -1,7 +1,7 @@
 import '../../../../core/error/errors.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/network_info.dart';
-import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/profile_repository.dart';
 import '../datasources/local_profile_datasource.dart';
 import '../datasources/profile_datasource.dart';
@@ -17,7 +17,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
     required this.networkInfo,
   });
   @override
-  Future<UserDetailEntity> getUserDetail(String username) async {
+  Future<UserEntity> getUserDetail(String username) async {
     if (await networkInfo.isConnected) {
         try {
           final user = await remoteDatasource.getUser(username);

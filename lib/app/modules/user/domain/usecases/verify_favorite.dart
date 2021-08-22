@@ -1,8 +1,8 @@
-import '../entities/user_detail_entity.dart';
+import '../entities/user_entity.dart';
 import '../repositories/favorites_repository.dart';
 
 abstract class VerifyFavorite {
-  Future<bool> call(UserDetailEntity user);
+  Future<bool> call(UserEntity user);
 }
 
 class VerifyFavoriteImpl implements VerifyFavorite {
@@ -10,7 +10,7 @@ class VerifyFavoriteImpl implements VerifyFavorite {
 
   VerifyFavoriteImpl(this.repository);
   @override
-  Future<bool> call(UserDetailEntity user) async {
+  Future<bool> call(UserEntity user) async {
     return await repository.verifyFavorite(user);
   }
 }

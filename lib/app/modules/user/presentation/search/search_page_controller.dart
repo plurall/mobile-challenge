@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:mobile_challenge/app/core/error/errors.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../domain/usecases/search_user.dart';
 
 part 'search_page_controller.g.dart';
@@ -15,7 +15,7 @@ class SearchPageController = _SearchPageControllerBase with _$SearchPageControll
 abstract class _SearchPageControllerBase with Store {
   Timer? _searchTypeDelay;
 
-  ObservableList<UserDetailEntity> searchedUsers = ObservableList();
+  ObservableList<UserEntity> searchedUsers = ObservableList();
   late final SearchUser usecase;
 
   @observable

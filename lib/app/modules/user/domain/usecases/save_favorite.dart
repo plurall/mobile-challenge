@@ -1,9 +1,9 @@
 
-import '../entities/user_detail_entity.dart';
+import '../entities/user_entity.dart';
 import '../repositories/favorites_repository.dart';
 
 abstract class SaveFavorite {
-  Future<bool> call(UserDetailEntity user);
+  Future<bool> call(UserEntity user);
 }
 
 class SaveFavoriteImpl implements SaveFavorite {
@@ -11,7 +11,7 @@ class SaveFavoriteImpl implements SaveFavorite {
 
   SaveFavoriteImpl(this.repository);
   @override
-  Future<bool> call(UserDetailEntity user) async {
+  Future<bool> call(UserEntity user) async {
     return await repository.saveFavorite(user);
   }
 

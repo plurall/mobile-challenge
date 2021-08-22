@@ -1,9 +1,9 @@
-import '../entities/user_detail_entity.dart';
+import '../entities/user_entity.dart';
 import '../errors/search_errors.dart';
 import '../repositories/search_user_repository.dart';
 
 abstract class SearchUser {
-  Future<List<UserDetailEntity>> call(String searchText);
+  Future<List<UserEntity>> call(String searchText);
 }
 
 class SearchUserImpl implements SearchUser{
@@ -11,7 +11,7 @@ class SearchUserImpl implements SearchUser{
 
   SearchUserImpl(this.repository);
   @override
-  Future<List<UserDetailEntity>> call(String searchText) async {
+  Future<List<UserEntity>> call(String searchText) async {
     if (searchText.isEmpty) {
         throw InvalidSearchText();
     }

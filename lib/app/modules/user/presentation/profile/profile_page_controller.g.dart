@@ -12,13 +12,13 @@ mixin _$ProfilePageController on _ProfilePageControllerBase, Store {
   final _$userDetailAtom = Atom(name: '_ProfilePageControllerBase.userDetail');
 
   @override
-  UserDetailEntity? get userDetail {
+  UserEntity? get userDetail {
     _$userDetailAtom.reportRead();
     return super.userDetail;
   }
 
   @override
-  set userDetail(UserDetailEntity? value) {
+  set userDetail(UserEntity? value) {
     _$userDetailAtom.reportWrite(value, super.userDetail, () {
       super.userDetail = value;
     });

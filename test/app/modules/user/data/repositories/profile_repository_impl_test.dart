@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/core/error/errors.dart';
 import 'package:mobile_challenge/app/core/error/failures.dart';
 import 'package:mobile_challenge/app/core/network/network_info.dart';
-import 'package:mobile_challenge/app/modules/user/domain/entities/user_detail_entity.dart';
+import 'package:mobile_challenge/app/modules/user/domain/entities/user_entity.dart';
 import 'package:mobile_challenge/app/modules/user/data/datasources/local_profile_datasource.dart';
 import 'package:mobile_challenge/app/modules/user/data/datasources/profile_datasource.dart';
 import 'package:mobile_challenge/app/modules/user/data/models/user_detail_model.dart';
@@ -80,7 +80,7 @@ void main() {
 
       verify(() => remoteDatasource.getUser(username));
       verify(() => localDatasource.cacheUser(user));
-      expect(result, isA<UserDetailEntity>());
+      expect(result, isA<UserEntity>());
     });
     
     test('Should throws an ServerFailure if remote data is unsuccessful', () async {
@@ -104,7 +104,7 @@ void main() {
       final result = await repository.getUserDetail(username);
 
       verify(() => localDatasource.getUser(username));
-      expect(result, isA<UserDetailEntity>());
+      expect(result, isA<UserEntity>());
     });
     
     test('Should throws an CacheFailure when there is no cached data present', () async {

@@ -1,8 +1,8 @@
-import '../entities/user_detail_entity.dart';
+import '../entities/user_entity.dart';
 import '../repositories/favorites_repository.dart';
 
 abstract class GetFavorites {
-  Future<List<UserDetailEntity>> call();
+  Future<List<UserEntity>> call();
 }
 
 class GetFavoritesImpl implements GetFavorites {
@@ -10,7 +10,7 @@ class GetFavoritesImpl implements GetFavorites {
 
   GetFavoritesImpl(this.repository);
   @override
-  Future<List<UserDetailEntity>> call() async {
+  Future<List<UserEntity>> call() async {
     final favorites = await repository.getFavorites();
     return favorites;
   }

@@ -5,7 +5,7 @@ import 'package:mobile_challenge/app/modules/user/domain/usecases/save_favorite.
 import 'package:mobile_challenge/app/modules/user/domain/usecases/verify_favorite.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../domain/usecases/user_profile.dart';
 
 part 'profile_page_controller.g.dart';
@@ -20,7 +20,7 @@ abstract class _ProfilePageControllerBase with Store {
   final RemoveFavorite removeFavoriteUsecase = Modular.get();
 
   @observable
-  UserDetailEntity? userDetail;
+  UserEntity? userDetail;
 
   @observable
   bool isFavorite = false;

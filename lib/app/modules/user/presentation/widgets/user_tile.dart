@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/utils/app_colors.dart';
-import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/entities/user_entity.dart';
 
 class UserTile extends StatelessWidget {
-  final UserDetailEntity user;
+  final UserEntity user;
   const UserTile(this.user);
 
   @override

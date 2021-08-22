@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/entities/user_entity.dart';
 import 'user_tile.dart';
 
 class UserListView extends StatelessWidget {
-  final List<UserDetailEntity> users;
+  final List<UserEntity> users;
   final EdgeInsets padding;
 
   const UserListView({required this.users, this.padding = EdgeInsets.zero});

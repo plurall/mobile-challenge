@@ -1,4 +1,4 @@
-import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/entities/user_entity.dart';
 
 class SearchedUserModel {
   final String login;
@@ -13,7 +13,7 @@ class SearchedUserModel {
     );
   }
 
-  UserDetailEntity toEntity() => UserDetailEntity(
+  UserEntity toEntity() => UserEntity(
     login: login, 
     avatarUrl: avatarUrl
   );

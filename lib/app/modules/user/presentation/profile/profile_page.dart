@@ -5,7 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/utils/app_colors.dart';
-import '../../domain/entities/user_detail_entity.dart';
+import '../../domain/entities/user_entity.dart';
 import '../widgets/loading_indicator_widget.dart';
 import '../widgets/no_internet_connection_widget.dart';
 import 'profile_page_controller.dart';
@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Center _buildUserDetailContent(UserDetailEntity userDetail) {
+  Center _buildUserDetailContent(UserEntity userDetail) {
     return Center(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 24),

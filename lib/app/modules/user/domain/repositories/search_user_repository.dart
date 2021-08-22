@@ -1,5 +1,5 @@
-import '../entities/user_detail_entity.dart';
+import '../entities/user_entity.dart';
 
 abstract class SearchUserRepository {
-  Future<List<UserDetailEntity>> search(String searchText);
+  Future<List<UserEntity>> search(String searchText);
 }
