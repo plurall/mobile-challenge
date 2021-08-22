@@ -21,7 +21,7 @@ class UserModule extends Module {
   List<Bind> get binds => [
     //search
     Bind((i) => RemoteSearchUserDataSource(i())),
-    Bind((i) => SearchUserRepositoryImpl(i())),
+    // Bind((i) => SearchUserRepositoryImpl(i())),
     Bind((i) => SearchUserImpl(i())),
     //profile
     Bind((i) => RemoteProfileDatasource(i())),
