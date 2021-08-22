@@ -33,9 +33,9 @@ dependencies:
   flutter_modular: ^3.3.1
   cached_network_image: ^3.1.0
   shared_preferences: ^2.0.6
+  internet_connection_checker: ^0.0.1+2
   flutter:
     sdk: flutter
-  data_connection_checker: ^0.3.4
 
 
   # The following adds the Cupertino Icons font to your application.

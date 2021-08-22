@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/core/network/network_info.dart';
 
 import 'features/profile/data/local_favorites_datasource.dart';
 import 'features/profile/data/local_profile_datasource.dart';

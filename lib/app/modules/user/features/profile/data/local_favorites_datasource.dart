@@ -68,9 +68,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
   Future<bool> verifyFavorite(UserDetailEntity user) async {
     try {
       await getFavorites();
-    } catch (error){
-      print("Error: ${error}");
-    }
+    } catch (error){}
 
     final isFavorite = favorites.indexWhere((favorite) => favorite.login == user.login) != -1; 
 
