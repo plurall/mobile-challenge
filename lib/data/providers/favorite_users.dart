@@ -6,7 +6,7 @@ class FavoriteUsersProvider with ChangeNotifier {
   List<User> _favoriteUsers = [];
   List<User> get items => _favoriteUsers;
 
-  addFavorite(User user) {
+  toogleFavorite(User user) {
     final isFavoriteUser = Utils.isFavoriteUser(_favoriteUsers, user);
     if (isFavoriteUser)
       _favoriteUsers.remove(user);
