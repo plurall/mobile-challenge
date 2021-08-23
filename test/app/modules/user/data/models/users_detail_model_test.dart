@@ -7,7 +7,7 @@ import '../../../fixtures/fixture_reader.dart';
 
 
 void main() {
-  test('Should convert a json to a UserFavoritesModel with correct values', () async {
+  test('Should convert a json to a UsersDetailModel with correct values', () async {
     final json = jsonDecode(fixture("user_detail_list.json"));
 
     final result = UsersDetailModel.fromMap(json);
@@ -16,7 +16,7 @@ void main() {
     expect(result.users.length, equals(2));
   });
 
-  test('Should convert a UserFavoritesModel to a json with correct values', () async {
+  test('Should convert a UsersDetailModel to a json with correct values', () async {
     final tUserDetailList = [
         UserDetailModel(
           login: "joaoarmando",
