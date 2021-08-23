@@ -12,28 +12,26 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView> {
   List<User> users = [];
-  String searchFeedback = '';
+  bool haveFoundUsers = true;
 
-  onSearch(String search) async {
-    if (search.isEmpty) {
-      setState(() {
-        users = [];
-        searchFeedback = 'Digite o nome do usuário';
-      });
-      return;
-    }
+  onSearch(String search, Function onCompleted) async {
     final response = await GithubAPI().getUsers(search);
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     setState(() {
       users = response;
-      searchFeedback = response.length > 0
-          ? ''
-          : 'Não foram encontrados usuários com este nome';
+      if (response.length > 0) {
+        haveFoundUsers = true;
+      } else {
+        haveFoundUsers = false;
+        onCompleted();
+      }
     });
   }
 
-  clearSearchFeedback() {
+  clearSearchFeedback(Function onChange) {
     setState(() {
-      searchFeedback = '';
+      haveFoundUsers = true;
+      onChange();
     });
   }
 
@@ -46,7 +44,7 @@ class _SearchViewState extends State<SearchView> {
           children: [
             UserSearch(
               onSearch,
-              searchFeedback,
+              haveFoundUsers,
               clearSearchFeedback,
             ),
             Expanded(
