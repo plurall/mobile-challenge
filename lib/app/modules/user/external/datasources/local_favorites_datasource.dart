@@ -24,7 +24,7 @@ class LocalFavoritesDatasource implements FavoritesDataSource {
         return favorites;
     }
 
-    throw Exception();
+    throw EmptyFavoritesEception();
   }
 
   @override

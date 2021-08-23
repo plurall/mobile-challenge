@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:mobile_challenge/app/core/error/errors.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../../core/error/failures.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/usecases/search_user.dart';
 
@@ -37,7 +37,7 @@ abstract class _SearchPageControllerBase with Store {
     try {
       final result = await usecase(searchText);
       searchedUsers.addAll(result);
-    } on CacheException {
+    } on ServerFailure {
       //Delay gives to the user a feedback that something happens after the types some text
       await Future.delayed(Duration(milliseconds: 300))
         .then((_) => state = SearchPageState.NO_INTERNET);    

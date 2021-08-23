@@ -1,3 +1,3 @@
-class ServerFailure implements Exception {}
+class ServerFailure {}
 
-class CacheFailure implements Exception {}
+class CacheFailure {}

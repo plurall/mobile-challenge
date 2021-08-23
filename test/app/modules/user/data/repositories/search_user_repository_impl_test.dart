@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/core/error/errors.dart';
 import 'package:mobile_challenge/app/core/error/failures.dart';
 import 'package:mobile_challenge/app/core/network/network_info.dart';
 import 'package:mobile_challenge/app/modules/user/domain/entities/user_entity.dart';
@@ -48,7 +47,7 @@ void main() {
     });
 
     test('Should throws a Serverfailure when remoteDataSource is unsuccessful', () async {
-      when(() => datasource.search(searchText)).thenThrow(ServerException());
+      when(() => datasource.search(searchText)).thenThrow(Exception());
 
       final future = repository.search(searchText);
 
@@ -58,13 +57,13 @@ void main() {
 
   group('Device is offline', () {
 
-    test('Should throws a CacheException when device is not connected to the internet', () async {
+    test('Should throws a CacheFailure when device is not connected to the internet', () async {
       when(() => networkInfo.isConnected).thenAnswer((_) async => false);
 
       final result = repository.search(searchText);
 
       verifyNever(() => datasource.search(searchText));
-      expect(result, throwsA(isA<CacheException>()));
+      expect(result, throwsA(isA<CacheFailure>()));
     }); 
   });
 

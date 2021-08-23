@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/core/error/errors.dart';
 import 'package:mobile_challenge/app/core/utils/prefs_key.dart';
+import 'package:mobile_challenge/app/modules/user/domain/errors/profile_errors.dart';
 import 'package:mobile_challenge/app/modules/user/external/datasources/local_profile_datasource.dart';
 import 'package:mobile_challenge/app/modules/user/data/models/user_detail_model.dart';
 import 'package:mocktail/mocktail.dart';
@@ -31,13 +31,13 @@ void main() {
       expect(user.login, username);
     });
     
-    test('Should throws an CachedException when the data is not present in cache', () async {
+    test('Should throws an ProfileCacheException when the data is not present in cache', () async {
       //arrange
       when(() => prefs.getString(PrefsKey.CACHED_USERS)).thenAnswer((_) => null);
       //act
       final future =  datasource.getUser(username);
 
-      expect(future, throwsA(isA<CacheException>()));
+      expect(future, throwsA(isA<ProfileCacheException>()));
     });
   });
 

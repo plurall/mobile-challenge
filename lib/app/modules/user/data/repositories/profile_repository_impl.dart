@@ -1,4 +1,3 @@
-import '../../../../core/error/errors.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/network_info.dart';
 import '../../domain/entities/user_entity.dart';
@@ -25,14 +24,14 @@ class ProfileRepositoryImpl implements ProfileRepository {
           localDatasource.cacheUser(user);
           
           return user.toEntity();
-        } on ServerException {
+        } catch (exception) {
           throw ServerFailure();
         }
     } else {
         try {
           final user = await localDatasource.getUser(username);
           return user.toEntity(); 
-        } on CacheException {
+        } catch(exception) {
           throw CacheFailure();
         }
     }

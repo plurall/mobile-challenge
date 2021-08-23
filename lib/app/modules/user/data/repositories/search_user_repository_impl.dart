@@ -1,4 +1,3 @@
-import '../../../../core/error/errors.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/network_info.dart';
 import '../../domain/entities/user_entity.dart';
@@ -17,11 +16,11 @@ class SearchUserRepositoryImpl implements SearchUserRepository {
           final users = result.map((item) => item.toEntity()).toList();
           return users;
 
-        } on ServerException {
+        } catch(exception) {
           throw ServerFailure();
         }
     } else {
-      throw CacheException();
+      throw CacheFailure();
     }
   }
 }

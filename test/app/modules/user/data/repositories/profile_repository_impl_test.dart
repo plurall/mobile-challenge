@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/core/error/errors.dart';
 import 'package:mobile_challenge/app/core/error/failures.dart';
 import 'package:mobile_challenge/app/core/network/network_info.dart';
 import 'package:mobile_challenge/app/modules/user/domain/entities/user_entity.dart';
@@ -7,6 +6,7 @@ import 'package:mobile_challenge/app/modules/user/data/datasources/local_profile
 import 'package:mobile_challenge/app/modules/user/data/datasources/profile_datasource.dart';
 import 'package:mobile_challenge/app/modules/user/data/models/user_detail_model.dart';
 import 'package:mobile_challenge/app/modules/user/data/repositories/profile_repository_impl.dart';
+import 'package:mobile_challenge/app/modules/user/domain/errors/profile_errors.dart';
 import 'package:mocktail/mocktail.dart';
 
 class RemoteProfileDatasourceMock extends Mock implements RemoteProfileDatasource {}
@@ -85,7 +85,7 @@ void main() {
     
     test('Should throws an ServerFailure if remote data is unsuccessful', () async {
       //arrange
-      when(() => remoteDatasource.getUser(username)).thenThrow(ServerException());
+      when(() => remoteDatasource.getUser(username)).thenThrow(Exception());
       //act
       final future = repository.getUserDetail(username);
       //assert
@@ -109,7 +109,7 @@ void main() {
     
     test('Should throws an CacheFailure when there is no cached data present', () async {
       //arrange
-      when(() => localDatasource.getUser(username)).thenThrow(CacheException());
+      when(() => localDatasource.getUser(username)).thenThrow(ProfileCacheException());
       //act
       final future = repository.getUserDetail(username);
       //assert
