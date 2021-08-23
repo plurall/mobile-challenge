@@ -11,7 +11,7 @@ class AppModule extends Module {
   final List<Bind> binds = [
     Bind((i) => Client()),
     Bind((i) => InternetConnectionChecker()),
-    Bind((i) => NetworkInfoImpl(i())),
+    Bind<NetworkInfo>((i) => NetworkInfoImpl(i())),
     AsyncBind((i) => SharedPreferences.getInstance()),
   ];
 

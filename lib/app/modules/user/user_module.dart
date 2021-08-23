@@ -1,4 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile_challenge/app/modules/user/data/datasources/favorites_datasource.dart';
+import 'package:mobile_challenge/app/modules/user/data/datasources/local_profile_datasource.dart';
+import 'package:mobile_challenge/app/modules/user/data/datasources/profile_datasource.dart';
+import 'package:mobile_challenge/app/modules/user/domain/repositories/favorites_repository.dart';
+import 'package:mobile_challenge/app/modules/user/domain/repositories/profile_repository.dart';
+import 'package:mobile_challenge/app/modules/user/domain/repositories/search_user_repository.dart';
 
 import 'external/datasources/local_favorites_datasource.dart';
 import 'external/datasources/local_profile_datasource.dart';
@@ -21,21 +27,21 @@ class UserModule extends Module {
   @override
   List<Bind> get binds => [
     //search
-    Bind((i) => RemoteSearchUserDataSource(i())),
-    Bind((i) => SearchUserRepositoryImpl(datasource: i(), networkInfo: i())),
-    Bind((i) => SearchUserImpl(i())),
+    Bind<RemoteSearchUserDataSource>((i) => RemoteSearchUserDataSource(i())),
+    Bind<SearchUserRepository>((i) => SearchUserRepositoryImpl(datasource: i(), networkInfo: i())),
+    Bind<SearchUser>((i) => SearchUserImpl(i())),
     //profile
-    Bind((i) => RemoteProfileDatasourceImpl(i())),
-    Bind((i) => LocalProfileDatasourceImpl(i())),
-    Bind((i) => ProfileRepositoryImpl(remoteDatasource: i(),localDatasource: i(), networkInfo: i())),
-    Bind((i) => UserProfileImpl(i())),
+    Bind<RemoteProfileDatasource>((i) => RemoteProfileDatasourceImpl(i())),
+    Bind<LocalProfileDatasource>((i) => LocalProfileDatasourceImpl(i())),
+    Bind<ProfileRepository>((i) => ProfileRepositoryImpl(remoteDatasource: i(),localDatasource: i(), networkInfo: i())),
+    Bind<UserProfile>((i) => UserProfileImpl(i())),
     //favorites
-    Bind((i) => LocalFavoritesDatasource(i())),
-    Bind((i) => GetFavoritesImpl(i())),
-    Bind((i) => VerifyFavoriteImpl(i())),
-    Bind((i) => SaveFavoriteImpl(i())),
-    Bind((i) => RemoveFavoriteImpl(i())),
-    Bind((i) => FavoritesRepositoryImpl(i())),
+    Bind<FavoritesDataSource>((i) => LocalFavoritesDatasource(i())),
+    Bind<GetFavorites>((i) => GetFavoritesImpl(i())),
+    Bind<VerifyFavorite>((i) => VerifyFavoriteImpl(i())),
+    Bind<SaveFavorite>((i) => SaveFavoriteImpl(i())),
+    Bind<RemoveFavorite>((i) => RemoveFavoriteImpl(i())),
+    Bind<FavoritesRepository>((i) => FavoritesRepositoryImpl(i())),
   ];
 
   @override
