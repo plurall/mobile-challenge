@@ -30,13 +30,17 @@ abstract class _SearchPageControllerBase with Store {
     try {
       final result = await usecase(searchText);
       searchedUsers.addAll(result);
-    } on ServerFailure {
-      //Delay gives the user a feedback that something happens after he types some text
-      await Future.delayed(Duration(milliseconds: 300))
-        .then((_) => state = SearchPageState.NO_INTERNET);    
-      return;
-    } catch(exception) {}
-
+    } on CacheFailure {
+      _notifyNoInternetConnection();
+    }
+    
     state = SearchPageState.IDLE;
+  }
+
+  void _notifyNoInternetConnection() async {
+    //Delay gives the user a feedback that something happens after he types some text
+    await Future.delayed(Duration(milliseconds: 300))
+      .then((_) => state = SearchPageState.NO_INTERNET);    
+    return;
   }
 }
