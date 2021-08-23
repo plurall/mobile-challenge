@@ -40,7 +40,7 @@ void main() {
     expect(result["avatar_url"], tUser.avatarUrl);
   });
 
-  test('Should convert a UserDetailModel in a UserDetailEntity with the correct values', () async {
+  test('Should convert a UserDetailModel to a UserEntity with the correct values', () async {
     final result = tUser.toEntity();
 
     expect(result.login, tUser.login);
