@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-abstract class AppColors {
+class AppColors {
   static final backgroundColor = Color(0xffffffff);
   static final borderColor = Color(0xffF7F7F7);
   static final accentColor = Color(0xff8443FF);
