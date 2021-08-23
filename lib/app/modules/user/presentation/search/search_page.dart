@@ -108,6 +108,7 @@ class _SearchPageState extends State<SearchPage> {
               hintText: "Type to search",
               suffixIcon: Icon(Icons.search, color: AppColors.primaryTextColor),
             ),
+            autocorrect: false,
             textAlignVertical: TextAlignVertical.center,
             onSubmitted: controller.searchUsers,
           ),
