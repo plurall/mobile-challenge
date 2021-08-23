@@ -15,7 +15,7 @@ class _SearchViewState extends State<SearchView> {
   bool haveFoundUsers = true;
 
   onSearch(String search, Function onCompleted) async {
-    final response = await GithubAPI().getUsers(search);
+    final response = await GithubAPI.getUsers(search);
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     setState(() {
       users = response;

@@ -25,7 +25,7 @@ class _UserProfileViewState extends State<UserProfileView> {
         title: Text('Dados pessoais'),
       ),
       body: FutureBuilder<User>(
-        future: GithubAPI().getUser(user.login),
+        future: GithubAPI.getUser(user.login),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final fullUserProfile = snapshot.data;

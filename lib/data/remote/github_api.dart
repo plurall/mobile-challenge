@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:mobile_challenge/data/model/user.dart';
 
 class GithubAPI {
-  final String domain = 'https://api.github.com';
+  static final String domain = 'https://api.github.com';
 
-  Future<List<User>> getUsers(String search) async {
+  static Future<List<User>> getUsers(String search) async {
     final String path = '/search/users';
     final response = await http.get(Uri.parse('$domain$path?q=$search'));
 
@@ -23,7 +23,7 @@ class GithubAPI {
     return throw Exception(jsonDecode(response.body)['message']);
   }
 
-  Future<User> getUser(String login) async {
+  static Future<User> getUser(String login) async {
     final String path = '/users/';
     final response = await http.get(Uri.parse('$domain$path$login'));
 
