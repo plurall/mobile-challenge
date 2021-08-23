@@ -24,12 +24,12 @@ mixin _$SearchPageController on _SearchPageControllerBase, Store {
     });
   }
 
-  final _$_searchUsersAsyncAction =
-      AsyncAction('_SearchPageControllerBase._searchUsers');
+  final _$searchUsersAsyncAction =
+      AsyncAction('_SearchPageControllerBase.searchUsers');
 
   @override
-  Future<Null> _searchUsers(String searchText) {
-    return _$_searchUsersAsyncAction.run(() => super._searchUsers(searchText));
+  Future<Null> searchUsers(String searchText) {
+    return _$searchUsersAsyncAction.run(() => super.searchUsers(searchText));
   }
 
   @override

@@ -109,7 +109,7 @@ class _SearchPageState extends State<SearchPage> {
               suffixIcon: Icon(Icons.search, color: AppColors.primaryTextColor),
             ),
             textAlignVertical: TextAlignVertical.center,
-            onChanged: controller.onChangeSearchText
+            onSubmitted: controller.searchUsers,
           ),
         )
       ],

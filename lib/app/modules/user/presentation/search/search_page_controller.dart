@@ -13,8 +13,6 @@ enum SearchPageState{IDLE,LOADING, NO_INTERNET}
 class SearchPageController = _SearchPageControllerBase with _$SearchPageController;
 
 abstract class _SearchPageControllerBase with Store {
-  Timer? _searchTypeDelay;
-
   ObservableList<UserEntity> searchedUsers = ObservableList();
   late final SearchUser usecase;
 
@@ -23,14 +21,9 @@ abstract class _SearchPageControllerBase with Store {
 
   _SearchPageControllerBase(this.usecase);
 
-  void onChangeSearchText(String searchText) {
-    if (_searchTypeDelay != null)  _searchTypeDelay!.cancel();
-
-    _searchTypeDelay = Timer(Duration(milliseconds: 500), () => _searchUsers(searchText));    
-  }
 
   @action
-  Future<Null> _searchUsers(String searchText) async{
+  Future<Null> searchUsers(String searchText) async{
     state = SearchPageState.LOADING;
     searchedUsers.clear();
     
@@ -38,7 +31,7 @@ abstract class _SearchPageControllerBase with Store {
       final result = await usecase(searchText);
       searchedUsers.addAll(result);
     } on ServerFailure {
-      //Delay gives to the user a feedback that something happens after the types some text
+      //Delay gives the user a feedback that something happens after he types some text
       await Future.delayed(Duration(milliseconds: 300))
         .then((_) => state = SearchPageState.NO_INTERNET);    
       return;
