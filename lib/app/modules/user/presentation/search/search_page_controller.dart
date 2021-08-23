@@ -14,12 +14,12 @@ class SearchPageController = _SearchPageControllerBase with _$SearchPageControll
 
 abstract class _SearchPageControllerBase with Store {
   ObservableList<UserEntity> searchedUsers = ObservableList();
-  late final SearchUser usecase;
+  late final SearchUser searchUserUsecase;
 
   @observable
   SearchPageState state = SearchPageState.IDLE;
 
-  _SearchPageControllerBase(this.usecase);
+  _SearchPageControllerBase({required this.searchUserUsecase});
 
 
   @action
@@ -28,7 +28,7 @@ abstract class _SearchPageControllerBase with Store {
     searchedUsers.clear();
     
     try {
-      final result = await usecase(searchText);
+      final result = await searchUserUsecase(searchText);
       searchedUsers.addAll(result);
     } on CacheFailure {
       _notifyNoInternetConnection();

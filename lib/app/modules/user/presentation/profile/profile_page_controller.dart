@@ -14,10 +14,10 @@ class ProfilePageController = _ProfilePageControllerBase with _$ProfilePageContr
 enum ProfilePageState {IDLE, LOADING, NO_INTERNET}
 
 abstract class _ProfilePageControllerBase with Store {
-  final UserProfile userProfileUsecase = Modular.get();
-  final VerifyFavorite verifyFavoriteUsecase = Modular.get();
-  final SaveFavorite saveFavoriteUsecase = Modular.get();
-  final RemoveFavorite removeFavoriteUsecase = Modular.get();
+  final UserProfile userProfileUsecase;
+  final VerifyFavorite verifyFavoriteUsecase;
+  final SaveFavorite saveFavoriteUsecase;
+  final RemoveFavorite removeFavoriteUsecase;
 
   @observable
   UserEntity? userDetail;
@@ -28,7 +28,12 @@ abstract class _ProfilePageControllerBase with Store {
   @observable
   ProfilePageState state = ProfilePageState.LOADING;
 
-
+  _ProfilePageControllerBase({
+    required this.userProfileUsecase, 
+    required this.verifyFavoriteUsecase, 
+    required this.saveFavoriteUsecase, 
+    required this.removeFavoriteUsecase 
+  });
 
   @action
   Future<Null> getUserDetail(String username) async {

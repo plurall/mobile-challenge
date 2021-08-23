@@ -19,11 +19,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late final ProfilePageController controller;
+  final ProfilePageController controller = Modular.get();
 
   @override
   void initState() {
-    controller = ProfilePageController();
     controller.getUserDetail(widget.username);
     super.initState();
   }

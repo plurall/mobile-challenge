@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/utils/app_colors.dart';
-import '../../domain/usecases/search_user.dart';
 import '../widgets/empty_content_widget.dart';
 import '../widgets/loading_indicator_widget.dart';
 import '../widgets/no_internet_connection_widget.dart';
@@ -19,14 +18,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final usecase = Modular.get<SearchUserImpl>();
-  late final SearchPageController controller;
+  late final SearchPageController controller = Modular.get();  
   final double searchBarHeight = 60;
-  @override
-  void initState() {
-    controller = SearchPageController(usecase);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../widgets/empty_content_widget.dart';
@@ -16,7 +17,7 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  final controller = FavoritesPageController();
+  final FavoritesPageController controller = Modular.get();
 
   @override
   void initState() {

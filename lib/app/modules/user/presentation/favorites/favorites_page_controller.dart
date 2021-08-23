@@ -1,4 +1,3 @@
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../domain/entities/user_entity.dart';
@@ -11,8 +10,10 @@ enum FavoritesPageState {IDLE, LOADING}
 
 abstract class _FavoritesPageControllerBase with Store {
 
-  final GetFavoritesImpl getFavoritesUsecase = Modular.get();
+  final GetFavoritesImpl getFavoritesUsecase;
   ObservableList<UserEntity> favorites = ObservableList();
+
+  _FavoritesPageControllerBase({required this.getFavoritesUsecase});
 
   @observable
   FavoritesPageState state = FavoritesPageState.LOADING;
