@@ -66,7 +66,7 @@ class _SearchPageState extends State<SearchPage> {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text("Github Search",
+      title: Text("Mobile Challange",
         style: TextStyle(
           color: AppColors.primaryTextColor,
           fontSize: 21,
