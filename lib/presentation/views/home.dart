@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/presentation/views/favorites.dart';
 import 'package:mobile_challenge/presentation/views/search.dart';
+import 'package:mobile_challenge/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
@@ -10,12 +12,17 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future:
-          Provider.of<FavoriteUsersProvider>(context, listen: false).loadData(),
-      builder: (context, snapshot) {
+      future: Future.wait([
+        Provider.of<FavoriteUsersProvider>(context, listen: false).loadData(),
+        Utils.isConnected()
+      ]),
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
+        final isConnected = snapshot.data![1] as bool;
+        Provider.of<ConnectionProvider>(context, listen: false)
+            .setConnection(isConnected);
         return DefaultTabController(
           length: 2,
           child: Scaffold(
