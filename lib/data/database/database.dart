@@ -5,7 +5,6 @@ class DBUtil {
   static const dbName = 'favorites.db';
   static Future<sql.Database> database() async {
     final dbPath = await sql.getDatabasesPath();
-    print(path.join(dbPath, dbName));
     return sql.openDatabase(
       path.join(dbPath, dbName),
       onCreate: (db, version) {
@@ -18,7 +17,6 @@ class DBUtil {
   }
 
   static Future<void> insert(String table, Map<String, Object> data) async {
-    print('data $data');
     final db = await DBUtil.database();
     await db.insert(
       table,

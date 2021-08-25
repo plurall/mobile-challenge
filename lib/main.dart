@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/data/providers/search.dart';
 import 'package:mobile_challenge/presentation/views/favorites.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         ),
         Provider(
           create: (context) => SearchProvider(),
+        ),
+        Provider(
+          create: (context) => ConnectionProvider(),
         ),
       ],
       child: MaterialApp(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/model/user.dart';
+import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/data/remote/github_api.dart';
 import 'package:mobile_challenge/presentation/components/user_full_profile.dart';
@@ -15,6 +16,7 @@ class UserProfileView extends StatefulWidget {
 class _UserProfileViewState extends State<UserProfileView> {
   @override
   Widget build(BuildContext context) {
+    final isConnected = Provider.of<ConnectionProvider>(context).isConnected;
     final FavoriteUsersProvider favoriteUsersProvider =
         Provider.of<FavoriteUsersProvider>(context);
     final List<User> favoriteUsers = favoriteUsersProvider.items;
@@ -24,19 +26,21 @@ class _UserProfileViewState extends State<UserProfileView> {
       appBar: AppBar(
         title: Text('Dados pessoais'),
       ),
-      body: FutureBuilder<User>(
-        future: GithubAPI.getUser(user.login),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final fullUserProfile = snapshot.data;
-            return UserFullProfile(fullUserProfile);
-          } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          }
+      body: isConnected
+          ? FutureBuilder<User>(
+              future: GithubAPI.getUser(user.login),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final fullUserProfile = snapshot.data;
+                  return UserFullProfile(fullUserProfile);
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
 
-          return Center(child: CircularProgressIndicator());
-        },
-      ),
+                return Center(child: CircularProgressIndicator());
+              },
+            )
+          : UserFullProfile(user),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
         child: Icon(

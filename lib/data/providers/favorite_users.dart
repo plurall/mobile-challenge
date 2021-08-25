@@ -21,7 +21,6 @@ class FavoriteUsersProvider with ChangeNotifier {
 
   Future<void> loadData() async {
     final dataList = await DBUtil.getData('favorites');
-    print('datalist ${dataList}');
     _favoriteUsers = dataList
         .map((item) => User(
               id: item['id'],
@@ -33,7 +32,6 @@ class FavoriteUsersProvider with ChangeNotifier {
               location: item['location'],
             ))
         .toList();
-    print('bob ${_favoriteUsers}');
     notifyListeners();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/model/user.dart';
+import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/presentation/views/user_profile.dart';
 import 'package:mobile_challenge/utils/utils.dart';
@@ -18,6 +19,7 @@ class UserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoriteUsers = Provider.of<FavoriteUsersProvider>(context).items;
+    final isConnected = Provider.of<ConnectionProvider>(context).isConnected;
     final isFavorite = Utils.isFavoriteUser(favoriteUsers, user);
     return InkWell(
       onTap: () => selectUser(context),
@@ -38,10 +40,11 @@ class UserCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Image.network(
-                    user.avatar,
-                    width: 50,
-                  ),
+                  if (isConnected)
+                    Image.network(
+                      user.avatar,
+                      width: 50,
+                    ),
                   Container(
                     margin: EdgeInsets.only(left: 10),
                     child: Text(
