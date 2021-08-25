@@ -19,9 +19,10 @@ class _UserProfileViewState extends State<UserProfileView> {
     final FavoriteUsersProvider favoriteUsersProvider =
         Provider.of<FavoriteUsersProvider>(context);
     final List<User> favoriteUsers = favoriteUsersProvider.items;
-    final User user = ModalRoute.of(context)!.settings.arguments as User;
+    final user = ModalRoute.of(context)!.settings.arguments as User;
     final isFavoriteUser =
         favoriteUsersProvider.isFavoriteUser(favoriteUsers, user);
+    late User fullUserProfile;
     return Scaffold(
       appBar: AppBar(
         title: Text('Dados pessoais'),
@@ -31,7 +32,7 @@ class _UserProfileViewState extends State<UserProfileView> {
               future: GithubAPI.getUser(user.login),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  final fullUserProfile = snapshot.data;
+                  fullUserProfile = snapshot.data as User;
                   return UserFullProfile(fullUserProfile);
                 } else if (snapshot.hasError) {
                   return Text('${snapshot.error}');
@@ -47,7 +48,7 @@ class _UserProfileViewState extends State<UserProfileView> {
           isFavoriteUser ? Icons.star : Icons.star_border,
         ),
         onPressed: () => {
-          favoriteUsersProvider.toogleFavorite(user),
+          favoriteUsersProvider.toogleFavorite(fullUserProfile),
         },
       ),
     );

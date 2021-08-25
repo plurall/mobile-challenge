@@ -10,7 +10,7 @@ class FavoriteUsersProvider with ChangeNotifier {
     final isFavoriteUser = this.isFavoriteUser(_favoriteUsers, user);
     if (isFavoriteUser) {
       DBUtil.delete('favorites', user.id);
-      _favoriteUsers.remove(user);
+      _favoriteUsers.removeWhere((current) => current.id == user.id);
     } else {
       DBUtil.insert('favorites', user.toMap());
       _favoriteUsers.add(user);
