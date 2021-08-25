@@ -52,7 +52,7 @@ class _UserSearchState extends State<UserSearch> {
         children: [
           TextFormField(
             decoration: InputDecoration(
-              hintText: 'Nome',
+              labelText: 'Nome',
             ),
             controller: _searchFieldController,
             onChanged: (value) =>

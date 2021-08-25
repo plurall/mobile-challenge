@@ -43,7 +43,7 @@ class _UserProfileViewState extends State<UserProfileView> {
           isFavoriteUser ? Icons.star : Icons.star_border,
         ),
         onPressed: () => {
-          favoriteUsersProvider.addFavorite(user),
+          favoriteUsersProvider.toogleFavorite(user),
         },
       ),
     );

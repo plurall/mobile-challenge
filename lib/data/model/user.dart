@@ -28,7 +28,18 @@ class User {
       location: json['location'],
     );
   }
+
+  Map<String, Object> toMap() => {
+        'id': id,
+        'login': login,
+        'avatar': avatar,
+        'name': name ?? '',
+        'bio': bio ?? '',
+        'location': location ?? '',
+        'email': email ?? '',
+      };
 }
+
 
 /*
 {
