@@ -3,7 +3,6 @@ import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/presentation/views/favorites.dart';
 import 'package:mobile_challenge/presentation/views/search.dart';
-import 'package:mobile_challenge/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
@@ -14,7 +13,8 @@ class HomeView extends StatelessWidget {
     return FutureBuilder(
       future: Future.wait([
         Provider.of<FavoriteUsersProvider>(context, listen: false).loadData(),
-        Utils.isConnected()
+        Provider.of<ConnectionProvider>(context, listen: false)
+            .checkConnection()
       ]),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

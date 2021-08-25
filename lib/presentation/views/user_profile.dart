@@ -4,7 +4,6 @@ import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/data/remote/github_api.dart';
 import 'package:mobile_challenge/presentation/components/user_full_profile.dart';
-import 'package:mobile_challenge/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class UserProfileView extends StatefulWidget {
@@ -21,7 +20,8 @@ class _UserProfileViewState extends State<UserProfileView> {
         Provider.of<FavoriteUsersProvider>(context);
     final List<User> favoriteUsers = favoriteUsersProvider.items;
     final User user = ModalRoute.of(context)!.settings.arguments as User;
-    final isFavoriteUser = Utils.isFavoriteUser(favoriteUsers, user);
+    final isFavoriteUser =
+        favoriteUsersProvider.isFavoriteUser(favoriteUsers, user);
     return Scaffold(
       appBar: AppBar(
         title: Text('Dados pessoais'),

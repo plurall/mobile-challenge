@@ -3,7 +3,6 @@ import 'package:mobile_challenge/data/model/user.dart';
 import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/presentation/views/user_profile.dart';
-import 'package:mobile_challenge/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class UserCard extends StatelessWidget {
@@ -18,10 +17,12 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoriteUsers = Provider.of<FavoriteUsersProvider>(context).items;
+    final favoriteUsersProvider = Provider.of<FavoriteUsersProvider>(context);
+    final favoriteUsers = favoriteUsersProvider.items;
     final isConnected =
         Provider.of<ConnectionProvider>(context, listen: false).isConnected;
-    final isFavorite = Utils.isFavoriteUser(favoriteUsers, user);
+    final isFavorite =
+        favoriteUsersProvider.isFavoriteUser(favoriteUsers, user);
     return InkWell(
       onTap: () => selectUser(context),
       splashColor: Theme.of(context).primaryColor,

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/database/database.dart';
 import 'package:mobile_challenge/data/model/user.dart';
-import 'package:mobile_challenge/utils/utils.dart';
 
 class FavoriteUsersProvider with ChangeNotifier {
   List<User> _favoriteUsers = [];
   List<User> get items => [..._favoriteUsers];
 
   toogleFavorite(User user) {
-    final isFavoriteUser = Utils.isFavoriteUser(_favoriteUsers, user);
+    final isFavoriteUser = this.isFavoriteUser(_favoriteUsers, user);
     if (isFavoriteUser) {
       DBUtil.delete('favorites', user.id);
       _favoriteUsers.remove(user);
@@ -18,6 +17,9 @@ class FavoriteUsersProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  bool isFavoriteUser(List<User> favoriteUsers, User user) =>
+      favoriteUsers.where((current) => current.id == user.id).isNotEmpty;
 
   Future<void> loadData() async {
     final dataList = await DBUtil.getData('favorites');
