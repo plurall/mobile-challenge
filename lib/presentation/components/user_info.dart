@@ -9,7 +9,7 @@ class UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (info == null) {
+    if (info == null || info!.isEmpty) {
       return SizedBox.shrink();
     }
     return Container(

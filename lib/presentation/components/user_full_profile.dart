@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/data/model/user.dart';
+import 'package:mobile_challenge/data/models/user.dart';
 import 'package:mobile_challenge/presentation/components/user_info.dart';
 import 'package:mobile_challenge/presentation/components/user_profile_picture.dart';
 

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/data/model/user.dart';
+import 'package:mobile_challenge/data/models/user.dart';
 import 'package:mobile_challenge/data/providers/connection.dart';
-import 'package:mobile_challenge/data/remote/github_api.dart';
+import 'package:mobile_challenge/data/remote/search_remote.dart';
 import 'package:mobile_challenge/presentation/components/user_card.dart';
 import 'package:mobile_challenge/presentation/components/user_search.dart';
 import 'package:provider/provider.dart';
 
 class SearchView extends StatefulWidget {
   static String routeName = '/search';
+  final searchRemote = SearchRemote();
   @override
   _SearchViewState createState() => _SearchViewState();
 }
@@ -17,7 +18,7 @@ class _SearchViewState extends State<SearchView> {
   bool haveFoundUsers = true;
 
   onSearch(String search, Function onCompleted) async {
-    final response = await GithubAPI.getUsers(search);
+    final response = await widget.searchRemote.getUsers(search);
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     setState(() {
       users = response;
