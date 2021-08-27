@@ -19,8 +19,8 @@ class _SearchViewState extends State<SearchView> {
   @override
   void initState() {
     super.initState();
-    reloadLastSearch();
     listenKeyboardChanges();
+    reloadLastSearch();
   }
 
   @override
@@ -33,9 +33,6 @@ class _SearchViewState extends State<SearchView> {
     final String initialSearchValue =
         Provider.of<SearchProvider>(context, listen: false).search;
     _searchFieldController.text = initialSearchValue;
-    if (initialSearchValue.length > 0) {
-      onSearch(initialSearchValue);
-    }
   }
 
   listenKeyboardChanges() =>
