@@ -1,46 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/data/models/user.dart';
 import 'package:mobile_challenge/data/providers/connection.dart';
-import 'package:mobile_challenge/data/remote/search_remote.dart';
 import 'package:mobile_challenge/presentation/components/user_card.dart';
 import 'package:mobile_challenge/presentation/components/user_search.dart';
+import 'package:mobile_challenge/presentation/view_models/search_view_model.dart';
 import 'package:provider/provider.dart';
 
 class SearchView extends StatefulWidget {
   static String routeName = '/search';
-  final searchRemote = SearchRemote();
   @override
   _SearchViewState createState() => _SearchViewState();
 }
 
 class _SearchViewState extends State<SearchView> {
-  List<User> users = [];
-  bool haveFoundUsers = true;
+  final searchViewModel = SearchViewModel();
 
-  onSearch(String search, Function onCompleted) async {
-    final response = await widget.searchRemote.getUsers(search);
+  onSearch(String searchData, Function onCompleted) async {
+    await searchViewModel.search(searchData);
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    setState(() {
-      users = response;
-      if (response.length > 0) {
-        haveFoundUsers = true;
-      } else {
-        haveFoundUsers = false;
-        onCompleted();
-      }
-    });
+    setState(() {});
+    onCompleted();
   }
 
   clearSearchFeedback(Function onChange) {
-    setState(() {
-      haveFoundUsers = true;
-      onChange();
-    });
+    setState(() => searchViewModel.clearSearch());
+    onChange();
   }
 
   @override
   Widget build(BuildContext context) {
     final isConnected = Provider.of<ConnectionProvider>(context).isConnected;
+    final users = searchViewModel.getUsers();
     return Container(
       margin: EdgeInsets.all(10),
       child: isConnected
@@ -48,9 +37,9 @@ class _SearchViewState extends State<SearchView> {
               child: Column(
                 children: [
                   UserSearch(
-                    onSearch,
-                    haveFoundUsers,
-                    clearSearchFeedback,
+                    onPress: onSearch,
+                    haveFoundUsers: searchViewModel.haveFoundUsers(),
+                    clearSearchFeedback: clearSearchFeedback,
                   ),
                   Expanded(
                     child: Container(

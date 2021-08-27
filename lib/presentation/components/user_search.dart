@@ -7,7 +7,11 @@ class UserSearch extends StatefulWidget {
   final Function onPress;
   final Function clearSearchFeedback;
 
-  UserSearch(this.onPress, this.haveFoundUsers, this.clearSearchFeedback);
+  UserSearch({
+    required this.onPress,
+    required this.haveFoundUsers,
+    required this.clearSearchFeedback,
+  });
 
   @override
   _UserSearchState createState() => _UserSearchState();

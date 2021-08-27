@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/models/user.dart';
 import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
-import 'package:mobile_challenge/data/remote/search_remote.dart';
 import 'package:mobile_challenge/presentation/components/user_full_profile.dart';
+import 'package:mobile_challenge/presentation/view_models/user_profile_view_model.dart';
 import 'package:provider/provider.dart';
 
 class UserProfileView extends StatefulWidget {
   static String routeName = '/user-profile';
-  final searchRemote = SearchRemote();
   @override
   _UserProfileViewState createState() => _UserProfileViewState();
 }
 
 class _UserProfileViewState extends State<UserProfileView> {
+  final userProfileViewModel = UserProfileViewModel();
+
   @override
   Widget build(BuildContext context) {
     final isConnected = Provider.of<ConnectionProvider>(context).isConnected;
@@ -28,7 +29,7 @@ class _UserProfileViewState extends State<UserProfileView> {
       ),
       body: isConnected
           ? FutureBuilder<User>(
-              future: widget.searchRemote.getUser(user.login),
+              future: userProfileViewModel.getUser(user.login),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   _fullUserProfile = snapshot.data as User;
