@@ -8,8 +8,8 @@ class FavoriteUsersProvider with ChangeNotifier {
   final Database database = new Database();
 
   toogleFavorite(User user) {
-    final isFavoriteUser = this.isFavoriteUser(_favoriteUsers, user);
-    if (isFavoriteUser) {
+    final isFavorite = this.isFavorite(user);
+    if (isFavorite) {
       database.delete('favorites', user.id);
       _favoriteUsers.removeWhere((current) => current.id == user.id);
     } else {
@@ -19,8 +19,8 @@ class FavoriteUsersProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  bool isFavoriteUser(List<User> favoriteUsers, User user) =>
-      favoriteUsers.where((current) => current.id == user.id).isNotEmpty;
+  bool isFavorite(User user) =>
+      this._favoriteUsers.where((current) => current.id == user.id).isNotEmpty;
 
   Future<void> loadData() async {
     final dataList = await database.getData('favorites');

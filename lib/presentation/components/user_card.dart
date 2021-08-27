@@ -18,11 +18,9 @@ class UserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoriteUsersProvider = Provider.of<FavoriteUsersProvider>(context);
-    final favoriteUsers = favoriteUsersProvider.items;
     final isConnected =
         Provider.of<ConnectionProvider>(context, listen: false).isConnected;
-    final isFavorite =
-        favoriteUsersProvider.isFavoriteUser(favoriteUsers, user);
+    final isFavorite = favoriteUsersProvider.isFavorite(user);
     return InkWell(
       onTap: () => selectUser(context),
       splashColor: Theme.of(context).primaryColor,

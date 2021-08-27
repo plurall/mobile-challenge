@@ -17,12 +17,9 @@ class _UserProfileViewState extends State<UserProfileView> {
   @override
   Widget build(BuildContext context) {
     final isConnected = Provider.of<ConnectionProvider>(context).isConnected;
-    final FavoriteUsersProvider favoriteUsersProvider =
-        Provider.of<FavoriteUsersProvider>(context);
-    final List<User> favoriteUsers = favoriteUsersProvider.items;
+    final favoriteUsersProvider = Provider.of<FavoriteUsersProvider>(context);
     final user = ModalRoute.of(context)!.settings.arguments as User;
-    final isFavoriteUser =
-        favoriteUsersProvider.isFavoriteUser(favoriteUsers, user);
+    final isFavorite = favoriteUsersProvider.isFavorite(user);
     late User _fullUserProfile;
 
     return Scaffold(
@@ -48,7 +45,7 @@ class _UserProfileViewState extends State<UserProfileView> {
           ? FloatingActionButton(
               backgroundColor: Theme.of(context).primaryColor,
               child: Icon(
-                isFavoriteUser ? Icons.star : Icons.star_border,
+                isFavorite ? Icons.star : Icons.star_border,
               ),
               onPressed: () => {
                 favoriteUsersProvider.toogleFavorite(_fullUserProfile),
