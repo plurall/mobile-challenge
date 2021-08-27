@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/data/providers/connection.dart';
+import 'package:mobile_challenge/data/providers/search.dart';
 import 'package:mobile_challenge/presentation/components/user_card.dart';
-import 'package:mobile_challenge/presentation/components/user_search.dart';
 import 'package:mobile_challenge/presentation/view_models/search_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -13,18 +13,100 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView> {
   final searchViewModel = SearchViewModel();
+  final _form = GlobalKey<FormState>();
+  final _searchFieldController = TextEditingController();
 
-  onSearch(String searchData, Function onCompleted) async {
+  @override
+  void initState() {
+    super.initState();
+    reloadLastSearch();
+    listenKeyboardChanges();
+  }
+
+  @override
+  void dispose() {
+    _searchFieldController.dispose();
+    super.dispose();
+  }
+
+  reloadLastSearch() {
+    final String initialSearchValue =
+        Provider.of<SearchProvider>(context, listen: false).search;
+    _searchFieldController.text = initialSearchValue;
+    if (initialSearchValue.length > 0) {
+      onSearch(initialSearchValue);
+    }
+  }
+
+  listenKeyboardChanges() =>
+      _searchFieldController.addListener(onSearchFieldChange);
+
+  onSearchFieldChange() => searchViewModel.clearSearchError();
+
+  tryValidate() {
+    Future.delayed(const Duration(milliseconds: 100),
+        () => _form.currentState?.validate() ?? null);
+  }
+
+  onSearch(String searchData) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Enviando...')),
+    );
     await searchViewModel.search(searchData);
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    setState(() {});
-    onCompleted();
+    setState(() => tryValidate());
   }
 
-  clearSearchFeedback(Function onChange) {
-    setState(() => searchViewModel.clearSearch());
-    onChange();
-  }
+  Widget _showForm() => Form(
+        key: _form,
+        child: Column(
+          children: [
+            TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                labelText: 'Nome',
+              ),
+              controller: _searchFieldController,
+              onChanged: (value) =>
+                  Provider.of<SearchProvider>(context, listen: false).search =
+                      value,
+              validator: (value) {
+                if (!searchViewModel.haveFoundUsers()) {
+                  return 'Não foram encontrados usuários com esta busca';
+                }
+                if (value!.isEmpty) {
+                  return 'Digite o nome do usuário';
+                }
+                return null;
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+            Container(
+              width: double.infinity,
+              child: ElevatedButton(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Buscar'),
+                    Icon(Icons.search),
+                  ],
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).primaryColor,
+                ),
+                onPressed: () => {
+                  if (_form.currentState!.validate())
+                    {
+                      onSearch(_searchFieldController.text),
+                    },
+                },
+              ),
+            ),
+          ],
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +115,10 @@ class _SearchViewState extends State<SearchView> {
     return Container(
       margin: EdgeInsets.all(10),
       child: isConnected
-          ? Form(
+          ? Container(
               child: Column(
                 children: [
-                  UserSearch(
-                    onPress: onSearch,
-                    haveFoundUsers: searchViewModel.haveFoundUsers(),
-                    clearSearchFeedback: clearSearchFeedback,
-                  ),
+                  _showForm(),
                   Expanded(
                     child: Container(
                       margin: EdgeInsets.only(top: 10),

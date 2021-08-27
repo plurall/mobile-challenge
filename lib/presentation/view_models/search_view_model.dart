@@ -21,7 +21,7 @@ class SearchViewModel {
     }
   }
 
-  clearSearch() {
+  clearSearchError() {
     this._haveFoundUsers = true;
   }
 }
