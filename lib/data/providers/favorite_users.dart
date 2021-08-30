@@ -10,13 +10,21 @@ class FavoriteUsersProvider with ChangeNotifier {
   toogleFavorite(User user) {
     final isFavorite = this.isFavorite(user);
     if (isFavorite) {
-      database.delete('favorites', user.id);
-      _favoriteUsers.removeWhere((current) => current.id == user.id);
+      this.removeUser(user);
     } else {
-      database.insert('favorites', user.toMap());
-      _favoriteUsers.add(user);
+      this.addUser(user);
     }
     notifyListeners();
+  }
+
+  addUser(User user) {
+    database.insert('favorites', user.toMap());
+    _favoriteUsers.add(user);
+  }
+
+  removeUser(User user) {
+    database.delete('favorites', user.id);
+    _favoriteUsers.removeWhere((current) => current.id == user.id);
   }
 
   bool isFavorite(User user) =>
