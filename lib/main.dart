@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobile_challenge/data/database/database.dart';
 import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/data/providers/search.dart';
@@ -8,7 +10,15 @@ import 'package:mobile_challenge/presentation/views/home.dart';
 import 'package:mobile_challenge/presentation/views/user_profile.dart';
 import 'package:provider/provider.dart';
 
+import 'data/remote/search_remote.dart';
+
+void setupLocator() {
+  GetIt.instance.registerLazySingleton(() => SearchRemote());
+  GetIt.instance.registerLazySingleton(() => Database());
+}
+
 void main() {
+  setupLocator();
   runApp(MyApp());
 }
 

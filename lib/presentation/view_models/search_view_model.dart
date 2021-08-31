@@ -1,8 +1,9 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobile_challenge/data/models/user.dart';
 import 'package:mobile_challenge/data/remote/search_remote.dart';
 
 class SearchViewModel {
-  final searchRemote = SearchRemote();
+  final searchRemote = GetIt.instance<SearchRemote>();
 
   List<User> _users = [];
   bool _haveFoundUsers = true;
