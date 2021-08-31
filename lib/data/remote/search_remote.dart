@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:mobile_challenge/data/errors/remote_exception.dart';
 import 'package:mobile_challenge/data/models/user.dart';
@@ -6,10 +7,18 @@ import 'package:mobile_challenge/data/remote/search_remote_interface.dart';
 
 class SearchRemote implements SearchRemoteInterface {
   final String domain = 'https://api.github.com';
+  final String token = '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';
+
+  getHeaders() => {
+        HttpHeaders.authorizationHeader: 'token $token',
+      };
 
   Future<List<User>> getUsers(String search) async {
     final String path = '/search/users';
-    final response = await http.get(Uri.parse('$domain$path?q=$search'));
+    final response = await http.get(
+      Uri.parse('$domain$path?q=$search'),
+      headers: getHeaders(),
+    );
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
@@ -29,7 +38,10 @@ class SearchRemote implements SearchRemoteInterface {
 
   Future<User> getUser(String login) async {
     final String path = '/users/';
-    final response = await http.get(Uri.parse('$domain$path$login'));
+    final response = await http.get(
+      Uri.parse('$domain$path$login'),
+      headers: getHeaders(),
+    );
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
