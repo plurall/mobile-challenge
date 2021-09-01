@@ -1,19 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:mobile_challenge/data/errors/remote_exception.dart';
+import 'package:mobile_challenge/core/errors/remote_exception.dart';
 import 'package:mobile_challenge/data/models/user.dart';
-import 'package:mobile_challenge/data/remote/search_remote_interface.dart';
+import 'package:mobile_challenge/domain/repositories/search_remote_interface.dart';
+import 'package:dartz/dartz.dart';
 
-class SearchRemote implements SearchRemoteInterface {
+class SearchRemoteRepository implements SearchRemoteInterface {
   final String domain = 'https://api.github.com';
-  final String token = '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';
+  final String token = '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';
 
   getHeaders() => {
         HttpHeaders.authorizationHeader: 'token $token',
       };
 
-  Future<List<User>> getUsers(String search) async {
+  Future<Either<RemoteException, List<User>>> searchUsers(String search) async {
     final String path = '/search/users';
     final response = await http.get(
       Uri.parse('$domain$path?q=$search'),
@@ -24,19 +25,22 @@ class SearchRemote implements SearchRemoteInterface {
       final jsonResponse = jsonDecode(response.body);
       //print('User summary from server: $jsonResponse');
 
-      return (jsonResponse['items'] as List)
+      final userList = (jsonResponse['items'] as List)
           .map((user) => User.fromJson(user))
           .toList();
+
+      return Right(userList);
     }
 
     final remoteErrorMessage = jsonDecode(response.body)['message'];
     print(remoteErrorMessage);
 
-    return throw RemoteException(
-        'Não foi possível carregar os dados dos usuários.');
+    return Left(
+      RemoteException('Não foi possível carregar os dados dos usuários.'),
+    );
   }
 
-  Future<User> getUser(String login) async {
+  Future<Either<RemoteException, User>> getUser(String login) async {
     final String path = '/users/';
     final response = await http.get(
       Uri.parse('$domain$path$login'),
@@ -47,13 +51,15 @@ class SearchRemote implements SearchRemoteInterface {
       final jsonResponse = jsonDecode(response.body);
       //print('User profile from server: $jsonResponse');
 
-      return User.fromJson(jsonResponse);
+      final user = User.fromJson(jsonResponse);
+      return Right(user);
     }
 
     final remoteErrorMessage = jsonDecode(response.body)['message'];
     print(remoteErrorMessage);
 
-    return throw RemoteException(
-        'Não foi possível carregar os dados do usuário.');
+    return Left(
+      RemoteException('Não foi possível carregar os dados do usuário.'),
+    );
   }
 }

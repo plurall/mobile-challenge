@@ -1,9 +1,10 @@
-import 'package:get_it/get_it.dart';
 import 'package:mobile_challenge/data/models/user.dart';
-import 'package:mobile_challenge/data/remote/search_remote.dart';
+import 'package:mobile_challenge/domain/usecases/search_users/search_users_interface.dart';
 
 class SearchViewModel {
-  final searchRemote = GetIt.instance<SearchRemote>();
+  final SearchUsersUseCaseInterface useCase;
+
+  SearchViewModel(this.useCase);
 
   List<User> _users = [];
   bool _haveFoundUsers = true;
@@ -13,12 +14,17 @@ class SearchViewModel {
   haveFoundUsers() => _haveFoundUsers;
 
   search(String searchData) async {
-    final response = await searchRemote.getUsers(searchData);
-    this._users = response;
-    if (response.length > 0) {
-      this._haveFoundUsers = true;
+    final response = await useCase.call(searchData);
+    if (response.isRight()) {
+      var users = response.getOrElse(() => []);
+      this._users = users;
+      if (users.length > 0) {
+        this._haveFoundUsers = true;
+      } else {
+        this._haveFoundUsers = false;
+      }
     } else {
-      this._haveFoundUsers = false;
+      this._users = [];
     }
   }
 

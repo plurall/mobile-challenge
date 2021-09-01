@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/search.dart';
 import 'package:mobile_challenge/presentation/components/user_card.dart';
@@ -12,7 +13,7 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  final searchViewModel = SearchViewModel();
+  final viewModel = GetIt.instance.get<SearchViewModel>();
   final _form = GlobalKey<FormState>();
   final _searchFieldController = TextEditingController();
 
@@ -38,7 +39,7 @@ class _SearchViewState extends State<SearchView> {
   listenKeyboardChanges() =>
       _searchFieldController.addListener(onSearchFieldChange);
 
-  onSearchFieldChange() => searchViewModel.clearSearchError();
+  onSearchFieldChange() => viewModel.clearSearchError();
 
   tryValidate() {
     Future.delayed(const Duration(milliseconds: 100),
@@ -49,7 +50,7 @@ class _SearchViewState extends State<SearchView> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Enviando...')),
     );
-    await searchViewModel.search(searchData);
+    await viewModel.search(searchData);
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     setState(() => tryValidate());
   }
@@ -68,7 +69,7 @@ class _SearchViewState extends State<SearchView> {
                   Provider.of<SearchProvider>(context, listen: false).search =
                       value,
               validator: (value) {
-                if (!searchViewModel.haveFoundUsers()) {
+                if (!viewModel.haveFoundUsers()) {
                   return 'Não foram encontrados usuários com esta busca';
                 }
                 if (value!.isEmpty) {
@@ -108,7 +109,7 @@ class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     final isConnected = Provider.of<ConnectionProvider>(context).isConnected;
-    final users = searchViewModel.getUsers();
+    final users = viewModel.getUsers();
     return Container(
       margin: EdgeInsets.all(10),
       child: isConnected

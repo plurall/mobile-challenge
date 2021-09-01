@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobile_challenge/data/models/user.dart';
 import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
@@ -13,7 +14,7 @@ class UserProfileView extends StatefulWidget {
 }
 
 class _UserProfileViewState extends State<UserProfileView> {
-  final userProfileViewModel = UserProfileViewModel();
+  final viewModel = GetIt.instance.get<UserProfileViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class _UserProfileViewState extends State<UserProfileView> {
       ),
       body: isConnected
           ? FutureBuilder<User>(
-              future: userProfileViewModel.getUser(user.login),
+              future: viewModel.getUser(user.login),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   _fullUserProfile = snapshot.data as User;

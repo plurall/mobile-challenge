@@ -1,4 +1,4 @@
-import 'package:mobile_challenge/data/database/database_interface.dart';
+import 'package:mobile_challenge/data/datasources/database_interface.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
 
