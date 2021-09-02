@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:mobile_challenge/data/datasources/database.dart';
+import 'package:mobile_challenge/data/datasources/database_interface.dart';
 import 'package:mobile_challenge/data/models/user.dart';
 
 class FavoriteUsersProvider with ChangeNotifier {
+  final DatabaseInterface database;
+
   List<User> _favoriteUsers = [];
   List<User> get items => [..._favoriteUsers];
-  final database = GetIt.instance<Database>();
+
+  FavoriteUsersProvider(this.database);
 
   toogleFavorite(User user) {
     final isFavorite = this.isFavorite(user);

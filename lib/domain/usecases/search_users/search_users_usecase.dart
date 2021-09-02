@@ -11,7 +11,7 @@ class SearchUsersUseCase implements SearchUsersUseCaseInterface {
   );
 
   @override
-  Future<Either<Exception, List<User>>> call(String login) {
-    return this.repository.searchUsers(login);
+  Future<Either<Exception, List<User>>> call(String search) {
+    return this.repository.searchUsers(search);
   }
 }

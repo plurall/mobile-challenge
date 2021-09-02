@@ -8,7 +8,7 @@ import 'package:dartz/dartz.dart';
 
 class SearchRemoteRepository implements SearchRemoteInterface {
   final String domain = 'https://api.github.com';
-  final String token = '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';
+  final String token = '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';
 
   getHeaders() => {
         HttpHeaders.authorizationHeader: 'token $token',

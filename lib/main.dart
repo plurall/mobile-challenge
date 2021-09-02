@@ -38,12 +38,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final database = GetIt.instance.get<Database>();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => FavoriteUsersProvider(),
+          create: (context) => FavoriteUsersProvider(database),
         ),
         Provider(
           create: (context) => SearchProvider(),
