@@ -18,7 +18,6 @@ class SearchRemoteRepository implements SearchRemoteInterface {
     final String path = '/search/users';
     final response = await http.get(
       Uri.parse('$domain$path?q=$search'),
-      headers: getHeaders(),
     );
 
     if (response.statusCode == 200) {
@@ -44,7 +43,6 @@ class SearchRemoteRepository implements SearchRemoteInterface {
     final String path = '/users/';
     final response = await http.get(
       Uri.parse('$domain$path$login'),
-      headers: getHeaders(),
     );
 
     if (response.statusCode == 200) {
