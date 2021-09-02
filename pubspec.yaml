@@ -26,6 +26,7 @@ dependencies:
   flutter_modular: any
   mobx: any
   flutter_mobx: any
+  dio: any
   dartz: any
   equatable: any
   connectivity: any
