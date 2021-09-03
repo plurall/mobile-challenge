@@ -16,7 +16,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   splashScreenPage() async {
     Future.delayed(Duration(seconds: 5))
-        .whenComplete(() => Modular.to.pushNamed("/home"));
+        .whenComplete(() => Modular.to.pushReplacementNamed("/home"));
   }
 
   @override
