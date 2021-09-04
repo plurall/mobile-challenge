@@ -32,8 +32,6 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
-    final state = bloc.state;
-
     return FloatingSearchBar(
       hint: 'Pesquisar',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
@@ -44,7 +42,6 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
       openAxisAlignment: 0.0,
       width: isPortrait ? 600 : 500,
       debounceDelay: const Duration(milliseconds: 500),
-      progress: state is SearchLoading,
       onQueryChanged: (query) async {
         if (query != '') {
           controller.setSearchText(query);
