@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:mobile_challenge/app/modules/search/presentation/search/search_store.dart';
@@ -43,13 +44,12 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
       openAxisAlignment: 0.0,
       width: isPortrait ? 600 : 500,
       debounceDelay: const Duration(milliseconds: 500),
+      progress: state is SearchLoading,
       onQueryChanged: (query) async {
         if (query != '') {
           controller.setSearchText(query);
-          setState(() {
-
-          });
         }
+        setState(() {});
       },
       transition: CircularFloatingSearchBarTransition(),
       actions: [
@@ -58,73 +58,85 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
         )
       ],
       builder: (context, transition) {
-        Widget content;
-        if(state is SearchStart){
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Material(
-                color: Colors.white,
-                elevation: 4.0,
-                child: Container(
-                  height: 100,
-                  child: Center(
-                    child: Text("Digite sua pesquisa"),
-                  ),
-                )
-            ),
-          );
-        }
+        return Observer(builder: (_) {
+          var state = controller.state;
 
-        if(state is SearchLoading){
-          content = Container(
-            height: 100,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Colors.black,
-              ),
-            ),
-          );
-        }
-
-        if(state is SearchError){
-          content = Container(
-            height: 100,
-            child: Center(
-              child: Text("Ops houve um erro"),
-            ),
-          );
-        }
-
-        if (state is SearchSuccess) {
-          final list = (state).list;
-          content = Column(
-            mainAxisSize: MainAxisSize.min,
-            children: list.map((item) {
-              return Container(
-                height: 100,
-                child: Center(
-                  child: ListTile(
-                    leading: ClipOval(
-                      child: Image.network(item.avatar),
-                    ),
-                    title: Text(item.title),
-                    trailing: IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.star_border_rounded, color: Colors.black,)
+          if (state is SearchError) {
+            return ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Material(
+                  color: Colors.white,
+                  elevation: 4.0,
+                  child: Container(
+                    height: 100,
+                    child: Center(
+                      child: Text("Ops houve um erro"),
                     ),
                   ),
-                ),
-              );
-            }).toList(),
-          );
-        }
-        return ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Material(
-              color: Colors.white,
-              elevation: 4.0,
-              child: content,
+                ));
+          }
+
+          if (state is SearchStart) {
+            return Center(
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Material(
+                    color: Colors.white,
+                    elevation: 4.0,
+                    child: Container(
+                      height: 100,
+                      child: Center(
+                        child: Text("Digite sua pesquisa"),
+                      ),
+                  )),
             ));
+          } else if (state is SearchLoading) {
+            return Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Material(
+                      color: Colors.white,
+                      elevation: 4.0,
+                      child: Container(
+                        height: 100,
+                        child: Center(
+                          child: CircularProgressIndicator(color: Colors.black,),
+                        ),
+                      )),
+                ));
+          } else if (state is SearchSuccess) {
+            final list = (state).list;
+            return Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Material(
+                      color: Colors.white,
+                      elevation: 4.0,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: list.map((item) {
+                          return Container(
+                            height: 100,
+                            child: Center(
+                              child: ListTile(
+                                leading: ClipOval(
+                                  child: Image.network(item.avatar),
+                                ),
+                                title: Text(item.title),
+                                trailing: IconButton(
+                                    onPressed: (){},
+                                    icon: Icon(Icons.star_border_rounded, color: Colors.black,)
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      )),
+                ));
+          } else {
+            return Container();
+          }
+        });
       },
     );
   }
