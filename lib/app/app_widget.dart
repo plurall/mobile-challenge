@@ -15,6 +15,7 @@ class _AppWidgetState extends State<AppWidget> {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: AppTheme.appColor,
+        accentColor: AppTheme.appColor,
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: "/",

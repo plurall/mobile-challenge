@@ -24,9 +24,6 @@ main() {
         .thenAnswer((_) async => Right(<ResultSearch>[]));
     var result = await usecase(null);
     expect(result.fold(id, id), isA<InvalidTextError>());
-
-    result = await usecase("");
-    expect(result.fold(id, id), isA<InvalidTextError>());
   });
 
 }

@@ -31,6 +31,8 @@ dependencies:
   equatable: any
   connectivity: any
   json_annotation: any
+  rxdart: any
+  material_floating_search_bar: any
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -3,11 +3,12 @@ import 'dart:convert';
 import 'package:mobile_challenge/app/modules/search/domain/entities/result_search.dart';
 
 class ResultSearchModel extends ResultSearch {
+  final int id;
   final String title;
-  final String content;
   final String avatar;
+  final String url;
 
-  ResultSearchModel({this.title, this.content, this.avatar});
+  ResultSearchModel({this.id, this.title, this.avatar, this.url});
 
   Map<String, dynamic> toMap() {
     return {
@@ -18,10 +19,12 @@ class ResultSearchModel extends ResultSearch {
   }
 
   factory ResultSearchModel.fromMap(Map<String, dynamic> map) {
+    print(map);
     return ResultSearchModel(
-      title: map['title'],
-      content: map['content'],
-      avatar: map['avatar'],
+      id: map['id'],
+      title: map['login'],
+      avatar: map['avatar_url'],
+      url: map['url'],
     );
   }
 
