@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:mobile_challenge/app/modules/search/presentation/search/search_bloc.dart';
+import 'package:mobile_challenge/app/modules/search/presentation/search/search_store.dart';
 import 'package:mobile_challenge/app/modules/search/presentation/search/states/state.dart';
 
 class SearchPage extends StatefulWidget {
@@ -11,15 +11,7 @@ class SearchPage extends StatefulWidget {
   _SearchPageState createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
-  final bloc = Modular.get<SearchBloc>();
-  ValueNotifier<Widget> _notifier = ValueNotifier<Widget>(null);
-
-  @override
-  void dispose() {
-    bloc.close();
-    super.dispose();
-  }
+class _SearchPageState extends ModularState<SearchPage, SearchStore> {
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +45,7 @@ class _SearchPageState extends State<SearchPage> {
       debounceDelay: const Duration(milliseconds: 500),
       onQueryChanged: (query) async {
         if (query != '') {
-          bloc.add(query);
+          controller.setSearchText(query);
           setState(() {
 
           });
@@ -66,6 +58,7 @@ class _SearchPageState extends State<SearchPage> {
         )
       ],
       builder: (context, transition) {
+        Widget content;
         if(state is SearchStart){
           return ClipRRect(
             borderRadius: BorderRadius.circular(8),
@@ -83,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
         }
 
         if(state is SearchLoading){
-          _notifier.value = Container(
+          content = Container(
             height: 100,
             child: Center(
               child: CircularProgressIndicator(
@@ -94,7 +87,7 @@ class _SearchPageState extends State<SearchPage> {
         }
 
         if(state is SearchError){
-          _notifier.value = Container(
+          content = Container(
             height: 100,
             child: Center(
               child: Text("Ops houve um erro"),
@@ -104,17 +97,17 @@ class _SearchPageState extends State<SearchPage> {
 
         if (state is SearchSuccess) {
           final list = (state).list;
-          _notifier.value = Column(
+          content = Column(
             mainAxisSize: MainAxisSize.min,
-            children: list.map((result) {
+            children: list.map((item) {
               return Container(
                 height: 100,
                 child: Center(
                   child: ListTile(
                     leading: ClipOval(
-                      child: Image.network(result.avatar),
+                      child: Image.network(item.avatar),
                     ),
-                    title: Text(result.title),
+                    title: Text(item.title),
                     trailing: IconButton(
                         onPressed: (){},
                         icon: Icon(Icons.star_border_rounded, color: Colors.black,)
@@ -130,12 +123,7 @@ class _SearchPageState extends State<SearchPage> {
             child: Material(
               color: Colors.white,
               elevation: 4.0,
-              child: ValueListenableBuilder(
-                  valueListenable: _notifier,
-                  builder: (context, content,_){
-                    return content;
-                  }
-              ),
+              child: content,
             ));
       },
     );
