@@ -14,7 +14,7 @@ import 'package:mockito/mockito.dart';
 class DioMock extends Mock implements Dio {}
 
 main() {
-  var dio = DioMock();
+  final dio = DioMock();
 
   runApp(ModularApp(module: AppModule(), child: AppWidget()));
 
