@@ -35,7 +35,7 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
     return FloatingSearchBar(
       hint: 'Pesquisar',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-      transitionDuration: const Duration(milliseconds: 500),
+      transitionDuration: const Duration(milliseconds: 400),
       transitionCurve: Curves.easeInOut,
       physics: const BouncingScrollPhysics(),
       axisAlignment: isPortrait ? 0.0 : -1.0,
@@ -122,7 +122,11 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
                                 title: Text(item.title),
                                 trailing: IconButton(
                                     onPressed: (){},
-                                    icon: Icon(Icons.star_border_rounded, color: Colors.black,)
+                                    icon: Icon(
+                                      Icons.star_border_rounded,
+                                      color: Colors.black,
+                                      size: 30,
+                                    )
                                 ),
                               ),
                             ),
