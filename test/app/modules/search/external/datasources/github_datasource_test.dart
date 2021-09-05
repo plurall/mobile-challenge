@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_challenge/app/modules/search/domain/errors/errors.dart';
+import 'package:mobile_challenge/app/core/errors/errors.dart';
 import 'package:mobile_challenge/app/modules/search/external/datasources/github_datasource.dart';
 import 'package:mobile_challenge/app/modules/search/utils/github_response.dart';
 import 'package:mockito/mockito.dart';

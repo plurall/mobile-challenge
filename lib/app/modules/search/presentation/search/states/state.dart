@@ -1,5 +1,5 @@
 import 'package:mobile_challenge/app/modules/search/domain/entities/result_search.dart';
-import 'package:mobile_challenge/app/modules/search/domain/errors/errors.dart';
+import 'package:mobile_challenge/app/core/errors/errors.dart';
 
 abstract class SearchState {}
 

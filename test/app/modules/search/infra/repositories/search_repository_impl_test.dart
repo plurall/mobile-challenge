@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/modules/search/domain/entities/result_search.dart';
-import 'package:mobile_challenge/app/modules/search/domain/errors/errors.dart';
+import 'package:mobile_challenge/app/core/errors/errors.dart';
 import 'package:mobile_challenge/app/modules/search/infra/datasources/search_datasource.dart';
 import 'package:mobile_challenge/app/modules/search/infra/models/result_search_model.dart';
 import 'package:mobile_challenge/app/modules/search/infra/repositories/search_repository_impl.dart';

@@ -12,9 +12,10 @@ class ResultSearchModel extends ResultSearch {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'title': title,
-      'content': content,
       'avatar': avatar,
+      'url': url,
     };
   }
 
