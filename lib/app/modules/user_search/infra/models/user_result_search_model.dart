@@ -1,4 +1,6 @@
-class UserSearch {
+import 'package:mobile_challenge/app/modules/user_search/domain/entities/user.dart';
+
+class UserResultSearchModel extends UserSearch {
   final int id;
   final String name;
   final String location;
@@ -7,7 +9,7 @@ class UserSearch {
   final String email;
   final String avatar;
 
-  UserSearch({
+  UserResultSearchModel({
     this.id,
     this.name,
     this.location,

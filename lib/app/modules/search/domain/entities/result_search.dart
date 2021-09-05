@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class ResultSearch {
 
   final int id;
@@ -8,9 +6,9 @@ class ResultSearch {
   final String url;
 
   ResultSearch({
-    @required this.id,
-    @required this.title,
-    @required this.avatar,
-    @required this.url
+    this.id,
+    this.title,
+    this.avatar,
+    this.url
   });
 }
