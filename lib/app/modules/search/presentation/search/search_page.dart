@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:mobile_challenge/app/core/widgets/list_tile_area.dart';
 import 'package:mobile_challenge/app/modules/search/presentation/search/search_store.dart';
 import 'package:mobile_challenge/app/modules/search/presentation/search/states/state.dart';
 
@@ -16,22 +17,8 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // This is handled by the search bar itself.
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          buildFloatingSearchBar(),
-        ],
-      ),
-    );
-  }
-
-  Widget buildFloatingSearchBar() {
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-
     return FloatingSearchBar(
       hint: 'Pesquisar',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
@@ -59,48 +46,25 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
           var state = controller.state;
 
           if (state is SearchError) {
-            return ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Material(
-                  color: Colors.white,
-                  elevation: 4.0,
-                  child: Container(
-                    height: 100,
-                    child: Center(
-                      child: Text("Ops houve um erro"),
-                    ),
-                  ),
-                ));
+            return ListTileArea(
+              child: Center(
+                child: Text("Ops houve um erro"),
+              ),
+            );
           }
 
           if (state is SearchStart) {
-            return Center(
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Material(
-                    color: Colors.white,
-                    elevation: 4.0,
-                    child: Container(
-                      height: 100,
-                      child: Center(
-                        child: Text("Digite sua pesquisa"),
-                      ),
-                  )),
-            ));
+            return ListTileArea(
+              child: Center(
+                child: Text("Digite sua pesquisa"),
+              ),
+            );
           } else if (state is SearchLoading) {
-            return Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Material(
-                      color: Colors.white,
-                      elevation: 4.0,
-                      child: Container(
-                        height: 100,
-                        child: Center(
-                          child: CircularProgressIndicator(color: Colors.black,),
-                        ),
-                      )),
-                ));
+            return ListTileArea(
+              child: Center(
+                child: CircularProgressIndicator(color: Colors.black,),
+              ),
+            );
           } else if (state is SearchSuccess) {
             final list = (state).list;
             return Center(
