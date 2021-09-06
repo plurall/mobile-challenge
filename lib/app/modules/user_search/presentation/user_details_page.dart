@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobile_challenge/app/modules/user_search/presentation/states/state.dart';
 import 'package:mobile_challenge/app/modules/user_search/presentation/user_search_store.dart';
+import 'package:localstore/localstore.dart';
 
 class UserDetails extends StatefulWidget {
   final ModularArguments login;
@@ -17,8 +18,25 @@ class UserDetails extends StatefulWidget {
 
 class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
 
+  final db = Localstore.instance;
+
   _getUser(){
     controller.setSearchText(this.widget.login.data);
+  }
+
+  _saveUser(user) async {
+    final id = db.collection('users').doc().id;
+    db.collection('users').doc(id).set({
+       'id' : user.id,
+       'name' : user.name,
+       'location' : user.location,
+       'bio' : user.bio,
+       'login' : user.login,
+       'email' : user.email,
+       'avatar' : user.avatar,
+    });
+    final data = await db.collection('users').get();
+    print(data);
   }
 
   @override
@@ -54,10 +72,14 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ClipOval(
-                  child: Image.network(user.avatar,
-                    width: 130,
-                    height: 130,
+                Material(     // Replace this child with your own
+                  elevation: 8.0,
+                  shape: CircleBorder(),
+                  child: ClipOval(
+                    child: Image.network(
+                      user.avatar,
+                      height: 120,
+                    ),
                   ),
                 ),
                 SizedBox(height: 16,),
@@ -127,7 +149,9 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
                           Colors.green
                       ),
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                      _saveUser(user);
+                    },
                     child: Text("Favoritar",
                       style: TextStyle(
                         fontSize: 18,
@@ -148,7 +172,7 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
           child: Center(
             child: Container(
               width: _size.width - 64,
-              height: _size.height - 250,
+              height: _size.height - 280,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(20))

@@ -4,5 +4,6 @@ import 'package:mobile_challenge/app/app_module.dart';
 import 'package:mobile_challenge/app/app_widget.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(ModularApp(module: AppModule(), child: AppWidget()));
 }

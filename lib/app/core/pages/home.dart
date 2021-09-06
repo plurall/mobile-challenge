@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/app/core/pages/fav_users_page.dart';
 import 'package:mobile_challenge/app/modules/search/presentation/search/search_page.dart';
 
 class Home extends StatefulWidget {
@@ -16,6 +17,7 @@ class _HomeState extends State<Home> {
       body: Stack(
         fit: StackFit.expand,
         children: [
+          FavUsersPage(),
           SearchPage(),
         ],
       ),

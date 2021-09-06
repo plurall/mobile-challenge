@@ -29,7 +29,9 @@ class _CustomListTileState extends State<CustomListTile> {
             leading: ClipOval(
               child: Image.network(this.widget.avatar),
             ),
-            title: Text(this.widget.title),
+            title: Text(this.widget.title, style: TextStyle(
+              color: Colors.black
+            ),),
             /*trailing: IconButton(
                 onPressed: (){},
                 icon: Icon(
