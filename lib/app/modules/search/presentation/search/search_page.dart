@@ -43,11 +43,12 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
         )
       ],
       builder: (context, transition) {
+        var content;
         return Observer(builder: (_) {
           var state = controller.state;
 
           if (state is SearchError) {
-            return ListTileArea(
+            content = ListTileArea(
               child: Center(
                 child: Text("Ops houve um erro"),
               ),
@@ -55,7 +56,7 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
           }
 
           if (state is SearchStart) {
-            return ListTileArea(
+            content = ListTileArea(
               child: Center(
                 child: Text("Digite sua pesquisa"),
               ),
@@ -67,9 +68,9 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
               ),
             );
           } else if (state is SearchSuccess) {
-            final list = (state).list;
+            var list = (state).list;
 
-            return Center(
+            content = Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Material(
@@ -83,11 +84,14 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
                             title: item.title,
                           );
                         }).toList(),
-                      )),
-                ));
+                      ),
+                  ),
+                )
+            );
           } else {
-            return Container();
+            content = Container();
           }
+          return content;
         });
       },
     );

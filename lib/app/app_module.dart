@@ -7,6 +7,7 @@ import 'package:mobile_challenge/app/modules/search/infra/repositories/search_re
 import 'package:mobile_challenge/app/modules/user_search/domain/usecases/search_by_user_login.dart';
 import 'package:mobile_challenge/app/modules/user_search/external/github_user_datasource.dart';
 import 'package:mobile_challenge/app/modules/user_search/infra/repositories/user_search_repository_impl.dart';
+import 'package:mobile_challenge/app/modules/user_search/presentation/user_details_page.dart';
 
 import 'core/pages/splash_page.dart';
 import 'modules/search/presentation/search/search_store.dart';
@@ -31,5 +32,6 @@ class AppModule extends Module {
   List<ModularRoute> get routes => [
     ChildRoute("/", child: (_, args) => SplashPage()),
     ChildRoute("/home", child: (_, args) => Home()),
+    ChildRoute("/user-details", child: (_, args) => UserDetails(login: args)),
   ];
 }

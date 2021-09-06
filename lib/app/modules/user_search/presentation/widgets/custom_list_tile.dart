@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/app/modules/user_search/presentation/user_search_store.dart';
 
 class CustomListTile extends StatefulWidget {
   final String avatar;
@@ -9,27 +8,23 @@ class CustomListTile extends StatefulWidget {
   const CustomListTile({
     Key key,
     @required this.avatar,
-    @required this.title
+    @required this.title,
   }) : super(key: key);
 
   @override
   _CustomListTileState createState() => _CustomListTileState();
 }
 
-class _CustomListTileState extends ModularState<CustomListTile, UserSearchStore> {
-
-  _viewDetails() {
-    controller.setSearchText(this.widget.title);
-    controller.showDetails();
-  }
-
+class _CustomListTileState extends State<CustomListTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 100,
       child: Center(
         child: GestureDetector(
-          onTap: _viewDetails,
+          onTap: (){
+            Modular.to.pushNamed("/user-details", arguments: this.widget.title);
+          },
           child: ListTile(
             leading: ClipOval(
               child: Image.network(this.widget.avatar),
@@ -49,4 +44,5 @@ class _CustomListTileState extends ModularState<CustomListTile, UserSearchStore>
     );
   }
 }
+
 
