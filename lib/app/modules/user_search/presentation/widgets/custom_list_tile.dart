@@ -17,29 +17,32 @@ class CustomListTile extends StatefulWidget {
 }
 
 class _CustomListTileState extends ModularState<CustomListTile, UserSearchStore> {
+
+  _viewDetails() {
+    controller.setSearchText(this.widget.title);
+    controller.showDetails();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 100,
       child: Center(
         child: GestureDetector(
-          onTap: () async {
-            controller.setSearchText(this.widget.title);
-            controller.showDetails();
-          },
+          onTap: _viewDetails,
           child: ListTile(
             leading: ClipOval(
               child: Image.network(this.widget.avatar),
             ),
             title: Text(this.widget.title),
-            trailing: IconButton(
+            /*trailing: IconButton(
                 onPressed: (){},
                 icon: Icon(
-                  Icons.star_border_rounded,
+                  Icons.star,
                   color: Colors.black,
                   size: 30,
                 )
-            ),
+            ),*/
           ),
         ),
       ),

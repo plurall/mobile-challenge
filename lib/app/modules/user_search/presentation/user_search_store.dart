@@ -14,9 +14,9 @@ abstract class _UserSearchStore with Store {
   CancelableOperation cancellableOperation;
 
   _UserSearchStore(this.searchByUserLogin) {
-    reaction((_) => searchByUserLogin, (text) async {
+    reaction((_) => searchUserLogin, (text) async {
       stateReaction(text, cancellableOperation);
-    }, delay: 500);
+    }, delay: 300);
   }
 
   Future stateReaction(String text,

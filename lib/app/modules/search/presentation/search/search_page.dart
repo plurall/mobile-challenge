@@ -29,7 +29,7 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
       axisAlignment: isPortrait ? 0.0 : -1.0,
       openAxisAlignment: 0.0,
       width: isPortrait ? 600 : 500,
-      debounceDelay: const Duration(milliseconds: 500),
+      debounceDelay: const Duration(milliseconds: 300),
       onQueryChanged: (query) async {
         if (query != '') {
           controller.setSearchText(query);
@@ -68,6 +68,7 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
             );
           } else if (state is SearchSuccess) {
             final list = (state).list;
+
             return Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
