@@ -34,6 +34,21 @@ mixin _$UserSearchStore on _UserSearchStore, Store {
     });
   }
 
+  final _$showUserDetailsAtom = Atom(name: '_UserSearchStore.showUserDetails');
+
+  @override
+  bool get showUserDetails {
+    _$showUserDetailsAtom.reportRead();
+    return super.showUserDetails;
+  }
+
+  @override
+  set showUserDetails(bool value) {
+    _$showUserDetailsAtom.reportWrite(value, super.showUserDetails, () {
+      super.showUserDetails = value;
+    });
+  }
+
   final _$stateAtom = Atom(name: '_UserSearchStore.state');
 
   @override
@@ -75,9 +90,21 @@ mixin _$UserSearchStore on _UserSearchStore, Store {
   }
 
   @override
+  void showDetails() {
+    final _$actionInfo = _$_UserSearchStoreActionController.startAction(
+        name: '_UserSearchStore.showDetails');
+    try {
+      return super.showDetails();
+    } finally {
+      _$_UserSearchStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 searchUserLogin: ${searchUserLogin},
+showUserDetails: ${showUserDetails},
 state: ${state}
     ''';
   }

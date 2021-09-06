@@ -5,6 +5,7 @@ import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:mobile_challenge/app/core/widgets/list_tile_area.dart';
 import 'package:mobile_challenge/app/modules/search/presentation/search/search_store.dart';
 import 'package:mobile_challenge/app/modules/search/presentation/search/states/state.dart';
+import 'package:mobile_challenge/app/modules/user_search/presentation/widgets/custom_list_tile.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key key}) : super(key: key);
@@ -76,24 +77,9 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: list.map((item) {
-                          return Container(
-                            height: 100,
-                            child: Center(
-                              child: ListTile(
-                                leading: ClipOval(
-                                  child: Image.network(item.avatar),
-                                ),
-                                title: Text(item.title),
-                                trailing: IconButton(
-                                    onPressed: (){},
-                                    icon: Icon(
-                                      Icons.star_border_rounded,
-                                      color: Colors.black,
-                                      size: 30,
-                                    )
-                                ),
-                              ),
-                            ),
+                          return CustomListTile(
+                            avatar: item.avatar,
+                            title: item.title,
                           );
                         }).toList(),
                       )),

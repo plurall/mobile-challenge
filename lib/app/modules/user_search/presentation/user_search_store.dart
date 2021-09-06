@@ -43,6 +43,9 @@ abstract class _UserSearchStore with Store {
   String searchUserLogin = "";
 
   @observable
+  bool showUserDetails = false;
+
+  @observable
   UserSearchState state = UserSearchStart();
 
   @action
@@ -50,5 +53,8 @@ abstract class _UserSearchStore with Store {
 
   @action
   setState(UserSearchState value) => state = value;
+
+  @action
+  void showDetails() => showUserDetails = !showUserDetails;
 
 }
