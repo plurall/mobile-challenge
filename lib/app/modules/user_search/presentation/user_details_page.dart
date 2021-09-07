@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -6,10 +8,10 @@ import 'package:mobile_challenge/app/modules/user_search/presentation/user_searc
 import 'package:localstore/localstore.dart';
 
 class UserDetails extends StatefulWidget {
-  final ModularArguments login;
+  final ModularArguments user;
   const UserDetails({
     Key key,
-    this.login
+    this.user
   }) : super(key: key);
 
   @override
@@ -21,8 +23,10 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
   final db = Localstore.instance;
 
   _getUser(){
-    controller.setSearchText(this.widget.login.data);
-    controller.isFavVerification(this.widget.login.data);
+    if (this.widget.user.data[0] != null) {
+      controller.setSearchText(this.widget.user.data[0].title);
+      controller.isFavVerification(this.widget.user.data[0].title);
+    }
   }
 
   @override
@@ -37,7 +41,7 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
       child: Observer(builder: (_){
         Widget content;
         final state = controller.state;
-        if (state is UserSearchStart) {
+        if (state is UserSearchStart && this.widget.user.data[0] != null) {
           content = SizedBox();
         } else if (state is UserSearchLoading) {
           content = Center(child: CircularProgressIndicator(color: Colors.black,));
@@ -136,11 +140,9 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
                       ),
                     ),
                     onPressed: (){
-                      setState(() {
-                        controller.saveUser(user);
-                        controller.isFavVerification(user.login);
-                        setState(() {});
-                      });
+                      controller.saveUser(user);
+                      controller.isFavVerification(user.login);
+                      controller.updateFavList(true);
                     },
                     child: Text("Favoritar",
                       style: TextStyle(
@@ -153,7 +155,111 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
             ),
           );
         } else {
-          content = SizedBox();
+          var user = this.widget.user.data[1];
+          var random = new Random();
+          int imgNumber = random.nextInt(3);
+          content = content = SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Material(     // Replace this child with your own
+                  elevation: 8.0,
+                  shape: CircleBorder(),
+                  child: ClipOval(
+                    child: FadeInImage(
+                      placeholder: AssetImage('assets/images/avatar_$imgNumber.png'),
+                      imageErrorBuilder: (context, _, s){
+                        return Image.asset('assets/images/avatar_$imgNumber.png',
+                          width: 120,
+                        );
+                      },
+                      image: NetworkImage(user.avatar),
+                      height: 120,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                Visibility(
+                  visible: user.name != null,
+                  child: Text(user.name ?? "",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontFamily: "Raleway-Bold"
+                    ),
+                  ),
+                ),
+                Text(user.login,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "Raleway-Bold"
+                  ),
+                ),
+                SizedBox(height: 16,),
+                Visibility(
+                  visible: user.location != null,
+                  child: Column(
+                    children: [
+                      Text(user.location ?? "",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: "Raleway"
+                        ),
+                      ),
+                      SizedBox(height: 16,),
+                    ],
+                  ),
+                ),
+                Visibility(
+                    visible: user.email != null,
+                    child: Column(
+                      children: [
+                        Text(user.email ?? "",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: "Raleway"
+                          ),
+                        ),
+                        SizedBox(height: 16,),
+                      ],
+                    )
+                ),
+                Visibility(
+                    visible: user.bio != null,
+                    child: Column(
+                      children: [
+                        Text(user.bio ?? "",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: "Raleway"
+                          ),
+                        ),
+                        SizedBox(height: 30,),
+                      ],
+                    )
+                ),
+                controller.isFavorite == false ? ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Colors.green
+                      ),
+                    ),
+                    onPressed: (){
+                      controller.saveUser(user);
+                      controller.isFavVerification(user.login);
+                      controller.updateFavList(true);
+                    },
+                    child: Text("Favoritar",
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    )
+                )
+                    : Icon(Icons.star, size: 40, color: Colors.green,)
+              ],
+            ),
+          );
         }
 
         return Container(
@@ -171,6 +277,9 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
               padding: EdgeInsets.only(left: 16, right: 16),
               child: Stack(
                 children: [
+                  Center(
+                    child: content,
+                  ),
                   Positioned(
                       top: 16,
                       right: 0,
@@ -178,11 +287,8 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
                         onPressed: (){
                           Modular.to.pop();
                         },
-                        icon: Icon(Icons.close, size: 30,),
+                        icon: Icon(Icons.cancel, size: 30,),
                       )
-                  ),
-                  Center(
-                    child: content,
                   ),
                 ],
               ),

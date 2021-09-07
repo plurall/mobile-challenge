@@ -32,6 +32,6 @@ class AppModule extends Module {
   List<ModularRoute> get routes => [
     ChildRoute("/", child: (_, args) => SplashPage()),
     ChildRoute("/home", child: (_, args) => Home()),
-    ChildRoute("/user-details", child: (_, args) => UserDetails(login: args)),
+    ChildRoute("/user-details", child: (_, args) => UserDetails(user: args)),
   ];
 }

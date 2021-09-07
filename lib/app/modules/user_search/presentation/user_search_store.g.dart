@@ -109,6 +109,22 @@ mixin _$UserSearchStore on _UserSearchStore, Store {
     });
   }
 
+  final _$isFavUpdateVisibleAtom =
+      Atom(name: '_UserSearchStore.isFavUpdateVisible');
+
+  @override
+  bool get isFavUpdateVisible {
+    _$isFavUpdateVisibleAtom.reportRead();
+    return super.isFavUpdateVisible;
+  }
+
+  @override
+  set isFavUpdateVisible(bool value) {
+    _$isFavUpdateVisibleAtom.reportWrite(value, super.isFavUpdateVisible, () {
+      super.isFavUpdateVisible = value;
+    });
+  }
+
   final _$saveUserAsyncAction = AsyncAction('_UserSearchStore.saveUser');
 
   @override
@@ -181,6 +197,17 @@ mixin _$UserSearchStore on _UserSearchStore, Store {
   }
 
   @override
+  dynamic updateFavList(dynamic value) {
+    final _$actionInfo = _$_UserSearchStoreActionController.startAction(
+        name: '_UserSearchStore.updateFavList');
+    try {
+      return super.updateFavList(value);
+    } finally {
+      _$_UserSearchStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 userStream: ${userStream},
@@ -188,7 +215,8 @@ searchUserLogin: ${searchUserLogin},
 showUserDetails: ${showUserDetails},
 state: ${state},
 usersFavList: ${usersFavList},
-isFavorite: ${isFavorite}
+isFavorite: ${isFavorite},
+isFavUpdateVisible: ${isFavUpdateVisible}
     ''';
   }
 }

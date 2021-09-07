@@ -34,7 +34,6 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
         if (query != '') {
           controller.setSearchText(query);
         }
-        setState(() {});
       },
       transition: CircularFloatingSearchBarTransition(),
       actions: [
@@ -80,8 +79,7 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
                         mainAxisSize: MainAxisSize.min,
                         children: list.map((item) {
                           return CustomListTile(
-                            avatar: item.avatar,
-                            title: item.title,
+                            userSearch: item,
                           );
                         }).toList(),
                       ),

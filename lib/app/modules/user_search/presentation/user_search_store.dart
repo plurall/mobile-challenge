@@ -66,6 +66,9 @@ abstract class _UserSearchStore with Store {
   @observable
   bool isFavorite = true;
 
+  @observable
+  bool isFavUpdateVisible = false;
+
   @action
   setSearchText(String value) => searchUserLogin = value;
 
@@ -109,5 +112,8 @@ abstract class _UserSearchStore with Store {
     });
     isFavorite = list.contains(login);
   }
+
+  @action
+  updateFavList(value) => isFavUpdateVisible = value;
 
 }
