@@ -26,6 +26,8 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
     if (this.widget.user.data[0] != null) {
       controller.setSearchText(this.widget.user.data[0].title);
       controller.isFavVerification(this.widget.user.data[0].title);
+    } else if (this.widget.user.data[1] != null) {
+      controller.isFavVerification(this.widget.user.data[1].login);
     }
   }
 
@@ -263,13 +265,14 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
         }
 
         return Container(
-          width: _size.width,
-          height: _size.height,
           color: Colors.black38,
           child: Center(
             child: Container(
               width: _size.width - 64,
-              height: _size.height - 280,
+              margin: EdgeInsets.only(
+                  top: _size.height < 600 ? 70 : 150,
+                  bottom: _size.height < 600 ? 70 : 150
+              ),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(20))

@@ -14,7 +14,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   Animation<double> _fadeInFadeOut;
 
   splashScreenPage() async {
-    Future.delayed(Duration(seconds: 2))
+    Future.delayed(Duration(milliseconds: 2500))
         .whenComplete(() => Modular.to.pushReplacementNamed("/home"));
   }
 
@@ -59,7 +59,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   animationController() {
     animation = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: Duration(milliseconds: 2500),
     );
     _fadeInFadeOut = Tween<double>(begin: 1, end: 0.0).animate(animation);
 

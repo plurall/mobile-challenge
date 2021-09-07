@@ -24,9 +24,8 @@ class _FavUsersPageState extends ModularState<FavUsersPage, UserSearchStore> {
   RefreshController(initialRefresh: false);
 
   void _onRefresh() async{
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(Duration(milliseconds: 500));
     _refreshController.refreshCompleted();
-    _listController.jumpTo(_listController.position.maxScrollExtent);
     setState(() {});
   }
 
@@ -58,34 +57,42 @@ class _FavUsersPageState extends ModularState<FavUsersPage, UserSearchStore> {
                       }
 
                       if(snapshot.connectionState == ConnectionState.done){
-                        return list.length > 0 ? Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 116),
-                            child: SmartRefresher(
-                              enablePullDown: true,
-                              controller: _refreshController,
-                              onRefresh: _onRefresh,
-                              header: WaterDropHeader(),
-                              child: ListView.builder(
-                                  itemCount: list.length,
-                                  controller: _listController,
-                                  itemBuilder: (context, index){
-                                    return CustomListTile(
-                                        user: list[index],
-                                    );
-                                  }
+                        return Stack(
+                          children: [
+                            Visibility(
+                              visible: list.length <= 0,
+                              child: Center(
+                                child: Text('Ainda não tem favoritos \n'
+                                    'Pesquise na barra acima...',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: "Raleway"
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ) : Center(
-                          child: Text('Ainda não tem favoritos \n'
-                              'Pesquise na barra acima...',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: "Raleway"
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 116),
+                                child: SmartRefresher(
+                                  enablePullDown: true,
+                                  controller: _refreshController,
+                                  onRefresh: _onRefresh,
+                                  header: WaterDropHeader(),
+                                  child: ListView.builder(
+                                      itemCount: list.length,
+                                      controller: _listController,
+                                      itemBuilder: (context, index){
+                                        return CustomListTile(
+                                            user: list[index],
+                                        );
+                                      }
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         );
                       }
                       return Container();

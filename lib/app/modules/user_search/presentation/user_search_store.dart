@@ -64,7 +64,7 @@ abstract class _UserSearchStore with Store {
   List<UserResultSearchModel> usersFavList = [];
   
   @observable
-  bool isFavorite = true;
+  bool isFavorite = false;
 
   @observable
   bool isFavUpdateVisible = false;
@@ -105,12 +105,14 @@ abstract class _UserSearchStore with Store {
   @action
   isFavVerification(login) async {
 
-    var users = await db.collection('users').get();
+    Map<String, dynamic> users = await db.collection('users').get() ?? {};
     var list = [];
-    users.forEach((key, value) {
-      list.add(value['login']);
-    });
-    isFavorite = list.contains(login);
+    if (users != {}) {
+      users.forEach((key, value) {
+        list.add(value['login']);
+      });
+      isFavorite = list.contains(login);
+    }
   }
 
   @action

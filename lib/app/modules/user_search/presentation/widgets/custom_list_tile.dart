@@ -65,8 +65,7 @@ class _CustomListTileState extends State<CustomListTile> {
           },
           child: ListTile(
             leading: ClipOval(
-              child: _avatar != null
-                  ? FadeInImage(
+              child: FadeInImage(
                       placeholder: AssetImage(
                           'assets/images/avatar_$_imgNumber.png'),
                       imageErrorBuilder: (context, _, s){
@@ -75,20 +74,12 @@ class _CustomListTileState extends State<CustomListTile> {
                       },
                       image: NetworkImage(_avatar),
                       height: 120,
-                    )
-                  : SizedBox(),
+                    ),
             ),
             title: Text(_login ?? '', style: TextStyle(
-              color: Colors.black
+              color: Colors.black,
+              fontSize: 20
             ),),
-            /*trailing: IconButton(
-                onPressed: (){},
-                icon: Icon(
-                  Icons.star,
-                  color: Colors.black,
-                  size: 30,
-                )
-            ),*/
           ),
         ),
       ),
