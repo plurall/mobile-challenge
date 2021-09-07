@@ -1,6 +1,5 @@
 import 'package:async/async.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:localstore/localstore.dart';
 import 'package:mobile_challenge/app/modules/search/domain/usecases/search_by_text.dart';
 import 'package:mobile_challenge/app/modules/search/presentation/search/states/state.dart';
 import 'package:mobx/mobx.dart';

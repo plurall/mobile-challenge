@@ -161,6 +161,7 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
           var random = new Random();
           int imgNumber = random.nextInt(3);
           content = content = SingleChildScrollView(
+            padding: EdgeInsets.only(top: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

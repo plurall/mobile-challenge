@@ -29,7 +29,7 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
       axisAlignment: isPortrait ? 0.0 : -1.0,
       openAxisAlignment: 0.0,
       width: isPortrait ? 600 : 500,
-      debounceDelay: const Duration(milliseconds: 300),
+      debounceDelay: const Duration(milliseconds: 500),
       onQueryChanged: (query) async {
         if (query != '') {
           controller.setSearchText(query);
@@ -46,14 +46,6 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
         return Observer(builder: (_) {
           var state = controller.state;
 
-          if (state is SearchError) {
-            content = ListTileArea(
-              child: Center(
-                child: Text("Ops houve um erro"),
-              ),
-            );
-          }
-
           if (state is SearchStart) {
             content = ListTileArea(
               child: Center(
@@ -64,6 +56,19 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
             return ListTileArea(
               child: Center(
                 child: CircularProgressIndicator(color: Colors.black,),
+              ),
+            );
+          } if (state is SearchError) {
+            content = ListTileArea(
+              child: Center(
+                child: Text("Ops houve um erro :( \n"
+                    "Verifique sua conexão.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: "Raleway"
+                  ),
+                ),
               ),
             );
           } else if (state is SearchSuccess) {

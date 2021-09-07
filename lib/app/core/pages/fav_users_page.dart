@@ -32,6 +32,10 @@ class _FavUsersPageState extends ModularState<FavUsersPage, UserSearchStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: Container(
         color: Colors.white,
         child: Observer(
@@ -73,22 +77,19 @@ class _FavUsersPageState extends ModularState<FavUsersPage, UserSearchStore> {
                               ),
                             ),
                             Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 116),
-                                child: SmartRefresher(
-                                  enablePullDown: true,
-                                  controller: _refreshController,
-                                  onRefresh: _onRefresh,
-                                  header: WaterDropHeader(),
-                                  child: ListView.builder(
-                                      itemCount: list.length,
-                                      controller: _listController,
-                                      itemBuilder: (context, index){
-                                        return CustomListTile(
-                                            user: list[index],
-                                        );
-                                      }
-                                  ),
+                              child: SmartRefresher(
+                                enablePullDown: true,
+                                controller: _refreshController,
+                                onRefresh: _onRefresh,
+                                header: WaterDropHeader(),
+                                child: ListView.builder(
+                                    itemCount: list.length,
+                                    controller: _listController,
+                                    itemBuilder: (context, index){
+                                      return CustomListTile(
+                                          user: list[index],
+                                      );
+                                    }
                                 ),
                               ),
                             ),
