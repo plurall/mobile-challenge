@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile_challenge/app/app_theme.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key key}) : super(key: key);
@@ -15,7 +14,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   Animation<double> _fadeInFadeOut;
 
   splashScreenPage() async {
-    Future.delayed(Duration(seconds: 5))
+    Future.delayed(Duration(seconds: 2))
         .whenComplete(() => Modular.to.pushReplacementNamed("/home"));
   }
 
@@ -30,22 +29,22 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Material(
         child: Container(
-          color: AppTheme.appColor,
+          color: Colors.white,
           child: FadeTransition(
             opacity: _fadeInFadeOut,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 150, maxHeight: 142),
-                    child: Image.asset("assets/images/github_logo.png")
+                  constraints: BoxConstraints(maxWidth: 120, maxHeight: 120),
+                    child: Image.asset("assets/images/icon-splash.png")
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16),
                   child: Text("Mobile Challenge",
                     style: TextStyle(
                       fontSize: 25,
-                      color: Colors.white,
+                      color: Colors.black,
                       fontFamily: "Raleway",
                     ),
                   ),
@@ -60,9 +59,9 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   animationController() {
     animation = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 800),
+      duration: Duration(seconds: 2),
     );
-    _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1).animate(animation);
+    _fadeInFadeOut = Tween<double>(begin: 1, end: 0.0).animate(animation);
 
     animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
