@@ -139,6 +139,7 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
                       setState(() {
                         controller.saveUser(user);
                         controller.isFavVerification(user.login);
+                        setState(() {});
                       });
                     },
                     child: Text("Favoritar",

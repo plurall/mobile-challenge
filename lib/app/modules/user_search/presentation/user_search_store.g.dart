@@ -19,6 +19,21 @@ final $UserSearchStore = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$UserSearchStore on _UserSearchStore, Store {
+  final _$userStreamAtom = Atom(name: '_UserSearchStore.userStream');
+
+  @override
+  Stream<dynamic> get userStream {
+    _$userStreamAtom.reportRead();
+    return super.userStream;
+  }
+
+  @override
+  set userStream(Stream<dynamic> value) {
+    _$userStreamAtom.reportWrite(value, super.userStream, () {
+      super.userStream = value;
+    });
+  }
+
   final _$searchUserLoginAtom = Atom(name: '_UserSearchStore.searchUserLogin');
 
   @override
@@ -113,13 +128,24 @@ mixin _$UserSearchStore on _UserSearchStore, Store {
       AsyncAction('_UserSearchStore.isFavVerification');
 
   @override
-  Future<bool> isFavVerification(dynamic login) {
+  Future isFavVerification(dynamic login) {
     return _$isFavVerificationAsyncAction
         .run(() => super.isFavVerification(login));
   }
 
   final _$_UserSearchStoreActionController =
       ActionController(name: '_UserSearchStore');
+
+  @override
+  dynamic getUserStream() {
+    final _$actionInfo = _$_UserSearchStoreActionController.startAction(
+        name: '_UserSearchStore.getUserStream');
+    try {
+      return super.getUserStream();
+    } finally {
+      _$_UserSearchStoreActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setSearchText(String value) {
@@ -157,6 +183,7 @@ mixin _$UserSearchStore on _UserSearchStore, Store {
   @override
   String toString() {
     return '''
+userStream: ${userStream},
 searchUserLogin: ${searchUserLogin},
 showUserDetails: ${showUserDetails},
 state: ${state},

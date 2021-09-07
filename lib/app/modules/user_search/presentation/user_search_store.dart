@@ -41,6 +41,16 @@ abstract class _UserSearchStore with Store {
     return result.fold((l) => UserSearchError(l), (r) => UserSearchSuccess(r));
   }
 
+  var db = Localstore.instance;
+
+  @action
+  getUserStream(){
+    userStream = db.collection('users').get().asStream();
+  }
+
+  @observable
+  Stream userStream;
+
   @observable
   String searchUserLogin = "";
 
@@ -67,7 +77,6 @@ abstract class _UserSearchStore with Store {
 
   @action
   saveUser(UserResultSearchModel user) async {
-    var db = Localstore.instance;
     final id = db.collection('users').doc().id;
     db.collection('users').doc(id).set({
       'id' : user.id,
@@ -83,7 +92,6 @@ abstract class _UserSearchStore with Store {
 
   @action
   getLocalUsers() async {
-    var db = Localstore.instance;
     var users = await db.collection('users').get();
     users.forEach((key, value) {
       var item = UserResultSearchModel.fromMap(value);
@@ -93,7 +101,7 @@ abstract class _UserSearchStore with Store {
 
   @action
   isFavVerification(login) async {
-    var db = Localstore.instance;
+
     var users = await db.collection('users').get();
     var list = [];
     users.forEach((key, value) {
