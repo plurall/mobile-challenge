@@ -16,8 +16,8 @@ class _FavUsersPageState extends State<FavUsersPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
+    return Scaffold(
+      body: Container(
         color: Colors.white,
         child: StreamBuilder(
           stream: db.collection("users").get().asStream(),
@@ -50,6 +50,12 @@ class _FavUsersPageState extends State<FavUsersPage> {
             return Container();
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.refresh_sharp),
+        onPressed: (){
+          setState(() {});
+        },
       ),
     );
   }

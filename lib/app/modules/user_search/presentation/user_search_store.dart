@@ -1,6 +1,8 @@
 import 'package:async/async.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localstore/localstore.dart';
 import 'package:mobile_challenge/app/modules/user_search/domain/usecases/search_by_user_login.dart';
+import 'package:mobile_challenge/app/modules/user_search/infra/models/user_result_search_model.dart';
 import 'package:mobile_challenge/app/modules/user_search/presentation/states/state.dart';
 import 'package:mobx/mobx.dart';
 
@@ -48,6 +50,12 @@ abstract class _UserSearchStore with Store {
   @observable
   UserSearchState state = UserSearchStart();
 
+  @observable
+  List<UserResultSearchModel> usersFavList = [];
+  
+  @observable
+  bool isFavorite = true;
+
   @action
   setSearchText(String value) => searchUserLogin = value;
 
@@ -56,5 +64,42 @@ abstract class _UserSearchStore with Store {
 
   @action
   void showDetails() => showUserDetails = !showUserDetails;
+
+  @action
+  saveUser(UserResultSearchModel user) async {
+    var db = Localstore.instance;
+    final id = db.collection('users').doc().id;
+    db.collection('users').doc(id).set({
+      'id' : user.id,
+      'name' : user.name,
+      'location' : user.location,
+      'bio' : user.bio,
+      'login' : user.login,
+      'email' : user.email,
+      'avatar' : user.avatar,
+    });
+    getLocalUsers();
+  }
+
+  @action
+  getLocalUsers() async {
+    var db = Localstore.instance;
+    var users = await db.collection('users').get();
+    users.forEach((key, value) {
+      var item = UserResultSearchModel.fromMap(value);
+      usersFavList.add(item);
+    });
+  }
+
+  @action
+  isFavVerification(login) async {
+    var db = Localstore.instance;
+    var users = await db.collection('users').get();
+    var list = [];
+    users.forEach((key, value) {
+      list.add(value['login']);
+    });
+    isFavorite = list.contains(login);
+  }
 
 }

@@ -64,6 +64,60 @@ mixin _$UserSearchStore on _UserSearchStore, Store {
     });
   }
 
+  final _$usersFavListAtom = Atom(name: '_UserSearchStore.usersFavList');
+
+  @override
+  List<UserResultSearchModel> get usersFavList {
+    _$usersFavListAtom.reportRead();
+    return super.usersFavList;
+  }
+
+  @override
+  set usersFavList(List<UserResultSearchModel> value) {
+    _$usersFavListAtom.reportWrite(value, super.usersFavList, () {
+      super.usersFavList = value;
+    });
+  }
+
+  final _$isFavoriteAtom = Atom(name: '_UserSearchStore.isFavorite');
+
+  @override
+  bool get isFavorite {
+    _$isFavoriteAtom.reportRead();
+    return super.isFavorite;
+  }
+
+  @override
+  set isFavorite(bool value) {
+    _$isFavoriteAtom.reportWrite(value, super.isFavorite, () {
+      super.isFavorite = value;
+    });
+  }
+
+  final _$saveUserAsyncAction = AsyncAction('_UserSearchStore.saveUser');
+
+  @override
+  Future saveUser(UserResultSearchModel user) {
+    return _$saveUserAsyncAction.run(() => super.saveUser(user));
+  }
+
+  final _$getLocalUsersAsyncAction =
+      AsyncAction('_UserSearchStore.getLocalUsers');
+
+  @override
+  Future getLocalUsers() {
+    return _$getLocalUsersAsyncAction.run(() => super.getLocalUsers());
+  }
+
+  final _$isFavVerificationAsyncAction =
+      AsyncAction('_UserSearchStore.isFavVerification');
+
+  @override
+  Future<bool> isFavVerification(dynamic login) {
+    return _$isFavVerificationAsyncAction
+        .run(() => super.isFavVerification(login));
+  }
+
   final _$_UserSearchStoreActionController =
       ActionController(name: '_UserSearchStore');
 
@@ -105,7 +159,9 @@ mixin _$UserSearchStore on _UserSearchStore, Store {
     return '''
 searchUserLogin: ${searchUserLogin},
 showUserDetails: ${showUserDetails},
-state: ${state}
+state: ${state},
+usersFavList: ${usersFavList},
+isFavorite: ${isFavorite}
     ''';
   }
 }

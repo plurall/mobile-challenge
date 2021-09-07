@@ -22,21 +22,7 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
 
   _getUser(){
     controller.setSearchText(this.widget.login.data);
-  }
-
-  _saveUser(user) async {
-    final id = db.collection('users').doc().id;
-    db.collection('users').doc(id).set({
-       'id' : user.id,
-       'name' : user.name,
-       'location' : user.location,
-       'bio' : user.bio,
-       'login' : user.login,
-       'email' : user.email,
-       'avatar' : user.avatar,
-    });
-    final data = await db.collection('users').get();
-    print(data);
+    controller.isFavVerification(this.widget.login.data);
   }
 
   @override
@@ -143,21 +129,25 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
                       ],
                     )
                 ),
-                ElevatedButton(
+                controller.isFavorite == false ? ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                           Colors.green
                       ),
                     ),
                     onPressed: (){
-                      _saveUser(user);
+                      setState(() {
+                        controller.saveUser(user);
+                        controller.isFavVerification(user.login);
+                      });
                     },
                     child: Text("Favoritar",
                       style: TextStyle(
                         fontSize: 18,
                       ),
                     )
-                ),
+                )
+                    : Icon(Icons.star, size: 40, color: Colors.green,)
               ],
             ),
           );
