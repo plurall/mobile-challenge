@@ -1,4 +1,4 @@
-const githubUserResponse = """
+const githubUserResponse = r"""
   {
     "login": "fajusto",
     "id": 14909648,
