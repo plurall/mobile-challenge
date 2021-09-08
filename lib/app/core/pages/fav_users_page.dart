@@ -54,6 +54,7 @@ class _FavUsersPageState extends ModularState<FavUsersPage, UserSearchStore> {
                       items.forEach((key, value) {
                         list.add(UserResultSearchModel.fromMap(value));
                       });
+                      final reversed = list.reversed.toList();
                       if(snapshot.connectionState == ConnectionState.waiting){
                         return Center(
                           child: CircularProgressIndicator(color: Colors.black,),
@@ -66,8 +67,9 @@ class _FavUsersPageState extends ModularState<FavUsersPage, UserSearchStore> {
                             Visibility(
                               visible: list.length <= 0,
                               child: Center(
-                                child: Text('Ainda não tem favoritos \n'
-                                    'Pesquise na barra acima...',
+                                child: Text('Pesquise na barra acima... \n'
+                                    'Após favoritar, deslize para \n '
+                                    'baixo para atualizar seus favoritos.',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 20,
@@ -83,11 +85,11 @@ class _FavUsersPageState extends ModularState<FavUsersPage, UserSearchStore> {
                                 onRefresh: _onRefresh,
                                 header: WaterDropHeader(),
                                 child: ListView.builder(
-                                    itemCount: list.length,
+                                    itemCount: reversed.length,
                                     controller: _listController,
                                     itemBuilder: (context, index){
                                       return CustomListTile(
-                                          user: list[index],
+                                          user: reversed[index],
                                       );
                                     }
                                 ),

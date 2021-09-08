@@ -13,6 +13,7 @@ class _AppWidgetState extends State<AppWidget> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Challenge',
       theme: ThemeData(
         primaryColor: AppTheme.appColor,
         accentColor: AppTheme.appColor,

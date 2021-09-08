@@ -30,7 +30,7 @@ class _CustomListTileState extends State<CustomListTile> {
     if(this.widget.userSearch != null){
       setState(() {
         _avatar = this.widget.userSearch.avatar;
-        _login = this.widget.userSearch.title;
+        _login = this.widget.userSearch.login;
         _argument = [this.widget.userSearch, null];
       });
     } else {

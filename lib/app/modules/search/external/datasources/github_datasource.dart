@@ -25,7 +25,7 @@ class GithubDatasource implements SearchDatasource {
       final list = jsonList
           .map((item) => ResultSearchModel(
           id: item['id'],
-          title: item['login'],
+          login: item['login'],
           avatar: item['avatar_url'],
           url: item['url']))
           .toList();

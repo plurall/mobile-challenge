@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -5,7 +7,6 @@ import 'package:mobile_challenge/app/app_theme.dart';
 import 'package:mobile_challenge/app/modules/user_search/presentation/states/state.dart';
 import 'package:mobile_challenge/app/modules/user_search/presentation/user_search_store.dart';
 import 'package:localstore/localstore.dart';
-import 'package:mobile_challenge/app/modules/user_search/presentation/widgets/custom_user_details.dart';
 
 class UserDetails extends StatefulWidget {
   final ModularArguments user;
@@ -21,11 +22,12 @@ class UserDetails extends StatefulWidget {
 class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
 
   final db = Localstore.instance;
+  var random = new Random();
 
   _getUser(){
     if (this.widget.user.data[0] != null) {
-      controller.setSearchText(this.widget.user.data[0].title);
-      controller.isFavVerification(this.widget.user.data[0].title);
+      controller.setSearchText(this.widget.user.data[0].login);
+      controller.isFavVerification(this.widget.user.data[0].login);
     } else if (this.widget.user.data[1] != null) {
       controller.isFavVerification(this.widget.user.data[1].login);
     }
@@ -62,25 +64,217 @@ class _UserDetailsState extends ModularState<UserDetails, UserSearchStore> {
           );
         } else if (state is UserSearchSuccess) {
           var user = (state).userSearch;
-          content = CustomUserDetails(
-              user: user,
-              avatar: user.avatar,
-              name: user.name,
-              login: user.login,
-              email: user.email,
-              location: user.location,
-              bio: user.bio,
+          content = SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Material(     // Replace this child with your own
+                  elevation: 8.0,
+                  shape: CircleBorder(),
+                  child: ClipOval(
+                    child: FadeInImage(
+                      width: 120,
+                      image: NetworkImage(user.avatar),
+                      placeholder: AssetImage(
+                          "assets/images/avatar_${random.nextInt(3)}.png"),
+                      imageErrorBuilder: (context,_,stackTrace){
+                        return Image.asset(
+                            "assets/images/avatar_${random.nextInt(3)}.png",
+                          width: 120,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                Visibility(
+                  visible: user.name != null,
+                  child: Text(user.name ?? "",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontFamily: "Raleway-Bold"
+                    ),
+                  ),
+                ),
+                Text(user.login,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "Raleway-Bold"
+                  ),
+                ),
+                SizedBox(height: 16,),
+                Visibility(
+                  visible: user.location != null,
+                  child: Column(
+                    children: [
+                      Text(user.location ?? "",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: "Raleway"
+                        ),
+                      ),
+                      SizedBox(height: 16,),
+                    ],
+                  ),
+                ),
+                Visibility(
+                    visible: user.email != null,
+                    child: Column(
+                      children: [
+                        Text(user.email ?? "",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: "Raleway"
+                          ),
+                        ),
+                        SizedBox(height: 16,),
+                      ],
+                    )
+                ),
+                Visibility(
+                    visible: user.bio != null,
+                    child: Column(
+                      children: [
+                        Text(user.bio ?? "",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: "Raleway"
+                          ),
+                        ),
+                        SizedBox(height: 30,),
+                      ],
+                    )
+                ),
+                controller.isFavorite == false ? ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          AppTheme.buttonAndIconColor
+                      ),
+                    ),
+                    onPressed: (){
+                      controller.saveUser(user);
+                      controller.isFavVerification(user.login);
+                      controller.updateFavList(true);
+                    },
+                    child: Text("Favoritar",
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    )
+                )
+                    : Icon(Icons.star, size: 40,
+                  color: AppTheme.buttonAndIconColor,)
+              ],
+            ),
           );
         } else {
           var user = this.widget.user.data[1];
-          content = content = CustomUserDetails(
-              user: user,
-              avatar: user.avatar,
-              name: user.name,
-              login: user.login,
-              email: user.email,
-              location: user.location,
-              bio: user.bio,
+          content = content = SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Material(     // Replace this child with your own
+                  elevation: 8.0,
+                  shape: CircleBorder(),
+                  child: ClipOval(
+                    child: FadeInImage(
+                      width: 120,
+                      image: NetworkImage(user.avatar),
+                      placeholder: AssetImage(
+                          "assets/images/avatar_${random.nextInt(3)}.png"),
+                      imageErrorBuilder: (context,_,stackTrace){
+                        return Image.asset(
+                            "assets/images/avatar_${random.nextInt(3)}.png",
+                              width: 120,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                Visibility(
+                  visible: user.name != null,
+                  child: Text(user.name ?? "",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontFamily: "Raleway-Bold"
+                    ),
+                  ),
+                ),
+                Text(user.login,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "Raleway-Bold"
+                  ),
+                ),
+                SizedBox(height: 16,),
+                Visibility(
+                  visible: user.location != null,
+                  child: Column(
+                    children: [
+                      Text(user.location ?? "",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: "Raleway"
+                        ),
+                      ),
+                      SizedBox(height: 16,),
+                    ],
+                  ),
+                ),
+                Visibility(
+                    visible: user.email != null,
+                    child: Column(
+                      children: [
+                        Text(user.email ?? "",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: "Raleway"
+                          ),
+                        ),
+                        SizedBox(height: 16,),
+                      ],
+                    )
+                ),
+                Visibility(
+                    visible: user.bio != null,
+                    child: Column(
+                      children: [
+                        Text(user.bio ?? "",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: "Raleway"
+                          ),
+                        ),
+                        SizedBox(height: 30,),
+                      ],
+                    )
+                ),
+                controller.isFavorite == false ? ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          AppTheme.buttonAndIconColor
+                      ),
+                    ),
+                    onPressed: (){
+                      controller.saveUser(user);
+                      controller.isFavVerification(user.login);
+                      controller.updateFavList(true);
+                    },
+                    child: Text("Favoritar",
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    )
+                )
+                    : Icon(Icons.star, size: 40,
+                  color: AppTheme.buttonAndIconColor,)
+              ],
+            ),
           );
         }
 

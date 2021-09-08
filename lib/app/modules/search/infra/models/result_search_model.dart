@@ -4,16 +4,16 @@ import 'package:mobile_challenge/app/modules/search/domain/entities/result_searc
 
 class ResultSearchModel extends ResultSearch {
   final int id;
-  final String title;
+  final String login;
   final String avatar;
   final String url;
 
-  ResultSearchModel({this.id, this.title, this.avatar, this.url});
+  ResultSearchModel({this.id, this.login, this.avatar, this.url});
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'title': title,
+      'login': login,
       'avatar': avatar,
       'url': url,
     };
@@ -23,7 +23,7 @@ class ResultSearchModel extends ResultSearch {
     print(map);
     return ResultSearchModel(
       id: map['id'],
-      title: map['login'],
+      login: map['login'],
       avatar: map['avatar_url'],
       url: map['url'],
     );

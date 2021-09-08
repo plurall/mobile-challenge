@@ -1,13 +1,13 @@
 class ResultSearch {
 
   final int id;
-  final String title;
+  final String login;
   final String avatar;
   final String url;
 
   ResultSearch({
     this.id,
-    this.title,
+    this.login,
     this.avatar,
     this.url
   });
