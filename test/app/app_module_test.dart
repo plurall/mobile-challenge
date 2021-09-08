@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/app/app_module.dart';
-import 'package:mobile_challenge/app/modules/search/domain/usecases/search_by_text.dart';
 import 'package:mobile_challenge/app/modules/user_search/domain/usecases/search_by_user_login.dart';
 import 'package:mobile_challenge/app/modules/user_search/external/github_user_datasource.dart';
 import 'package:mobile_challenge/app/modules/user_search/infra/models/user_result_search_model.dart';
@@ -23,14 +22,10 @@ void main() {
     Bind((i) => dio),
     Bind((i) => GithubUserDatasource(i())),
     Bind((i) => UserSearchRepositoryImpl(i())),
+    Bind((i) => UserSearchRepositoryImpl(i())),
     Bind((i) => SearchByUserLoginImpl(i())),
     Bind((i) => UserSearchStore(i())),
   ]);
-
-  test('Must retrieve the usecase with no error', () {
-    final usecase = Modular.get<SearchByText>();
-    expect(usecase, isA<SearchByTextImpl>());
-  });
 
   test('Must retrieve the usecase with no error, user search module', () {
     final usecase = Modular.get<SearchByUserLogin>();
