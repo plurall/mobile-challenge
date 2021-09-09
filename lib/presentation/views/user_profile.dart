@@ -26,7 +26,7 @@ class _UserProfileViewState extends State<UserProfileView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dados pessoais'),
+        title: const Text('Dados pessoais'),
       ),
       body: isConnected
           ? FutureBuilder<User>(
@@ -39,7 +39,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                   return Text('${snapshot.error}');
                 }
 
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               },
             )
           : UserFullProfile(user),

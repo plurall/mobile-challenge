@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:mobile_challenge/data/models/user.dart';
 import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
 import 'package:mobile_challenge/presentation/views/user_profile.dart';
-import 'package:provider/provider.dart';
 
 class UserCard extends StatelessWidget {
   final User user;
-
-  UserCard(this.user);
+  const UserCard(this.user);
 
   void selectUser(BuildContext context) {
-    Navigator.of(context)
-        .pushNamed(UserProfileView.routeName, arguments: this.user);
+    Navigator.of(context).pushNamed(UserProfileView.routeName, arguments: user);
   }
 
   @override
@@ -26,14 +25,14 @@ class UserCard extends StatelessWidget {
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(5.0),
       child: Card(
-        margin: EdgeInsets.all(5),
+        margin: const EdgeInsets.all(5),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
         clipBehavior: Clip.antiAlias,
         child: Container(
           color: Theme.of(context).colorScheme.background,
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,10 +45,10 @@ class UserCard extends StatelessWidget {
                       width: 50,
                     ),
                   Container(
-                    margin: EdgeInsets.only(left: 10),
+                    margin: const EdgeInsets.only(left: 10),
                     child: Text(
                       user.login,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -57,7 +56,7 @@ class UserCard extends StatelessWidget {
                   ),
                 ],
               ),
-              if (isFavorite) Icon(Icons.star, color: Colors.white)
+              if (isFavorite) const Icon(Icons.star, color: Colors.white)
             ],
           ),
         ),

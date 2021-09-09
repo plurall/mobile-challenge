@@ -17,18 +17,18 @@ class SearchViewModel {
     final response = await useCase.call(searchData);
     if (response.isRight()) {
       var users = response.getOrElse(() => []);
-      this._users = users;
-      if (users.length > 0) {
-        this._haveFoundUsers = true;
+      _users = users;
+      if (users.isNotEmpty) {
+        _haveFoundUsers = true;
       } else {
-        this._haveFoundUsers = false;
+        _haveFoundUsers = false;
       }
     } else {
-      this._users = [];
+      _users = [];
     }
   }
 
   clearSearchError() {
-    this._haveFoundUsers = true;
+    _haveFoundUsers = true;
   }
 }

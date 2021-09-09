@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:provider/provider.dart';
+
+import 'package:mobile_challenge/data/providers/connection.dart';
 
 class UserProfilePicture extends StatelessWidget {
   final String? avatar;
   final String login;
-
-  UserProfilePicture(this.avatar, this.login);
+  const UserProfilePicture(this.avatar, this.login);
 
   @override
   Widget build(BuildContext context) {
     final isConnected = Provider.of<ConnectionProvider>(context).isConnected;
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       width: 200,
       child: Column(
         children: [
@@ -23,12 +23,12 @@ class UserProfilePicture extends StatelessWidget {
                     fit: BoxFit.cover,
                     width: 90,
                   )
-                : Image(
+                : const Image(
                     image: AssetImage('assets/images/avatar.png'),
                   ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 8),
+            padding: const EdgeInsets.only(top: 8),
             child: Text(
               login,
               style: TextStyle(

@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_challenge/data/models/user.dart';
-import 'package:mobile_challenge/domain/usecases/get_user/get_user_usecase.dart';
 import 'package:mobile_challenge/domain/usecases/search_users/search_users_usecase.dart';
 import 'package:mockito/mockito.dart';
 

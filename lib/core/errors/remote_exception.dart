@@ -5,5 +5,5 @@ class RemoteException implements Exception {
   );
 
   @override
-  String toString() => this.message;
+  String toString() => message;
 }

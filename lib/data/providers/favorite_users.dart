@@ -13,9 +13,9 @@ class FavoriteUsersProvider with ChangeNotifier {
   toogleFavorite(User user) {
     final isFavorite = this.isFavorite(user);
     if (isFavorite) {
-      this.removeUser(user);
+      removeUser(user);
     } else {
-      this.addUser(user);
+      addUser(user);
     }
     notifyListeners();
   }
@@ -31,7 +31,7 @@ class FavoriteUsersProvider with ChangeNotifier {
   }
 
   bool isFavorite(User user) =>
-      this._favoriteUsers.where((current) => current.id == user.id).isNotEmpty;
+      _favoriteUsers.where((current) => current.id == user.id).isNotEmpty;
 
   Future<void> loadData() async {
     final dataList = await database.getData('favorites');

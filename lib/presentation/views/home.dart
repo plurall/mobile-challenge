@@ -5,6 +5,7 @@ import 'package:mobile_challenge/presentation/views/favorites.dart';
 import 'package:mobile_challenge/presentation/views/search.dart';
 import 'package:provider/provider.dart';
 
+// ignore: use_key_in_widget_constructors
 class HomeView extends StatelessWidget {
   static String routeName = '/';
 
@@ -18,7 +19,7 @@ class HomeView extends StatelessWidget {
       ]),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         final isConnected = snapshot.data![1] as bool;
         Provider.of<ConnectionProvider>(context, listen: false)
@@ -27,8 +28,8 @@ class HomeView extends StatelessWidget {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
-              title: Text('Usuários do Github'),
-              bottom: TabBar(tabs: [
+              title: const Text('Usuários do Github'),
+              bottom: const TabBar(tabs: [
                 Tab(
                   text: 'Busca',
                   icon: Icon(Icons.search),

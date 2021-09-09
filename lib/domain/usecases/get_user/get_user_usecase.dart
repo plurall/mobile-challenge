@@ -12,6 +12,6 @@ class GetUserUseCase implements GetUserUseCaseInterface {
 
   @override
   Future<Either<Exception, User>> call(String login) {
-    return this.repository.getUser(login);
+    return repository.getUser(login);
   }
 }

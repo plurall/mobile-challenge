@@ -43,7 +43,7 @@ class _SearchViewState extends State<SearchView> {
 
   tryValidate() {
     Future.delayed(const Duration(milliseconds: 100),
-        () => _form.currentState?.validate() ?? null);
+        () => _form.currentState?.validate());
   }
 
   onSearch(String searchData) async {
@@ -61,7 +61,7 @@ class _SearchViewState extends State<SearchView> {
           children: [
             TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Nome',
               ),
               controller: _searchFieldController,
@@ -78,15 +78,15 @@ class _SearchViewState extends State<SearchView> {
                 return null;
               },
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 10),
             ),
-            Container(
+            SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     Text('Buscar'),
                     Icon(Icons.search),
                   ],
@@ -111,29 +111,27 @@ class _SearchViewState extends State<SearchView> {
     final isConnected = Provider.of<ConnectionProvider>(context).isConnected;
     final users = viewModel.getUsers();
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: isConnected
-          ? Container(
-              child: Column(
-                children: [
-                  _showForm(),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: users.length,
-                        itemBuilder: (context, index) {
-                          return UserCard(users[index]);
-                        },
-                      ),
+          ? Column(
+              children: [
+                _showForm(),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: users.length,
+                      itemBuilder: (context, index) {
+                        return UserCard(users[index]);
+                      },
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             )
-          : Padding(
-              padding: const EdgeInsets.all(20),
+          : const Padding(
+              padding: EdgeInsets.all(20),
               child: Text(
                 'Não é possível realizar buscas, verifique a sua conexão com a Internet.',
               ),

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:mobile_challenge/data/models/user.dart';
 import 'package:mobile_challenge/presentation/components/user_info.dart';
 import 'package:mobile_challenge/presentation/components/user_profile_picture.dart';
 
 class UserFullProfile extends StatelessWidget {
   final User? user;
+  const UserFullProfile(this.user);
 
-  UserFullProfile(this.user);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
+      child: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         child: Card(
@@ -21,7 +22,7 @@ class UserFullProfile extends StatelessWidget {
             children: [
               UserProfilePicture(user!.avatar, user!.login),
               Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

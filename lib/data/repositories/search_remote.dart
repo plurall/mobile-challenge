@@ -14,8 +14,9 @@ class SearchRemoteRepository implements SearchRemoteInterface {
         HttpHeaders.authorizationHeader: 'token $token',
       };
 
+  @override
   Future<Either<RemoteException, List<User>>> searchUsers(String search) async {
-    final String path = '/search/users';
+    const String path = '/search/users';
     final response = await http.get(
       Uri.parse('$domain$path?q=$search'),
     );
@@ -39,8 +40,9 @@ class SearchRemoteRepository implements SearchRemoteInterface {
     );
   }
 
+  @override
   Future<Either<RemoteException, User>> getUser(String login) async {
-    final String path = '/users/';
+    const String path = '/users/';
     final response = await http.get(
       Uri.parse('$domain$path$login'),
     );
