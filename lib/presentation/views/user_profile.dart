@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mobile_challenge/data/models/user.dart';
 import 'package:mobile_challenge/data/providers/connection.dart';
 import 'package:mobile_challenge/data/providers/favorite_users.dart';
@@ -38,8 +39,9 @@ class _UserProfileViewState extends State<UserProfileView> {
                 } else if (snapshot.hasError) {
                   return Text('${snapshot.error}');
                 }
-
-                return const Center(child: CircularProgressIndicator());
+                return Center(
+                  child: Lottie.asset('assets/animations/loader.json'),
+                );
               },
             )
           : UserFullProfile(user),
