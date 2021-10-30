@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/app/modules/favorito/favorito_page.dart';
@@ -17,11 +18,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeController _controller = HomeController(homeService: HomeService());
+  ConnectivityResult _connectionStatus = ConnectivityResult.none;
 
   @override
   void initState() {
     super.initState();
     getUsers();
+    validOnlineAndOffline();
+    _controller.connectivitySubscription = 
+      _controller.connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+  }
+
+  validOnlineAndOffline() async {
+   ConnectivityResult result =  await _controller.initConnectivity();
+   _updateConnectionStatus(result);
+  }
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    setState(() {
+      _connectionStatus = result;
+      print(_connectionStatus);
+    });
   }
 
   getUsers() async {
@@ -98,7 +114,12 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: StreamBuilder<List<Users>>(
                   stream: _controller.userOut,
-                  builder: (context, snapshot) {
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (_connectionStatus == ConnectivityResult.none){
+                      return Center(
+                        child: Text('Você está em modo offline, acesse os favoritos'),
+                      );              
+                    }
                     if(!snapshot.hasData){
                       return Center(
                         child: CircularProgressIndicator(),

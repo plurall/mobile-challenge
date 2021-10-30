@@ -29,6 +29,7 @@ class HomeService {
       return UserSingle.fromJson(response.data);
     } on DioError catch (e) {
       if(e.error is SocketException) {
+        print(e.hashCode);
         throw MessageException('Erro de conexão, tente novamente mais tarde');
       }
 
