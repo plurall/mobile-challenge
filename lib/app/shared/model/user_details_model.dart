@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class UserSingle {
   String login;
   int id;
@@ -23,7 +21,7 @@ class UserSingle {
   String company;
   String blog;
   String location;
-  Null email;
+  String email;
   Null hireable;
   String bio;
   String twitterUsername;
@@ -138,18 +136,5 @@ class UserSingle {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     return data;
-  }
-
-  Map toMap() {
-    Map<String, dynamic> map = {
-      'nome': name,
-      'local': location,
-      'bio': bio,
-      'email': email,
-    };
-    if(id != null){
-      map['id'] = id;
-    }
-    return map;
   }
 }

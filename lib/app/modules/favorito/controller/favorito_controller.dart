@@ -18,6 +18,10 @@ class FavoritoController {
     favoritosIn.add(dados);
   }
 
+  deletarFavorito(UserSingle user) async {
+    await favoritoCacheDb.deleteFavorito(user);
+  }
+
   dispose(){
     _favoritosController.close();
   }

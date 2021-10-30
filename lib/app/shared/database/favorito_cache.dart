@@ -6,8 +6,8 @@ import 'package:path/path.dart';
 String nomeTable = 'favoritos';
 
 String idColumn = 'id';
-String nomeColumn = 'nome';
-String localizacaoColumn = 'local';
+String nomeColumn = 'name';
+String localizacaoColumn = 'location';
 String bioColumn = 'bio';
 String emailColumn = 'email';
 
@@ -43,18 +43,25 @@ class FavoritoCacheDb {
 
   Future<UserSingle> saveFavorito(UserSingle user) async {
     Database dbContact = await db;
-    user.id = await dbContact.insert(nomeTable, user.toMap());
+    Map<String,dynamic> dados = {
+      'id' : user.id,
+      'name': user.name,
+      'location': user.location,
+      'bio': user.bio,
+      'email': user.email,
+    };
+    user.id = await dbContact.insert(nomeTable, dados);
     return user;
   }
 
 
-  Future<int> deleteFavorito(UserSingle produto) async {
+  Future<int> deleteFavorito(UserSingle user) async {
     Database dbContact = await db;
-    return await dbContact.delete(nomeTable, where: "$idColumn = ?", whereArgs: [produto.id]);
+    return await dbContact.delete(nomeTable, where: "$idColumn = ?", whereArgs: [user.id]);
   }
 
 
-  Future<List> getAllFavoritos() async {
+  Future<List<UserSingle>> getAllFavoritos() async {
     Database dbContact = await db;
     List listMap = await dbContact.rawQuery("SELECT * FROM $nomeTable");
     List<UserSingle> listContact = [];

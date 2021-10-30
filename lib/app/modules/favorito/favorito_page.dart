@@ -31,6 +31,23 @@ class _FavoritoPageState extends State<FavoritoPage> {
     }
   }
 
+  deletarFavorito(UserSingle user) async {
+    try {
+      await _controller.deletarFavorito(user);
+      setState(() {
+        getAllFavoritos();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('User tirado dos favoritos'),
+            backgroundColor: Colors.blue,
+          )
+        );
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro ao deletar user')));
+    }  
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -78,7 +95,10 @@ class _FavoritoPageState extends State<FavoritoPage> {
           return ListView.builder(
             itemCount: dados.length,
             itemBuilder: (context,index){
-              return CardFavoritoWidget(dados[index]);
+              return CardFavoritoWidget(
+                model: dados[index],
+                function: () => deletarFavorito(dados[index]),
+              );
             },
           );
         }

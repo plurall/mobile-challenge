@@ -45,6 +45,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
         )
       );
     } catch (e) {
+      print(e);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro ao salvar')));
     }
   }
