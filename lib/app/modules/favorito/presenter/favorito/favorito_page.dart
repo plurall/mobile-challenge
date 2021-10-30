@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/app/modules/favorito/controller/favorito_controller.dart';
-import 'package:mobile_challenge/app/shared/database/favorito_cache.dart';
-import 'package:mobile_challenge/app/shared/model/user_details_model.dart';
-import 'package:mobile_challenge/app/shared/widgets/card_favorito_widget.dart';
+import 'package:mobile_challenge/app/modules/favorito/presenter/pages/favorito/favorito_controller.dart';
+import 'package:mobile_challenge/app/shared/domain/Entities/user_details_model.dart';
+import 'package:mobile_challenge/app/shared/infra/datasources/favorito_cache.dart';
+import 'package:mobile_challenge/app/modules/favorito/presenter/widgets/card_favorito_widget.dart';
 
 class FavoritoPage extends StatefulWidget {
 

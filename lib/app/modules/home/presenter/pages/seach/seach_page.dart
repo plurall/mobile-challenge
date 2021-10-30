@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/app/modules/home/service/home_service.dart';
-import 'package:mobile_challenge/app/shared/model/user_model.dart';
-import 'package:mobile_challenge/app/shared/widgets/card_users_widget.dart';
-import '../../controller/home_controller.dart';
+import 'package:mobile_challenge/app/modules/home/external/datasource/home_request_data.dart';
+import 'package:mobile_challenge/app/modules/home/presenter/widgets/card_users_widget.dart';
+import 'package:mobile_challenge/app/shared/domain/Entities/user_model.dart';
+import '../home/home_controller.dart';
 
 class SeachPage extends StatefulWidget {
 

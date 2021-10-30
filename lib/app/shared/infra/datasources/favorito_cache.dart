@@ -1,4 +1,4 @@
-import 'package:mobile_challenge/app/shared/model/user_details_model.dart';
+import 'package:mobile_challenge/app/shared/domain/Entities/user_details_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'package:path/path.dart';

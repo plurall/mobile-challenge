@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/app/modules/home/page/detalhes/detalhes_page.dart';
-import 'package:mobile_challenge/app/shared/model/user_model.dart';
+import 'package:mobile_challenge/app/modules/home/presenter/pages/detalhes/detalhes_page.dart';
+import 'package:mobile_challenge/app/shared/domain/Entities/user_model.dart';
 
 class CardUsersWidget extends StatelessWidget {
   final Users model;

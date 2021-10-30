@@ -1,13 +1,14 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/app/modules/favorito/favorito_page.dart';
-import 'package:mobile_challenge/app/modules/home/controller/home_controller.dart';
-import 'package:mobile_challenge/app/modules/home/page/seach/seach_page.dart';
-import 'package:mobile_challenge/app/modules/home/service/home_service.dart';
-import 'package:mobile_challenge/app/shared/exception/message_exception.dart';
-import 'package:mobile_challenge/app/shared/model/user_model.dart';
-import 'package:mobile_challenge/app/shared/widgets/card_users_widget.dart';
+import 'package:mobile_challenge/app/modules/favorito/presenter/favorito/favorito_page.dart';
+import 'package:mobile_challenge/app/modules/home/external/datasource/home_request_data.dart';
+import 'package:mobile_challenge/app/modules/home/external/drives/connectivity_driver.dart';
+import 'package:mobile_challenge/app/modules/home/presenter/pages/home/home_controller.dart';
+import 'package:mobile_challenge/app/modules/home/presenter/pages/seach/seach_page.dart';
+import 'package:mobile_challenge/app/shared/domain/Entities/user_model.dart';
+import 'package:mobile_challenge/app/shared/domain/errors/message_exception.dart';
+import 'package:mobile_challenge/app/modules/home/presenter/widgets/card_users_widget.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -17,7 +18,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  HomeController _controller = HomeController(homeService: HomeService());
+  HomeController _controller = HomeController(
+    homeService: HomeService(),
+    connectivityDriver: ConnectivityDriver()
+  );
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
 
   @override
@@ -25,8 +29,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getUsers();
     validOnlineAndOffline();
-    _controller.connectivitySubscription = 
-      _controller.connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _controller.connectivityDriver.connectivitySubscription = 
+      _controller.connectivityDriver.connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
   validOnlineAndOffline() async {

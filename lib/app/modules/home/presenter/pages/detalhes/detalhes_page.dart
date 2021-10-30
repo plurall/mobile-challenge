@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/app/modules/home/controller/home_controller.dart';
-import 'package:mobile_challenge/app/modules/home/service/home_service.dart';
-import 'package:mobile_challenge/app/shared/database/favorito_cache.dart';
-import 'package:mobile_challenge/app/shared/exception/message_exception.dart';
-import 'package:mobile_challenge/app/shared/model/user_details_model.dart';
-import 'package:mobile_challenge/app/shared/model/user_model.dart';
+import 'package:mobile_challenge/app/modules/home/external/datasource/home_request_data.dart';
+import 'package:mobile_challenge/app/modules/home/presenter/pages/home/home_controller.dart';
+import 'package:mobile_challenge/app/shared/domain/Entities/user_details_model.dart';
+import 'package:mobile_challenge/app/shared/domain/Entities/user_model.dart';
+import 'package:mobile_challenge/app/shared/infra/datasources/favorito_cache.dart';
+import 'package:mobile_challenge/app/shared/domain/errors/message_exception.dart';
 
 class DetalhesPage extends StatefulWidget {
   final Users model;

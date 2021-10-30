@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:mobile_challenge/app/shared/exception/message_exception.dart';
-import 'package:mobile_challenge/app/shared/model/user_details_model.dart';
-import 'package:mobile_challenge/app/shared/model/user_model.dart';
+import 'package:mobile_challenge/app/shared/domain/Entities/user_details_model.dart';
+import 'package:mobile_challenge/app/shared/domain/Entities/user_model.dart';
+import 'package:mobile_challenge/app/shared/domain/errors/message_exception.dart';
 import 'package:mobile_challenge/app/shared/util/dio_options.dart';
 
 class HomeService {

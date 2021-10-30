@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/app/shared/model/user_details_model.dart';
+import 'package:mobile_challenge/app/shared/domain/Entities/user_details_model.dart';
 
 class CardFavoritoWidget extends StatelessWidget {
   final UserSingle model;

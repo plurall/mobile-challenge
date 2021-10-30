@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/app/modules/home/home_page.dart';
+import 'package:mobile_challenge/app/modules/home/presenter/pages/home/home_page.dart';
 
 class AppWidget extends StatefulWidget {
 
