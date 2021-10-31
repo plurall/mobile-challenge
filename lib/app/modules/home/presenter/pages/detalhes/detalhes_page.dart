@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/app/modules/home/external/datasource/home_request_data.dart';
@@ -6,6 +7,7 @@ import 'package:mobile_challenge/app/shared/domain/Entities/user_details_model.d
 import 'package:mobile_challenge/app/shared/domain/Entities/user_model.dart';
 import 'package:mobile_challenge/app/shared/infra/datasources/favorito_cache.dart';
 import 'package:mobile_challenge/app/shared/domain/errors/message_exception.dart';
+import 'package:mobile_challenge/app/shared/util/dio_options.dart';
 
 class DetalhesPage extends StatefulWidget {
   final Users model;
@@ -17,7 +19,9 @@ class DetalhesPage extends StatefulWidget {
 
 class _DetalhesPageState extends State<DetalhesPage> {
 
-  HomeController _controller = HomeController(homeService: HomeService());
+  HomeController _controller = HomeController(
+    homeService: HomeService(Dio(dioOption))
+  );
   FavoritoCacheDb _favoritoCacheDb = FavoritoCacheDb();
 
 

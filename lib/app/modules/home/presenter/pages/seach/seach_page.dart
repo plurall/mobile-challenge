@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/app/modules/home/external/datasource/home_request_data.dart';
 import 'package:mobile_challenge/app/modules/home/presenter/widgets/card_users_widget.dart';
 import 'package:mobile_challenge/app/shared/domain/Entities/user_model.dart';
+import 'package:mobile_challenge/app/shared/util/dio_options.dart';
 import '../home/home_controller.dart';
 
 class SeachPage extends StatefulWidget {
@@ -11,7 +13,9 @@ class SeachPage extends StatefulWidget {
 }
 
 class _SeachPageState extends State<SeachPage> {
-  HomeController _controller = HomeController(homeService: HomeService());
+  HomeController _controller = HomeController(
+    homeService: HomeService(Dio(dioOption))
+  );
   List<Users> _allUsers = [];
   List<Users> _filtroUsers = [];
   @override

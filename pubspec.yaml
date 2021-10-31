@@ -33,6 +33,7 @@ dependencies:
   connectivity_plus: ^2.0.2
 
 dev_dependencies:
+  mockito: ^5.0.16
   flutter_test:
     sdk: flutter
 

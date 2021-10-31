@@ -8,11 +8,12 @@ import 'package:mobile_challenge/app/shared/util/dio_options.dart';
 
 class HomeService {
 
-  final _dio = Dio(dioOption);
+  final Dio dio;
+  HomeService(this.dio);
 
   Future<List<Users>> getUsers() async {
     try {
-      Response response = await _dio.get('users');
+      Response response = await dio.get('users');
       return Users.fromJsonList(response.data);
     } on DioError catch (e) {
       if(e.error is SocketException) {
@@ -24,7 +25,7 @@ class HomeService {
   }
   Future<UserSingle> getUserSingle(String path) async {
     try {
-      Response response = await _dio.get('users/$path');
+      Response response = await dio.get('users/$path');
       print(response.data);
       return UserSingle.fromJson(response.data);
     } on DioError catch (e) {
