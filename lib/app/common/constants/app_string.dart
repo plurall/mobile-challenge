@@ -1,10 +1,8 @@
 class AppString {
-  static String authenticationUserInput = 'E-mail';
-  static String authenticationPasswordInput = 'Senha';
-  static String authenticationConfirmPasswordInput = 'Confirmar senha';
-  static String authenticationSignInButton = 'ENTRAR';
-  static String authenticationSignUpButton = 'REGISTRAR';
-  static String notConfirmedPassword = 'Senhas diferentes.';
+  static String btnSearchLabel = 'Pesquisar';
+  static String emptyListText = 'Usuários não localizados.';
   static String fieldCannotEmpty = 'Campo obrigatório';
   static String fieldCaracterLength = 'Mínimo de caracteres';
+  static String fieldLabel = 'Usuário';
+  static String titleSearchPage = 'Busca de usuários - GitHub';
 }

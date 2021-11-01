@@ -12,7 +12,10 @@ class UserSearchDataSource implements IUserSearchDataSource {
   @override
   Future<List<UserModel>> userSearch(String searchTerm) async {
     final mockFile = 'users_search';
-    final mockData = await MockUtils.getMock(mockFile);
+    final mockData = await Future.delayed(
+      const Duration(seconds: 3),
+      () => MockUtils.getMock(mockFile),
+    );
 
     if (mockData != null) {
       return [UserModel.fromJson(mockData)];
