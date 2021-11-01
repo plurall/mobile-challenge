@@ -55,13 +55,15 @@ class _HomePageState extends State<HomePage> {
                 return ListTile(
                   title: Text(data[index].login),
                   leading: CircleAvatar(
-                      backgroundImage: NetworkImage(data[index].avatarUrl),
-                    ),
+                    backgroundImage: NetworkImage(data[index].avatarUrl),
+                  ),
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => UserDetailsPage()));
+                            builder: (context) => UserDetailsPage(
+                                  userId: data[index].id,
+                                )));
                   },
                 );
               },

@@ -6,6 +6,12 @@ import 'package:mobile_challenge/home/view/stores/github_store.dart';
 import 'package:mobx/mobx.dart';
 
 class UserDetailsPage extends StatefulWidget {
+  final int userId;
+
+  const UserDetailsPage({
+    Key key,
+    @required this.userId,
+  }) : super(key: key);
   @override
   _UserDetailsPageState createState() => _UserDetailsPageState();
 }
@@ -16,7 +22,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
   @override
   void initState() {
     super.initState();
-    _githubStore = GithubStore(GithubServiceImpl(Dio()))..findById(33629714);
+    _githubStore = GithubStore(GithubServiceImpl(Dio()))
+      ..findById(widget.userId);
   }
 
   @override
