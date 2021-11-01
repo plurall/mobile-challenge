@@ -1,4 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobile_challenge/home/data/service/github_service_impl.dart';
+import 'package:mobile_challenge/home/view/stores/github_store.dart';
+import 'package:mobile_challenge/home/view/user_details_page.dart';
+import 'package:mobx/mobx.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -6,6 +12,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  GithubStore _githubStore;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _githubStore = GithubStore(GithubServiceImpl(Dio()))..findAll('as');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,19 +39,36 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: ListView.separated(
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text('Username'),
-              leading: Image.network(
-                  'https://www.facebeautyscience.com/wp-content/uploads/2020/04/face-beauty-skin-face2-proc.jpg'),
+        child: Observer(builder: (BuildContext context) {
+          var data = _githubStore.findAllRequest.value;
+          if (_githubStore.findAllRequest.status == FutureStatus.pending) {
+            return Center(
+              child: CircularProgressIndicator(),
             );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider();
-          },
-        ),
+          } else if (_githubStore.findAllRequest.status ==
+              FutureStatus.rejected) {
+            return Center(child: Text('erro'));
+          } else {
+            return ListView.separated(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(data[index].login),
+                  leading: Image.network(data[index].avatarUrl),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserDetailsPage()));
+                  },
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider();
+              },
+            );
+          }
+        }),
       ),
     );
   }
