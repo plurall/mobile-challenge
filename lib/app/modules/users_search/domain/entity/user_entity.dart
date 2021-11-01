@@ -3,7 +3,7 @@ class UserEntity {
   int id;
   String nodeId;
   String avatarUrl;
-  String gravatarUrl;
+  String gravatarId;
   String url;
   String htmlUrl;
   String followersUrl;
@@ -18,13 +18,13 @@ class UserEntity {
   String type;
   bool siteAdmin;
   String name;
-  String company;
+  String? company;
   String blog;
   String location;
-  String email;
-  String hireable;
+  String? email;
+  String? hireable;
   String bio;
-  String twitterUsername;
+  String? twitterUsername;
   int publicRepos;
   int publicGists;
   int followers;
@@ -37,7 +37,7 @@ class UserEntity {
     required this.id,
     required this.nodeId,
     required this.avatarUrl,
-    required this.gravatarUrl,
+    required this.gravatarId,
     required this.url,
     required this.htmlUrl,
     required this.followersUrl,

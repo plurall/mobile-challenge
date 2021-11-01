@@ -6,7 +6,7 @@ class UserModel extends UserEntity {
     required int id,
     required String nodeId,
     required String avatarUrl,
-    required String gravatarUrl,
+    required String gravatarId,
     required String url,
     required String htmlUrl,
     required String followersUrl,
@@ -21,13 +21,13 @@ class UserModel extends UserEntity {
     required String type,
     required bool siteAdmin,
     required String name,
-    required String company,
+    required String? company,
     required String blog,
     required String location,
-    required String email,
-    required String hireable,
+    required String? email,
+    required String? hireable,
     required String bio,
-    required String twitterUsername,
+    required String? twitterUsername,
     required int publicRepos,
     required int publicGists,
     required int followers,
@@ -39,7 +39,7 @@ class UserModel extends UserEntity {
           id: id,
           nodeId: nodeId,
           avatarUrl: avatarUrl,
-          gravatarUrl: gravatarUrl,
+          gravatarId: gravatarId,
           url: url,
           htmlUrl: htmlUrl,
           followersUrl: followersUrl,
@@ -72,22 +72,22 @@ class UserModel extends UserEntity {
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         login: json['login'],
         id: json['id'],
-        nodeId: json['nodeId'],
-        avatarUrl: json['avatarUrl'],
-        gravatarUrl: json['gravatarUrl'],
+        nodeId: json['node_id'],
+        avatarUrl: json['avatar_url'],
+        gravatarId: json['gravatar_id'],
         url: json['url'],
-        htmlUrl: json['htmlUrl'],
-        followersUrl: json['followersUrl'],
-        followingUrl: json['followingUrl'],
-        gistsUrl: json['gistsUrl'],
-        starredUrl: json['starredUrl'],
-        subscriptionsUrl: json['subscriptionsUrl'],
-        organizationsUrl: json['organizationsUrl'],
-        reposUrl: json['reposUrl'],
-        eventsUrl: json['eventsUrl'],
-        receivedEventsUrl: json['receivedEventsUrl'],
+        htmlUrl: json['html_url'],
+        followersUrl: json['followers_url'],
+        followingUrl: json['following_url'],
+        gistsUrl: json['gists_url'],
+        starredUrl: json['starred_url'],
+        subscriptionsUrl: json['subscriptions_url'],
+        organizationsUrl: json['organizations_url'],
+        reposUrl: json['repos_url'],
+        eventsUrl: json['events_url'],
+        receivedEventsUrl: json['received_events_url'],
         type: json['type'],
-        siteAdmin: json['siteAdmin'],
+        siteAdmin: json['site_admin'],
         name: json['name'],
         company: json['company'],
         blog: json['blog'],
@@ -95,33 +95,33 @@ class UserModel extends UserEntity {
         email: json['email'],
         hireable: json['hireable'],
         bio: json['bio'],
-        twitterUsername: json['twitterUsername'],
-        publicRepos: json['publicRepos'],
-        publicGists: json['publicGists'],
+        twitterUsername: json['twitter_username'],
+        publicRepos: json['public_repos'],
+        publicGists: json['public_gists'],
         followers: json['followers'],
         following: json['following'],
-        createdAt: json['createdAt'],
-        updatedAt: json['updatedAt'],
+        createdAt: json['created_at'],
+        updatedAt: json['updated_at'],
       );
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['login'] = this.login;
     data['id'] = this.id;
-    data['nodeId'] = this.nodeId;
-    data['avatarUrl'] = this.avatarUrl;
-    data['gravatarUrl'] = this.gravatarUrl;
+    data['node_id'] = this.nodeId;
+    data['avatar_url'] = this.avatarUrl;
+    data['gravatar_id'] = this.gravatarId;
     data['url'] = this.url;
-    data['htmlUrl'] = this.htmlUrl;
-    data['followersUrl'] = this.followersUrl;
-    data['followingUrl'] = this.followingUrl;
-    data['gistsUrl'] = this.gistsUrl;
-    data['starredUrl'] = this.starredUrl;
-    data['subscriptionsUrl'] = this.subscriptionsUrl;
-    data['organizationsUrl'] = this.organizationsUrl;
-    data['reposUrl'] = this.reposUrl;
-    data['eventsUrl'] = this.eventsUrl;
-    data['receivedEventsUrl'] = this.receivedEventsUrl;
+    data['html_url'] = this.htmlUrl;
+    data['followers_url'] = this.followersUrl;
+    data['following_url'] = this.followingUrl;
+    data['gists_url'] = this.gistsUrl;
+    data['starred_url'] = this.starredUrl;
+    data['subscriptions_url'] = this.subscriptionsUrl;
+    data['organizations_url'] = this.organizationsUrl;
+    data['repos_url'] = this.reposUrl;
+    data['events_url'] = this.eventsUrl;
+    data['received_events_url'] = this.receivedEventsUrl;
     data['type'] = this.type;
     data['siteAdmin'] = this.siteAdmin;
     data['name'] = this.name;
@@ -131,13 +131,13 @@ class UserModel extends UserEntity {
     data['email'] = this.email;
     data['hireable'] = this.hireable;
     data['bio'] = this.bio;
-    data['twitterUsername'] = this.twitterUsername;
-    data['publicRepos'] = this.publicRepos;
-    data['publicGists'] = this.publicGists;
+    data['twitter_username'] = this.twitterUsername;
+    data['public_repos'] = this.publicRepos;
+    data['public_gists'] = this.publicGists;
     data['followers'] = this.followers;
     data['following'] = this.following;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }
