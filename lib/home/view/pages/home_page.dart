@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobile_challenge/home/data/service/github_service_impl.dart';
 import 'package:mobile_challenge/home/view/stores/github_store.dart';
-import 'package:mobile_challenge/home/view/user_details_page.dart';
+import 'package:mobile_challenge/home/view/pages/user_details_page.dart';
 import 'package:mobx/mobx.dart';
 
 class HomePage extends StatefulWidget {
@@ -54,7 +54,9 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(data[index].login),
-                  leading: Image.network(data[index].avatarUrl),
+                  leading: CircleAvatar(
+                      backgroundImage: NetworkImage(data[index].avatarUrl),
+                    ),
                   onTap: () {
                     Navigator.push(
                         context,
