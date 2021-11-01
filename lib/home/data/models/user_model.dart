@@ -16,12 +16,12 @@ class UserModel {
   dynamic bio;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        login: json["login"],
-        id: json["id"],
-        avatarUrl: json["avatar_url"],
-        location: json["location"],
-        email: json["email"],
-        bio: json["bio"],
+        login: json["login"] != null ? json["login"] : "",
+        id: json["id"] != null ? json["id"] : "",
+        avatarUrl: json["avatar_url"] != null ? json["avatar_url"] : "",
+        location: json["location"] != null ? json["location"] : "",
+        email: json["email"] != null ? json["email"] : "",
+        bio: json["bio"] != null ? json["bio"] : "",
       );
 
   Map<String, dynamic> toJson() => {
