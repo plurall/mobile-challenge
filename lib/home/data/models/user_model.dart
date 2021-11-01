@@ -19,9 +19,9 @@ class UserModel {
         login: json["login"] != null ? json["login"] : "",
         id: json["id"] != null ? json["id"] : "",
         avatarUrl: json["avatar_url"] != null ? json["avatar_url"] : "",
-        location: json["location"] != null ? json["location"] : "",
-        email: json["email"] != null ? json["email"] : "",
-        bio: json["bio"] != null ? json["bio"] : "",
+        location: json["location"] != null ? json["location"] : "Couldn't find user location.",
+        email: json["email"] != null ? json["email"] : "Couldn't find user e-mail.",
+        bio: json["bio"] != null ? json["bio"] : "Couldn't find user bio.",
       );
 
   Map<String, dynamic> toJson() => {
