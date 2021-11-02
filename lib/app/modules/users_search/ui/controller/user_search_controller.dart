@@ -21,6 +21,17 @@ abstract class _UserSearchControllerBase with Store {
   UserListEntity get userList => _userList;
 
   @observable
+  UserEntity? _currentUser;
+
+  @computed
+  UserEntity? get currentUser => _currentUser;
+
+  @action
+  setCurrentUser({UserEntity? userEntity}) {
+    _currentUser = userEntity;
+  }
+
+  @observable
   bool _loading = false;
 
   @computed

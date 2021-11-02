@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/app/common/constants/app_routes.dart';
+import 'package:mobile_challenge/app/common/constants/app_string.dart';
 import 'package:mobile_challenge/app/modules/users_search/ui/pages/user_detail_page.dart';
 import 'package:mobile_challenge/app/modules/users_search/ui/pages/user_search_page.dart';
 
@@ -14,7 +15,7 @@ class _AppWidgetState extends State<AppWidget> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'User search',
+      title: AppString.appTitle,
       debugShowCheckedModeBanner: false,
       routes: {
         AppRoutes.USER_SEARCH: (ctx) => UserSearchPage(),

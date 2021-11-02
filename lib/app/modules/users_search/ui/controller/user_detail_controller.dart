@@ -19,12 +19,20 @@ abstract class _UserDetailControllerBase with Store {
   @computed
   UserEntity? get userEntity => _userEntity;
 
+  @observable
+  bool _loading = false;
+
+  @computed
+  bool get loading => _loading;
+
   @action
   userDetail(String detailUrl) async {
+    _loading = true;
     final result = await _usecase.userDetail(detailUrl);
     result.fold(
       (l) => null,
       (r) => _userEntity = r,
     );
+    _loading = false;
   }
 }

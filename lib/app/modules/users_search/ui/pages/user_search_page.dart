@@ -78,9 +78,7 @@ class _UserSearchPageState extends State<UserSearchPage> {
               child: Observer(
                 builder: (_) {
                   return _controller.userList.userListEntity!.isNotEmpty
-                      ? UserListWidget(
-                          userList: _controller.userList,
-                        )
+                      ? UserListWidget(userList: _controller.userList)
                       : _controller.loading
                           ? Center(child: CircularProgressIndicator())
                           : Center(

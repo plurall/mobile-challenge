@@ -16,6 +16,13 @@ mixin _$UserSearchController on _UserSearchControllerBase, Store {
       (_$userListComputed ??= Computed<UserListEntity>(() => super.userList,
               name: '_UserSearchControllerBase.userList'))
           .value;
+  Computed<UserEntity?>? _$currentUserComputed;
+
+  @override
+  UserEntity? get currentUser =>
+      (_$currentUserComputed ??= Computed<UserEntity?>(() => super.currentUser,
+              name: '_UserSearchControllerBase.currentUser'))
+          .value;
   Computed<bool>? _$loadingComputed;
 
   @override
@@ -35,6 +42,22 @@ mixin _$UserSearchController on _UserSearchControllerBase, Store {
   set _userList(UserListEntity value) {
     _$_userListAtom.reportWrite(value, super._userList, () {
       super._userList = value;
+    });
+  }
+
+  final _$_currentUserAtom =
+      Atom(name: '_UserSearchControllerBase._currentUser');
+
+  @override
+  UserEntity? get _currentUser {
+    _$_currentUserAtom.reportRead();
+    return super._currentUser;
+  }
+
+  @override
+  set _currentUser(UserEntity? value) {
+    _$_currentUserAtom.reportWrite(value, super._currentUser, () {
+      super._currentUser = value;
     });
   }
 
@@ -61,10 +84,25 @@ mixin _$UserSearchController on _UserSearchControllerBase, Store {
     return _$userSearchAsyncAction.run(() => super.userSearch(userLogin));
   }
 
+  final _$_UserSearchControllerBaseActionController =
+      ActionController(name: '_UserSearchControllerBase');
+
+  @override
+  dynamic setCurrentUser({UserEntity? userEntity}) {
+    final _$actionInfo = _$_UserSearchControllerBaseActionController
+        .startAction(name: '_UserSearchControllerBase.setCurrentUser');
+    try {
+      return super.setCurrentUser(userEntity: userEntity);
+    } finally {
+      _$_UserSearchControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 userList: ${userList},
+currentUser: ${currentUser},
 loading: ${loading}
     ''';
   }

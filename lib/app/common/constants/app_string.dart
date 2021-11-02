@@ -1,4 +1,5 @@
 class AppString {
+  static String appTitle = 'GitHub - User search';
   static String btnSearchLabel = 'Pesquisar';
   static String emptyListText = 'Usuários não localizados.';
   static String fieldCannotEmpty = 'Campo obrigatório';

@@ -1,8 +1,8 @@
 class UserEntity {
-  String login;
+  String? login;
   int id;
   String nodeId;
-  String avatarUrl;
+  String? avatarUrl;
   String gravatarId;
   String url;
   String htmlUrl;
