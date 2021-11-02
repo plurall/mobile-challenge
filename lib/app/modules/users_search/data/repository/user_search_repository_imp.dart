@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobile_challenge/app/core/erros/failures.dart';
-import 'package:mobile_challenge/app/modules/users_search/domain/entity/user_entity.dart';
+import 'package:mobile_challenge/app/modules/users_search/domain/entity/user_list_entity.dart';
 import 'package:mobile_challenge/app/modules/users_search/data/datasource/user_search_datasource.dart';
 import 'package:mobile_challenge/app/modules/users_search/domain/repository/user_search_respository.dart';
 
@@ -10,9 +10,7 @@ class UserSearchRepository implements IUserSearchRepository {
   UserSearchRepository(this._datasource);
 
   @override
-  Future<Either<Failure, List<UserEntity>>> userSearch(
-    String searchTerm,
-  ) async {
+  Future<Either<Failure, UserListEntity>> userSearch(String searchTerm) async {
     try {
       final response = await _datasource.userSearch(searchTerm);
       return Right(response);

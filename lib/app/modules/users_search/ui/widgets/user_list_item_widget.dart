@@ -10,7 +10,7 @@ class UserItemWidget extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () => Navigator.of(context).pushNamed(
           AppRoutes.USER_DETAIL,
-          arguments: user,
+          arguments: user.url,
         ),
         child: Card(
           elevation: 5,
@@ -26,7 +26,6 @@ class UserItemWidget extends StatelessWidget {
                 backgroundImage: NetworkImage(user.avatarUrl),
               ),
               title: Text(user.login),
-              subtitle: Text(user.name),
             ),
           ),
         ),

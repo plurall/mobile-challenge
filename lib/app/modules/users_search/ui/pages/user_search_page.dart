@@ -74,10 +74,10 @@ class _UserSearchPageState extends State<UserSearchPage> {
             ),
             Container(
               width: double.infinity,
-              height: availableHeight * 0.85,
+              height: availableHeight * 0.82,
               child: Observer(
                 builder: (_) {
-                  return _controller.userList.isNotEmpty
+                  return _controller.userList.userListEntity!.isNotEmpty
                       ? UserListWidget(
                           userList: _controller.userList,
                         )

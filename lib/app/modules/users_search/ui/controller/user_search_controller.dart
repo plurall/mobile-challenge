@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:mobile_challenge/app/modules/users_search/domain/entity/user_entity.dart';
+import 'package:mobile_challenge/app/modules/users_search/domain/entity/user_list_entity.dart';
 import 'package:mobile_challenge/app/modules/users_search/domain/usecase/user_search_usecase.dart';
 part 'user_search_controller.g.dart';
 
@@ -14,10 +15,10 @@ abstract class _UserSearchControllerBase with Store {
   }) : _usecase = usecase;
 
   @observable
-  List<UserEntity> _userList = <UserEntity>[];
+  UserListEntity _userList = UserListEntity(userListEntity: <UserEntity>[]);
 
   @computed
-  List<UserEntity> get userList => _userList;
+  UserListEntity get userList => _userList;
 
   @observable
   bool _loading = false;
@@ -26,7 +27,7 @@ abstract class _UserSearchControllerBase with Store {
   bool get loading => _loading;
 
   @action
-  userSearch(String userLogin) async {
+  Future<void> userSearch(String userLogin) async {
     _loading = true;
     final result = await _usecase.userSearch(userLogin);
     result.fold(

@@ -17,20 +17,20 @@ class UserEntity {
   String receivedEventsUrl;
   String type;
   bool siteAdmin;
-  String name;
+  String? name;
   String? company;
-  String blog;
-  String location;
+  String? blog;
+  String? location;
   String? email;
   String? hireable;
-  String bio;
+  String? bio;
   String? twitterUsername;
-  int publicRepos;
-  int publicGists;
-  int followers;
-  int following;
-  String createdAt;
-  String updatedAt;
+  int? publicRepos;
+  int? publicGists;
+  int? followers;
+  int? following;
+  String? createdAt;
+  String? updatedAt;
 
   UserEntity({
     required this.login,
@@ -51,19 +51,19 @@ class UserEntity {
     required this.receivedEventsUrl,
     required this.type,
     required this.siteAdmin,
-    required this.name,
-    required this.company,
-    required this.blog,
-    required this.location,
-    required this.email,
-    required this.hireable,
-    required this.bio,
-    required this.twitterUsername,
-    required this.publicRepos,
-    required this.publicGists,
-    required this.followers,
-    required this.following,
-    required this.createdAt,
-    required this.updatedAt,
+    this.name,
+    this.company,
+    this.blog,
+    this.location,
+    this.email,
+    this.hireable,
+    this.bio,
+    this.twitterUsername,
+    this.publicRepos,
+    this.publicGists,
+    this.followers,
+    this.following,
+    this.createdAt,
+    this.updatedAt,
   });
 }

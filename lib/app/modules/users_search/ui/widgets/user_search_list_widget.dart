@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_challenge/app/common/constants/app_string.dart';
-import 'package:mobile_challenge/app/modules/users_search/domain/entity/user_entity.dart';
+import 'package:mobile_challenge/app/modules/users_search/domain/entity/user_list_entity.dart';
 import 'package:mobile_challenge/app/modules/users_search/ui/widgets/user_list_item_widget.dart';
 
 class UserListWidget extends StatefulWidget {
-  final List<UserEntity> userList;
+  final UserListEntity userList;
   const UserListWidget({
     Key? key,
     required this.userList,
@@ -21,11 +21,11 @@ class _UserListWidgetState extends State<UserListWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: widget.userList.isNotEmpty
+              child: widget.userList.userListEntity!.isNotEmpty
                   ? ListView.builder(
-                      itemCount: widget.userList.length,
+                      itemCount: widget.userList.userListEntity!.length,
                       itemBuilder: (ctx, index) {
-                        final user = widget.userList[index];
+                        final user = widget.userList.userListEntity![index];
                         return Padding(
                           padding: const EdgeInsets.only(
                             left: 10.0,

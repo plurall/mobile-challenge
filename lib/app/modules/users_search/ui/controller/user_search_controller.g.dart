@@ -9,11 +9,11 @@ part of 'user_search_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$UserSearchController on _UserSearchControllerBase, Store {
-  Computed<List<UserEntity>>? _$userListComputed;
+  Computed<UserListEntity>? _$userListComputed;
 
   @override
-  List<UserEntity> get userList =>
-      (_$userListComputed ??= Computed<List<UserEntity>>(() => super.userList,
+  UserListEntity get userList =>
+      (_$userListComputed ??= Computed<UserListEntity>(() => super.userList,
               name: '_UserSearchControllerBase.userList'))
           .value;
   Computed<bool>? _$loadingComputed;
@@ -26,13 +26,13 @@ mixin _$UserSearchController on _UserSearchControllerBase, Store {
   final _$_userListAtom = Atom(name: '_UserSearchControllerBase._userList');
 
   @override
-  List<UserEntity> get _userList {
+  UserListEntity get _userList {
     _$_userListAtom.reportRead();
     return super._userList;
   }
 
   @override
-  set _userList(List<UserEntity> value) {
+  set _userList(UserListEntity value) {
     _$_userListAtom.reportWrite(value, super._userList, () {
       super._userList = value;
     });
@@ -57,7 +57,7 @@ mixin _$UserSearchController on _UserSearchControllerBase, Store {
       AsyncAction('_UserSearchControllerBase.userSearch');
 
   @override
-  Future userSearch(String userLogin) {
+  Future<void> userSearch(String userLogin) {
     return _$userSearchAsyncAction.run(() => super.userSearch(userLogin));
   }
 
