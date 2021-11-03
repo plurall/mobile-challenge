@@ -8,6 +8,8 @@ import 'package:mobile_challenge/app/modules/users_search/ui/widgets/user_search
 
 import '../controller/user_search_controller.dart';
 
+enum FilterOptions { Favorite, All }
+
 class UserSearchPage extends StatefulWidget {
   const UserSearchPage({Key? key}) : super(key: key);
 
@@ -16,6 +18,7 @@ class UserSearchPage extends StatefulWidget {
 }
 
 class _UserSearchPageState extends State<UserSearchPage> {
+  bool _showFavoriteOnly = false;
   final _form = GlobalKey<FormState>();
   late UserSearchController _controller;
   final TextEditingController? searchController = TextEditingController();
@@ -41,6 +44,28 @@ class _UserSearchPageState extends State<UserSearchPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppString.titleSearchPage),
+        actions: <Widget>[
+          PopupMenuButton(
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: Text(AppString.popUpMenuFavorite),
+                value: FilterOptions.Favorite,
+              ),
+              PopupMenuItem(
+                child: Text(AppString.popUpMenuAll),
+                value: FilterOptions.All,
+              )
+            ],
+            onSelected: (FilterOptions selectedValue) {
+              setState(() {
+                if (selectedValue == FilterOptions.Favorite)
+                  _showFavoriteOnly = true;
+                else
+                  _showFavoriteOnly = false;
+              });
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -78,15 +103,24 @@ class _UserSearchPageState extends State<UserSearchPage> {
               child: Observer(
                 builder: (_) {
                   return _controller.userList.userListEntity!.isNotEmpty
-                      ? UserListWidget(userList: _controller.userList)
+                      ? UserListWidget(
+                          userList: _controller.userList,
+                          showFavoriteOnly: _showFavoriteOnly,
+                        )
                       : _controller.loading
                           ? Center(child: CircularProgressIndicator())
                           : Center(
-                              child: Icon(
-                                Icons.list_outlined,
-                                size: 120.0,
-                                color: Colors.grey,
-                              ),
+                              child: !_showFavoriteOnly
+                                  ? Icon(
+                                      Icons.list_outlined,
+                                      size: 120.0,
+                                      color: Colors.grey,
+                                    )
+                                  : Icon(
+                                      Icons.favorite_border_outlined,
+                                      size: 120.0,
+                                      color: Colors.grey,
+                                    ),
                             );
                 },
               ),

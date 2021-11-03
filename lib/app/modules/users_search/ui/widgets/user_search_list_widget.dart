@@ -4,10 +4,12 @@ import 'package:mobile_challenge/app/modules/users_search/domain/entity/user_lis
 import 'package:mobile_challenge/app/modules/users_search/ui/widgets/user_list_item_widget.dart';
 
 class UserListWidget extends StatefulWidget {
+  final bool showFavoriteOnly;
   final UserListEntity userList;
   const UserListWidget({
     Key? key,
     required this.userList,
+    required this.showFavoriteOnly,
   }) : super(key: key);
 
   @override

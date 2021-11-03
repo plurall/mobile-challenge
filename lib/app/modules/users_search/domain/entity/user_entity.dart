@@ -31,6 +31,7 @@ class UserEntity {
   int? following;
   String? createdAt;
   String? updatedAt;
+  bool isFavorite;
 
   UserEntity({
     required this.login,
@@ -65,5 +66,10 @@ class UserEntity {
     this.following,
     this.createdAt,
     this.updatedAt,
+    this.isFavorite = false,
   });
+
+  void toggleFavorite() {
+    isFavorite = !isFavorite;
+  }
 }

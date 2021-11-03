@@ -43,6 +43,12 @@ class _UserDetailPageState extends State<UserDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(userEntity!.login ?? ''),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.favorite_border_outlined),
+          ),
+        ],
       ),
       body: Observer(
         builder: (_) {
@@ -63,7 +69,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                   height: 10.0,
                 ),
                 Text(
-                  _controller.userEntity!.location ?? '',
+                  _controller.userEntity?.location ?? '',
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 20.0,
@@ -72,15 +78,15 @@ class _UserDetailPageState extends State<UserDetailPage> {
                 SizedBox(
                   height: 10.0,
                 ),
-                Text(_controller.userEntity!.bio ?? ''),
+                Text(_controller.userEntity?.bio ?? ''),
                 SizedBox(
                   height: 10.0,
                 ),
-                Text(_controller.userEntity!.name ?? ''),
+                Text(_controller.userEntity?.name ?? ''),
                 SizedBox(
                   height: 10.0,
                 ),
-                Text(_controller.userEntity!.email ?? ''),
+                Text(_controller.userEntity?.email ?? ''),
               ],
             ),
           );
