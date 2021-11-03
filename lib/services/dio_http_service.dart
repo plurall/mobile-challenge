@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobile_challenge/core/constants.dart';
 import 'package:mobile_challenge/interfaces/http_client_interface.dart';
-
-import 'app_service.dart';
 
 class DioService implements IHttpClient {
   Dio _dio;
@@ -18,15 +15,7 @@ class DioService implements IHttpClient {
 
   void _setupAccessToken() {
     _dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
-      final appService = Modular.get<AppService>();
-
-      bool isLogged = appService.isLogged;
-
-      if (isLogged) {
-        String token = appService.token ?? '';
-        options.headers['Authorization'] = 'Bearer $token';
-      }
-
+      options.headers['Authorization'] = 'Bearer $apiToken';
       handler.next(options);
     }));
   }

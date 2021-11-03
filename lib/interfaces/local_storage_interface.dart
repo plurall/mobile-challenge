@@ -1,5 +1,5 @@
 abstract class ILocalStorage {
-  Future get(String key);
-  Future put(String key, dynamic value);
-  Future delete(String key);
+  Future<String> get(String key);
+  Future<bool> put(String key, dynamic value);
+  Future<bool> delete(String key);
 }
