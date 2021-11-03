@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobile_challenge/home/data/service/github_service.dart';
 import 'package:mobile_challenge/home/data/service/github_service_impl.dart';
-import 'package:mobile_challenge/home/view/stores/github_store.dart';
+import 'package:mobile_challenge/home/domain/usecases/find_all_users.dart';
+import 'package:mobile_challenge/home/domain/usecases/find_user_by_id.dart';
+import 'package:mobile_challenge/home/view/controllers/github_store.dart';
 import 'package:mobile_challenge/home/view/pages/user_details_page.dart';
 import 'package:mobx/mobx.dart';
 
@@ -13,23 +16,46 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   GithubStore _githubStore;
+  GithubService _githubService;
+  TextEditingController _searchQueryController;
 
   @override
   void initState() {
     super.initState();
+    _searchQueryController = TextEditingController();
+    _githubService = GithubServiceImpl(Dio());
+    _githubStore = GithubStore(FindAllUsers(_githubService), FindUserById(_githubService))
+      ..findAll(_searchQueryController.text);
+  }
 
-    _githubStore = GithubStore(GithubServiceImpl(Dio()))..findAll('as');
+  @override
+  void dispose() {
+    _searchQueryController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Github User List'),
+        title: TextField(
+              controller: _searchQueryController,
+              decoration: InputDecoration(
+                hintText: "Search a user...",
+                border: InputBorder.none,
+              ),
+              onChanged: (String text) {  
+                _searchQueryController.text = text;
+                 _githubStore.findAll(_searchQueryController.text);
+              }
+            ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
+            icon: Icon(Icons.close),
+            onPressed: () {
+              _searchQueryController.text = '';
+              print(_searchQueryController.text);
+            },
           ),
         ],
       ),
@@ -45,6 +71,8 @@ class _HomePageState extends State<HomePage> {
             return Center(
               child: CircularProgressIndicator(),
             );
+          } else if (_searchQueryController.text == '') {
+            return Center(child: Text(''));
           } else if (_githubStore.findAllRequest.status ==
               FutureStatus.rejected) {
             return Center(child: Text('erro'));

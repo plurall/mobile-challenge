@@ -10,17 +10,27 @@ class GithubServiceImpl implements GithubService {
 
   @override
   Future<List<UserModel>> findAll(String searchQuery) async {
-    final response = await _dio.get('$_baseUrl/search/users', queryParameters: {
-      'q': searchQuery,
-    });
+    try {
+      final response = await _dio.get('$_baseUrl/search/users',
+          queryParameters: {
+            'q': searchQuery,
+          },
+          options: Options(headers: {'User-Agent': 'request'}));
 
-    return List<UserModel>.from(
-        response.data["items"].map((x) => UserModel.fromJson(x))).toList();
+      return List<UserModel>.from(
+          response.data["items"].map((x) => UserModel.fromJson(x))).toList();
+    } catch (e) {
+      throw e;
+    }
   }
 
   @override
   Future<UserModel> findById(int id) async {
-    final response = await _dio.get('$_baseUrl/user/$id');
-    return UserModel.fromJson(response.data);
+    try {
+      final response = await _dio.get('$_baseUrl/user/$id');
+      return UserModel.fromJson(response.data);
+    } catch (e) {
+      throw e;
+    }
   }
 }

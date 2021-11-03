@@ -12,13 +12,13 @@ mixin _$GithubStore on _GithubStore, Store {
   final _$findAllRequestAtom = Atom(name: '_GithubStore.findAllRequest');
 
   @override
-  ObservableFuture<List<UserModel>> get findAllRequest {
+  ObservableFuture<List<User>> get findAllRequest {
     _$findAllRequestAtom.reportRead();
     return super.findAllRequest;
   }
 
   @override
-  set findAllRequest(ObservableFuture<List<UserModel>> value) {
+  set findAllRequest(ObservableFuture<List<User>> value) {
     _$findAllRequestAtom.reportWrite(value, super.findAllRequest, () {
       super.findAllRequest = value;
     });
@@ -27,13 +27,13 @@ mixin _$GithubStore on _GithubStore, Store {
   final _$findByIdRequestAtom = Atom(name: '_GithubStore.findByIdRequest');
 
   @override
-  ObservableFuture<UserModel> get findByIdRequest {
+  ObservableFuture<User> get findByIdRequest {
     _$findByIdRequestAtom.reportRead();
     return super.findByIdRequest;
   }
 
   @override
-  set findByIdRequest(ObservableFuture<UserModel> value) {
+  set findByIdRequest(ObservableFuture<User> value) {
     _$findByIdRequestAtom.reportWrite(value, super.findByIdRequest, () {
       super.findByIdRequest = value;
     });

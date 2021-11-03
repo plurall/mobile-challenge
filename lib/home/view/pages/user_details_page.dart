@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobile_challenge/home/data/service/github_service.dart';
 import 'package:mobile_challenge/home/data/service/github_service_impl.dart';
-import 'package:mobile_challenge/home/view/stores/github_store.dart';
+import 'package:mobile_challenge/home/domain/usecases/find_all_users.dart';
+import 'package:mobile_challenge/home/domain/usecases/find_user_by_id.dart';
+import 'package:mobile_challenge/home/view/controllers/github_store.dart';
 import 'package:mobx/mobx.dart';
 
 class UserDetailsPage extends StatefulWidget {
@@ -18,11 +21,13 @@ class UserDetailsPage extends StatefulWidget {
 
 class _UserDetailsPageState extends State<UserDetailsPage> {
   GithubStore _githubStore;
+  GithubService _githubService;
 
   @override
   void initState() {
     super.initState();
-    _githubStore = GithubStore(GithubServiceImpl(Dio()))
+    _githubService = GithubServiceImpl(Dio());
+    _githubStore = GithubStore(FindAllUsers(_githubService), FindUserById(_githubService))
       ..findById(widget.userId);
   }
 
