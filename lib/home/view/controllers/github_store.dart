@@ -1,4 +1,3 @@
-import 'package:mobile_challenge/home/data/models/user_model.dart';
 import 'package:mobile_challenge/home/domain/entity/user.dart';
 import 'package:mobile_challenge/home/domain/usecases/find_all_users.dart';
 import 'package:mobile_challenge/home/domain/usecases/find_user_by_id.dart';
@@ -22,11 +21,11 @@ abstract class _GithubStore with Store {
 
   @action
   void findAll(String searchQuery) {
-    findAllRequest = _findAllUsers.findAll(searchQuery).asObservable();
+    findAllRequest = _findAllUsers.execute(searchQuery).asObservable();
   }
 
   @action
   void findById(int id) {
-    findByIdRequest = _findUserById.findUserById(id).asObservable();
+    findByIdRequest = _findUserById.execute(id).asObservable();
   }
 }

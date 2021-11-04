@@ -18,24 +18,22 @@ class UserModel extends User {
         );
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        login: json["login"] != null ? json["login"] : "",
+        login: json["login"] != null
+            ? json["login"]
+            : "Nome não encontrado",
         id: json["id"] != null ? json["id"] : "",
-        avatarUrl: json["avatar_url"] != null ? json["avatar_url"] : "",
+        avatarUrl: json["avatar_url"] != null
+            ? json["avatar_url"]
+            : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
         location: json["location"] != null
             ? json["location"]
-            : "Couldn't find user location.",
+            : "Não foi possível carregar essa informação.",
         email: json["email"] != null
             ? json["email"]
-            : "Couldn't find user e-mail.",
-        bio: json["bio"] != null ? json["bio"] : "Couldn't find user bio.",
+            : "Não foi possível carregar essa informação.",
+        bio: json["bio"] != null
+            ? json["bio"]
+            : "Não foi possível carregar essa informação.",
       );
 
-  Map<String, dynamic> toJson() => {
-        "login": login,
-        "id": id,
-        "avatar_url": avatarUrl,
-        "location": location,
-        "email": email,
-        "bio": bio,
-      };
 }

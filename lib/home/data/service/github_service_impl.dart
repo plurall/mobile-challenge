@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:mobile_challenge/home/data/models/user_model.dart';
 import 'package:mobile_challenge/home/data/service/github_service.dart';
+import 'package:mobile_challenge/home/domain/entity/user.dart';
 
 class GithubServiceImpl implements GithubService {
   final String _baseUrl = 'https://api.github.com';
@@ -9,7 +10,7 @@ class GithubServiceImpl implements GithubService {
   GithubServiceImpl(this._dio);
 
   @override
-  Future<List<UserModel>> findAll(String searchQuery) async {
+  Future<List<User>> findAll(String searchQuery) async {
     try {
       final response = await _dio.get('$_baseUrl/search/users',
           queryParameters: {
@@ -25,7 +26,7 @@ class GithubServiceImpl implements GithubService {
   }
 
   @override
-  Future<UserModel> findById(int id) async {
+  Future<User> findById(int id) async {
     try {
       final response = await _dio.get('$_baseUrl/user/$id');
       return UserModel.fromJson(response.data);

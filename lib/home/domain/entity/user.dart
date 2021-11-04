@@ -13,15 +13,16 @@ class User {
   final String avatarUrl;
   final String email;
   final String location;
-  final dynamic bio;
+  final String bio;
 
-
-  Map<String, dynamic> toJson() => {
-        "login": login,
-        "id": id,
-        "avatar_url": avatarUrl,
-        "location": location,
-        "email": email,
-        "bio": bio,
-      };
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'login': login,
+      'avatarUrl': avatarUrl,
+      'location': location,
+      'email': email,
+      'bio': bio,
+    };
+  }
 }

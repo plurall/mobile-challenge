@@ -1,19 +1,17 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobile_challenge/home/data/service/github_service.dart';
-import 'package:mobile_challenge/home/data/service/github_service_impl.dart';
-import 'package:mobile_challenge/home/domain/usecases/find_all_users.dart';
-import 'package:mobile_challenge/home/domain/usecases/find_user_by_id.dart';
+import 'package:mobile_challenge/core/init_dependencies.dart';
+import 'package:mobile_challenge/favorites/view/controllers/favorites_controller.dart';
+import 'package:mobile_challenge/home/domain/entity/user.dart';
 import 'package:mobile_challenge/home/view/controllers/github_store.dart';
 import 'package:mobx/mobx.dart';
 
 class UserDetailsPage extends StatefulWidget {
-  final int userId;
+  final User user;
 
   const UserDetailsPage({
     Key key,
-    @required this.userId,
+    @required this.user,
   }) : super(key: key);
   @override
   _UserDetailsPageState createState() => _UserDetailsPageState();
@@ -21,14 +19,13 @@ class UserDetailsPage extends StatefulWidget {
 
 class _UserDetailsPageState extends State<UserDetailsPage> {
   GithubStore _githubStore;
-  GithubService _githubService;
+  FavoritesStore _favoritesStore;
 
   @override
   void initState() {
     super.initState();
-    _githubService = GithubServiceImpl(Dio());
-    _githubStore = GithubStore(FindAllUsers(_githubService), FindUserById(_githubService))
-      ..findById(widget.userId);
+    _githubStore = getIt<GithubStore>()..findById(widget.user.id);
+    _favoritesStore = getIt<FavoritesStore>()..findAll();
   }
 
   @override
@@ -42,16 +39,20 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             );
           } else if (_githubStore.findByIdRequest.status ==
               FutureStatus.rejected) {
-            return Center(child: Text('erro'));
+            return Center(child: Text('Ocorreu um erro.'));
           } else {
             return Text(_githubStore.findByIdRequest.value.login);
           }
         }),
         actions: [
           IconButton(
-            icon: Icon(Icons.favorite_border),
-            onPressed: () {},
-          ),
+              icon: Icon(Icons.favorite),
+              onPressed: () {
+                _favoritesStore.save(widget.user);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Você adicionou um favorito!"),
+                ));
+              }),
         ],
       ),
       body: Padding(
@@ -64,35 +65,39 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               );
             } else if (_githubStore.findByIdRequest.status ==
                 FutureStatus.rejected) {
-              return Center(child: Text('erro'));
+              return Center(child: Text('Ocorreu um erro.'));
             } else {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20.0),
-                  Center(
-                    child: CircleAvatar(
-                      radius: 90.0,
-                      backgroundImage: NetworkImage(data.avatarUrl),
-                    ),
-                  ),
-                  SizedBox(height: 40.0),
-                  Text(
-                    data.email,
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                  Text(
-                    data.location,
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                  Text(
-                    data.bio,
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                ],
-              );
+              return _buildUserDetails(data);
             }
           })),
+    );
+  }
+
+  Column _buildUserDetails(User data) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: 20.0),
+        Center(
+          child: CircleAvatar(
+            radius: 90.0,
+            backgroundImage: NetworkImage(data.avatarUrl),
+          ),
+        ),
+        SizedBox(height: 40.0),
+        Text(
+          data.email,
+          style: TextStyle(fontSize: 18.0),
+        ),
+        Text(
+          data.location,
+          style: TextStyle(fontSize: 18.0),
+        ),
+        Text(
+          data.bio,
+          style: TextStyle(fontSize: 18.0),
+        ),
+      ],
     );
   }
 }
