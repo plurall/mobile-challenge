@@ -23,7 +23,7 @@ void main() {
   });
 
   test(
-    'should get cards for the user from the repository',
+    'should get user in the repository',
     () async {
       final response = UserModel.fromJson(_mockResult);
       when(mockGithubService.findById(33629714))
