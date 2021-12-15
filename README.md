@@ -1,25 +1,70 @@
-<img src="https://gitlab.com/sdk12/dms/viewer/video-player/uploads/7aea2a2436087e4ae1d1ec595837f7ce/image.png" width="150" /> <img src="https://gitlab.com/sdk12/dms/viewer/video-player/uploads/e56cb536325ee0e5d3abc645b2defc43/image.png" width="116" />
-
 # Mobile Challenge
 
-## Objetivo
 
-Nesse desafio iremos avaliar o seu conhecimento em Flutter e arquiteturas de softwares.
 
-Você deverá implementar o desafio descrito em [`CHALLENGE.md`](/CHALLENGE.md) usando esse codebase como base. Fique a vontade para apagar ou adicionar o que for necessário. 
+## 💻 Pré-requisitos
 
-É sempre interessante também sempre usar as versões mais recentes do Flutter e Dart para tirar proveito das melhorias lançadas.
+Antes de começar, verifique se você atendeu aos seguintes requisitos:
+* Você instalou a versão mais recente de `flutter`
+* Você tem uma máquina `Windows`. O código não foi testado em `Linux` e `MacOS`.
 
-## Critério de avaliação
+## 🚀 Instalando Mobile Challenge
 
-Abaixo estão algumas características que achamos importantes:
+Para instalar o Mobile Challenge, siga estas etapas:
 
-- Organização e legibilidade do código.
-- Simplicidade.
-- Boas praticas.
-- Conhecimento de Flutter.
-- Outros.
+Linux e macOS:
+```
+flutter pub get
+```
 
-Faça fork do projeto em sua conta pessoal e agora você já esta apto a fazer o [desafio](/CHALLENGE.md).
+Windows:
+```
+flutter pub get
+```
 
-Boa Sorte!
+
+## ☕ Usando Mobile Challenge
+
+Para usar Mobile Challenge, siga estas etapas:
+
+```
+flutter run
+```
+
+
+## Arquitetura e pacotes utilizados
+
+- [x] A arquitetura utilizada no projeto foi a MVVM(Model View ViewModel). Para consumir a API do Github foi utilizado o package `Dio`. 
+- [x] Para o armazenamento das informações dos usuários do Github de maneira offline foi utilizado o package `sqflite`.
+- [x] Para o armazenamento das informações do modo noturno foi utilizado o package `shared_preferences`.
+- [x] Para parte de estilo do app foi utilizado os packages `font_awesome_flutter` e `google_fonts`.
+
+## Teste unitário
+
+Foi realizado um teste de verificação de erro no widget ApiGithubViewModel na função findAll.
+
+
+## Estrutura do app
+
+### AppBar
+
+Todas as AppBar do app permiti alterar o tema do App.
+
+
+### UsersPage
+
+A UsersPage é onde o usuário pode inserir o nome de usuário que deseja pesquisar.
+
+<img src="https://i.imgur.com/xmSsBrG.jpg" height="400em"> <img src="https://i.imgur.com/SOavOBq.jpg" height="400em"> <img src="https://i.imgur.com/rWlba4M.jpg" height="400em"> <img src="https://i.imgur.com/LtuezW6.jpg" height="400em">
+
+### UserPage
+
+A UserPage é onde é apresentado as demais informações do usuário.
+
+<img src="https://i.imgur.com/0JP5Uzy.jpg" height="400em"> <img src="https://i.imgur.com/sMe8N68.jpg" height="400em">
+
+### FavoritesPage 
+
+A FavoritesPage é onde fica listado os perfis que são favoritados. Cada perfil listado possui um IconButton para deletar o item da lista.
+
+<img src="https://i.imgur.com/0DHqiw5.jpg" height="400em"> <img src="https://i.imgur.com/bq6lqQb.jpg" height="400em">
